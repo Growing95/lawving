@@ -18,5 +18,9 @@ public class MembersDao {
 		result=sqlSession.insert("insertmembers", members);
 		return result;
 	}
+	public int selectid(String id) {
+		
+		return sqlSession.selectOne("selectCheckId",id);
+	}
 
 }

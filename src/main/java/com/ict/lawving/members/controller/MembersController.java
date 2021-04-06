@@ -1,11 +1,16 @@
 package com.ict.lawving.members.controller;
 
-import org.apache.maven.model.Model;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,19 +38,15 @@ public class MembersController {
 		return "member/memberInsertForm";
 	}
 	
-	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
-	public String insertMember(@ModelAttribute MembersVo members, Model model, 
-							   @RequestParam("post") String post,
-							   @RequestParam("address1") String address1,
-							   @RequestParam("address2") String address2) {
+/*	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
+	public String insertMember(@ModelAttribute MembersVo members, Model model) {
 		
 		// 회원가입전에 회원정보를 출력
-		System.out.println("Member 정보 : " + members);
-		System.out.println("Address 정보 : " + post + ", " + address1 + ", " + address2);
+		System.out.println("Member 정보 : " + members.getMembers_id());
+		System.out.println("Member 패스워드 : " + members.getMembers_pw());
 		
-		System.out.println("암호화 처리 후 값 : " + bcryptPasswordEncoder.encode(members.getMembers_pw()));
 		
-		/*
+		
 		 * 비밀번호 -> 평문으로 되어있다. 1234 
 		 * DB에 저장을 할때 평문으로 저장하면 안되기 때문에 "암호화" 처리를 한다.
 		 * 
@@ -59,11 +60,11 @@ public class MembersController {
 		 *   단점 : 111 평문 동일한 암호화 코드를 반화한다. 
 		 *   
 		 *   해결점 : 솔팅(salting) -> 원문에 아주작은랜덤문자열 추가해서 암호화 코드를 발생시킨다.
-		 */
+		 
 		
 		// 기존의 평문을 암호문으로 바꾸서 m객체에 다시 담자.
 		String encPwd = bcryptPasswordEncoder.encode(members.getMembers_pw());
-		
+		System.out.println("암호화 처리 후 값 : " +encPwd);
 		// setter를 통해서 Member객체의 pwd를 변경
 		members.setMembers_pw(encPwd);
 		
@@ -77,7 +78,48 @@ public class MembersController {
 		}else {
 			
 			return "common/errorPage";
+		}*/
+		//회원가입시 작성 아이디 중복 체크 확인용
+		@RequestMapping(value = "idCheck.do",method = RequestMethod.POST)
+		public void idDuplicationCheck(@RequestParam("members_id")String id,HttpServletResponse response) throws IOException {
+			logger.info("idCheck.do :"+ id);
+			int idCount = membersService.selectCheckid(id);
+			String returnValue = null;
+			System.out.println("idCount:"+idCount);
+			if (idCount==0) {
+				returnValue = "ok";
+			}else {
+				returnValue="dup";
+			}
+			//ajax 통신은 입출력 스트림을 이용함
+			//response 를이용해서 출력 스트림을 만들고 값 전송하기
+			response.setContentType("text/html; charset=utf-8");//데이터타입 정해주기
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
 		}
 		
+		//회원가입 처리(패스워드 암호화 처리)
+		@RequestMapping(value = "anroll.do",method = RequestMethod.POST)
+		public String enrollMemberMethod(MembersVo members, Model model) {
+			logger.info("enrol.do :"+members);//넘어오는 파라미터값 확인
+			
+			//패스워드 암호화 처리
+			members.setMembers_pw(bcryptPasswordEncoder.encode(members.getMembers_pw()));
+			logger.info("pw encode:"+members.getMembers_pw()+","+members.getMembers_pw().length());//암호화된 패스워드 값과 그 길이 확인 
+			
+			//서비스로 전송하고 결과를 받기
+			int result = membersService.insertMember(members);
+			
+			//받은 결과로 성공/실패 페이지 내보내기
+			if (result>0) {
+				return "home";
+			}else {
+				model.addAttribute("message","회원가입 실패");
+				return "common/error";
+			}
+		}
+		
+		
 	}
-}
