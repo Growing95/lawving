@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+<!-- 
+	<resultMap type="Member" id="resultMember">
+		<id property="idx" column="idx"/>
+		<result  property="id" column="id"/>
+		<result  property="pw" column="pw"/>
+		<result  property="name" column="name"/>
+		<result  property="age" column="age"/>
+		<result  property="addr" column="addr"/>
+		<result  property="reg" column="reg"/>
+	</resultMap>
+	
+
+	<select id="selectCheckId" parameterType="string" resultType="_int">
+		select count(id) from members where id=#{id}
+	</select>
+	<insert id="insertMember" parameterType="Member">
+		insert into members values(members_seq.nextval,#{id},#{pw},#{name},#{age},#{addr},sysdate)
+	</insert>
+	<select id="selectMember" parameterType="string" resultMap="resultMember">
+		select * from members where id=#{id}
+	</select> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
