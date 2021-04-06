@@ -19,7 +19,7 @@
 		select count(id) from members where id=#{id}
 	</select>
 	<insert id="insertMember" parameterType="Member">
-		insert into members values(members_seq.nextval,#{id},#{pw},#{name},#{age},#{addr},sysdate)
+		insert into members values(members_seq.nextval,#{id},#{pw},#{name},#{email},#{addr},sysdate)
 	</insert>
 	<select id="selectMember" parameterType="string" resultMap="resultMember">
 		select * from members where id=#{id}

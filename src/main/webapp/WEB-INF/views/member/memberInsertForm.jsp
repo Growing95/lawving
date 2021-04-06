@@ -43,17 +43,6 @@
 					<td><input type="password" name="pwd2" required></td>
 				</tr>
 				<tr>
-					<td>성별</td>
-					<td>
-						<input type="radio" name="gender" value="M">남
-						<input type="radio" name="gender" value="F">여
-					</td>
-				</tr>
-				<tr>
-					<td>나이</td>
-					<td><input type="number" min="20" max="100" name="age"></td>				
-				</tr>
-				<tr>
 					<td>이메일</td>
 					<td><input type="email" name="email"></td>
 				</tr>
