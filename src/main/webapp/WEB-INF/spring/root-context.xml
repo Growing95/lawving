@@ -20,7 +20,6 @@
  	  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
  	  	<constructor-arg ref="sqlSession"/>
  	  </bean>
- 	  
  	  <!-- 파일업로드 용량  -->
  	  <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
