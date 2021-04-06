@@ -17,7 +17,7 @@
 	<h1 align="center">회원가입</h1>
 	
 	<div class="outer" align="center">
-		<form action="minsert.do" method="post" id="joinForm">
+		<form action="insert_member.do" method="post" id="joinForm">
 			<table width="500" cellspacing="5">
 				<tr>
 					<td width="150">* 아이디</td>
@@ -47,12 +47,12 @@
 					<td><input type="email" name="email"></td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
-					<td><input type="tel" name="tel"></td>
+					<td>생년월일</td>
+					<td><input type="number" name="birth" placeholder="yyyymmdd"></td>
 				</tr>
 				<tr>
 					<td>전화번호</td>
-					<td><input type="tel" name="phone"></td>
+					<td><input type="tel" name="tel"></td>
 				</tr>
 				<!-- jQuery와 Postcodify를 로딩한다. -->
 				<tr>
@@ -72,7 +72,7 @@
 	<script type="text/javascript">
 		function validate(){
 			// 아이디 중복체크 여부
-			if($("#idDuplicateCheck").val() == 0){
+			if($("#idDuplicateCheck").val() == 1){
 				alert("사용가능한 아이디를 입력해주세요.");
 				$("#userId").focus();
 				return false;
