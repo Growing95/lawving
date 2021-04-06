@@ -17,7 +17,7 @@
 	<h1 align="center">회원가입</h1>
 	
 	<div class="outer" align="center">
-		<form action="minsert.do" method="post" id="joinForm">
+		<form action="insert_member.do" method="post" id="joinForm">
 			<table width="500" cellspacing="5">
 				<tr>
 					<td width="150">* 아이디</td>
@@ -36,45 +36,25 @@
 				</tr>
 				<tr>
 					<td>* 비밀번호</td>
-					<td><input type="password" name="pwd" required></td>
+					<td><input type="password" name="pw" required></td>
 				</tr>
 				<tr>
 					<td>* 비밀번호확인</td>
-					<td><input type="password" name="pwd2" required></td>
+					<td><input type="password" name="pw2" required></td>
 				</tr>
 				<tr>
 					<td>이메일</td>
 					<td><input type="email" name="email"></td>
 				</tr>
 				<tr>
+					<td>생년월일</td>
+					<td><input type="number" name="birth" placeholder="yyyymmdd"></td>
+				</tr>
+				<tr>
 					<td>전화번호</td>
-					<td><input type="tel" name="phone"></td>
+					<td><input type="tel" name="tel"></td>
 				</tr>
-				<tr>
-					<td>우편번호</td>
-					<td>
-						<input type="text" name="post" class="postcodify_postcode5" size="6">
-						<button type="button" id="postcodify_search_button">검색</button>
-					</td>
-				</tr>
-				<tr>
-					<td>도로명 주소</td>
-					<td><input type="text" name="address1" class="postcodify_address"></td>
-				</tr>
-				<tr>
-					<td>상세 주소</td>
-					<td><input type="text" name="address2" class="postcodify_extra_info"></td>
-				</tr>
-				
 				<!-- jQuery와 Postcodify를 로딩한다. -->
-				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-				<script>
-					/*  검색 단추를 누르면 팝업 레이어가 열리도록 설정한다. */
-					$(function(){
-						$("#postcodify_search_button").postcodifyPopUp();
-					});
-				</script>
-				
 				<tr>
 					<td colspan="2" align="center">
 						<button onclick='return validate();'>가입하기</button>
@@ -92,7 +72,7 @@
 	<script type="text/javascript">
 		function validate(){
 			// 아이디 중복체크 여부
-			if($("#idDuplicateCheck").val() == 0){
+			if($("#idDuplicateCheck").val() == 1){
 				alert("사용가능한 아이디를 입력해주세요.");
 				$("#userId").focus();
 				return false;
@@ -141,29 +121,6 @@
 		});
 	
 	</script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 </body>
 </html>

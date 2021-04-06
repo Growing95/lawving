@@ -73,7 +73,7 @@ $(function(){
 </head>
 
 <body>
-	<c:import url="common/menubar.jsp"/>
+	<c:import url="header.jsp"/>
 	<hr style="clear:both;">
 	<section>
 	<%-- 최근 공지글 3개 자동 조회 출력 : ajax 사용 --%>
