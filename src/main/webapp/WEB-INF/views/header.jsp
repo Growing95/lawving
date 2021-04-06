@@ -57,7 +57,7 @@ margin-right: 20%;
 <a href="#">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
 <c:otherwise>
 <div id="log">
-<a href="#">로그인</a>|<a href="#">회원가입</a><br>
+<a href="#">로그인</a>|<a href="go_signup.do">회원가입</a><br>
 </div>
 </c:otherwise>
 </c:choose>

@@ -14,7 +14,7 @@ public class MembersController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	private Logger logger = LoggerFactory.getLogger(MembersController.class);
-	@RequestMapping("insert_member.do")
+	@RequestMapping("go_signup.do")
 	public String enrollView() {
 		
 		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
