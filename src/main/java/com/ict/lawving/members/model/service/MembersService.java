@@ -6,4 +6,6 @@ public interface MembersService {
 
 	int insertMember(MembersVo members);
 
+	int selectCheckid(String id);
+
 }

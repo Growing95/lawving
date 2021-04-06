@@ -15,7 +15,12 @@ public class MembersServiceImpliment implements MembersService{
 	@Override
 	public int insertMember(MembersVo members) {
 		int result = membersdao.insertmembers(members);
-		return 0;
+		return result;
+	}
+
+	@Override
+	public int selectCheckid(String id) {
+		return membersdao.selectid(id);
 	}
 
 }
