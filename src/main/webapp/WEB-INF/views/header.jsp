@@ -57,7 +57,7 @@ margin-right: 20%;
 <a href="#">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
 <c:otherwise>
 <div id="log">
-<a href="#">로그인</a>|<a href="#">회원가입</a><br>
+<a href="#">로그인</a>|<a href="#">회원가입하는버튼</a><br>
 </div>
 </c:otherwise>
 </c:choose>
@@ -66,7 +66,7 @@ margin-right: 20%;
 <li><a href="#">공지사항</a></li>
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
-<li><a href="#">챗봇</a></li>
+<li><a href="#">챗봇1234</a></li>
 </ul>
 <br><br><br>
 </body>
