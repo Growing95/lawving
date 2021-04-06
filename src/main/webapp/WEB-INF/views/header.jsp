@@ -74,7 +74,7 @@ ${members.members_name }님|&nbsp;
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
 
-<li><a href="#">챗봇테스트</a></li>
+<li><a href="#">챗봇테스트12545645454</a></li>
 
 </ul>
 <br><br><br>
