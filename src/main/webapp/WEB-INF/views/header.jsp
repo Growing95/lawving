@@ -66,7 +66,7 @@ margin-right: 20%;
 <li><a href="#">공지사항</a></li>
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
-<li><a href="#">챗봇기능</a></li>
+<li><a href="#">챗봇기능임</a></li>
 </ul>
 <br><br><br>
 </body>
