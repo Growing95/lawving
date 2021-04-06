@@ -3,11 +3,15 @@
  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<typeAliases>
+
+	<typeAliases>
+		<typeAlias type="com.ict.lawving.qna.model.vo.QnaVo" alias="qna"/>
 	<typeAlias type="com.ict.lawving.members.model.vo.MembersVo" alias="MembersVo"/>
 </typeAliases>
+
 <mappers>
 	<mapper resource="mappers/member-mapper.xml"></mapper>
 	<mapper resource="mappers/bookmark-mapper.xml"></mapper>
+	<mapper resource="mappers/qna-mapper.xml"></mapper>
 </mappers>
 </configuration>
