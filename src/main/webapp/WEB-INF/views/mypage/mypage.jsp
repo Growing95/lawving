@@ -40,7 +40,7 @@ $(function() {
 <div id="box">
 	<div class="menu1" style="display: block;">
 	<table class="tab" style="width: 300px; float: left;">
-	<caption>내정보</caption>
+	<caption>내정보1111</caption>
 	<tbody>
 	 <c:choose>
 	<c:when test="${empty members}">
