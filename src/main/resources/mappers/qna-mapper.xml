@@ -3,7 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnaMapper">
-	<select id="list" resultType="qna">
+	<!-- <select id="list" resultType="qna">
 		SELECT * FROM QNA ORDER BY qna_reg DESC
 	</select>
 	<select id="searchDesc" resultType="qna" parameterType="String">
@@ -32,5 +32,5 @@
 	</select>
 	<select id="onelist" resultType="qna" parameterType="Number">
 		SELECT * FROM QNA WHERE qna_idx = #{};
-	</select>
+	</select> -->
 </mapper>

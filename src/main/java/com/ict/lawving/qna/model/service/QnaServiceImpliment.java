@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ict.lawving.qna.model.dao.QnaDao;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
-@Service("qnaDao")
+@Service("qnaService")
 public class QnaServiceImpliment implements QnaService {
 	@Autowired
 	private QnaDao qnaDao;
