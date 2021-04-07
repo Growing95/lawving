@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+	
+	<!-- <resultMap id="noticeResultSet" type="Notice">
+		<id property="notice_idx" column="notice_idx"/>
+		<result property="notice_title" column="notice_title"/>
+		<result property="notice_writer" column="notice_writer"/>
+		<result property="notice_content" column="notice_content"/>
+		<result property="notice_file_name" column="notice_file_name"/>
+		<result property="notice_refile_name" column="notice_refile_name"/>
+		<result property="notice_reg" column="notice_reg"/>		
+	</resultMap> -->
+	<!-- 조회수 -->
+	<select id="count" resultType="int">
+		select count(*) from notice
+	</select>
+	<!-- 목록 보기 -->
+	<select id="noticelist" parameterType="Map" resultType="NoticeVo">
+		select * from (
+			select rownum r_num, a.* from (
+				select * from notice order by notice_idx desc
+			) a
+		) where r_num between #{begin} and #{end}
+	</select>
+	
+	<!-- <insert id="insertnotice" parameterType="NoticeVo">
+		insert into notice values(notice_seq.nextval,#{notice_title},#{notice_writer},#{notice_content},#{notice_file_name},
+		#{notice_birth},#{notice_tel},1,sysdate)
+	</insert> -->
+	<!-- 검색기능 -->
+	<select id="search" parameterType="com.lawving.project.notice.model.vo.NoticeSearch" resultMap="noticeResultSet">
+		select * from notice
+		where #{category} like '%' || #{ keyword } || '%'
+		order by notice_idx #{order}
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="nonelist" parameterType="int" resultMap="noticeResultSet">
+	select * from notice where notice_idx = #{ notice_idx }
+	</select>
+	
+</mapper>

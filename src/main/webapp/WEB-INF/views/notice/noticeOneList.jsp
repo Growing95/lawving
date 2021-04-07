@@ -15,21 +15,21 @@
 <h2 align="center">${notice.nid } 번 공지 상세보기</h2>
 <br>
 <table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
-<tr><th>제 목</th><td>${ notice.ntitle }</td></tr>
-<tr><th>작성자</th><td>${ notice.nwriter }</td></tr>
+<tr><th>제 목</th><td>${ notice.notice_title }</td></tr>
+<tr><th>작성자</th><td>${ notice.notice_writer }</td></tr>
 <tr><th>날 짜</th>
-<td><fmt:formatDate value="${notice.n_create_date }" pattern="yyyy-MM-dd"/></td></tr>
+<td><fmt:formatDate value="${notice.notice_reg }" pattern="yyyy-MM-dd"/></td></tr>
 <tr><th>첨부파일</th>
 <td>
-	<c:if test="${ !empty notice.file_path }"> <%-- 첨부파일이 있다면 다운로드 설정함 --%>
-		<c:url var="unf" value="/nfdown.do">
-			<c:param name="file_path" value="${ notice.file_path }" />
+	<c:if test="${ !empty notice.notice_file_name }"> <%-- 첨부파일이 있다면 다운로드 설정함 --%>
+		<c:url var="unf" value="/download_notice.do">
+			<c:param name="download_notice" value="${ notice.notice_file_name }" />
 		</c:url>
-		<a href="${ unf }">${notice.file_path }</a>
+		<a href="${ unf }">${notice.notice_file_name }</a>
 	</c:if>
-	<c:if test="${ empty notice.file_path }">&nbsp;</c:if>
+	<c:if test="${ empty notice.notice_file_name }">&nbsp;</c:if>
 </td></tr>
-<tr><th>내 용</th><td>${ notice.ncontent }</td></tr>
+<tr><th>내 용</th><td>${ notice.notice_content }</td></tr>
 <tr><th colspan="2"><button onclick="javascript:history.go(-1);">목록</button></th></tr>
 </table>
 </body>
