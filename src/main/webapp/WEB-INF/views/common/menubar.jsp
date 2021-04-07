@@ -32,7 +32,7 @@
 <body>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
-	<h1 align="center"><img alt="logo" src="resources/images/Lawving-color1.png"></h1>
+	<center><a href="home.do"><img alt="logo" src="resources/images/Lawving-color1.png"></a></center>
 	<br>
 	
 	<div class="loginArea" align="right">

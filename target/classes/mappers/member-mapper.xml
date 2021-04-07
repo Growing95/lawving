@@ -3,19 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-	<!--
-	<resultMap type="Member" id="resultMember">
-		<id property="idx" column="members_idx"/>
-		<result  property="id" column="members_id"/>
-		<result  property="pw" column="members_pw"/>
-		<result  property="name" column="members_name"/>
-		<result  property="eamil" column="members_email"/>
-		<result  property="birth" column="members_birth"/>
-		<result  property="tel" column="members_tel"/>
-		<result  property="lev" column="members_lev"/>
-		<result  property="reg" column="members_reg"/>
-	</resultMap>
-	-->
+
 	<!-- <resultMap type="Member" id="resultMember">
 		<id property="idx" column="members_idx"/>
 		<result  property="id" column="members_id"/>
@@ -26,25 +14,17 @@
 		<result  property="tel" column="members_tel"/>
 	</resultMap> -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
-		select count(members_id) from members where members_id=#{id}
+		select count(members_id) from members where members_id=#{members_id}
 	</select>
 	<insert id="insertmembers" parameterType="MembersVo">
 		insert into members values(members_seq.nextval,#{members_id},#{members_pw},#{members_name},#{members_email},
 		#{members_birth},#{members_tel},1,sysdate)
 	</insert>
-	<!-- 
-	<select id="selectMember" parameterType="string" resultMap="resultMember">
-		select * from members where id=#{id}
-	</select>
-	 -->
+	
+	<select id="selectlogin" parameterType="MembersVo" resultType="MembersVo">
+		select * from members where members_id=#{members_id} and members_pw=#{members_pw}
+	</select> 
 </mapper>
-
-
-
-
-
-
-
 
 
 

@@ -12,7 +12,7 @@
 
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
-	<h1 align="center">∑Œ±◊¿Œ</h1>
+	<h1 align="center">Î°úÍ∑∏Ïù∏</h1>
 	<br>
 	<br>
 	<br>
@@ -22,10 +22,10 @@
 		<form action="login.do" method="post" id="joinForm">
 			<table width="500" cellspacing="5">
 				<tr>
-					<td align="center"><input type="text" name="id" id="userId" placeholder="ID" required></input></td>
+					<td align="center"><input type="text" name="members_id" placeholder="ID" required></input></td>
 				</tr>
 				<tr>
-					<td align="center"><input type="password" name="pw" placeholder="PASSWORD" required></td>
+					<td align="center"><input type="password" name="members_pw" placeholder="PASSWORD" required></td>
 				</tr>		
 				<tr>
 					<td align="center">
@@ -36,49 +36,9 @@
 		</form>
 		<br>
 		<br>
-		<a href="home.do">Ω√¿€ ∆‰¿Ã¡ˆ∑Œ ¿Ãµø</a>
 	</div>
 	
-	<script type="text/javascript">
-		$(function(){
-			$("#userId").on("keyup",function(){
-				var userId = $(this).val();
-				
-				if(userId.length < 5){
-					$(".guide").hide();
-					$("#idDuplicateCheck").val(0);
-					
-					return;
-				}
-				
-				$.ajax({
-					url:"idCheck.do",
-					data:{id:userId},
-					type:"post",
-					success:function(data){
-						console.log(data);
-						
-						if(data == "ok"){
-							$(".error").hide();
-							$(".ok").show();
-							$("#idDuplicateCheck").val(1);
-						}else{
-							$(".ok").hide();
-							$(".error").show();
-							$("#idDuplicateCheck").val(0);
-						}
-						
-					},error:function(jqxhr,textStatus,errorThrown){
-						console.log("ajax √≥∏Æ Ω«∆–");
-						
-						console.log(jqxhr);
-						console.log(textStatus);
-						console.log(errorThrown);
-					}
-				});
-			});
-		});
+
 	
-	</script>
 </body>
 </html>

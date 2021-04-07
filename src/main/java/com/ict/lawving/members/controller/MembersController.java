@@ -2,8 +2,10 @@ package com.ict.lawving.members.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Member;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,6 +132,53 @@ public class MembersController {
 				model.addAttribute("message","회원가입 실패");
 				return "common/error";
 			}
+		}
+		
+		//로그인 요청 처리(패스워드 암호화 처리)
+		@RequestMapping(value = "login.do",method = RequestMethod.POST)
+		public String loginCheakMethod(HttpSession session,Model model,MembersVo members) {
+			logger.info("login.do :"+members.getMembers_id()+","+members.getMembers_pw());
+			String id = members.getMembers_id();
+			String pw = members.getMembers_pw();
+			System.out.println("id:"+id);
+			System.out.println("pw"+pw);
+			//패스워드 암호화 처리후 Member객체에 기록 저장
+			MembersVo member = new MembersVo();
+			member.setMembers_id(id);
+			member.setMembers_pw(bcryptPasswordEncoder.encode(pw));
+			logger.info("암호화pw:"+member.getMembers_pw());
+			MembersVo loginmember = membersService.selectloginCheck(id);
+			System.out.println("조회해온회원비밀번호:"+loginmember.getMembers_pw());
+			//전송은 패스워드 (일반글자)와 조회해온 패스워드(암호화글자) 비교시
+			//matchs()사용한다
+			logger.info("pw비교:"+bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw()));
+			logger.info("레벨확인:"+loginmember.getMembers_lev());
+			int level=Integer.parseInt(loginmember.getMembers_lev());
+			 if (loginmember != null) {
+				 if (bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw())) {
+
+					 if (level==2) {
+						 session.setAttribute("loginMember", loginmember);
+						return"mypage/mypage";
+					}else {
+						 session.setAttribute("loginMember", loginmember);
+						 return "home";
+					}
+				}else {
+					model.addAttribute("message","로그인 실패! 패스워드가 일치하지 않습니다.");
+					return "common/errorPage";
+					
+				}
+			}else {
+				model.addAttribute("message","로그인 실패! 일치하는 아이디가 없습니다.");
+				return "common/errorPage";
+			}
+		}
+		//로그아웃 처리
+		@RequestMapping("logout.do")
+		public String logoutMethod(HttpSession session) {
+			session.invalidate();
+			return "redirect:home.do";
 		}
 		
 		
