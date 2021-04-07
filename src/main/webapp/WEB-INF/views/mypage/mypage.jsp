@@ -64,7 +64,7 @@ $(function() {
 				table += "<caption>MY BOOKMARK</caption>";
 				table += "<tbody>";
 				$(data).find("member").each( function() {
-					<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">부동산임대법</a></td><td>2021-04-06</td></tr>
+					/* <tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">부동산임대법</a></td><td>2021-04-06</td></tr> */
 					table+="<tr>";
 					table+="<td>"+$(this).find("idx").text()+"</td>";
 					table+="<td>"+$(this).find("id").text()+"</td>";

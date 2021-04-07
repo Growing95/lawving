@@ -41,7 +41,7 @@
 				<table id="loginTable" style="text-align:center">
 					<td colspan="3">
 							<a href="go_login.do">로그인</a>
-							<a href="insert_member.do">회원가입</a>
+							<a href="#"">회원가입</a>
 						</td>
 					</tr>
 				</table>
