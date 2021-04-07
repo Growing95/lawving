@@ -13,9 +13,9 @@
 		<result  property="birth" column="members_birth"/>
 		<result  property="tel" column="members_tel"/>
 	</resultMap> -->
-	<!-- <select id="selectCheckId" parameterType="string" resultType="_int">
-		select count(id) from members where id=#{id}
-	</select>-->
+	<select id="selectCheckId" parameterType="string" resultType="_int">
+		select count(members_id) from members where members_id=#{members_id}
+	</select>
 	<insert id="insertmembers" parameterType="MembersVo">
 		insert into members values(members_seq.nextval,#{members_id},#{members_pw},#{members_name},#{members_email},
 		#{members_birth},#{members_tel},1,sysdate)
