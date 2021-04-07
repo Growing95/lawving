@@ -102,22 +102,72 @@ function checkAll() {
 	<!-- 회원정보 -->
 	<div class="menu1" style="display: block;">
 	<table class="tab">
-	<caption>MY Information</caption>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>아이디</th>
+				<th>이름</th>
+				<th>가입날짜</th>
+			</tr>
+		</thead>
+	<caption>회원 정보</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty members}">
-	<tr><td colspan="2">회원정보없음</td></tr>
+	<c:when test="${empty memberslist}">
+	<tr><td colspan="4">회원정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
-	<tr><td>이름 :</td><td><input type="text" disabled value="${members.members_name }"></td></tr>
-	<tr><td>ID :</td><td><input type="text" disabled value="${members.members_id }"></td></tr>
-	<tr><td>Email :</td><td><input type="text" disabled value="${members.members_email }"></td></tr>
-	<tr><td>생년월일</td><td><input type="text" disabled value="${members.members_birth}"></td></tr>
-	<tr><td>휴대전화</td><td><input type="text" disabled value="${members.members_tel }"></td></tr>
-	<tr><td>가입날짜</td><td><input type="text" disabled value="${members.members_reg }"></td></tr>
+		<c:forEach var="k" items="${memberslist }" varStatus="vs">
+		<tr>
+			<td>${k.members_idx }</td>
+			<td>${k.members_id }</td>
+			<td>${k.members_name }</td>
+			<td>${k.members_reg }</td>
+		</tr>
+		</c:forEach>
 	</c:otherwise>
 	</c:choose>
 	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4">
+				<ol class="paging">
+				<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
+							<li class="disable">이전으로</li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="memberslist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+								</c:otherwise>
+							</c:choose>
+							<!-- 블록안에 들어간 페이지번호들 -->
+							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
+								step="1" var="k">
+								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
+								<c:choose>
+									<c:when test="${k==paging.nowPage }">
+										<li class="now">${k}</li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="memberslist.do?cPage=${k}">${k}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<!-- 다음 -->
+							<c:choose>
+								<c:when test="${paging.endBlock >= paging.totalPage }">
+									<li class="disable">다음으로</li>
+								</c:when>
+								<c:otherwise>
+									<li><a
+										href="memberslist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ol>
+					</td>
+				</tr>
+			</tfoot>
 	</table>
 	</div>
 	<!-- 사용제한회원 -->
