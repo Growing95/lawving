@@ -20,7 +20,8 @@ public class MembersServiceImpliment implements MembersService{
 
 	@Override
 	public int selectCheckid(String id) {
-		return membersdao.selectid(id);
+		int result = membersdao.selectid(id);
+		return result;
 	}
 
 }

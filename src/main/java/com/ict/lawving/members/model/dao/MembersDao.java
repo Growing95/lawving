@@ -19,8 +19,9 @@ public class MembersDao {
 		return result;
 	}
 	public int selectid(String id) {
-		
-		return sqlSession.selectOne("selectCheckId",id);
+		int result =0;
+		result= sqlSession.selectOne("selectCheckId",id);
+		return result;
 	}
 
 }

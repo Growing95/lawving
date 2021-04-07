@@ -26,7 +26,7 @@
 		<result  property="tel" column="members_tel"/>
 	</resultMap> -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
-		select count(members_id) from members where members_id=#{members_id}
+		select count(members_id) from members where members_id=#{id}
 	</select>
 	<insert id="insertmembers" parameterType="MembersVo">
 		insert into members values(members_seq.nextval,#{members_id},#{members_pw},#{members_name},#{members_email},

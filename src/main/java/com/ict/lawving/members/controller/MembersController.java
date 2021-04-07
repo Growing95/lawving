@@ -21,7 +21,6 @@ import com.ict.lawving.members.model.vo.MembersVo;
 
 
 @SessionAttributes({"loginUser","loginAdmin"})
-
 @Controller
 public class MembersController {
 
@@ -29,6 +28,7 @@ public class MembersController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
 	private MembersService membersService;
+	
 	private Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
 	@RequestMapping("go_login.do")
