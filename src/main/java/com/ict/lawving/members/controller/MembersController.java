@@ -29,8 +29,25 @@ public class MembersController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
 	private MembersService membersService;
-	
 	private Logger logger = LoggerFactory.getLogger(MembersController.class);
+	
+	@RequestMapping("go_login.do")
+	public String gologinMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+		    logger.debug("로그인페이지");
+		
+		return "member/logIn";
+
+	}
+	
+	@RequestMapping("go_signup.do")
+	public String gosignupMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+		    logger.debug("회원가입페이지");
+		
+		return "member/memberInsertForm";
+
+	}
 	
 /*	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
 	public String insertMember(@ModelAttribute MembersVo members, Model model) {
