@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -9,8 +9,6 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp" />
-
-	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
 	<h1 align="center">로그인</h1>
 	<br>
@@ -32,10 +30,14 @@
 						<input type="submit" value="login">
 					</td>
 				</tr>
+				<br>
 			</table>
 		</form>
 		<br>
 		<br>
+				<div id="find">
+				<a href="go_find.do">ID/PW 찾기</a><br>
+				</div>	
 	</div>
 	
 

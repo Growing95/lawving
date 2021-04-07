@@ -51,6 +51,15 @@ public class MembersController {
 
 	}
 	
+	@RequestMapping("go_find.do")
+	public String gofindMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+			logger.debug("ID/PW 찾기 페이지");
+		
+		return "member/find";
+		
+	}
+	
 /*	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
 	public String insertMember(@ModelAttribute MembersVo members, Model model) {
 		
@@ -141,7 +150,7 @@ public class MembersController {
 			String id = members.getMembers_id();
 			String pw = members.getMembers_pw();
 			System.out.println("id:"+id);
-			System.out.println("pw"+pw);
+			System.out.println("pw:"+pw);
 			//패스워드 암호화 처리후 Member객체에 기록 저장
 			MembersVo member = new MembersVo();
 			member.setMembers_id(id);
@@ -180,6 +189,20 @@ public class MembersController {
 			session.invalidate();
 			return "redirect:home.do";
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+		
+		
+		
+		
 		
 		
 		// 관리자페이지 이동
