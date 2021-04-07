@@ -58,7 +58,7 @@ font-weight: bold;
 <c:when test="${loginMember.members_lev=='1' }">
 <div id="log">
 ${loginMember.members_name }님|&nbsp;
-<span style="color: red;">누적신고수 : ${limit.limit_count}</span>회<br>
+<span style="color: red;">누적신고수 : <%-- ${limit.limit_count} --%>0</span>회<br>
 <a href="#">로그아웃</a><br>
 <a href="#">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
 <c:otherwise>
@@ -74,7 +74,6 @@ ${loginMember.members_name }님|&nbsp;
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
 <li><a href="#">챗봇테스트</a></li>
-<li><a href="#">챗봇테스트5555</a></li>
 
 </ul>
 <br><br><br>

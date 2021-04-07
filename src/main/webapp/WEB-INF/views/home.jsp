@@ -75,6 +75,7 @@ $(function(){
 <body>
 	<c:import url="header.jsp"/>
 	<hr style="clear:both;">
+	<article>
 	<section>
 	<%-- 최근 공지글 3개 자동 조회 출력 : ajax 사용 --%>
 	<div style="float:left; border:1px solid navy; padding: 5px; margin-left: 150px;">
@@ -91,6 +92,7 @@ $(function(){
 		</table>
 	</div>
 	</section>
+	</article>
 <br style="clear:both;">	
 	
 	
