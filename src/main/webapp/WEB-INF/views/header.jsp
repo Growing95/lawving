@@ -52,7 +52,7 @@ font-weight: bold;
 <c:choose>
 <c:when test="${members.members_lev=='2'}">
 <div id="log">관리자${members.members_name }님|<a href="#">로그아웃</a><br>
-<a href="#" style="font-size:none;color: black;">회원정보관리</a>
+<a href="go_adminpage.do" style="font-size:none;color: black;">회원정보관리</a>
 </div>
 </c:when>
 <c:when test="${members.members_lev=='1' }">
@@ -63,7 +63,7 @@ ${members.members_name }님|&nbsp;
 <a href="#">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
 <c:otherwise>
 <div id="log">
-<a href="#">로그인</a>|<a href="go_signup.do">회원가입</a><br>
+<a href="go_login.do">로그인</a>|<a href="go_signup.do">회원가입</a><br>
 </div>
 </c:otherwise>
 </c:choose>
@@ -74,7 +74,10 @@ ${members.members_name }님|&nbsp;
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Growing95/lawving
 <li><a href="#">챗봇테스트</a></li>
 
 =======

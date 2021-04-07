@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="qnaMapper">
-	<!-- <select id="list" resultType="qna">
+<mapper namespace="qnaMapper"> 
+	<select id="list" resultType="qna">
 		SELECT * FROM QNA ORDER BY qna_reg DESC
 	</select>
 	<select id="searchDesc" resultType="qna" parameterType="String">
@@ -12,6 +12,7 @@
 		OR		qna_content	LIKE '%#{keyword}%'
 		ORDER BY qna_reg DESC
 	</select>
+	
 	<select id="searchAsc" resultType="qna" parameterType="String">
 		SELECT * FROM QNA 
 		WHERE	qna_title	LIKE '%#{keyword}%' 
@@ -20,17 +21,17 @@
 	</select>
 	<select id="searchCompleted" resultType="qna" parameterType="String">
 		SELECT * FROM QNA
-		WHERE	(qna_status = '답변완료' AND qna_content LIKE '%#{keyword}%')
-		OR		(qna_status = '답변완료' AND qna_title LIKE '%#{keyword}%')
+		WHERE	qna_status = '답변완료' AND qna_content LIKE '%#{keyword}%'
+		OR		qna_status = '답변완료' AND qna_title LIKE '%#{keyword}%'
 		ORDER BY qna_reg DESC
 	</select>
 	<select id="searchWaiting" resultType="qna" parameterType="String">
 		SELECT * FROM QNA
-		WHERE	(qna_status = '대기중' AND qna_content LIKE '%#{keyword}%')
-		OR		(qna_status = '대기중' AND qna_title LIKE '%#{keyword}%')
+		WHERE	qna_status = '대기중' AND qna_content LIKE '%#{keyword}%'
+		OR		qna_status = '대기중' AND qna_title LIKE '%#{keyword}%'
 		ORDER BY qna_reg DESC
 	</select>
-	<select id="onelist" resultType="qna" parameterType="Number">
+	<!--  <select id="onelist" resultType="qna" parameterType="Number">
 		SELECT * FROM QNA WHERE qna_idx = #{};
-	</select> -->
+	</select>   -->
 </mapper>

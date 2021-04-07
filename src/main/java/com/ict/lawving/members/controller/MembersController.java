@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,22 +19,34 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
 
+
 @SessionAttributes({"loginUser","loginAdmin"})
+
 @Controller
 public class MembersController {
+
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
 	private MembersService membersService;
-	
 	private Logger logger = LoggerFactory.getLogger(MembersController.class);
-	@RequestMapping("go_signup.do")
-	public String enrollView() {
-		
+	
+	@RequestMapping("go_login.do")
+	public String gologinMethod() {
 		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
-		    logger.debug("회원등록페이지");
+		    logger.debug("로그인페이지");
+		
+		return "member/logIn";
+
+	}
+	
+	@RequestMapping("go_signup.do")
+	public String gosignupMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+		    logger.debug("회원가입페이지");
 		
 		return "member/memberInsertForm";
+
 	}
 	
 /*	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
@@ -103,8 +114,8 @@ public class MembersController {
 		//회원가입 처리(패스워드 암호화 처리)
 		@RequestMapping(value = "anroll.do",method = RequestMethod.POST)
 		public String enrollMemberMethod(MembersVo members, Model model) {
-			logger.info("enrol.do :"+members);//넘어오는 파라미터값 확인
-			
+			logger.info("anroll.do :"+members);//넘어오는 파라미터값 확인
+			logger.info("아이디값확인"+members.getMembers_id());
 			//패스워드 암호화 처리
 			members.setMembers_pw(bcryptPasswordEncoder.encode(members.getMembers_pw()));
 			logger.info("pw encode:"+members.getMembers_pw()+","+members.getMembers_pw().length());//암호화된 패스워드 값과 그 길이 확인 
@@ -120,6 +131,24 @@ public class MembersController {
 				return "common/error";
 			}
 		}
+		
+		
+		// 관리자페이지 이동
+		@RequestMapping("go_adminpage.do")
+		public String goadminpageMethod() {
+			if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+			    logger.debug("관리자페이지");
+			
+			return "admin/adminPage";
+
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}

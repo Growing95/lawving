@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,14 +59,14 @@ function dupidCheck() {
 </script>
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp"/>
+	<c:import url="/WEB-INF/views/header.jsp" />
 	
 	<h1 align="center">회원가입</h1>
 	
 	<div class="outer" align="center">
 		<form  action="anroll.do" method="post" onsubmit="return validate()">
 			<table width="500" cellspacing="5">
-				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck()"></td></tr>
+				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck()"></td></tr>
 				<tr>
 					<td>* 이름</td>
 					<td><input type="text" name="members_name" required ></input></td>
@@ -88,7 +89,7 @@ function dupidCheck() {
 				</tr>
 				<tr>
 					<td>전화번호</td>
-					<td><input type="tel" name="tel" id=""></td>
+					<td><input type="tel" name="members_tel" ></td>
 				</tr>
 				<!-- jQuery와 Postcodify를 로딩한다. -->
 				<tr>
