@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 	span.ok{color:green;}
 	span.error{color:red;}
 </style>
-<script type="text/javascript" src="resources/js/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 //전송값 유효성 검사 체크용 함수
 //validation(유효성 검사): 서버즉 컨트롤러로 전송할 값들이 요구한 조건을 모두 
@@ -45,7 +46,7 @@ function dupidCheck() {
 			}
 		},
 		error: function(jqXHR,textstatus,errorthrown) {
-			console.log("error:"+jqXHR+","+textstatus+","+arrorthrown);
+			console.log("확인실패");
 		}
 		
 	});//$.ajax();
@@ -58,7 +59,7 @@ function dupidCheck() {
 </script>
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp"/>
+	<c:import url="/WEB-INF/views/header.jsp" />
 	
 	<h1 align="center">회원가입</h1>
 	
@@ -89,6 +90,7 @@ function dupidCheck() {
 				<tr>
 					<td>전화번호</td>
 					<td><input type="tel" name="members_tel" id="members_tel"></td>
+					<td><input type="tel" name="members_tel" ></td>
 				</tr>
 				<!-- jQuery와 Postcodify를 로딩한다. -->
 				<tr>
@@ -104,8 +106,5 @@ function dupidCheck() {
 		<br>
 		<a href="home.do">시작 페이지로 이동</a>
 	</div>
-	
-	
-
 </body>
 </html>

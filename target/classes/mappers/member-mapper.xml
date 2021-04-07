@@ -21,7 +21,7 @@
 		#{members_birth},#{members_tel},1,sysdate)
 	</insert>
 	
-	<select id="selectlogin" parameterType="string" resultMap="MembersVo">
+	<select id="selectlogin" parameterType="MembersVo" resultType="MembersVo">
 		select * from members where members_id=#{members_id} and members_pw=#{members_pw}
 	</select> 
 </mapper>
