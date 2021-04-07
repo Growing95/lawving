@@ -73,9 +73,13 @@ ${members.members_name }님|&nbsp;
 <li><a href="#">공지사항</a></li>
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
+<<<<<<< HEAD
 
 <li><a href="#">챗봇테스트</a></li>
 
+=======
+<li><a href="#">챗봇테스트5555</a></li>
+>>>>>>> refs/heads/master
 </ul>
 <br><br><br>
 </body>

@@ -55,6 +55,34 @@ $(function() {
 		$('.menu1').css('display','none');
 	    $('.menu2').css('display','none');
 	    $('.menu3').css('display','');
+	    $.ajax({
+			url:"xml.do",
+			method:"get",
+			dataType:"xml",
+			success:function(data) {
+				var table = "<table>";
+				table += "<caption>MY BOOKMARK</caption>";
+				table += "<tbody>";
+				$(data).find("member").each( function() {
+					<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">부동산임대법</a></td><td>2021-04-06</td></tr>
+					table+="<tr>";
+					table+="<td>"+$(this).find("idx").text()+"</td>";
+					table+="<td>"+$(this).find("id").text()+"</td>";
+					table+="<td>"+$(this).find("pw").text()+"</td>";
+					table+="<td>"+$(this).find("name").text()+"</td>";
+					table+="<td>"+$(this).find("age").text()+"</td>";
+					table+="<td>"+$(this).find("addr").text()+"</td>";
+					table+="<td>"+$(this).find("reg").text()+"</td>";
+					table+="</tr>";
+				});
+				table += "</tbody></table>";
+				$("#result").append(table);
+			},
+			error:function(){
+				alert("읽기실패");
+			}
+			
+		});
 	    
 	});
 	$(document).on('click','#m2',function() {
@@ -90,7 +118,7 @@ function checkAll() {
 	<caption>MY Information</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty members}">
+	<c:when test="${empty members}">
 	<tr><td colspan="2">회원정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
@@ -113,7 +141,7 @@ function checkAll() {
 	<caption>Set Information</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty members}">
+	<c:when test="${empty members}">
 	<tr><td colspan="2">회원정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
@@ -135,8 +163,8 @@ function checkAll() {
 	<caption>MY BOOKMARK</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty bookmark}">
-	<tr><td colspan="2">북마크정보없음</td></tr>
+	<c:when test="${empty bookmark}">
+	<tr><td colspan="3">북마크정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
 	<tr><td style="border: none;"><input type="checkbox" id="all_chkdel" onclick="checkAll()" class="all_chkdel">전체선택</td><td style="border: none;"></td><td style="border: none;"><button>선택삭제</button></td></tr>
