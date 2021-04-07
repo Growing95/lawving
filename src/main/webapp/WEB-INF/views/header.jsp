@@ -52,7 +52,7 @@ font-weight: bold;
 <c:choose>
 <c:when test="${members.members_lev=='2'}">
 <div id="log">관리자${members.members_name }님|<a href="#">로그아웃</a><br>
-<a href="#" style="font-size:none;color: black;">회원정보관리</a>
+<a href="go_adminpage.do" style="font-size:none;color: black;">회원정보관리</a>
 </div>
 </c:when>
 <c:when test="${members.members_lev=='1' }">
@@ -73,7 +73,6 @@ ${members.members_name }님|&nbsp;
 <li><a href="#">공지사항</a></li>
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
-
 <li><a href="#">챗봇테스트</a></li>
 
 </ul>

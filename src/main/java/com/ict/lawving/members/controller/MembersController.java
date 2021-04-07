@@ -122,4 +122,22 @@ public class MembersController {
 		}
 		
 		
+		// 관리자페이지 이동
+		@RequestMapping("go_adminpage.do")
+		public String goadminpageMethod() {
+			if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+			    logger.debug("관리자페이지");
+			
+			return "admin/adminPage";
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
