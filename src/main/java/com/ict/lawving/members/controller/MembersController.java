@@ -2,8 +2,10 @@ package com.ict.lawving.members.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Member;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -119,6 +120,43 @@ public class MembersController {
 				model.addAttribute("message","회원가입 실패");
 				return "common/error";
 			}
+		}
+		
+		//로그인 요청 처리(패스워드 암호화 처리)
+		@RequestMapping(value = "login.do",method = RequestMethod.POST)
+		public String loginCheakMethod(HttpSession session,Model model,MembersVo members) {
+			logger.info("login.do :"+members.getMembers_id()+","+members.getMembers_pw());
+			String id = members.getMembers_id();
+			String pw = members.getMembers_pw();
+			//패스워드 암호화 처리후 Member객체에 기록 저장
+			MembersVo member = new MembersVo();
+			member.setMembers_id(id);
+			member.setMembers_pw(bcryptPasswordEncoder.encode(pw));
+			logger.info("암호화pw:"+member.getMembers_pw());
+			MembersVo loginmember = membersService.selectloginCheck(members);
+			//전송은 패스워드 (일반글자)와 조회해온 패스워드(암호화글자) 비교시
+			//matchs()사용한다
+			logger.info("pw비교:"+bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw()));
+			
+			 if (loginmember != null) {
+				 if (bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw())) {
+					 session.setAttribute("loginMember", loginmember);
+					 return "common/home";
+				}else {
+					model.addAttribute("message","로그인 실패! 패스워드가 일치하지 않습니다.");
+					return "common/error";
+					
+				}
+			}else {
+				model.addAttribute("message","로그인 실패! 일치하는 아이디가 없습니다.");
+				return "common/error";
+			}
+		}
+		//로그아웃 처리
+		@RequestMapping("logout.do")
+		public String logoutMethod(HttpSession session) {
+			session.invalidate();
+			return "redirect:main.do";
 		}
 		
 		

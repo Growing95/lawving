@@ -23,4 +23,12 @@ public class MembersServiceImpliment implements MembersService{
 		return membersdao.selectid(id);
 	}
 
+	@Override
+	public MembersVo selectloginCheck(MembersVo members) {
+		
+		return membersdao.selectloginCheck(members);
+	}
+
+	
+
 }

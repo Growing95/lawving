@@ -22,5 +22,8 @@ public class MembersDao {
 		
 		return sqlSession.selectOne("selectCheckId",id);
 	}
+	public MembersVo selectloginCheck(MembersVo members) {
+		return sqlSession.selectOne("selectlogin",members);
+	}
 
 }

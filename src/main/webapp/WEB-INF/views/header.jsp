@@ -47,17 +47,17 @@ font-weight: bold;
 </head>
 <body>
 <header>
-<center><img alt="logo" src="resources/images/Lawving-color1.png"></center>
+<center><a href="home.do"><img alt="logo" src="resources/images/Lawving-color1.png"></a></center>
 <div id="loginUI">
 <c:choose>
-<c:when test="${members.members_lev=='2'}">
-<div id="log">관리자${members.members_name }님|<a href="#">로그아웃</a><br>
+<c:when test="${loginMember.members_lev=='2'}">
+<div id="log">관리자${loginMember.members_name }님|<a href="#">로그아웃</a><br>
 <a href="#" style="font-size:none;color: black;">회원정보관리</a>
 </div>
 </c:when>
-<c:when test="${members.members_lev=='1' }">
+<c:when test="${loginMember.members_lev=='1' }">
 <div id="log">
-${members.members_name }님|&nbsp;
+${loginMember.members_name }님|&nbsp;
 <span style="color: red;">누적신고수 : ${limit.limit_count}</span>회<br>
 <a href="#">로그아웃</a><br>
 <a href="#">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
@@ -73,13 +73,9 @@ ${members.members_name }님|&nbsp;
 <li><a href="#">공지사항</a></li>
 <li><a href="#">자료실</a></li>
 <li><a href="#">Q&A</a></li>
-<<<<<<< HEAD
-
 <li><a href="#">챗봇테스트</a></li>
-
-=======
 <li><a href="#">챗봇테스트5555</a></li>
->>>>>>> refs/heads/master
+
 </ul>
 <br><br><br>
 </body>

@@ -65,7 +65,7 @@ function dupidCheck() {
 	<div class="outer" align="center">
 		<form  action="anroll.do" method="post" onsubmit="return validate()">
 			<table width="500" cellspacing="5">
-				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck()"></td></tr>
+				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck()"></td></tr>
 				<tr>
 					<td>* 이름</td>
 					<td><input type="text" name="members_name" required ></input></td>
@@ -88,7 +88,7 @@ function dupidCheck() {
 				</tr>
 				<tr>
 					<td>전화번호</td>
-					<td><input type="tel" name="tel" id=""></td>
+					<td><input type="tel" name="members_tel" id="members_tel"></td>
 				</tr>
 				<!-- jQuery와 Postcodify를 로딩한다. -->
 				<tr>
