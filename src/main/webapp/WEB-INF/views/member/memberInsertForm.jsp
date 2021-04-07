@@ -29,12 +29,12 @@ function validate() {
 	return true; //전송 처리
 }
 //id중복확인용 함수
-function dupidCheck() {
+function dupidCheck(){
 	$("#msg").empty();
 	$.ajax({
 		url:"idCheck.do",
 		method:"post",
-		data:{members_id:$("#userid").val() },
+		data:{members_id: $("#userid").val()},
 		success: function(data) {
 			console.log("success:"+data);
 			if (data=="ok") {
@@ -66,7 +66,7 @@ function dupidCheck() {
 	<div class="outer" align="center">
 		<form  action="anroll.do" method="post" onsubmit="return validate()">
 			<table width="500" cellspacing="5">
-				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck()"></td></tr>
+				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck();"></td></tr>
 				<tr>
 					<td>* 이름</td>
 					<td><input type="text" name="members_name" required ></input></td>

@@ -5,7 +5,7 @@ import com.ict.lawving.members.model.vo.MembersVo;
 public interface MembersService {
 
 	int insertMember(MembersVo members);
-	MembersVo selectloginCheck(MembersVo members);
+	MembersVo selectloginCheck(String id);
 	int selectCheckid(String id);
 
 }

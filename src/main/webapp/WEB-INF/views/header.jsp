@@ -51,7 +51,7 @@ font-weight: bold;
 <div id="loginUI">
 <c:choose>
 <c:when test="${loginMember.members_lev=='2'}">
-<div id="log">관리자${loginMember.members_name }님|<a href="#">로그아웃</a><br>
+<div id="log"><span style="font-weight: bold;">관리자</span>&nbsp;${loginMember.members_name }님|<a href="logout.do">로그아웃</a><br>
 <a href="#" style="font-size:none;color: black;">회원정보관리</a>
 </div>
 </c:when>
@@ -59,8 +59,8 @@ font-weight: bold;
 <div id="log">
 ${loginMember.members_name }님|&nbsp;
 <span style="color: red;">누적신고수 : <%-- ${limit.limit_count} --%>0</span>회<br>
-<a href="#">로그아웃</a><br>
-<a href="#">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
+<a href="logout.do">로그아웃</a><br>
+<a href="list_mypage.do">MY페이지</a>|<a href="#">MY북마크</a></div></c:when>
 <c:otherwise>
 <div id="log">
 <a href="go_login.do">로그인</a>|<a href="go_signup.do">회원가입</a><br>

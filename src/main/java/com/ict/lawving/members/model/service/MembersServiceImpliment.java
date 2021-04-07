@@ -20,14 +20,15 @@ public class MembersServiceImpliment implements MembersService{
 
 	@Override
 	public int selectCheckid(String id) {
-		return membersdao.selectid(id);
+		int result = membersdao.selectid(id);
+		return result;
 	}
 
 	@Override
-	public MembersVo selectloginCheck(MembersVo members) {
-		
-		return membersdao.selectloginCheck(members);
+	public MembersVo selectloginCheck(String id) {
+		return membersdao.selectloginCheck(id);
 	}
+
 
 	
 

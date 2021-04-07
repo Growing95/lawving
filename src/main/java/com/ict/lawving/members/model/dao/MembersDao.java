@@ -19,11 +19,12 @@ public class MembersDao {
 		return result;
 	}
 	public int selectid(String id) {
-		
-		return sqlSession.selectOne("selectCheckId",id);
+		int result =0;
+		result= sqlSession.selectOne("selectCheckId",id);
+		return result;
 	}
-	public MembersVo selectloginCheck(MembersVo members) {
-		return sqlSession.selectOne("selectlogin",members);
+	public MembersVo selectloginCheck(String id) {
+		return sqlSession.selectOne("selectlogin",id);
 	}
 
 }
