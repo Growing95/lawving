@@ -6,12 +6,6 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<script type="text/javascript">
-	function loginOK(f) {
-		f.action = "login.do";
-		f.submit();
-	}
-</script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp" />
@@ -35,7 +29,7 @@
 				</tr>		
 				<tr>
 					<td align="center">
-						<input type="button" onclick="loginOK(this.form)" value="login">
+						<input type="submit" value="login">
 					</td>
 				</tr>
 			</table>
@@ -46,10 +40,6 @@
 	</div>
 	
 	<script type="text/javascript">
-		function loginOK(){
-			
-		}
-		
 		$(function(){
 			$("#userId").on("keyup",function(){
 				var userId = $(this).val();

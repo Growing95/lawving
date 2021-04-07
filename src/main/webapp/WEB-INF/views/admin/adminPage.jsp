@@ -17,7 +17,7 @@ left:8%;
 bottom:40%;
 z-index:10000;
 }
-#m1,#m2,#m3{width: 200px;height: 100px; font-size: 30px; 
+#m1,#m2,#m3,#m4{width: 200px;height: 100px; font-size: 30px; 
  border-radius: 10px;border: none;
 background-color: #36454F;
 font-family: 'Abril Fatface', cursive;
@@ -27,7 +27,7 @@ color: white;
 #m1:hover{background-color: white; color: black;}
 #m2:hover{background-color: white; color: black;}
 #m3:hover{background-color: white; color: black;}
-
+#m4:hover{background-color: white; color: black;}
 /* 테이블 */
 .tab{background-color: white; width: 600px; height: 500px; margin: auto; border-radius: 20px; }
 
@@ -166,7 +166,7 @@ function checkAll() {
 	</table>
 	</div>
 	<!-- 제제회원 -->
-	<div class="menu3" style="display: none;">
+	<div class="menu4" style="display: none;">
 	<table class="bookmark">
 	<caption>MY BOOKMARK</caption>
 	<tbody>
