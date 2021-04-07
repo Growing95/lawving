@@ -3,8 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-<<<<<<< HEAD
-
+	<!--
 	<resultMap type="Member" id="resultMember">
 		<id property="idx" column="members_idx"/>
 		<result  property="id" column="members_id"/>
@@ -16,14 +15,8 @@
 		<result  property="lev" column="members_lev"/>
 		<result  property="reg" column="members_reg"/>
 	</resultMap>
-	
-=======
->>>>>>> refs/heads/master
+	-->
 
-<<<<<<< HEAD
-	<select id="selectCheckId" parameterType="string" resultType="int">
-		select count(id) from members where id=#{id}
-=======
 	<!-- <resultMap type="Member" id="resultMember">
 		<id property="idx" column="members_idx"/>
 		<result  property="id" column="members_id"/>
@@ -35,21 +28,16 @@
 	</resultMap> -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
 		select count(members_id) from members where members_id=#{members_id}
->>>>>>> refs/heads/master
 	</select>
-<<<<<<< HEAD
-	<insert id="insertMember" parameterType="Member">
-		insert into members values(members_seq.nextval,#{id},#{pw},#{name},#{email},#{birth},#{tel},#{lev},sysdate)
-=======
 	<insert id="insertmembers" parameterType="MembersVo">
 		insert into members values(members_seq.nextval,#{members_id},#{members_pw},#{members_name},#{members_email},
 		#{members_birth},#{members_tel},1,sysdate)
->>>>>>> refs/heads/master
 	</insert>
 	<!-- 
 	<select id="selectMember" parameterType="string" resultMap="resultMember">
 		select * from members where id=#{id}
 	</select> 
+	-->
 </mapper>
 
 
