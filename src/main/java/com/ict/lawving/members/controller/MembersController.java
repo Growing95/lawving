@@ -103,8 +103,8 @@ public class MembersController {
 		//회원가입 처리(패스워드 암호화 처리)
 		@RequestMapping(value = "anroll.do",method = RequestMethod.POST)
 		public String enrollMemberMethod(MembersVo members, Model model) {
-			logger.info("enrol.do :"+members);//넘어오는 파라미터값 확인
-			
+			logger.info("anroll.do :"+members);//넘어오는 파라미터값 확인
+			logger.info("아이디값확인"+members.getMembers_id());
 			//패스워드 암호화 처리
 			members.setMembers_pw(bcryptPasswordEncoder.encode(members.getMembers_pw()));
 			logger.info("pw encode:"+members.getMembers_pw()+","+members.getMembers_pw().length());//암호화된 패스워드 값과 그 길이 확인 
