@@ -197,7 +197,7 @@ public class MembersController {
 			return "admin/adminPage";
 
 		}
-		
+		//어드민:회원관리
 		@RequestMapping("memberslist.do")
 		public ModelAndView memberListMethod(HttpServletRequest request) {
 			ModelAndView mv= new ModelAndView("admin/adminPage");
@@ -241,7 +241,29 @@ public class MembersController {
 			}
 			return mv;
 		}
-		
+		//회원정보수정
+		@RequestMapping(value = "update_members.do", method =RequestMethod.POST )
+		  public String updateMemberMethod(MembersVo m,Model model,HttpSession session) {
+		  int result = membersService.updateMember(m);
+		  if(result>0) { 
+			  session.invalidate();
+			return "redirect:go_login.do";
+		  }else {
+		  
+			  return "common/errorPage";
+		  }
+		  
+		  }
+		//회원탈퇴
+		@RequestMapping("delete_members.do")
+		public String deleteMembersMethod(@RequestParam("members_idx")String id) {
+			int result = membersService.deleteMembers(id);
+			if (result>0) {
+				return "index";
+			}else {
+				return "redirect:home.do";
+			}
+		}
 		
 		
 		
