@@ -8,6 +8,6 @@
 </head>
 <body>
 	<jsp:include page="menubar.jsp"/>
-	<h1 align="center">${ msg }</h1>
+	<h1 align="center">${message}</h1>
 </body>
 </html>
