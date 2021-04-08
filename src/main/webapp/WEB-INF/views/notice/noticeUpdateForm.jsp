@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../common/menubar.jsp" />
+<c:import url="../header.jsp" />
 <hr>
 <h1 align="center">${ notice.nid } 번 공지글 수정 페이지</h1>
 <%-- form 에서 입력값들과 파일을 같이 전송하려면, 반드시 enctype="multipart/form-data"

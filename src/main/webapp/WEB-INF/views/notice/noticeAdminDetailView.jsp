@@ -10,7 +10,7 @@
 </head>
 <body>o
 <%-- 절대경로로 처리한 경우 --%>
-<c:import url="/WEB-INF/views/common/menubar.jsp" />                              
+<c:import url="../header.jsp" />                    
 <HR>
 <h2 align="center">${notice.nid } 번 공지 상세보기</h2>
 <br>
