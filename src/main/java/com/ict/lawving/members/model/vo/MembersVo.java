@@ -43,6 +43,8 @@ public class MembersVo {
 		this.members_email = members_email;
 	}
 
+
+
 	public String getMembers_birth() {
 		return members_birth;
 	}

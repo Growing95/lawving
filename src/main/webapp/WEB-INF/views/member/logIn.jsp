@@ -9,10 +9,15 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp" />
+	<c:if test="${!empty msg }">
+	<script type="text/javascript">
+	alert(${msg});
+	</script>
+	</c:if>
 
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 
-	<h1 align="center">로그인</h1>
+	<h1 align="center">LOGIN</h1>
 	<br>
 	<br>
 	<br>

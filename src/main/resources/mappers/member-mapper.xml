@@ -19,9 +19,9 @@
 	<select id="memberslist" parameterType="Map" resultType="MembersVo">
 		select * from (
 			select rownum r_num, a.* from (
-				select * from members order by members_idx desc
+				select * from members where members_lev= 1 order by members_idx desc
 			) a
-		) where r_num between #{begin} and #{end}
+		) where r_num between #{begin} and #{end} 
 	</select>
 	<select id="selectCheckId" parameterType="string" resultType="_int">
 		select count(members_id) from members where members_id=#{id}
@@ -33,7 +33,15 @@
 	
 	<select id="selectlogin" parameterType="String" resultType="MembersVo">
 		select * from members where members_id=#{members_id}
-	</select> 
+	</select>
+	<update id="updateMember" parameterType="MembersVo">
+		update members SET members_email=#{members_email},members_birth=#{members_birth},members_tel=#{members_tel}where members_id=#{members_id} 
+	</update> 
+	
+	<delete id="delete_member" parameterType="String">
+	delete from members where members_idx=#{members_idx}
+
+	</delete>
 </mapper>
 
 

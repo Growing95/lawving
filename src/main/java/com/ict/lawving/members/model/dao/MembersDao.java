@@ -32,7 +32,7 @@ public class MembersDao {
 	}
 	public int getCount() {
 		int result =0;
-		result=sqlSession.selectOne("count");
+		result=sqlSession.selectOne("memberMapper.count");
 		return result;
 	}
 	public List<MembersVo> getList(int begin, int end) {
@@ -40,8 +40,15 @@ public class MembersDao {
 		Map<String, Integer> map=new HashMap<String, Integer>();
 		map.put("begin", begin);
 		map.put("end", end);
-		memberslist=sqlSession.selectList("memberslist",map);
+		memberslist=sqlSession.selectList("memberMapper.memberslist",map);
 		return memberslist;
+	}
+	public int updateMember(MembersVo m) {
+
+		return sqlSession.update("updateMember",m);
+	}
+	public int deleteMember(String id) {
+		return sqlSession.delete("delete_member",id);
 	}
 
 }

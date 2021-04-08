@@ -1,5 +1,10 @@
 package com.ict.lawving.repot.model.service;
 
-public interface RepotService {
+import java.util.List;
 
+import com.ict.lawving.repot.model.vo.RepotVo;
+
+public interface RepotService {
+	int getTotalCount();
+	List<RepotVo> getList(int begin, int end);
 }

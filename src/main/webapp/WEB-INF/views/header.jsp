@@ -65,6 +65,7 @@ article {
 </style>
 </head>
 <body>
+
 	<header>
 		<center>
 			<a href="home.do"><img alt="logo"
@@ -101,6 +102,7 @@ article {
 		<li><a href="#">자료실</a></li>
 		<li><a href="#">Q&A</a></li>
 		<li><a href="#">챗봇테스트</a></li>
+
 
 	</ul>
 	<br>

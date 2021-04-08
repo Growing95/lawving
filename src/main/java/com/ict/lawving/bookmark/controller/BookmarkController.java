@@ -12,10 +12,6 @@ public class BookmarkController {
 	@Autowired
 	private BookmarkService bookmarkService;
 	
-	@RequestMapping("list_mypage.do")
-	public String select_mypageMethod() {
-		
-		return "mypage/mypage";
-	}
+	
 	
 }

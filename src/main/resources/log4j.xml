@@ -11,13 +11,19 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-
-	<appender name="sqlLogger"
-		class="org.apache.log4j.ConsoleAppender">
+	<!-- log4jdbc-remix 로그 출력 appender 추가 -->
+	<appender name="sqlLogger" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %m%n" />
 		</layout>
 	</appender>
+	
+	<appender name="sqlLogger" class="org.apache.log4j.ConsoleAppender">
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%-5p: %m%n" />
+      </layout>
+   </appender>
+	
 
 	<!-- Application Loggers -->
 	<logger name="com.ict.lawving">
@@ -27,12 +33,12 @@
 	<!-- Query Loggers -->
 	<logger name="jdbc.sqlonly" additivity="false">
 		<level value="info" />
-		<appender-ref ref="sqlLogger" />
+		<appender-ref ref="sqlLogger"/>
 	</logger>
-
+	
 	<logger name="jdbc.resultsettable" additivity="false">
 		<level value="info" />
-		<appender-ref ref="sqlLogger" />
+		<appender-ref ref="sqlLogger"/>
 	</logger>
 
 	<!-- 3rdparty Loggers -->

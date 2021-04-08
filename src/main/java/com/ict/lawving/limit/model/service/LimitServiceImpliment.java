@@ -1,32 +1,23 @@
 package com.ict.lawving.limit.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.lawving.common.Paging;
 import com.ict.lawving.limit.model.dao.LimitDao;
 import com.ict.lawving.limit.model.vo.LimitVo;
 
-@Service("limitServiceImpl")
+@Service("limitService")
 public class LimitServiceImpliment implements LimitService{
 	@Autowired
 	private LimitDao limitDao;
+	@Autowired
+	private Paging paging;
 	
 	
-	
-	@Override
-	public ArrayList<LimitVo> selectLimitList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<LimitVo> selectBlackList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public int insertLimitMember(int members_idx) {
 		// TODO Auto-generated method stub
@@ -62,5 +53,27 @@ public class LimitServiceImpliment implements LimitService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int getTotalCount() {
+		return limitDao.getCount();
+	}
+
+	@Override
+	public List<LimitVo> getList(int begin, int end) {
+		return limitDao.getList(paging.getBegin(),paging.getEnd());
+	}
+
+	@Override
+	public List<LimitVo> getBlackList(int begin, int end) {
+		return limitDao.getBlackList(paging.getBegin(),paging.getEnd());
+	}
+
+	@Override
+	public int getTotalBlackCount() {
+		return limitDao.getBlackCount();
+	}
+
+
 
 }
