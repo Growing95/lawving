@@ -30,6 +30,7 @@ color: white;
 #m4:hover{background-color: white; color: black;}
 /* 테이블 */
 .tab{background-color: white; width: 600px; height: 500px; margin: auto; border-radius: 20px; }
+.tab table th, .tab table td {text-align: center;border: 1px solid black;padding: 4px 10px;}
 
 /* 북마크테이블 */
 .bookmark{background-color: white; width: 600px; height: 500px; margin: auto; border-radius: 20px;border-collapse: collapse; }
@@ -45,6 +46,13 @@ caption{font-weight: bold; color: white; font-size: 40px;}
 article{height: 0 auto; background-color: #85929E;
  border-radius: 20px;
 }
+/* paging 영역*/
+table tfoot ol.paging {list-style: none;}
+table tfoot ol.paging li {float: left;margin-right: 8px;}
+table tfoot ol.paging li a {display: block;padding: 3px 7px;border: 1px solid #00B3DC;color: #2f313e;font-weight: bold;}
+table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: bold;}
+.disable {padding: 3px 7px;border: 1px solid silver;color: silver;}
+.now {	padding: 3px 7px;border: 1px solid #ff4aa5;background: #ff4aa5;color: white;font-weight: bold;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -75,7 +83,8 @@ $(function() {
 		$('.menu2').css('display','none');
 	    $('.menu3').css('display','none');
 	    $('.menu4').css('display','none');
-	});
+  	});
+	
 })
 </script>
 <script type="text/javascript">
@@ -102,7 +111,8 @@ function checkAll() {
 	<!-- 회원정보 -->
 	<div class="menu1" style="display: block;">
 	<table class="tab">
-		<thead>
+		<div ></div>
+		 <thead>
 			<tr>
 				<th>번호</th>
 				<th>아이디</th>
@@ -144,7 +154,7 @@ function checkAll() {
 							<!-- 블록안에 들어간 페이지번호들 -->
 							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
 								step="1" var="k">
-								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
+								<!-- 현재 페이지와 현재 페이지가 아니것으로 구분 -->
 								<c:choose>
 									<c:when test="${k==paging.nowPage }">
 										<li class="now">${k}</li>
@@ -170,35 +180,14 @@ function checkAll() {
 			</tfoot>
 	</table>
 	</div>
-	<!-- 사용제한회원 -->
-	<div class="menu2" style="display: none;">
-	<table class="tab" >
-	<caption>Set Information</caption>
-	<tbody>
-	 <c:choose>
-	<c:when test="${!empty members}">
-	<tr><td colspan="2">회원정보없음</td></tr>
-	</c:when>
-	<c:otherwise>
-	<tr><td>이름 :</td><td><input type="text" disabled value="${members.members_name}" ></td></tr>
-	<tr><td>ID :</td><td><input type="text" disabled value="${members.members_id }"></td></tr>
-	<tr><td>Email :</td><td><input type="text" id="members_email" value="${members.members_email }"></td></tr>
-	<tr><td>생년월일</td><td><input type="text" id="members_birth" value="${members.members_birth}"></td></tr>
-	<tr><td>휴대전화</td><td><input type="text" id="members_tel" value="${members.members_tel }" ></td></tr>
-	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; background-color:#85929E; color: white;
-	 font-weight: bold;border-radius: 40px;">수정하기</button></td></tr>
-	 </c:otherwise>
-	</c:choose>
-	</tbody>
-	</table>
-	</div>
+	
 	<!-- 신고접수 -->
 	<div class="menu3" style="display: none;">
 	<table class="bookmark">
 	<caption>MY BOOKMARK</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty bookmark}">
+	<c:when test="${empty bookmark}">
 	<tr><td colspan="2">북마크정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
@@ -221,7 +210,7 @@ function checkAll() {
 	<caption>MY BOOKMARK</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty bookmark}">
+	<c:when test="${empty bookmark}">
 	<tr><td colspan="2">북마크정보없음</td></tr>
 	</c:when>
 	<c:otherwise>

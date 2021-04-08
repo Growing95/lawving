@@ -7,11 +7,13 @@
 	<typeAliases>
 	<typeAlias type="com.ict.lawving.qna.model.vo.QnaVo" alias="qna"/>
 	<typeAlias type="com.ict.lawving.members.model.vo.MembersVo" alias="MembersVo"/>
+	<typeAlias type="com.ict.lawving.limit.model.vo.LimitVo" alias="LimitVo"/>
 </typeAliases>
 
 <mappers>
 	<mapper resource="mappers/member-mapper.xml"></mapper>
 	<mapper resource="mappers/bookmark-mapper.xml"></mapper>
 	<mapper resource="mappers/qna-mapper.xml"></mapper>
+	<mapper resource="mappers/limit-mapper.xml"></mapper>
 </mappers>
 </configuration>
