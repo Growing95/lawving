@@ -43,7 +43,7 @@ border-top: 1px solid black;
 width: 600px;
 height: auto;
 margin: auto;}
-caption{font-weight: bold; color: white; font-size: 40px;}
+caption{font-weight: bold; color: white; font-size: 40px;margin:left;}
 article{height: 0 auto; background-color: #85929E;
  border-radius: 20px;
 }
@@ -57,36 +57,36 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-/* 툴팁메뉴버튼 제이쿼리는 추후 버튼누를시 정보 불러오기때문에 ajax로 변경해야함 */
-$(function() {
-	$(document).on('click','#m4',function() {
-		$('.menu1').css('display','none');
-	    $('.menu2').css('display','none');
-	    $('.menu3').css('display','none');
-	    $('.menu4').css('display','');
-	    
+/* $(function() {
+	$("#searchLibrary").click(function() {
+		$("#librarylist").empty();
+		$ajax({
+			url:"libraryList.do",
+			method:"get",
+			dataType:"text",
+			success: function(data) {
+				var table="<table>";
+				table +="<thead>";
+				table +="<tr><th>No.</th><th>카테고리</th><th>제목</th><th>작성자</th><th>작성일</th></tr>";
+				table +="</thead>";
+				table +="<tbody>";
+				$(data).each(function() {
+					table +="<tr>";
+					table +="<td>"+${data.library_idx}+"</td>";
+					table +="<td>"+${data.library_category}+"</td>";
+					table +="<td>"+${data.library_title}+"</td>";
+					table +="<td>"+${data.library_writer}+"</td>";
+					table +="<td>"+${data.library_reg}+"</td>";
+					table +="</tr>";
+				});
+				table +="</tbody>";
+				table +="</table>";
+				$("#librarylist").append(table);				
+			},
+		});
 	});
-	$(document).on('click','#m3',function() {
-		$('.menu1').css('display','none');
-	    $('.menu2').css('display','none');
-	    $('.menu3').css('display','');
-	    $('.menu4').css('display','none');
-	    
-	});
-	$(document).on('click','#m2',function() {
-		$('.menu1').css('display','none');
-	    $('.menu2').css('display','');
-	    $('.menu3').css('display','none');
-	    $('.menu4').css('display','none');
-	});
-	$(document).on('click','#m1',function() {
-	    $('.menu1').css('display','');
-		$('.menu2').css('display','none');
-	    $('.menu3').css('display','none');
-	    $('.menu4').css('display','none');
-  	});
-	
 })
+ */
 </script>
 <script type="text/javascript">
 function checkAll() {
@@ -101,37 +101,48 @@ function checkAll() {
 <c:import url="/WEB-INF/views/header.jsp" />
 <article>
 <div id="box">
-	<!-- 오른쪽툴팁메뉴 -->
-	<ul id="ltoolmenu">
-	<li><button id="m1"><a href="memberslist.do" style="width: 200px; border: 1px soild purple;" >회원정보</a></button></li>
-	<li><button id="m2"><a href="blacklist.do" >사용제한회원</a></button></li>
-	<li><button id="m3"><a href="repotlist.do" >신고접수</a></button></li>
-	<li><button id="m4"><a href="limitlist.do" >제제회원</a></button></li>
-	</ul>
-	<!-- 회원정보 -->
+	<!-- 자료실 목록 -->
 	<div class="menu1" style="display: block;">
+	<form action="searchLibraryList.do">
 	<table class="tab">
+	<select>
+		<option>최신순</option>
+		<option>오래된순</option>
+		<option>내용</option>
+	</select>
+	<input type="text">
+	<input type="submit" id="searchLibrary">검색</button>
 		<thead>
 			<tr>
-				<th>번호</th>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>가입날짜</th>
+				<th>No.</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
 			</tr>
 		</thead>
-	<caption>회원 정보</caption>
+	<caption>자료실</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${empty memberslist}">
-	<tr><td colspan="4">회원정보없음</td></tr>
+	<c:when test="${empty search_keyword}">
+	<c:forEach var="k" items="${librarylist }" varStatus="vs">
+		<tr>
+			<td>${k.library_idx }</td>
+			<td>${k.library_category }</td>
+			<td>${k.library_title }</td>
+			<td>${k.library_writer }</td>
+			<td>${k.library_reg }</td>
+		</tr>
+		</c:forEach>
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="k" items="${memberslist }" varStatus="vs">
+		<c:forEach var="k" items="${librarylist }" varStatus="vs">
 		<tr>
-			<td>${k.members_idx }</td>
-			<td>${k.members_id }</td>
-			<td>${k.members_name }</td>
-			<td>${k.members_reg }</td>
+			<td>${k.library_idx }</td>
+			<td>${k.library_category }</td>
+			<td>${k.library_title }</td>
+			<td>${k.library_writer }</td>
+			<td>${k.library_reg }</td>
 		</tr>
 		</c:forEach>
 	</c:otherwise>
@@ -147,7 +158,7 @@ function checkAll() {
 							<li class="disable">이전으로</li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="memberslist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+							<li><a href="go_library.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
 								</c:otherwise>
 							</c:choose>
 							<!-- 블록안에 들어간 페이지번호들 -->
@@ -159,7 +170,7 @@ function checkAll() {
 										<li class="now">${k}</li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="memberslist.do?cPage=${k}">${k}</a></li>
+										<li><a href="go_library.do?cPage=${k}">${k}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -170,7 +181,7 @@ function checkAll() {
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="memberslist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+										href="go_library.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ol>
@@ -178,6 +189,7 @@ function checkAll() {
 				</tr>
 			</tfoot>
 	</table>
+	</form>
 	</div>
 </div>
 <br><br><br><br>

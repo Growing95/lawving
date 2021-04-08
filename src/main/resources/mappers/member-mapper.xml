@@ -19,9 +19,9 @@
 	<select id="memberslist" parameterType="Map" resultType="MembersVo">
 		select * from (
 			select rownum r_num, a.* from (
-				select * from members order by members_idx desc
+				select * from members where members_lev= 1 order by members_idx desc
 			) a
-		) where r_num between #{begin} and #{end}
+		) where r_num between #{begin} and #{end} 
 	</select>
 	<select id="selectCheckId" parameterType="string" resultType="_int">
 		select count(members_id) from members where members_id=#{id}

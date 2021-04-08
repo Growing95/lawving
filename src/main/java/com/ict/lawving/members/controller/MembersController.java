@@ -205,7 +205,6 @@ public class MembersController {
 				// 1. 전체 게시물의 수 
 				int count= membersService.getTotalCount();
 				paging.setTotalRecord(count);
-				
 				// 2. 전체 페이지의 수
 				if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 					paging.setTotalPage(1);
@@ -238,6 +237,7 @@ public class MembersController {
 				mv.addObject("memberslist", memberslist);
 				mv.addObject("paging", paging);
 			} catch (Exception e) {
+				System.out.println(e);
 			}
 			return mv;
 		}
