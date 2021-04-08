@@ -43,7 +43,7 @@ $(function(){
 			method:"get",
 			dataType:"xml",
 			beforeSend: function () {
-				FunLoadingBarStart(); //로딩바 생성
+				FunLoadingBarStart(); //로딩바 생성펑션
 				},
 			complete: function () {
 				FunLoadingBarEnd(); //로딩바 제거
