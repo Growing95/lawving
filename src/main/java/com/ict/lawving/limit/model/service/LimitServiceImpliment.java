@@ -64,6 +64,16 @@ public class LimitServiceImpliment implements LimitService{
 		return limitDao.getList(paging.getBegin(),paging.getEnd());
 	}
 
+	@Override
+	public List<LimitVo> getBlackList(int begin, int end) {
+		return limitDao.getBlackList(paging.getBegin(),paging.getEnd());
+	}
+
+	@Override
+	public int getTotalBlackCount() {
+		return limitDao.getBlackCount();
+	}
+
 
 
 }

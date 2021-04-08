@@ -8,6 +8,8 @@
 	<typeAlias type="com.ict.lawving.qna.model.vo.QnaVo" alias="qna"/>
 	<typeAlias type="com.ict.lawving.members.model.vo.MembersVo" alias="MembersVo"/>
 	<typeAlias type="com.ict.lawving.limit.model.vo.LimitVo" alias="LimitVo"/>
+	<typeAlias type="com.ict.lawving.repot.model.vo.RepotVo" alias="RepotVo"/>
+	<typeAlias type="com.ict.lawving.library.model.vo.LibraryVo" alias="LibraryVo"/>
 </typeAliases>
 
 <mappers>
@@ -15,5 +17,7 @@
 	<mapper resource="mappers/bookmark-mapper.xml"></mapper>
 	<mapper resource="mappers/qna-mapper.xml"></mapper>
 	<mapper resource="mappers/limit-mapper.xml"></mapper>
+	<mapper resource="mappers/repot-mapper.xml"></mapper>
+	<mapper resource="mappers/library-mapper.xml"></mapper>
 </mappers>
 </configuration>

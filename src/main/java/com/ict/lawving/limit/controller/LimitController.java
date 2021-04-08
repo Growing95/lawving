@@ -27,8 +27,8 @@ public class LimitController {
 	private Logger logger= LoggerFactory.getLogger(LimitController.class);
 	
 	@RequestMapping("limitlist.do")
-	public ModelAndView memberListMethod(HttpServletRequest request) {
-		ModelAndView mv= new ModelAndView("admin/adminPage");
+	public ModelAndView limitListMethod(HttpServletRequest request) {
+		ModelAndView mv= new ModelAndView("admin/limitlist");
 		try {
 			// 1. 전체 게시물의 수 
 			int count= limitService.getTotalCount();
@@ -69,5 +69,48 @@ public class LimitController {
 		}
 		return mv;
 	}
-	
+	@RequestMapping("blacklist.do")
+	public ModelAndView blackListMethod(HttpServletRequest request) {
+		ModelAndView mv= new ModelAndView("admin/blacklist");
+		try {
+			// 1. 전체 게시물의 수 
+			int count= limitService.getTotalBlackCount();
+			System.out.println(count);
+			paging.setTotalRecord(count);
+			
+			// 2. 전체 페이지의 수
+			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+				paging.setTotalPage(1);
+			}else {
+				paging.setTotalPage(paging.getTotalRecord()/paging.getNumPerPage());
+				if (paging.getTotalRecord()%paging.getNumPerPage() != 0) {
+					paging.setTotalPage(paging.getTotalPage()+1);
+				}
+			}
+			
+			// 3. 현재 페이지
+			String cPage= request.getParameter("cPage");
+			if (cPage == null) {
+				paging.setNowPage(1);
+			}else {
+				paging.setNowPage(Integer.parseInt(cPage));
+			}
+			
+			// 4. 시작번호, 끝번호
+			paging.setBegin((paging.getNowPage()-1)*paging.getNumPerPage()+1);
+			paging.setEnd( (paging.getBegin()-1)+paging.getNumPerPage() );
+			// 5. 시작블록, 끝블록
+			paging.setBeginBlock( (int)((paging.getNowPage()-1)/paging.getPagePerBlock())*paging.getPagePerBlock() +1);
+			paging.setEndBlock((paging.getBeginBlock()+paging.getPagePerBlock()-1));
+			// 6. 주의사항(endBlock이 totalPage보다 클 수가 있다.)
+			if (paging.getEndBlock() > paging.getTotalPage()) {
+				paging.setEndBlock(paging.getTotalPage());
+			}
+			List<LimitVo> blacklist=limitService.getBlackList(paging.getBegin(),paging.getEnd());
+			mv.addObject("blacklist", blacklist);
+			mv.addObject("paging", paging);
+		} catch (Exception e) {
+		}
+		return mv;
+	}
 }

@@ -22,14 +22,29 @@ public class LimitDao {
 		Map<String, Integer> map=new HashMap<String, Integer>();
 		map.put("begin", begin);
 		map.put("end", end);
-		limitlist=sqlSession.selectList("limitlist",map);
+		limitlist=sqlSession.selectList("limitMapper.limitlist",map);
 		return limitlist;
 	}
 
 	public int getCount() {
 		int result =0;
-		result=sqlSession.selectOne("count");
+		result=sqlSession.selectOne("limitMapper.limitcount");
 		return result;
+	}
+
+	public int getBlackCount() {
+		int result =0;
+		result=sqlSession.selectOne("limitMapper.blackcount");
+		System.out.println(result);
+		return result;
+	}
+	public List<LimitVo> getBlackList(int begin, int end) {
+		List<LimitVo> blacklist=null;
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("begin", begin);
+		map.put("end", end);
+		blacklist=sqlSession.selectList("limitMapper.blacklist",map);
+		return blacklist;
 	}
 
 }
