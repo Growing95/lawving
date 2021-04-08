@@ -192,12 +192,8 @@ public class LibraryController {
 			}
 			return null;
 		}
-			
-			
-			/*
-		 * int result = libraryService.insertLibrary(library); if (result>0) { return
-		 * "library/libraryListView"; }else { return "common/errorPage"; }
-		 */
+					
+		
 		}
 	
 	
