@@ -1,5 +1,6 @@
 package com.ict.lawving.library.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
@@ -115,7 +117,7 @@ public class LibraryController {
 		}
 		ArrayList<LibraryVo> list = null;
 		switch (searchObject.getCategory()) {
-		case "notice_title":
+		case "library_title":
 			switch (searchObject.getOrder()) {
 			case "desc":
 				list = libraryService.selectSearchTitleDesc(searchObject, paging.getBegin(), paging.getEnd());
@@ -127,7 +129,7 @@ public class LibraryController {
 			}
 			break;
 
-		case "notice_content":
+		case "library_content":
 			switch (searchObject.getOrder()) {
 			case "desc":
 				list = libraryService.selectSearchContentDesc(searchObject, paging.getBegin(), paging.getEnd());
@@ -152,7 +154,7 @@ public class LibraryController {
 	// 상세보기
 
 		@RequestMapping(value = "onelist_library.do", method = RequestMethod.GET)
-		public String selectNoticeOnelistMethod(@RequestParam("library_idx") int library_idx, Model model,
+		public String selectlibraryOnelistMethod(@RequestParam("library_idx") int library_idx, Model model,
 				HttpSession session) {
 			LibraryVo lvo = libraryService.selectOneList(library_idx);
 			session.setAttribute("lvo", lvo);
@@ -160,13 +162,40 @@ public class LibraryController {
 
 		}
 
-		// 공지사항 글쓰기(관리자)
+		// 자료실 글쓰기 페이지 이동(관리자)
 		@RequestMapping("library_write.do")
-		public String insertNoticeMethod() {
+		public String insertLibraryMethod() {
 			return "library/libraryWriteForm";
 
+		}
+		// 자료실 글쓰기(관리자)
+		@RequestMapping("insert_library.do")
+		public ModelAndView insertLibraryMethod(LibraryVo library, HttpServletRequest request) {
+			logger.info("insert_library.do"+library);
+			try {
+				String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+				MultipartFile file = library.getFile();
+				if (file.isEmpty()) {
+					library.setLibrary_refile_name("");
+				}else {
+					library.setLibrary_refile_name(file.getOriginalFilename());
+					file.transferTo(new File(path+"/"+library.getLibrary_refile_name()));
+				}
+				
+				int result=libraryService.insertLibrary(library);
+				if (result>0) {
+					return new ModelAndView("redirect:llist.do");
+				}else {
+					return new ModelAndView("common/errorPage");
+				}
+			} catch (Exception e) {
+			}
+			return null;
+		}
+					
+		
 		}
 	
 	
 	
-}
+
