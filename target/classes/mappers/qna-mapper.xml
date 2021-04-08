@@ -6,6 +6,7 @@
 	<select id="list" resultType="qna">
 		SELECT * FROM QNA ORDER BY qna_reg DESC
 	</select>
+<!-- 
 	<select id="searchDesc" resultType="qna" parameterType="String">
 		SELECT * FROM QNA 
 		WHERE	qna_title	LIKE '%#{keyword}%' 
@@ -31,6 +32,7 @@
 		ORDER BY qna_reg DESC
 	</select>
 	<select id="onelist" resultType="qna" parameterType="Number">
-		SELECT * FROM QNA WHERE qna_idx = #{};
+		SELECT * FROM QNA WHERE qna_idx = #{qna_idx};
 	</select>
+ -->
 </mapper>
