@@ -88,6 +88,10 @@
 	<select id="selectLibrary" parameterType="int" resultType="LibraryVo">
 		select * from library where library_idx = #{ library_idx }
 	</select>
+	
+	<insert id="insertlibrary" parameterType="LibraryVo">
+		insert into Library values(library_seq.nextval,#{library_idx},#{members_idx},#{library_category},#{library_title},#{library_writer},#{library_content},#{library_file_name},#{library_refile_name},sysdate)
+	</insert>
 </mapper>
 
 

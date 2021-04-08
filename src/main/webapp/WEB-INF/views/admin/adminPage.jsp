@@ -129,7 +129,10 @@ function checkAll() {
 		<c:forEach var="k" items="${memberslist }" varStatus="vs">
 		<tr>
 			<td>${k.members_idx }</td>
-			<td>${k.members_id }</td>
+			<c:url value="/membersonelist.do" var="mol">
+				<c:param name="members_idx" value="${k.members_idx}" />
+			</c:url>
+			<td><a href="${mol }">${k.members_id }</a></td>
 			<td>${k.members_name }</td>
 			<td>${k.members_reg }</td>
 		</tr>

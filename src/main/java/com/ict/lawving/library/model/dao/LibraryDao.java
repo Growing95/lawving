@@ -91,8 +91,7 @@ public class LibraryDao {
 	public LibraryVo selectOneList(int library_idx) {
 		return sqlSession.selectOne("libraryMapper.selectLibrary", library_idx);
 	}
-
-	public int insertnotice(LibraryVo library) {
+	public int insertlibrary(LibraryVo library) {
 		int result = 0;
 		result = sqlSession.insert("libraryMapper.insertlibrary", library);
 		return result;
