@@ -3,8 +3,15 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnaMapper"> 
-	<select id="list" resultType="qna">
-		SELECT * FROM QNA ORDER BY qna_reg DESC
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM QNA
+	</select>
+	<select id="list" resultType="qna" parameterType="Map">
+		SELECT * FROM (
+			SELECT ROWNUM r_num, a.* FROM (
+				SELECT * FROM QNA ORDER BY qna_reg DESC
+			) a
+		) WHERE r_num BETWEEN #{begin} AND #{end}
 	</select>
 <!-- 
 	<select id="searchDesc" resultType="qna" parameterType="String">
