@@ -1,21 +1,52 @@
 package com.ict.lawving.library.model.vo;
 
-public class LibraryVo {
-	private String library_idx,members_idx,library_category,library_title,library_writer,library_content,library_file_name,library_refile_name,library_reg;
+import java.sql.Date;
 
-	public String getLibrary_idx() {
+import org.springframework.web.multipart.MultipartFile;
+
+public class LibraryVo {
+	private int library_idx;
+	private int members_idx;
+	private String library_category;
+	private String library_title;
+	private String library_writer;
+	private String library_content;
+	private String library_file_name;
+	private String library_refile_name;
+	private MultipartFile file;
+	private Date library_reg;
+	
+	public LibraryVo() {}
+
+	public LibraryVo(int library_idx, int members_idx, String library_category, String library_title,
+			String library_writer, String library_content, String library_file_name, String library_refile_name,
+			MultipartFile file, Date library_reg) {
+		super();
+		this.library_idx = library_idx;
+		this.members_idx = members_idx;
+		this.library_category = library_category;
+		this.library_title = library_title;
+		this.library_writer = library_writer;
+		this.library_content = library_content;
+		this.library_file_name = library_file_name;
+		this.library_refile_name = library_refile_name;
+		this.file = file;
+		this.library_reg = library_reg;
+	}
+
+	public int getLibrary_idx() {
 		return library_idx;
 	}
 
-	public void setLibrary_idx(String library_idx) {
+	public void setLibrary_idx(int library_idx) {
 		this.library_idx = library_idx;
 	}
 
-	public String getMembers_idx() {
+	public int getMembers_idx() {
 		return members_idx;
 	}
 
-	public void setMembers_idx(String members_idx) {
+	public void setMembers_idx(int members_idx) {
 		this.members_idx = members_idx;
 	}
 
@@ -67,12 +98,21 @@ public class LibraryVo {
 		this.library_refile_name = library_refile_name;
 	}
 
-	public String getLibrary_reg() {
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public Date getLibrary_reg() {
 		return library_reg;
 	}
 
-	public void setLibrary_reg(String library_reg) {
+	public void setLibrary_reg(Date library_reg) {
 		this.library_reg = library_reg;
 	}
+	
 	
 }

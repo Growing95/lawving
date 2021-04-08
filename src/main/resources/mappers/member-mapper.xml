@@ -42,6 +42,9 @@
 	delete from members where members_idx=#{members_idx}
 
 	</delete>
+	<select id="selectonemember" parameterType="int" resultType="MembersVo">
+	select * from members where members_idx=#{members_idx}
+	</select>
 </mapper>
 
 

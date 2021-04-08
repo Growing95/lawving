@@ -56,6 +56,11 @@ public class MembersServiceImpliment implements MembersService{
 		return membersdao.deleteMember(id);
 	}
 
+	@Override
+	public MembersVo selectOneList(int members_idx) {
+		return membersdao.selectmemberonelist(members_idx);
+	}
+
 
 	
 

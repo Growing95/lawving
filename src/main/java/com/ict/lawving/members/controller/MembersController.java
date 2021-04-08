@@ -241,6 +241,21 @@ public class MembersController {
 			}
 			return mv;
 		}
+		@RequestMapping("membersonelist.do")
+		public ModelAndView selectMembersOnelistMethod(@RequestParam("members_idx") int members_idx, Model model) {
+			ModelAndView mv = new ModelAndView("admin/membersOneList");
+			MembersVo mvo=membersService.selectOneList(members_idx);
+			mv.addObject("mvo",mvo);
+			return mv;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		//마이페이지 이동
 		@RequestMapping("list_mypage.do")
 		public String select_mypageMethod() {
