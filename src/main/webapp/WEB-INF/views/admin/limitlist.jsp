@@ -178,14 +178,7 @@ function checkAll() {
 			</tfoot>
 	</table>
 	</div>
-	<!-- 사용제한회원 -->
-	
-	<!-- 신고접수 -->
-	
-	<!-- 제제회원 -->
-	
 </div>
-<br><br><br><br>
 </article>
 </body>
 </html>
