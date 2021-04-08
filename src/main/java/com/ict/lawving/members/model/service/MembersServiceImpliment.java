@@ -44,6 +44,18 @@ public class MembersServiceImpliment implements MembersService{
 		return membersdao.getList(paging.getBegin(),paging.getEnd());
 	}
 
+	@Override
+	public int updateMember(MembersVo m) {
+		
+		return membersdao.updateMember(m);
+	}
+
+	@Override
+	public int deleteMembers(String id) {
+
+		return membersdao.deleteMember(id);
+	}
+
 
 	
 

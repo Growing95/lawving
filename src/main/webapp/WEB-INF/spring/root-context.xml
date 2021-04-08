@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 1. DataSource 등록 -->
+
 	<bean id="realdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
@@ -24,7 +25,6 @@
          </bean>
       </property>
    </bean>
-   
 	<!-- 2. Spring 과 MyBatis 연동 처리 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation"

@@ -11,13 +11,13 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-
-	<appender name="sqlLogger"
-		class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %m%n" />
-		</layout>
-	</appender>
+	
+	<appender name="sqlLogger" class="org.apache.log4j.ConsoleAppender">
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%-5p: %m%n" />
+      </layout>
+   </appender>
+	
 
 	<!-- Application Loggers -->
 	<logger name="com.ict.lawving">
@@ -34,6 +34,7 @@
 		<level value="info" />
 		<appender-ref ref="sqlLogger" />
 	</logger>
+
 
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
