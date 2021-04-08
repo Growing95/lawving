@@ -13,10 +13,16 @@ public class QnaServiceImpliment implements QnaService {
 	@Autowired
 	private QnaDao qnaDao;
 
+//	QNA 목록 조회하기 : 전체 게시물 수 구하기
+	@Override
+	public int getTotalCount() {
+		return qnaDao.getCount();
+	}
+	
 //	QNA 목록 조회하기
 	@Override
-	public ArrayList<QnaVo> selectQuestionList() {
-		return qnaDao.selectQuestionList();
+	public ArrayList<QnaVo> selectQuestionList(int begin, int end) {
+		return qnaDao.selectQuestionList(begin, end);
 	}
 
 //	QNA 검색

@@ -1,7 +1,9 @@
 package com.ict.lawving.qna.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,19 @@ public class QnaDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+//	QNA 목록 조회하기 : 전체 게시물 수 구하기
+	public int getCount() {
+		int result = sqlSession.selectOne("qnaMapper.count");
+		return result;
+	}
+	
 //	QNA 목록 조회하기
-	public ArrayList<QnaVo> selectQuestionList() {
-		List<QnaVo> qnaList = sqlSession.selectList("qnaMapper.list");
+	public ArrayList<QnaVo> selectQuestionList(int begin, int end) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("begin", begin);
+		map.put("end", end);
+		List<QnaVo> qnaList = new ArrayList<QnaVo>();
+		qnaList = sqlSession.selectList("qnaMapper.list", map);
 		return (ArrayList<QnaVo>)qnaList;
 	}
 	
