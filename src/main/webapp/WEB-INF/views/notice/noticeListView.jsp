@@ -1,115 +1,128 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	showDiv();
-	
-	$("input[name=item]").on("change", function(){
-		showDiv();
-	});
-});
-
-function showDiv(){
-	if($("input[name=item]").eq(0).is(":checked")){
-		$("#titleDiv").css("display", "block");
-		$("#writerDiv").css("display", "none");
-		$("#dateDiv").css("display", "none");
-	}
-	
-	if($("input[name=item]").eq(1).is(":checked")){
-		$("#titleDiv").css("display", "none");
-		$("#writerDiv").css("display", "block");
-		$("#dateDiv").css("display", "none");
-	}
-	
-	if($("input[name=item]").eq(2).is(":checked")){
-		$("#titleDiv").css("display", "none");
-		$("#writerDiv").css("display", "none");
-		$("#dateDiv").css("display", "block");
-	}
-}
-</script>
+<script type="text/javascript"
+	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<%-- 상대경로로 대상 파일의 위치를 지정한 경우 --%>
-<c:import url="../common/menubar.jsp" />
-<%-- JSTL 에서는 절대경로 표기법이 달라짐 : /context-root명 ==> / 로 바뀜 
-     예 : "/first/common/menubar.jsp" ==> "/common/menubar.jsp" --%>
-<%-- <c:import url="/WEB-INF/views/common/menubar.jsp" /> --%>
-<hr>
-<h1 align="center">공지사항</h1>
-<br>
-<c:if test="${ !empty sessionScope.loginUser and sessionScope.loginUser.id eq 'admin' }">
-	<div style="align:center;padding-left:400px;">
-	<c:url var="nwf" value="/nwform.do" />
-	<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
+	<c:import url="../common/menubar.jsp" />
+	<hr>
+	<h1 align="center">공지사항</h1>
+	<br>
+	<c:if
+		test="${ !empty sessionScope.loginUser and sessionScope.loginUser.id eq 'admin' }">
+		<div style="align: center; padding-left: 400px;">
+			<c:url var="nwf" value="/notice_write.do" />
+			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
+		</div>
+	</c:if>
+	<br>
+	<!-- 검색기능 -->
+	<center>
+		<div>
+			<form action="nsearch.do" method="post">
+				<table>
+					<tr>
+						<td><select name="category">
+								<option value="notice_title" selected>제목</option>
+								<option value="notice_content">내용</option>
+						</select></td>
+						<td><select name="order">
+								<option value="desc" selected>최신순</option>
+								<option value="asc">오래된순</option>
+						</select></td>
+						<td><input type="text" name="keyword"></td>
+						<td><input type="submit" value="검색"></td>
+				</table>
+			</form>
+		</div>
+	</center>
+	<br>
+	<div style="align: center; padding-left: 400px;">
+		<c:url var="nlist" value="/nlist.do" />
 	</div>
-</c:if>
-<br>
-<%-- 검색기능 --%>
-<center>
-<div>
-	<h2>검색할 항목을 선택하시오.</h2>
-	<input type="radio" name="item" value="title" checked> 제목 &nbsp; &nbsp; &nbsp;
-	<input type="radio" name="item" value="writer"> 작성자 &nbsp; &nbsp; &nbsp;
-	<input type="radio" name="item" value="date"> 날짜
-</div>
-<div id="titleDiv">
-	<form action="nsearchTitle.do" method="post">
-	<label>검색할 제목을 입력하시오 : <input type="search" name="keyword"></label>
-	<input type="submit" value="검색">
-	</form>
-</div>
-<div id="writerDiv">
-	<form action="nsearchWriter.do" method="post">
-	<label>검색할 작성자 아이디를 입력하시오 : <input type="search" name="keyword"></label>
-	<input type="submit" value="검색">
-	</form>
-</div>
-<div id="dateDiv">
-	<form action="nsearchDate.do" method="post">
-	<label>검색할 날짜를 입력하시오 : 
-	<input type="date" name="begin"> ~ <input type="date" name="end"></label>
-	<input type="submit" value="검색">
-	</form>
-</div>
-</center>
-<br>
-<%-- 목록 출력 --%>
-<div style="align:center;padding-left:400px;">
-	<c:url var="nlist" value="/nlist.do" />
-	<button onclick="javascript:location.href='${ nlist }';">전체 목록 보기</button>
-</div>
-<br>
-<table align="center" width="500" border="1" cellspacing="0" cellpadding="1">
-<tr><th>번호</th><th>제목</th><th>작성자</th><th>첨부파일</th><th>날짜</th></tr>
-<c:forEach items="${ requestScope.list }" var="n">
-<tr>
-	<td align="center">${n.nid }</td>
-	<c:url value="/ndetail.do" var="und">
-		<c:param name="nid" value="${n.nid }" />
-	</c:url>
-	<td align="center"><a href="${und }">${n.ntitle }</a></td>
-	<td align="center">${n.nwriter }</td>
-	<td align="center">
-		<c:if test="${ !empty n.file_path }">◎</c:if>
-		<c:if test="${ empty n.file_path }">&nbsp;</c:if>
-	</td>
-	<td align="center">
-		<fmt:formatDate value="${n.n_create_date }" pattern="yyyy-MM-dd"/>
-	</td>
-</tr>
-</c:forEach>
-</table>
-     
+	<br>
+	<table align="center" width="500" border="1" cellspacing="0"
+		cellpadding="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>날짜</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${empty noticelist}">
+					<tr>
+						<td colspan="5"><h3>원하시는 자료는 존재하지 않습니다.</h3></td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${ requestScope.noticelist }" var="k">
+
+						<tr>
+							<td align="center">${k.notice_idx }</td>
+							<c:url value="/onelist_notice.do" var="und">
+								<c:param name="notice_idx" value="${k.notice_idx}" />
+							</c:url>
+							<td align="center"><a href="${und }">${k.notice_title }</a></td>
+							<td align="center">${k.notice_writer }</td>
+							<td align="center"><fmt:formatDate value="${k.notice_reg }"
+									pattern="yyyy-MM-dd" /></td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			<tfoot>
+		<tr>
+			<td colspan="4">
+				<ol class="paging">
+				<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
+							<li class="disable">이전으로</li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="list_notice.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+								</c:otherwise>
+							</c:choose>
+							<!-- 블록안에 들어간 페이지번호들 -->
+							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
+								step="1" var="k">
+								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
+								<c:choose>
+									<c:when test="${k==paging.nowPage }">
+										<li class="now">${k}</li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_notice.do?cPage=${k}">${k}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<!-- 다음 -->
+							<c:choose>
+								<c:when test="${paging.endBlock >= paging.totalPage }">
+									<li class="disable">다음으로!!!!!</li>
+								</c:when>
+								<c:otherwise>
+									<li><a
+										href="list_notice.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ol>
+					</td>
+				</tr>
+		</tbody>
+		</tfoot>
+	</table>
 </body>
 </html>
 

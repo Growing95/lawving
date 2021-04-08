@@ -2,6 +2,8 @@ package com.ict.lawving.qna.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,11 @@ public class UserQnaController {
 	
 //	QNA 목록 조회하기
 	@RequestMapping("list_qna.do")
-	public String selectQuestionListMethod() {
+	public String selectQuestionListMethod(
+			HttpServletRequest request) {
 		ArrayList<QnaVo> qnaList = new ArrayList<QnaVo>();
 		qnaList = qnaService.selectQuestionList();
+		request.setAttribute("qnaList", qnaList);
 		return "qna/qnaList";
 	}
 	
