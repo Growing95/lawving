@@ -20,13 +20,19 @@ function validate() {
 	//암호와 암호확인이 일치하는지 검사
 	var pwdValue = document.getElementById("userpwd").value;
 	var pwdValue2 = document.getElementById("userpwd2").value;
-	
+	var idcheck = document.getElementById("idcheck").value;
 	if (pwdValue !== pwdValue2) {
 		alert("암호와 암호확인의 입력값이 일치하지 않습니다.");
 		document.getElementById("userpwd2").select();
 		return false;//전송취소처리
 	}
+	if(idcheck==1){
 	return true; //전송 처리
+		
+	}else{
+		alert("아이디 중복확인이 필요합니다.");
+		return false;
+	}
 }
 //id중복확인용 함수
 function dupidCheck(){
@@ -40,9 +46,11 @@ function dupidCheck(){
 			if (data=="ok") {
 				$("#msg").append("<p style='color: lightgreen;'>사용가능 아이디입니다.</p>");
 				$("#userpwd").focus();
+				$('#idcheck').val('1');
 			}else{
 				$("#msg").append("<p style='color: red;'>사용중인 아이디입니다.</p>");
-				$("#userid").select();
+				$('#userid').val('');
+				$("#userid").focus();
 			}
 		},
 		error: function(jqXHR,textstatus,errorthrown) {
@@ -66,7 +74,9 @@ function dupidCheck(){
 	<div class="outer" align="center">
 		<form  action="anroll.do" method="post" onsubmit="return validate()">
 			<table width="500" cellspacing="5">
-				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크" onclick="return dupidCheck();"></td></tr>
+				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크"onclick="return dupidCheck();">
+				<input type="hidden" id="idcheck" value="0">
+				</td></tr>
 				<tr>
 					<td>* 이름</td>
 					<td><input type="text" name="members_name" required ></input></td>
@@ -90,7 +100,6 @@ function dupidCheck(){
 				<tr>
 					<td>전화번호</td>
 					<td><input type="tel" name="members_tel" id="members_tel"></td>
-					<td><input type="tel" name="members_tel" ></td>
 				</tr>
 				<!-- jQuery와 Postcodify를 로딩한다. -->
 				<tr>
@@ -104,7 +113,6 @@ function dupidCheck(){
 		</form>
 		<br>
 		<br>
-		<a href="home.do">시작 페이지로 이동</a>
 	</div>
 </body>
 </html>

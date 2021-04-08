@@ -11,5 +11,7 @@ public interface MembersService {
 	int selectCheckid(String id);
 	int getTotalCount();
 	List<MembersVo> getList(int begin, int end);
+	int updateMember(MembersVo m);
+	int deleteMembers(String id);
 
 }

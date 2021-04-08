@@ -33,7 +33,15 @@
 	
 	<select id="selectlogin" parameterType="String" resultType="MembersVo">
 		select * from members where members_id=#{members_id}
-	</select> 
+	</select>
+	<update id="updateMember" parameterType="MembersVo">
+		update members SET members_email=#{members_email},members_birth=#{members_birth},members_tel=#{members_tel}where members_id=#{members_id} 
+	</update> 
+	
+	<delete id="delete_member" parameterType="String">
+	delete from members where members_idx=#{members_idx}
+
+	</delete>
 </mapper>
 
 

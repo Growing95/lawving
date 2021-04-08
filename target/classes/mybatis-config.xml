@@ -8,6 +8,7 @@
 	<typeAlias type="com.ict.lawving.qna.model.vo.QnaVo" alias="qna"/>
 	<typeAlias type="com.ict.lawving.members.model.vo.MembersVo" alias="MembersVo"/>
 	<typeAlias type="com.ict.lawving.limit.model.vo.LimitVo" alias="LimitVo"/>
+	<typeAlias type="com.ict.lawving.notice.model.vo.NoticeVo" alias="NoticeVo"/>
 </typeAliases>
 
 <mappers>
@@ -15,5 +16,6 @@
 	<mapper resource="mappers/bookmark-mapper.xml"></mapper>
 	<mapper resource="mappers/qna-mapper.xml"></mapper>
 	<mapper resource="mappers/limit-mapper.xml"></mapper>
+  <mapper resource="mappers/notice-mapper.xml"></mapper>
 </mappers>
 </configuration>

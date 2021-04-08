@@ -69,8 +69,10 @@ ${loginMember.members_name }님|&nbsp;
 </c:choose>
 </div>
 </header>
+<c:url var="nlist" value="nlist.do" />		
 <ul id="toolmenu">
-<li><a href="#">공지사항</a></li>
+
+<li><a href="${ nlist }">공지사항</a></li>
 <li><a href="go_library.do">자료실</a></li>
 <li><a href="#">Q&A</a></li>
 <li><a href="#">챗봇테스트</a></li>

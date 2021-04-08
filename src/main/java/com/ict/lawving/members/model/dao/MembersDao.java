@@ -43,5 +43,12 @@ public class MembersDao {
 		memberslist=sqlSession.selectList("memberMapper.memberslist",map);
 		return memberslist;
 	}
+	public int updateMember(MembersVo m) {
+
+		return sqlSession.update("updateMember",m);
+	}
+	public int deleteMember(String id) {
+		return sqlSession.delete("delete_member",id);
+	}
 
 }

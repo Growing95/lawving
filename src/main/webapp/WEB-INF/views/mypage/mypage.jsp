@@ -132,7 +132,7 @@ function checkAll() {
 	<tr><td>휴대전화</td><td><input type="text" disabled value="${m.members_tel }"></td></tr>
 	<tr><td>가입날짜</td><td><input type="text" disabled value="${m.members_reg }"></td></tr>
 	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; 
-	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;">회원탈퇴</button></td></tr>
+	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;" onclick="location.href='delete_members.do?members_idx=${m.members_idx}'">회원탈퇴</button></td></tr>
 	 </c:otherwise>
 	</c:choose>
 	</tbody>
@@ -140,7 +140,7 @@ function checkAll() {
 	</div>
 	<!-- 내정보수정 -->
 	<div class="menu2" style="display: none;">
-	<form action="" method="post" id="mupdateForm">
+	<form action="update_members.do" method="post" id="mupdateForm">
 	<table class="tab" >
 	<caption>Set Information</caption>
 	<tbody>
@@ -151,10 +151,11 @@ function checkAll() {
 	<c:otherwise>
 	<tr><td>이름 :</td><td><input type="text" disabled value="${m.members_name}" ></td></tr>
 	<tr><td>ID :</td><td><input type="text" disabled value="${m.members_id }"></td></tr>
-	<tr><td>Email :</td><td><input type="text" id="members_email" value="${m.members_email }"></td></tr>
-	<tr><td>생년월일</td><td><input type="text" id="members_birth" value="${m.members_birth}"></td></tr>
-	<tr><td>휴대전화</td><td><input type="text" id="members_tel" value="${m.members_tel }" ></td></tr>
-	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; background-color:#85929E; color: white;
+	<input type="hidden" name="members_id" value="${m.members_id }">
+	<tr><td>Email :</td><td><input type="text" id="members_email" name="members_email" value="${m.members_email }" required></td></tr>
+	<tr><td>생년월일</td><td><input type="text" id="members_birth" name="members_birth" value="${m.members_birth}" required></td></tr>
+	<tr><td>휴대전화</td><td><input type="text" id="members_tel" name="members_tel" value="${m.members_tel }" required></td></tr>
+	<tr><td colspan="2"><button id="update" type="submit" style="width: 100px; height: 50px; background-color:#85929E; color: white;
 	 font-weight: bold;border-radius: 40px;">수정하기</button></td></tr>
 	 </c:otherwise>
 	</c:choose>

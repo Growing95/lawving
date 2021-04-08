@@ -4,13 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
-<head>
+<head>      
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body>o
 <%-- 절대경로로 처리한 경우 --%>
-<c:import url="/WEB-INF/views/common/menubar.jsp" />
+<c:import url="/WEB-INF/views/common/menubar.jsp" />                              
 <HR>
 <h2 align="center">${notice.nid } 번 공지 상세보기</h2>
 <br>
