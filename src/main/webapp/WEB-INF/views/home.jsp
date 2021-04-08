@@ -114,7 +114,7 @@ $( document ).ready( function() {
 <form action="search_lawdata.do">
 <input type="text" id="search"><input type="submit" value="검색">
 </form>
-<button class="law" value="부동산">부동산</button>
+<button class="law" value="부동산">부동산11</button>
 <button class="law" value="상속">상속</button>
 
 </article>
