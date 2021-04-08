@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-			<!-- 1. DataSource 등록 -->
-		  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
- 	  	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
- 	  	<property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe"/>
- 	  	<property name="username" value="c##lawving"/>
- 	  	<property name="password" value="lawving"/>
- 	  </bean>
- 	   
- 	  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
- 	  	<property name="configLocation" value="classpath:mybatis-config.xml"/>
- 	  	<property name="dataSource" ref="dataSource"/>
- 	  </bean>
- 	  
- 	  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
- 	  	<constructor-arg ref="sqlSession"/>
- 	  </bean>
- 	  <!-- 파일업로드 용량  -->
- 	  <bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="100000000" />
-		<property name="maxInMemorySize" value="100000000" />
-	 </bean>
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 1. DataSource 등록 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
+		<property name="username" value="c##lawving" />
+		<property name="password" value="lawving" />
+	</bean>
+	<!-- 2. Spring 과 MyBatis 연동 처리 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 3. MyBatis의 SqlSession 객체 생성 -->
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSession" />
+	</bean>
 </beans>

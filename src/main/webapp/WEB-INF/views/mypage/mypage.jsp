@@ -55,6 +55,34 @@ $(function() {
 		$('.menu1').css('display','none');
 	    $('.menu2').css('display','none');
 	    $('.menu3').css('display','');
+	    $.ajax({
+			url:"xml.do",
+			method:"get",
+			dataType:"xml",
+			success:function(data) {
+				var table = "<table>";
+				table += "<caption>MY BOOKMARK</caption>";
+				table += "<tbody>";
+				$(data).find("member").each( function() {
+					/* <tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">부동산임대법</a></td><td>2021-04-06</td></tr> */
+					table+="<tr>";
+					table+="<td>"+$(this).find("idx").text()+"</td>";
+					table+="<td>"+$(this).find("id").text()+"</td>";
+					table+="<td>"+$(this).find("pw").text()+"</td>";
+					table+="<td>"+$(this).find("name").text()+"</td>";
+					table+="<td>"+$(this).find("age").text()+"</td>";
+					table+="<td>"+$(this).find("addr").text()+"</td>";
+					table+="<td>"+$(this).find("reg").text()+"</td>";
+					table+="</tr>";
+				});
+				table += "</tbody></table>";
+				$("#result").append(table);
+			},
+			error:function(){
+				alert("읽기실패");
+			}
+			
+		});
 	    
 	});
 	$(document).on('click','#m2',function() {
@@ -82,24 +110,27 @@ function checkAll() {
 <c:import url="/WEB-INF/views/header.jsp" />
 <article>
 <div id="box">
+<script type="text/javascript">
+</script>
 	<!-- 오른쪽툴팁메뉴 -->
 	<ul id="ltoolmenu"><li><button id="m1">INFO</button></li><li><button id="m2">SET INFO</button></li><li><button id="m3">BookMark</button></li></ul>
 	<!-- 내정보 -->
 	<div class="menu1" style="display: block;">
 	<table class="tab">
-	<caption>MY Information</caption>
+	<caption>MY Information${sessionScope.loginmember.members_name}</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty members}">
+	<c:when test="${empty sessionScope.loginMember}">
 	<tr><td colspan="2">회원정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
-	<tr><td>이름 :</td><td><input type="text" disabled value="${members.members_name }"></td></tr>
-	<tr><td>ID :</td><td><input type="text" disabled value="${members.members_id }"></td></tr>
-	<tr><td>Email :</td><td><input type="text" disabled value="${members.members_email }"></td></tr>
-	<tr><td>생년월일</td><td><input type="text" disabled value="${members.members_birth}"></td></tr>
-	<tr><td>휴대전화</td><td><input type="text" disabled value="${members.members_tel }"></td></tr>
-	<tr><td>가입날짜</td><td><input type="text" disabled value="${members.members_reg }"></td></tr>
+	<c:set var="m" value="${sessionScope.loginMember}" />
+	<tr><td>이름 :</td><td><input type="text" disabled value="${m.members_name }"></td></tr>
+	<tr><td>ID :</td><td><input type="text" disabled value="${m.members_id }"></td></tr>
+	<tr><td>Email :</td><td><input type="text" disabled value="${m.members_email }"></td></tr>
+	<tr><td>생년월일</td><td><input type="text" disabled value="${m.members_birth}"></td></tr>
+	<tr><td>휴대전화</td><td><input type="text" disabled value="${m.members_tel }"></td></tr>
+	<tr><td>가입날짜</td><td><input type="text" disabled value="${m.members_reg }"></td></tr>
 	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; 
 	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;">회원탈퇴</button></td></tr>
 	 </c:otherwise>
@@ -109,25 +140,27 @@ function checkAll() {
 	</div>
 	<!-- 내정보수정 -->
 	<div class="menu2" style="display: none;">
+	<form action="" method="post" id="mupdateForm">
 	<table class="tab" >
 	<caption>Set Information</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty members}">
+	<c:when test="${empty sessionScope.loginMember}">
 	<tr><td colspan="2">회원정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
-	<tr><td>이름 :</td><td><input type="text" disabled value="${members.members_name}" ></td></tr>
-	<tr><td>ID :</td><td><input type="text" disabled value="${members.members_id }"></td></tr>
-	<tr><td>Email :</td><td><input type="text" id="members_email" value="${members.members_email }"></td></tr>
-	<tr><td>생년월일</td><td><input type="text" id="members_birth" value="${members.members_birth}"></td></tr>
-	<tr><td>휴대전화</td><td><input type="text" id="members_tel" value="${members.members_tel }" ></td></tr>
+	<tr><td>이름 :</td><td><input type="text" disabled value="${m.members_name}" ></td></tr>
+	<tr><td>ID :</td><td><input type="text" disabled value="${m.members_id }"></td></tr>
+	<tr><td>Email :</td><td><input type="text" id="members_email" value="${m.members_email }"></td></tr>
+	<tr><td>생년월일</td><td><input type="text" id="members_birth" value="${m.members_birth}"></td></tr>
+	<tr><td>휴대전화</td><td><input type="text" id="members_tel" value="${m.members_tel }" ></td></tr>
 	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; background-color:#85929E; color: white;
 	 font-weight: bold;border-radius: 40px;">수정하기</button></td></tr>
 	 </c:otherwise>
 	</c:choose>
 	</tbody>
 	</table>
+	</form>
 	</div>
 	<!-- 북마크 -->
 	<div class="menu3" style="display: none;">
@@ -135,8 +168,8 @@ function checkAll() {
 	<caption>MY BOOKMARK</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${!empty bookmark}">
-	<tr><td colspan="2">북마크정보없음</td></tr>
+	<c:when test="${empty sessionScope.bookmark}">
+	<tr><td colspan="3">북마크정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
 	<tr><td style="border: none;"><input type="checkbox" id="all_chkdel" onclick="checkAll()" class="all_chkdel">전체선택</td><td style="border: none;"></td><td style="border: none;"><button>선택삭제</button></td></tr>
