@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
+import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Repository("noticeDao")
 public class NoticeDao {
@@ -26,7 +27,7 @@ public class NoticeDao {
 	}
 
 	// 검색하기
-	public ArrayList<NoticeVo> selectSearchTitleDesc(NoticeSearch searchObject,int begin,int end) {
+	public ArrayList<NoticeVo> selectSearchTitleDesc(NoticeSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", searchObject.getKeyword());
 		map.put("begin", String.valueOf(begin));
@@ -34,8 +35,8 @@ public class NoticeDao {
 		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchTitleDesc", map);
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
-	
-	public ArrayList<NoticeVo> selectSearchTitleAsc(NoticeSearch searchObject,int begin,int end) {
+
+	public ArrayList<NoticeVo> selectSearchTitleAsc(NoticeSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", searchObject.getKeyword());
 		map.put("begin", String.valueOf(begin));
@@ -43,8 +44,8 @@ public class NoticeDao {
 		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchTitleAsc", map);
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
-	
-	public ArrayList<NoticeVo> selectSearchContentDesc(NoticeSearch searchObject,int begin,int end) {
+
+	public ArrayList<NoticeVo> selectSearchContentDesc(NoticeSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", searchObject.getKeyword());
 		map.put("begin", String.valueOf(begin));
@@ -52,8 +53,8 @@ public class NoticeDao {
 		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchContentDesc", map);
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
-	
-	public ArrayList<NoticeVo> selectSearchContentAsc(NoticeSearch searchObject,int begin,int end) {
+
+	public ArrayList<NoticeVo> selectSearchContentAsc(NoticeSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", searchObject.getKeyword());
 		map.put("begin", String.valueOf(begin));
@@ -64,8 +65,8 @@ public class NoticeDao {
 
 	// 상세보기
 	public NoticeVo selectOneList(int notice_idx) {
-		return sqlSession.selectOne("noticeMapper.selectNotice", notice_idx);
-
+		List<NoticeVo> OneList = sqlSession.selectList("noticeMapper.Onelist");
+		return (NoticeVo) OneList;
 	}
 
 	// 조회수
@@ -74,14 +75,15 @@ public class NoticeDao {
 		result = sqlSession.selectOne("noticeMapper.count");
 		return result;
 	}
+
 	public int getCount(NoticeSearch searchObject) {
 		int result = 0;
 		switch (searchObject.getCategory()) {
 		case "notice_title":
-			result = sqlSession.selectOne("noticeMapper.searchCountTitle",searchObject);
+			result = sqlSession.selectOne("noticeMapper.searchCountTitle", searchObject);
 			break;
 		case "notice_content":
-			result = sqlSession.selectOne("noticeMapper.searchCountContent",searchObject);
+			result = sqlSession.selectOne("noticeMapper.searchCountContent", searchObject);
 			break;
 		}
 		return result;
@@ -89,12 +91,12 @@ public class NoticeDao {
 
 	// 시작, 끝 페이지
 	public List<NoticeVo> getList(int begin, int end) {
-		System.out.println("dao:"+begin+";"+end);
+		System.out.println("dao:" + begin + ";" + end);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("begin", begin);
 		map.put("end", end);
 		List<NoticeVo> noticelist = sqlSession.selectList("noticeMapper.noticelist", map);
-		System.out.println("dao:"+noticelist);
+		System.out.println("dao:" + noticelist);
 		return noticelist;
 	}
 
@@ -104,6 +106,9 @@ public class NoticeDao {
 		return result;
 	}
 
+	public NoticeVo selectNoticeOnelist(String notice_idx) {
+		NoticeVo onelist = sqlSession.selectOne("noticeMapper.onelist", notice_idx);
+		return onelist;
+	}
 
 }
-

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="false" %>
 <html>
 <head>
 <title>Home</title>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+
 $(function(){
 /* 	//최근 등록된 공지글 3개 자동 출력되게 함
 	$.ajax({ 
@@ -79,15 +80,19 @@ $( document ).ready( function() {
 });
 
 })
+
 </script>
 </head>
 
+	<c:import url="header.jsp" />
 <body>
+
 	<c:import url="header.jsp"/>
 <%-- 	<hr style="clear:both;">
 	<article>
 	<section>
 	최근 공지글 3개 자동 조회 출력 : ajax 사용
+
 	<div style="float:left; border:1px solid navy; padding: 5px; margin-left: 150px;">
 		<h4>새로운 공지글</h4>
 		<table id="new_notice" border="1" cellspacing="0">
@@ -103,6 +108,7 @@ $( document ).ready( function() {
 	</div>
 	</section>
 	</article>
+
 <br style="clear:both;">	 --%>
 <article>
 <form action="search_lawdata.do">
@@ -112,5 +118,6 @@ $( document ).ready( function() {
 <button class="law" value="상속">상속</button>
 
 </article>
+
 </body>
 </html>

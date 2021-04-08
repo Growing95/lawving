@@ -12,7 +12,6 @@ public interface NoticeService {
 	ArrayList<NoticeVo> selectSearchContentDesc(NoticeSearch searchObject, int begin, int end);
 	ArrayList<NoticeVo> selectSearchContentAsc(NoticeSearch searchObject, int begin, int end);
 
-	NoticeVo selectOneList(int notice_idx);
 
 	List<NoticeVo> getList(int begin, int end);
 	
@@ -20,4 +19,7 @@ public interface NoticeService {
 
 	int getTotalCount();
 	int getTotalCount(NoticeSearch searchObject);
+	NoticeVo selectNoticeOnelist(String notice_idx);
+	
+	
 }

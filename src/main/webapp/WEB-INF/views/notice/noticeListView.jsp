@@ -11,7 +11,7 @@
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<c:import url="../common/menubar.jsp" />
+	<c:import url="../header.jsp" />
 	<hr>
 	<h1 align="center">공지사항</h1>
 	<br>
@@ -48,7 +48,7 @@
 		<c:url var="nlist" value="/nlist.do" />
 	</div>
 	<br>
-	<table align="center" width="500" border="1" cellspacing="0"
+	<table align="center" width="850" border="1" cellspacing="0"
 		cellpadding="1">
 		<thead>
 			<tr>
@@ -86,12 +86,14 @@
 			<td colspan="4">
 				<ol class="paging">
 				<!-- 이전 -->
+				<table border="1" style="width: 100%">
+
 					<c:choose>
 						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
 							<li class="disable">이전으로</li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="list_notice.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+							<li><a href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
 								</c:otherwise>
 							</c:choose>
 							<!-- 블록안에 들어간 페이지번호들 -->
@@ -103,18 +105,18 @@
 										<li class="now">${k}</li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="list_notice.do?cPage=${k}">${k}</a></li>
+										<li><a href="nlist.do?cPage=${k}">${k}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 							<!-- 다음 -->
 							<c:choose>
 								<c:when test="${paging.endBlock >= paging.totalPage }">
-									<li class="disable">다음으로!!!!!</li>
+									<li class="disable">다음으로</li>
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="list_notice.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+										href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ol>
