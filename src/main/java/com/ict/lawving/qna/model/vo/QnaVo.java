@@ -12,7 +12,7 @@ public class QnaVo implements Serializable {
 				   qna_writer, 
 				   qna_content, 
 				   qna_view, 
-				   qna_req_q, 
+				   qna_reg, 
 				   qna_hit, 
 				   qna_status, 
 				   qna_comment_writer, 
@@ -22,7 +22,7 @@ public class QnaVo implements Serializable {
 	public QnaVo() {}
 
 	public QnaVo(String qna_idx, String members_idx, String qna_category, String qna_title, String qna_writer,
-			String qna_content, String qna_view, String qna_req_q, String qna_hit, String qna_status,
+			String qna_content, String qna_view, String qna_reg, String qna_hit, String qna_status,
 			String qna_comment_writer, String qna_comment, String qna_reg_a) {
 		super();
 		this.qna_idx = qna_idx;
@@ -32,7 +32,7 @@ public class QnaVo implements Serializable {
 		this.qna_writer = qna_writer;
 		this.qna_content = qna_content;
 		this.qna_view = qna_view;
-		this.qna_req_q = qna_req_q;
+		this.qna_reg = qna_reg;
 		this.qna_hit = qna_hit;
 		this.qna_status = qna_status;
 		this.qna_comment_writer = qna_comment_writer;
@@ -49,7 +49,7 @@ public class QnaVo implements Serializable {
 				+ ", qna_writer=" + qna_writer 
 				+ ", qna_content=" + qna_content
 				+ ", qna_view=" + qna_view 
-				+ ", qna_req_q=" + qna_req_q 
+				+ ", qna_reg=" + qna_reg 
 				+ ", qna_hit=" + qna_hit 
 				+ ", qna_status=" + qna_status 
 				+ ", qna_comment_writer=" + qna_comment_writer 
@@ -113,12 +113,12 @@ public class QnaVo implements Serializable {
 		this.qna_view = qna_view;
 	}
 
-	public String getQna_req_q() {
-		return qna_req_q;
+	public String getQna_reg() {
+		return qna_reg;
 	}
 
-	public void setQna_req_q(String qna_req_q) {
-		this.qna_req_q = qna_req_q;
+	public void setQna_reg(String qna_reg) {
+		this.qna_reg = qna_reg;
 	}
 
 	public String getQna_hit() {
