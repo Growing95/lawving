@@ -133,7 +133,7 @@ public class MembersController {
 			
 			//받은 결과로 성공/실패 페이지 내보내기
 			if (result>0) {
-				return "home";
+				return "member/logIn";
 			}else {
 				model.addAttribute("message","회원가입 실패");
 				return "common/error";
@@ -154,15 +154,15 @@ public class MembersController {
 			member.setMembers_pw(bcryptPasswordEncoder.encode(pw));
 			logger.info("암호화pw:"+member.getMembers_pw());
 			MembersVo loginmember = membersService.selectloginCheck(id);
-			System.out.println("조회해온회원비밀번호:"+loginmember.getMembers_pw());
+			//System.out.println("조회해온회원비밀번호:"+loginmember.getMembers_pw());
 			//전송은 패스워드 (일반글자)와 조회해온 패스워드(암호화글자) 비교시
 			//matchs()사용한다
-			logger.info("pw비교:"+bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw()));
-			logger.info("레벨확인:"+loginmember.getMembers_lev());
-			int level=Integer.parseInt(loginmember.getMembers_lev());
+			//logger.info("pw비교:"+bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw()));
+			//logger.info("레벨확인:"+loginmember.getMembers_lev());
 			 if (loginmember != null) {
 				 if (bcryptPasswordEncoder.matches(pw, loginmember.getMembers_pw())) {
 
+					 int level=Integer.parseInt(loginmember.getMembers_lev());
 					 if (level==2) {
 						 session.setAttribute("loginMember", loginmember);
 						return"admin/adminIndex";
@@ -241,28 +241,50 @@ public class MembersController {
 			}
 			return mv;
 		}
+		//마이페이지 이동
+		@RequestMapping("list_mypage.do")
+		public String select_mypageMethod() {
+			
+			return "mypage/mypage";
+		}
 		//회원정보수정
 		@RequestMapping(value = "update_members.do", method =RequestMethod.POST )
 		  public String updateMemberMethod(MembersVo m,Model model,HttpSession session) {
 		  int result = membersService.updateMember(m);
+		  String id = m.getMembers_id();
 		  if(result>0) { 
-			  session.invalidate();
-			return "redirect:go_login.do";
+			  MembersVo loginmember = membersService.selectloginCheck(id);
+			  session.setAttribute("loginMember", loginmember);
+			  model.addAttribute("msg","회원정보가 수정되었습니다.");
+			  model.addAttribute("url","list_mypage.do");
+			return "common/alert";
 		  }else {
-		  
+			  model.addAttribute("message","회원정보수정에 실패하였습니다.");
 			  return "common/errorPage";
 		  }
 		  
 		  }
 		//회원탈퇴
 		@RequestMapping("delete_members.do")
-		public String deleteMembersMethod(@RequestParam("members_idx")String id) {
+		public String deleteMembersMethod(@RequestParam("members_idx")String id,Model model,HttpSession session) {
 			int result = membersService.deleteMembers(id);
 			if (result>0) {
-				return "index";
+				session.invalidate();
+				model.addAttribute("msg","회원탈퇴 처리되었습니다.");
+				  model.addAttribute("url","home.do");
+				return "common/alert";
 			}else {
-				return "redirect:home.do";
+				model.addAttribute("msg","[오류]회원탈퇴 실패.");
+				  model.addAttribute("url","list_mypage.do");
+				return "common/alert";
 			}
+		}
+		//정보조회
+		@RequestMapping(value = "list_lawdata.do",method = RequestMethod.GET)
+		public String selectLawMethod(@RequestParam("law")String law,Model model) {
+			model.addAttribute("law", law);
+			System.out.println(law);
+			return "lawdata/lawdata";
 		}
 		
 		

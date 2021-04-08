@@ -4,10 +4,10 @@
 <html>
 <head>
 <title>Home</title>
-<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	//최근 등록된 공지글 3개 자동 출력되게 함
+/* 	//최근 등록된 공지글 3개 자동 출력되게 함
 	$.ajax({ 
 		url: "${ pageContext.request.contextPath }/ntop3.do",
 		type: "post",
@@ -68,23 +68,33 @@ $(function(){
 					+ errorthrown);
 		}
 	});
-});  //jquery document ready
+});  //jquery document ready */
+
+$( document ).ready( function() {
+    
+    $(".law").click(function(){
+	var law = $(this).attr('value');
+	location.href="list_lawdata.do?law="+law;
+    });
+});
+
+})
 </script>
 </head>
 
 <body>
 	<c:import url="header.jsp"/>
-	<hr style="clear:both;">
+<%-- 	<hr style="clear:both;">
 	<article>
 	<section>
-	<%-- 최근 공지글 3개 자동 조회 출력 : ajax 사용 --%>
+	최근 공지글 3개 자동 조회 출력 : ajax 사용
 	<div style="float:left; border:1px solid navy; padding: 5px; margin-left: 150px;">
 		<h4>새로운 공지글</h4>
 		<table id="new_notice" border="1" cellspacing="0">
 			<tr><th>번호</th><th>제목</th><th>날짜</th></tr>
 		</table>
 	</div>
-	<%-- 인기 게시글 3개 자동 조회 출력 : ajax 사용 --%>
+	인기 게시글 3개 자동 조회 출력 : ajax 사용
 	<div style="float:left; border:1px solid olive; padding: 5px; margin-left: 5px;">
 		<h4>인기 게시글</h4>
 		<table id="top_board" border="1" cellspacing="0">
@@ -93,8 +103,14 @@ $(function(){
 	</div>
 	</section>
 	</article>
-<br style="clear:both;">	
-	
-	
+<br style="clear:both;">	 --%>
+<article>
+<form action="search_lawdata.do">
+<input type="text" id="search"><input type="submit" value="검색">
+</form>
+<button class="law" value="부동산">부동산</button>
+<button class="law" value="상속">상속</button>
+
+</article>
 </body>
 </html>

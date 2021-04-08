@@ -132,8 +132,7 @@ function checkAll() {
 	<tr><td>휴대전화</td><td><input type="text" disabled value="${m.members_tel }"></td></tr>
 	<tr><td>가입날짜</td><td><input type="text" disabled value="${m.members_reg }"></td></tr>
 	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; 
-	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;" onclick="location.href='delete_members.do'" value="${m.members_idx}">회원탈퇴</button></td></tr>
-	<
+	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;" onclick="location.href='delete_members.do?members_idx=${m.members_idx}'">회원탈퇴</button></td></tr>
 	 </c:otherwise>
 	</c:choose>
 	</tbody>
