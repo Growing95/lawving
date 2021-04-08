@@ -110,7 +110,7 @@
 							<!-- 다음 -->
 							<c:choose>
 								<c:when test="${paging.endBlock >= paging.totalPage }">
-									<li class="disable">다음으로1</li>
+									<li class="disable">다음으로</li>
 								</c:when>
 								<c:otherwise>
 									<li><a
