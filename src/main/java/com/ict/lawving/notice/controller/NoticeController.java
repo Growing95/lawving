@@ -130,7 +130,7 @@ public class NoticeController {
 				break;
 			}
 			break;
-
+			
 		case "notice_content":
 			switch (searchObject.getOrder()) {
 			case "desc":
