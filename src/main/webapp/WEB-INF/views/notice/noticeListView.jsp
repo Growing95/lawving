@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-	src="${ pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<c:import url="../common/menubar.jsp" />
@@ -30,8 +30,8 @@
 				<table>
 					<tr>
 						<td><select name="category">
-								<option value="title" selected>제목</option>
-								<option value="content">내용</option>
+								<option value="notice_title" selected>제목</option>
+								<option value="notice_content">내용</option>
 						</select></td>
 						<td><select name="order">
 								<option value="desc" selected>최신순</option>
@@ -60,16 +60,16 @@
 		</thead>
 		<tbody>
 			<c:choose>
-				<c:when test="${empty list}">
+				<c:when test="${empty noticelist}">
 					<tr>
 						<td colspan="5"><h3>원하시는 자료는 존재하지 않습니다.</h3></td>
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${ requestScope.list }" var="k">
+					<c:forEach items="${ requestScope.noticelist }" var="k">
 
 						<tr>
-							<td align="center">${n.notice_idx }</td>
+							<td align="center">${k.notice_idx }</td>
 							<c:url value="/onelist_notice.do" var="und">
 								<c:param name="notice_idx" value="${k.notice_idx}" />
 							</c:url>

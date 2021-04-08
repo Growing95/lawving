@@ -25,8 +25,39 @@ public class NoticeDao {
 	}
 
 	// 검색하기
-	public ArrayList<NoticeVo> selectSearch(NoticeSearch searchObject) {
-		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.search", searchObject);
+	public ArrayList<NoticeVo> selectSearchTitleDesc(NoticeSearch searchObject,int begin,int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchTitleDesc", map);
+		return (ArrayList<NoticeVo>) NoticeList;
+	}
+	
+	public ArrayList<NoticeVo> selectSearchTitleAsc(NoticeSearch searchObject,int begin,int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchTitleAsc", map);
+		return (ArrayList<NoticeVo>) NoticeList;
+	}
+	
+	public ArrayList<NoticeVo> selectSearchContentDesc(NoticeSearch searchObject,int begin,int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchContentDesc", map);
+		return (ArrayList<NoticeVo>) NoticeList;
+	}
+	
+	public ArrayList<NoticeVo> selectSearchContentAsc(NoticeSearch searchObject,int begin,int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchContentAsc", map);
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
 
@@ -39,17 +70,30 @@ public class NoticeDao {
 	// 조회수
 	public int getCount() {
 		int result = 0;
-		result = sqlSession.selectOne("count");
+		result = sqlSession.selectOne("noticeMapper.count");
+		return result;
+	}
+	public int getCount(NoticeSearch searchObject) {
+		int result = 0;
+		switch (searchObject.getCategory()) {
+		case "notice_title":
+			result = sqlSession.selectOne("noticeMapper.searchCountTitle",searchObject);
+			break;
+		case "notice_content":
+			result = sqlSession.selectOne("noticeMapper.searchCountContent",searchObject);
+			break;
+		}
 		return result;
 	}
 
 	// 시작, 끝 페이지
 	public List<NoticeVo> getList(int begin, int end) {
-		List<NoticeVo> noticelist = null;
+		System.out.println("dao:"+begin+";"+end);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("begin", begin);
 		map.put("end", end);
-		noticelist = sqlSession.selectList("noticelist", map);
+		List<NoticeVo> noticelist = sqlSession.selectList("noticeMapper.noticelist", map);
+		System.out.println("dao:"+noticelist);
 		return noticelist;
 	}
 
@@ -58,5 +102,6 @@ public class NoticeDao {
 		result = sqlSession.insert("insertnotice", notice);
 		return result;
 	}
+
 
 }

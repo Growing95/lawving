@@ -20,19 +20,21 @@ public class NoticeServiceImpliment implements NoticeService {
 	private Paging paging;
 
 	@Override
-	public ArrayList<NoticeVo> selectSearch(NoticeSearch searchObject) {
-		return noticeDao.selectSearch(searchObject);
-	}
-
-	@Override
 	public NoticeVo selectOneList(int notice_idx) {
 		return noticeDao.selectOneList(notice_idx);
 	}
 
+	// 전체 목록공지사항 개수
 	@Override
 	public int getTotalCount() {
 		return noticeDao.getCount();
 
+	}
+
+	// 검색조건을 만족하는 공지사항 개수
+	@Override
+	public int getTotalCount(NoticeSearch searchObject) {
+		return noticeDao.getCount(searchObject);
 	}
 
 	@Override
@@ -44,6 +46,27 @@ public class NoticeServiceImpliment implements NoticeService {
 	public int insertNotice(NoticeVo notice) {
 		int result = noticeDao.insertnotice(notice);
 		return result;
+	}
+
+	@Override
+	public ArrayList<NoticeVo> selectSearchTitleDesc(NoticeSearch searchObject, int begin, int end) {
+		return noticeDao.selectSearchTitleDesc(searchObject, begin, end);
+
+	}
+
+	@Override
+	public ArrayList<NoticeVo> selectSearchTitleAsc(NoticeSearch searchObject, int begin, int end) {
+		return noticeDao.selectSearchTitleAsc(searchObject, begin, end);
+	}
+
+	@Override
+	public ArrayList<NoticeVo> selectSearchContentDesc(NoticeSearch searchObject, int begin, int end) {
+		return noticeDao.selectSearchContentDesc(searchObject, begin, end);
+	}
+
+	@Override
+	public ArrayList<NoticeVo> selectSearchContentAsc(NoticeSearch searchObject, int begin, int end) {
+		return noticeDao.selectSearchContentAsc(searchObject, begin, end);
 	}
 
 }
