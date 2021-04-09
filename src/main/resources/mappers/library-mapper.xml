@@ -98,6 +98,9 @@
 		   </if>
 		where library_idx = #{library_idx}
 	</update>
+	<delete id="chkdelete" parameterType="String">
+	delete  from library where library_idx=#{chkdel}
+	</delete>
 </mapper>
 
 

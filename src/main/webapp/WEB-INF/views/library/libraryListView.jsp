@@ -19,6 +19,49 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 </style>
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	var chkObj= document.getElementsByName("Rowcheck");
+	var chkNum=chkObj.length;
+	$("input[name='chkall']").click(function() {
+		var chk_listArr = $("input[name='Rowcheck']");
+		for (var i = 0; i < chk_listArr.length; i++) {
+			chk_listArr[i].checked=this.checked;
+		}
+	})
+	
+})	
+	function chkdelete() {
+	var url="chkdelete.do";
+	var chkArr= new Array();
+	var list =$("input[name='Rowcheck']");
+	for (var i = 0; i < list.length; i++) {
+		if (list[i].checked) {
+			chkArr.push(list[i].value);
+		}
+	}
+	if (chkArr.length==0) {
+		alert("선택된 항목이 없습니다.");
+	}else{
+		var chk = confirm("선택한 항목들을 삭제하시겠습니까?");
+		$.ajax({
+			url: url,
+			method: "POST",
+			traditional:true,
+			data :{chkArr:chkArr},
+			success: function (data) {
+				if (data = 1) {
+					alert("항목들을 전부 삭제했습니다.");
+					location.replace("llist.do");
+				}else{
+					alert("삭제 실패");
+				}
+			}
+		});
+	}
+}
+
+</script>
 </head>
 <body>
 	<c:import url="../header.jsp" />
@@ -30,6 +73,8 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 		<div style="align: center; padding-left: 400px;">
 			<c:url var="lwf" value="/library_write.do" />
 			<button onclick="javascript:location.href='${ lwf }';">글쓰기</button>
+			<button onclick="chkdelete()">선택삭제</button>
+			
 		</div>
 	</c:if>
 	<br>
@@ -61,7 +106,9 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 	<table align="center" width="500" border="1" cellspacing="0"
 		cellpadding="1">
 		<thead>
+		
 			<tr>
+				<th><input type="checkbox" id="chkall" name="chkall">전체선택</th>
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
@@ -79,10 +126,11 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 					<c:forEach items="${ requestScope.librarylist }" var="k">
 
 						<tr>
+							<td><input type="checkbox" name="Rowcheck" value="${k.library_idx }"></td>
 							<td align="center">${k.library_idx }</td>
-							<c:url value="/onelist_library.do" var="old">
-								<c:param name="library_idx" value="${k.library_idx}" />
-							</c:url>
+								<c:url value="/onelist_library.do" var="old">
+									<c:param name="library_idx" value="${k.library_idx}" />
+								</c:url>
 							<td align="center"><a href="${old }">${k.library_title }</a></td>
 							<td align="center">${k.library_writer }</td>
 							<td align="center"><fmt:formatDate value="${k.library_reg }"
@@ -93,7 +141,7 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 			</c:choose>
 			<tfoot>
 		<tr>
-			<td colspan="4">
+			<td colspan="5">
 				<ol class="paging">
 				<!-- 이전 -->
 					<c:choose>
