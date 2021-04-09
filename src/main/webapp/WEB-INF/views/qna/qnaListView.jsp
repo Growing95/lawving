@@ -28,7 +28,7 @@
 				<table style="margin: 10px auto; width: 800px;">
 					<tr>
 						<td style="width: 83%; text-align: right;">
-							<select name="category">
+							<select name="status">
 								<option value="all" selected>모두보기</option>
 								<option value="completed">답변완료</option>
 								<option value="waiting">대기중</option>
@@ -43,7 +43,8 @@
 						</td>
 						<td style="text-align: right;">
 							<c:if test="${!empty sessionScope.loginMember}">
-									<input type="button" value="문의작성" onclick="location.href='go_insert_qna.do'">
+								<input type="button" value="문의작성" 
+									   onclick="location.href='go_insert_qna.do?cPage=${paging.nowPage}'">
 							</c:if>
 						</td>
 					</tr>
@@ -134,7 +135,7 @@
 											<c:otherwise>
 												<c:url var="search" value="search_qna_get.do">
 													<c:param name="cPage" value="${k}"/>
-													<c:param name="category" value="${searchObject.category}"/>
+													<c:param name="status" value="${searchObject.status}"/>
 													<c:param name="order" value="${searchObject.order}"/>
 													<c:param name="keyword" value="${searchObject.keyword}"/>
 												</c:url>

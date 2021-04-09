@@ -77,7 +77,7 @@ public class UserQnaController {
 //	QNA 검색
 	@RequestMapping(value = "search_qna_get.do", method = RequestMethod.GET)
 	public String searchQuestionMethod_get(
-			@ModelAttribute("category")String category,
+			@ModelAttribute("status")String status,
 			@ModelAttribute("order")String order,
 			@ModelAttribute("keyword")String keyword,
 			@ModelAttribute("cPage")String cPage
@@ -87,20 +87,17 @@ public class UserQnaController {
 	
 	@RequestMapping(value = "search_qna.do", method = RequestMethod.POST)
 	public String searchQuestionMethod(
-			@RequestParam("category") String category, 
+			@RequestParam("status") String status, 
 			@RequestParam("order") String order,
 			@RequestParam("keyword") String keyword,
 			Model model, HttpServletRequest request) {
-		QnaSearch searchObject = new QnaSearch(category, order, keyword);
+		QnaSearch searchObject = new QnaSearch(status, order, keyword);
 		ArrayList<QnaVo> qnaList = new ArrayList<QnaVo>();
 		Paging paging = new Paging();
 
 		// 1. 전체 게시물의 수 
 		int count= qnaService.getTotalCount(searchObject);
 		paging.setTotalRecord(count);
-		
-		System.out.println("post-controller-TotalCount : "+count);
-		
 		// 2. 전체 페이지의 수
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
@@ -128,7 +125,7 @@ public class UserQnaController {
 			paging.setEndBlock(paging.getTotalPage());
 		}
 		
-		switch (category) {
+		switch (status) {
 			case "all": 
 				switch (order) {
 					case "desc": 
@@ -193,16 +190,31 @@ public class UserQnaController {
 	
 //	QNA 문의 작성 페이지로 이동
 	@RequestMapping("go_insert_qna.do")
-	public String goInsertQuestion() {
+	public String goInsertQuestion(
+			@ModelAttribute("cPage")String cPage) {
 		return "qna/qnaWriteForm";
 	}
 	
 //	QNA 문의 작성하기
-	@RequestMapping("insert_qna.do")
+	@RequestMapping(value = "insert_qna.do", method = RequestMethod.POST)
 	public String insertQuestionMethod(QnaVo qna) {
-		int result = 0;
-		result = qnaService.insertQuestion(qna);
-		return "redirect:list_qna.do";
+		System.out.println("getMembers_idx : "+qna.getMembers_idx());
+		System.out.println("getQna_category : "+qna.getQna_category());
+		System.out.println("getQna_title : "+qna.getQna_title());
+		System.out.println("getQna_writer : "+qna.getQna_writer());
+		System.out.println("getQna_content : "+qna.getQna_content());
+		if (qna.getQna_view().isEmpty()) {
+			qna.setQna_view("공개");
+		} else {
+			qna.setQna_view("비공개");
+		}
+		System.out.println("getQna_view : "+qna.getQna_view());
+		int result = qnaService.insertQuestion(qna);
+		if (result>0) {
+			return "redirect:list_qna.do";
+		} else {
+			return "redirect:list_qna.do";
+		}
 	}
 	
 //	QNA 문의 삭제하기

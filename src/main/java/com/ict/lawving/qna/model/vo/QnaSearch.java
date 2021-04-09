@@ -1,25 +1,25 @@
 package com.ict.lawving.qna.model.vo;
 
 public class QnaSearch {
-	private String category;
+	private String status;
 	private String order;
 	private String keyword;
 	
 	public QnaSearch() {}
 
-	public QnaSearch(String category, String order, String keyword) {
+	public QnaSearch(String status, String order, String keyword) {
 		super();
-		this.category = category;
+		this.status = status;
 		this.order = order;
 		this.keyword = keyword;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getOrder() {
@@ -40,6 +40,6 @@ public class QnaSearch {
 
 	@Override
 	public String toString() {
-		return "NoticeSearch [category=" + category + ", order=" + order + ", keyword=" + keyword + "]";
+		return "NoticeSearch [status=" + status + ", order=" + order + ", keyword=" + keyword + "]";
 	}
 }
