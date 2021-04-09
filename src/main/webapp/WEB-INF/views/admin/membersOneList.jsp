@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +31,7 @@ color: white;
 #m4:hover{background-color: white; color: black;}
 /* 테이블 */
 .tab{background-color: white; width: 600px; height: 500px; margin: auto; border-radius: 20px; }
+.tab table th, .tab table td {text-align: center;border: 1px solid black;padding: 4px 10px;}
 
 /* 북마크테이블 */
 .bookmark{background-color: white; width: 600px; height: 500px; margin: auto; border-radius: 20px;border-collapse: collapse; }
@@ -83,7 +84,8 @@ $(function() {
 		$('.menu2').css('display','none');
 	    $('.menu3').css('display','none');
 	    $('.menu4').css('display','none');
-	});
+  	});
+	
 })
 </script>
 <script type="text/javascript">
@@ -101,85 +103,29 @@ function checkAll() {
 <div id="box">
 	<!-- 오른쪽툴팁메뉴 -->
 	<ul id="ltoolmenu">
-	<li><button id="m1"><a href="memberslist.do">회원정보</a></button></li>
-	<li><button id="m2"><a href="blacklist.do">사용제한회원</a></button></li>
-	<li><button id="m3"><a href="repotlist.do">신고접수</a></button></li>
-	<li><button id="m4"><a href="limitlist.do">제제회원</a></button></li>
-	
+	<li><button id="m1"><a href="memberslist.do" style="width: 200px; border: 1px soild purple;" >회원정보</a></button></li>
+	<li><button id="m2"><a href="blacklist.do" >사용제한회원</a></button></li>
+	<li><button id="m3"><a href="repotlist.do" >신고접수</a></button></li>
+	<li><button id="m4"><a href="limitlist.do" >제제회원</a></button></li>
 	</ul>
-	<!-- 제제회원 -->
-	<div class="menu4" style="display: block;">
+	<!-- 회원상세정보 -->
+	<div class="menu1" style="display: block;">
 	<table class="tab">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>회원아이디</th>
-				<th>가입날짜</th>
-				<th>누적신고수</th>
-			</tr>
-		</thead>
-	<caption>제제회원</caption>
+	<caption>회원 정보</caption>
 	<tbody>
-	 <c:choose>
-	<c:when test="${empty limitlist}">
-	<tr><td colspan="4">회원정보없음</td></tr>
-	</c:when>
-	<c:otherwise>
-		<c:forEach var="r" items="${limitlist }" varStatus="vs">
-		<tr><c:url value="/membersonelist.do" var="mol">
-				<c:param name="members_idx" value="${r.members_idx}" />
-			</c:url>
-			<td><a href="${mol }">${r.limit_id }</a></td>
-			<td>${r.reg }</td>
-			<td>${r.limit_count }</td>
-		</tr>
-		</c:forEach>
-	</c:otherwise>
-	</c:choose>
+	<tr><td>이름 : ${mvo.members_name }</td></tr>
+	<tr><td>ID : ${mvo.members_id }</td></tr>
+	<tr><td>Email :${mvo.members_email }</td></tr>
+	<tr><td>생년월일 : ${mvo.members_birth}</td></tr>
+	<tr><td>휴대전화 : ${mvo.members_tel }</td></tr>
+	<tr><td>가입날짜 : ${mvo.members_reg }</td></tr>
+	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; 
+	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;" onclick="javascript:history.go(-1);">목록으로</button></td></tr>
 	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="4">
-				<ol class="paging">
-				<!-- 이전 -->
-					<c:choose>
-						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
-							<li class="disable">이전으로</li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="limitlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
-								</c:otherwise>
-							</c:choose>
-							<!-- 블록안에 들어간 페이지번호들 -->
-							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
-								step="1" var="r">
-								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
-								<c:choose>
-									<c:when test="${r==paging.nowPage }">
-										<li class="now">${r}</li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="limitlist.do?cPage=${r}">${r}</a></li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<!-- 다음 -->
-							<c:choose>
-								<c:when test="${paging.endBlock >= paging.totalPage }">
-									<li class="disable">다음으로</li>
-								</c:when>
-								<c:otherwise>
-									<li><a
-										href="limitlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
-								</c:otherwise>
-							</c:choose>
-						</ol>
-					</td>
-				</tr>
-			</tfoot>
 	</table>
 	</div>
 </div>
+<br><br><br><br>
 </article>
 </body>
 </html>

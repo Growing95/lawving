@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import com.ict.lawving.common.Paging;
 import com.ict.lawving.notice.model.service.NoticeService;
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
+import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Controller
 public class NoticeController {
@@ -31,9 +31,9 @@ public class NoticeController {
 	private Paging paging;
 
 	// 리스트 목록
-	@RequestMapping("nlist.do")
+	@RequestMapping("list_notice.do")
 	public ModelAndView selectNoticeListMethod(HttpServletRequest request) {
-		logger.info("nlist.do");
+		logger.info("list_notice.do");
 		ModelAndView mv = new ModelAndView("notice/noticeListView");
 		try {
 			// 1. 전체 게시물의 수
@@ -155,13 +155,11 @@ public class NoticeController {
 	}
 	// 상세보기
 
-	@RequestMapping(value = "onelist_notice.do", method = RequestMethod.POST)
-	public String selectNoticeOnelistMethod(@RequestParam("notice_idx") int notice_idx, Model model,
-			HttpSession session) {
-		NoticeVo onelist = noticeService.selectOneList(notice_idx);
-
-		return "common/errorPage";
-
+	@RequestMapping("nonelist.do")
+	public String selectNoticeOnelistMethod(String notice_idx) {
+		NoticeVo noticeOnelist = new NoticeVo();
+		noticeOnelist = noticeService.selectNoticeOnelist(notice_idx);
+		return "notice/noticeOnelist";
 	}
 
 	// 공지사항 글쓰기(관리자)

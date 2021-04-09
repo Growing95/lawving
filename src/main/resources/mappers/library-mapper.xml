@@ -23,19 +23,75 @@
 			) a
 		) where r_num between #{begin} and #{end}
 	</select>
-	<select id="blackcount" resultType="int">
-		select count(*) from limit where limit_count = 5
-	</select>
-	<select id="searchLibraryList" parameterType="Map" resultType="LibraryVo">
+	<select id="list" parameterType="Map" resultType="LibraryVo">
 		select * from (
 			select rownum r_num, a.* from (
 				select * from library order by library_idx desc
 			) a
 		) where r_num between #{begin} and #{end}
 	</select>
-	<!-- <insert id="insertlimitmembers" parameterType="MembersVo">
-	</insert> -->
-		
+	<!-- 검색조건이 있는목록 -->
+	<select id="searchCountTitle" parameterType="com.ict.lawving.library.model.vo.LibrarySearch" resultType="int">
+		select count(*) from library
+		where library_title like '%' || #{ keyword } || '%'
+	</select>
+	
+	<select id="searchCountContent" parameterType="com.ict.lawving.library.model.vo.LibrarySearch" resultType="int">
+		select count(*) from library
+		where library_content like '%' || #{ keyword } || '%'
+	</select>
+	<select id="searchTitleDesc" parameterType="Map" resultType="LibraryVo">
+		select * 
+		from (select rownum r_num,a.* 
+			  from(select * 
+			  		from library 
+			  		where library_title like '%' || #{ keyword } || '%'
+					order by library_idx desc
+			 		) a
+				) 
+		where r_num between to_number(#{begin}) and to_number(#{end})
+	</select>
+		<select id="searchTitleAsc" parameterType="Map"	resultType="LibraryVo">
+		select * 
+		from (select rownum r_num,a.* 
+			  from(select * 
+			  		from library 
+			  		where library_title like '%' || #{ keyword } || '%'
+					order by library_idx asc
+			 		) a
+				) 
+		where r_num between to_number(#{begin}) and to_number(#{end})
+	</select>
+	<select id="searchContentDesc" parameterType="Map" resultType="LibraryVo">
+		select * 
+		from (select rownum r_num,a.* 
+			  from(select * 
+			  		from library 
+			  		where library_content like '%' || #{ keyword } || '%'
+					order by library_idx desc
+			 		) a
+				) 
+		where r_num between to_number(#{begin}) and to_number(#{end})
+	</select>
+	
+	<select id="searchContentAsc" parameterType="Map" resultType="LibraryVo">
+		select * 
+		from (select rownum r_num,a.* 
+			  from(select * 
+			  		from library 
+			  		where library_content like '%' || #{ keyword } || '%'
+					order by library_idx asc
+			 		) a
+				) 
+		where r_num between to_number(#{begin}) and to_number(#{end})
+	</select>
+	<select id="selectLibrary" parameterType="int" resultType="LibraryVo">
+		select * from library where library_idx = #{ library_idx }
+	</select>
+	
+	<insert id="insertlibrary" parameterType="LibraryVo">
+		insert into Library values(library_seq.nextval,#{library_idx},#{members_idx},#{library_category},#{library_title},#{library_writer},#{library_content},#{library_file_name},#{library_refile_name},sysdate)
+	</insert>
 </mapper>
 
 

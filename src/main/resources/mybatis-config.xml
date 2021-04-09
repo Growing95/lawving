@@ -12,7 +12,7 @@
 	<typeAlias type="com.ict.lawving.repot.model.vo.RepotVo" alias="RepotVo"/>
 	<typeAlias type="com.ict.lawving.library.model.vo.LibraryVo" alias="LibraryVo"/>
 	<typeAlias type="com.ict.lawving.notice.model.vo.NoticeVo" alias="NoticeVo"/>
-
+	<typeAlias type="com.ict.lawving.bookmark.model.vo.BookmarkVo" alias="BookmarkVo"/>
 </typeAliases>
 
 <mappers>

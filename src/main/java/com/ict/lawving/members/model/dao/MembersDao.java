@@ -50,5 +50,8 @@ public class MembersDao {
 	public int deleteMember(String id) {
 		return sqlSession.delete("delete_member",id);
 	}
+	public MembersVo selectmemberonelist(int members_idx) {
+		return sqlSession.selectOne("selectonemember", members_idx);
+	}
 
 }

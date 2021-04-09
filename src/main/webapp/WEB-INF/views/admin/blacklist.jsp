@@ -128,7 +128,10 @@ function checkAll() {
 		<c:forEach var="k" items="${blacklist }" varStatus="vs">
 		<tr>
 			<td>${k.members_idx }</td>
-			<td>${k.limit_id }</td>
+			<c:url value="/membersonelist.do" var="mol">
+				<c:param name="members_idx" value="${k.members_idx}" />
+			</c:url>
+			<td><a href="${mol }">${k.limit_id }</a></td>
 			<td>${k.reg }</td>
 			<td>${k.limit_reg }</td>
 		</tr>

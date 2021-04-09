@@ -10,6 +10,7 @@ import com.ict.lawving.common.Paging;
 import com.ict.lawving.notice.model.dao.NoticeDao;
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
+import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Service("noticeService")
 public class NoticeServiceImpliment implements NoticeService {
@@ -19,11 +20,7 @@ public class NoticeServiceImpliment implements NoticeService {
 	@Autowired
 	private Paging paging;
 
-	@Override
-	public NoticeVo selectOneList(int notice_idx) {
-		return noticeDao.selectOneList(notice_idx);
-	}
-
+	
 	// 전체 목록공지사항 개수
 	@Override
 	public int getTotalCount() {
@@ -69,4 +66,11 @@ public class NoticeServiceImpliment implements NoticeService {
 		return noticeDao.selectSearchContentAsc(searchObject, begin, end);
 	}
 
-}
+	@Override
+	public NoticeVo selectNoticeOnelist(String notice_idx) {
+			return noticeDao.selectNoticeOnelist(notice_idx);
+		}
+	}
+	
+
+
