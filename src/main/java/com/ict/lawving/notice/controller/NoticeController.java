@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import com.ict.lawving.common.Paging;
 import com.ict.lawving.notice.model.service.NoticeService;
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
-import com.ict.lawving.qna.model.vo.QnaVo;
+
 
 @Controller
 public class NoticeController {
@@ -30,10 +31,11 @@ public class NoticeController {
 	@Autowired
 	private Paging paging;
 
+	
 	// 리스트 목록
-	@RequestMapping("list_notice.do")
+	@RequestMapping("nlist.do")
 	public ModelAndView selectNoticeListMethod(HttpServletRequest request) {
-		logger.info("list_notice.do");
+		logger.info("nlist.do");
 		ModelAndView mv = new ModelAndView("notice/noticeListView");
 		try {
 			// 1. 전체 게시물의 수
@@ -155,18 +157,40 @@ public class NoticeController {
 	}
 	// 상세보기
 
-	@RequestMapping("nonelist.do")
-	public String selectNoticeOnelistMethod(String notice_idx) {
-		NoticeVo noticeOnelist = new NoticeVo();
-		noticeOnelist = noticeService.selectNoticeOnelist(notice_idx);
-		return "notice/noticeOnelist";
+	@RequestMapping(value = "onelist_notice.do", method = RequestMethod.GET)
+	public String selectNoticeOnelistMethod(@RequestParam("notice_idx") int notice_idx, Model model,
+			HttpSession session) {
+		NoticeVo nvo = noticeService.selectOneList(notice_idx);
+		session.setAttribute("nvo", nvo);
+		return "notice/noticeOneList";
+
 	}
 
-	// 공지사항 글쓰기(관리자)
-	@RequestMapping("insert_notice.do")
-	public String insertNoticeMethod() {
+	@RequestMapping(value = "insert_notice.do", method = RequestMethod.GET)
+	public String insertNoticeMethod(NoticeVo notice, Model model) {
 		return "notice/noticeWriteForm";
 
+		
+	}
+
+	
+	
+	// 글쓰기
+	@RequestMapping(value = "insert_noticeData.do", method = RequestMethod.POST)
+	public String insertNoticeDataMethod(NoticeVo notice, Model model) {
+		logger.info("insert_notice.do :" + notice);// 넘어오는 파라미터값 확인
+		logger.info("아이디값확인" + notice.getNotice_idx());
+
+		// 서비스로 전송하고 결과를 받기
+		int result = noticeService.insertNotice(notice);
+
+		// 받은 결과로 성공/실패 페이지 내보내기
+		if (result > 0) {
+			return "notice/noticeOneList";
+		} else {
+			model.addAttribute("message", "글쓰기 실패");
+			return "common/error";
+		}
 	}
 
 }

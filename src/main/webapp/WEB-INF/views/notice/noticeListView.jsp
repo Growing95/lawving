@@ -15,10 +15,9 @@
 	<hr>
 	<h1 align="center">공지사항</h1>
 	<br>
-	<c:if
-		test="${ !empty sessionScope.loginUser and sessionScope.loginUser.id eq 'admin' }">
+	<c:if test="${ loginMember.members_lev=='2'}">
 		<div style="align: center; padding-left: 400px;">
-			<c:url var="nwf" value="/notice_write.do" />
+			<c:url var="nwf" value="/insert_notice.do" />
 			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
 		</div>
 	</c:if>
@@ -59,6 +58,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			<%-- 로그인 상태이면서 관리자가 로그인한 경우 --%>
 			<c:choose>
 				<c:when test="${empty noticelist}">
 					<tr>
@@ -81,58 +81,56 @@
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-			<tfoot>
-		<tr>
-			<td colspan="4">
-				<ol class="paging">
-				<!-- 이전 -->
-				<table border="1" style="width: 100%">
 
-					<c:choose>
-						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
-							<li class="disable">이전으로</li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
-								</c:otherwise>
-							</c:choose>
-							<!-- 블록안에 들어간 페이지번호들 -->
-							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
-								step="1" var="k">
-								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
-								<c:choose>
-									<c:when test="${k==paging.nowPage }">
-										<li class="now">${k}</li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="nlist.do?cPage=${k}">${k}</a></li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<!-- 다음 -->
+		</tbody>
+
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<ol class="paging">
+						<!-- 이전 -->
+						<c:choose>
+							<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
+								<li class="disable">이전으로</li>
+							</c:when>
+							<c:otherwise>
+								<li><a
+									href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+							</c:otherwise>
+						</c:choose>
+						<!-- 블록안에 들어간 페이지번호들 -->
+						<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
+							step="1" var="k">
+							<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
 							<c:choose>
-								<c:when test="${paging.endBlock >= paging.totalPage }">
-									<li class="disable">다음으로</li>
+								<c:when test="${k==paging.nowPage }">
+									<li class="now">${k}</li>
 								</c:when>
 								<c:otherwise>
-									<li><a
-										href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+									<li><a href="nlist.do?cPage=${k}">${k}</a></li>
 								</c:otherwise>
 							</c:choose>
-						</ol>
-					</td>
-				</tr>
-		</tbody>
+						</c:forEach>
+						<!-- 다음 -->
+						<c:choose>
+							<c:when test="${paging.endBlock >= paging.totalPage }">
+								<li class="disable">다음으로</li>
+							</c:when>
+							<c:otherwise>
+								<li><a
+									href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+							</c:otherwise>
+						</c:choose>
+					</ol>
+				</td>
+			</tr>
+			<c:if test="${ loginMember.members_lev=='2'}">
+				<div style="align: center; padding-left: 400px;">
+					<c:url var="nld" value="/notice_delete.do" />
+					<button onclick="javascript:location.href='${ nld }';">선택항목삭제</button>
+				</div>
+			</c:if>
 		</tfoot>
 	</table>
 </body>
 </html>
-
-
-
-
-
-
-
-
-

@@ -15,11 +15,12 @@ public interface NoticeService {
 
 	List<NoticeVo> getList(int begin, int end);
 	
-	int insertNotice(NoticeVo notice);
-
+	
 	int getTotalCount();
 	int getTotalCount(NoticeSearch searchObject);
-	NoticeVo selectNoticeOnelist(String notice_idx);
+	
+	NoticeVo selectOneList(int notice_idx);
+	int insertNotice(NoticeVo notice);
 	
 	
 }

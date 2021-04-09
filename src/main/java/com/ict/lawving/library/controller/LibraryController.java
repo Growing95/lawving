@@ -152,7 +152,7 @@ public class LibraryController {
 	// 상세보기
 
 		@RequestMapping(value = "onelist_library.do", method = RequestMethod.GET)
-		public String selectNoticeOnelistMethod(@RequestParam("library_idx") int library_idx, Model model,
+		public String selectlibraryOnelistMethod(@RequestParam("library_idx") int library_idx, Model model,
 				HttpSession session) {
 			LibraryVo lvo = libraryService.selectOneList(library_idx);
 			session.setAttribute("lvo", lvo);

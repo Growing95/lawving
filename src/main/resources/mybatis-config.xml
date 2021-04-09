@@ -11,7 +11,6 @@
 	<typeAlias type="com.ict.lawving.repot.model.vo.RepotVo" alias="RepotVo"/>
 	<typeAlias type="com.ict.lawving.library.model.vo.LibraryVo" alias="LibraryVo"/>
 	<typeAlias type="com.ict.lawving.notice.model.vo.NoticeVo" alias="NoticeVo"/>
-
 </typeAliases>
 
 <mappers>
