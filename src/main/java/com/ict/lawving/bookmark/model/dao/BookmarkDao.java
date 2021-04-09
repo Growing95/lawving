@@ -27,5 +27,11 @@ public class BookmarkDao {
 	}
 
 
+	public int getTotalCount(String members_idx) {
+		
+		return sqlSessionTemplate.selectOne("totalcount",members_idx);
+	}
+
+
 
 }

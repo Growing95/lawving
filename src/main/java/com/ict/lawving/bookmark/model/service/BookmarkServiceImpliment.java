@@ -42,8 +42,8 @@ public class BookmarkServiceImpliment implements BookmarkService{
 
 	@Override
 	public int getTotalCount(String members_idx) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return bookmarkDao.getTotalCount(members_idx);
 	}
 
 
