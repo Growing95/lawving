@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import com.ict.lawving.bookmark.model.vo.BookmarkVo;
 
 public interface BookmarkService {
- ArrayList<BookmarkVo> selectBookmarkList();
- BookmarkVo selectBookmarkOnelist(int bookmark_idx);
+ ArrayList<BookmarkVo> selectBookmarkList(String members_idx);
  int Deletebookmark(int[] bookmakr_idx);
  int deleteBookmark(int bookmark_idx);
 int insertBookmark(BookmarkVo b);
+int getTotalCount(String members_idx);
  
 }

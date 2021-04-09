@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -258,9 +259,9 @@ public class MembersController {
 		
 		//마이페이지 이동
 		@RequestMapping("list_mypage.do")
-		public String select_mypageMethod() {
+		public String select_mypageMethod(@ModelAttribute("members_idx")String members_idx) {
 			
-			return "mypage/mypage";
+			return "list_bookmark.do";
 		}
 		//회원정보수정
 		@RequestMapping(value = "update_members.do", method =RequestMethod.POST )

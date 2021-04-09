@@ -46,54 +46,37 @@ caption{font-weight: bold; color: white; font-size: 40px;}
 article{height: 0 auto; background-color: #85929E;
  border-radius: 20px;
 }
+#box div{    padding-top: 50px;}
+/* paging 영역*/
+table tfoot ol.paging {list-style: none;}
+table tfoot ol.paging li {float: left;margin-right: 8px;}
+table tfoot ol.paging li a {display: block;padding: 3px 7px;border: 1px solid #00B3DC;color: #2f313e;font-weight: bold;}
+table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: bold;}
+.disable {padding: 3px 7px;border: 1px solid silver;color: silver;}
+.now {	padding: 3px 7px;border: 1px solid #ff4aa5;background: #ff4aa5;color: white;font-weight: bold;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 /* 툴팁메뉴버튼 제이쿼리는 추후 버튼누를시 정보 불러오기때문에 ajax로 변경해야함 */
 $(function() {
+	
 	$(document).on('click','#m3',function() {
 		$('.menu1').css('display','none');
 	    $('.menu2').css('display','none');
 	    $('.menu3').css('display','');
-	    $.ajax({
-			url:"xml.do",
-			method:"get",
-			dataType:"xml",
-			success:function(data) {
-				var table = "<table>";
-				table += "<caption>MY BOOKMARK</caption>";
-				table += "<tbody>";
-				$(data).find("member").each( function() {
-					/* <tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">부동산임대법</a></td><td>2021-04-06</td></tr> */
-					table+="<tr>";
-					table+="<td>"+$(this).find("idx").text()+"</td>";
-					table+="<td>"+$(this).find("id").text()+"</td>";
-					table+="<td>"+$(this).find("pw").text()+"</td>";
-					table+="<td>"+$(this).find("name").text()+"</td>";
-					table+="<td>"+$(this).find("age").text()+"</td>";
-					table+="<td>"+$(this).find("addr").text()+"</td>";
-					table+="<td>"+$(this).find("reg").text()+"</td>";
-					table+="</tr>";
-				});
-				table += "</tbody></table>";
-				$("#result").append(table);
-			},
-			error:function(){
-				alert("읽기실패");
-			}
-			
-		});
-	    
+	    $('.menu4').css('display','none');
 	});
 	$(document).on('click','#m2',function() {
 		$('.menu1').css('display','none');
 	    $('.menu2').css('display','');
 	    $('.menu3').css('display','none');
+	    $('.menu4').css('display','none');
 	});
 	$(document).on('click','#m1',function() {
 	    $('.menu1').css('display','');
 		$('.menu2').css('display','none');
 	    $('.menu3').css('display','none');
+	    $('.menu4').css('display','none');
 	});
 })
 </script>
@@ -115,9 +98,9 @@ function checkAll() {
 	<!-- 오른쪽툴팁메뉴 -->
 	<ul id="ltoolmenu"><li><button id="m1">INFO</button></li><li><button id="m2">SET INFO</button></li><li><button id="m3">BookMark</button></li></ul>
 	<!-- 내정보 -->
-	<div class="menu1" style="display: block;">
+	<div class="menu1" style="display: none;">
 	<table class="tab">
-	<caption>MY Information${sessionScope.loginmember.members_name}</caption>
+	<caption>MY Information</caption>
 	<tbody>
 	 <c:choose>
 	<c:when test="${empty sessionScope.loginMember}">
@@ -169,22 +152,61 @@ function checkAll() {
 	<caption>MY BOOKMARK</caption>
 	<tbody>
 	 <c:choose>
-	<c:when test="${empty sessionScope.bookmark}">
+	<c:when test="${empty blist}">
 	<tr><td colspan="3">북마크정보없음</td></tr>
 	</c:when>
 	<c:otherwise>
 	<tr><td style="border: none;"><input type="checkbox" id="all_chkdel" onclick="checkAll()" class="all_chkdel">전체선택</td><td style="border: none;"></td><td style="border: none;"><button>선택삭제</button></td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">부동산임대법</a></td><td>2021-04-06</td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">상속세</a></td><td>2021-04-06</td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">탈세법위반</a></td><td>2021-04-06</td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">탈세법위반</a></td><td>2021-04-06</td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">탈세법위반</a></td><td>2021-04-06</td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">탈세법위반</a></td><td>2021-04-06</td></tr>
-	<tr><td><input type="checkbox" id="chkdel" class="chkdel"></td><td><a href="#">탈세법위반</a></td><td>2021-04-06</td></tr>
+	<c:forEach items="${blist }" var="b">
+	<tr><td><input type="checkbox" id="chkdel" class="chkdel" value="${b.bookmark_idx }"></td><td><a href="#">${b.bookmark_category}</a></td><td>${b.bookmark_reg}</td></tr>
+	 </c:forEach>
+	 <tfoot>
+		<tr>
+			<td colspan="4">
+				<ol class="paging">
+				<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
+							<li class="disable">이전으로</li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="go_library.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+								</c:otherwise>
+							</c:choose>
+							<!-- 블록안에 들어간 페이지번호들 -->
+							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
+								step="1" var="k">
+								<!-- 현재 페이지와 현재 페이지가 아니것으로 구분 -->
+								<c:choose>
+									<c:when test="${k==paging.nowPage }">
+										<li class="now">${k}</li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="go_library.do?cPage=${k}">${k}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<!-- 다음 -->
+							<c:choose>
+								<c:when test="${paging.endBlock >= paging.totalPage }">
+									<li class="disable">다음으로</li>
+								</c:when>
+								<c:otherwise>
+									<li><a
+										href="go_library.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ol>
+					</td>
+				</tr>
+			</tfoot>
 	 </c:otherwise>
 	</c:choose>
 	</tbody>
 	</table>
+	</div>
+	<div class="menu4" style="display: block;">
+		<center><div style="width: 600px; height: 500px; background-color: #1e90ff; border-radius: 50px; font-weight: bold; font-size: 40px;line-height: 100px;"><h1 style="line-height: 5; color: aliceblue;">MY PAGE</h1></div><center>
 	</div>
 </div>
 <br><br><br><br>
