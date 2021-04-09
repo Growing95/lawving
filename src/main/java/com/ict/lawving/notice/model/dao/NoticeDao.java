@@ -1,4 +1,3 @@
-
 package com.ict.lawving.notice.model.dao;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
-import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Repository("noticeDao")
 public class NoticeDao {
@@ -63,12 +61,6 @@ public class NoticeDao {
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
 
-	// 상세보기
-	public NoticeVo selectOneList(int notice_idx) {
-		List<NoticeVo> OneList = sqlSession.selectList("noticeMapper.Onelist");
-		return (NoticeVo) OneList;
-	}
-
 	// 조회수
 	public int getCount() {
 		int result = 0;
@@ -100,15 +92,13 @@ public class NoticeDao {
 		return noticelist;
 	}
 
-	public int insertnotice(NoticeVo notice) {
-		int result = 0;
-		result = sqlSession.insert("insertnotice", notice);
-		return result;
+	// 상세보기
+	public NoticeVo selectOneList(int notice_idx) {
+		return sqlSession.selectOne("noticeMapper.selectNotice", notice_idx);
 	}
 
-	public NoticeVo selectNoticeOnelist(String notice_idx) {
-		NoticeVo onelist = sqlSession.selectOne("noticeMapper.onelist", notice_idx);
-		return onelist;
+	// 글쓰기
+	public int insertNotice(NoticeVo notice) {
+		return sqlSession.insert("noticeMapper.insertNotice", notice);
 	}
-
 }

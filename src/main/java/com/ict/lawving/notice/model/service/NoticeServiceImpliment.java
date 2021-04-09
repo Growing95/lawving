@@ -10,7 +10,6 @@ import com.ict.lawving.common.Paging;
 import com.ict.lawving.notice.model.dao.NoticeDao;
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
-import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Service("noticeService")
 public class NoticeServiceImpliment implements NoticeService {
@@ -39,12 +38,7 @@ public class NoticeServiceImpliment implements NoticeService {
 		return noticeDao.getList(paging.getBegin(), paging.getEnd());
 	}
 
-	@Override
-	public int insertNotice(NoticeVo notice) {
-		int result = noticeDao.insertnotice(notice);
-		return result;
-	}
-
+	
 	@Override
 	public ArrayList<NoticeVo> selectSearchTitleDesc(NoticeSearch searchObject, int begin, int end) {
 		return noticeDao.selectSearchTitleDesc(searchObject, begin, end);
@@ -67,9 +61,16 @@ public class NoticeServiceImpliment implements NoticeService {
 	}
 
 	@Override
-	public NoticeVo selectNoticeOnelist(String notice_idx) {
-			return noticeDao.selectNoticeOnelist(notice_idx);
-		}
+	public NoticeVo selectOneList(int notice_idx) {
+		return noticeDao.selectOneList(notice_idx); 
+	}
+
+	@Override
+	public int insertNotice(NoticeVo notice) {
+		return noticeDao.insertNotice(notice); 
+	}
+
+	
 	}
 	
 

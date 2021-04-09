@@ -2,6 +2,8 @@ package com.ict.lawving.notice.model.vo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NoticeVo {
 
 	private int notice_idx;
