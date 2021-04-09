@@ -241,6 +241,21 @@ public class MembersController {
 			}
 			return mv;
 		}
+		@RequestMapping("membersonelist.do")
+		public ModelAndView selectMembersOnelistMethod(@RequestParam("members_idx") int members_idx, Model model) {
+			ModelAndView mv = new ModelAndView("admin/membersOneList");
+			MembersVo mvo=membersService.selectOneList(members_idx);
+			mv.addObject("mvo",mvo);
+			return mv;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		//마이페이지 이동
 		@RequestMapping("list_mypage.do")
 		public String select_mypageMethod() {
@@ -283,9 +298,18 @@ public class MembersController {
 		@RequestMapping(value = "list_lawdata.do",method = RequestMethod.GET)
 		public String selectLawMethod(@RequestParam("law")String law,Model model) {
 			model.addAttribute("law", law);
-			System.out.println(law);
+			System.out.println("넘어온 로우값:"+law);
 			return "lawdata/lawdata";
 		}
+		//상세조회
+		@RequestMapping(value = "search_lawdata.do",method = RequestMethod.POST)
+		public String searchLawMethod(@RequestParam("search")String search,Model model) {
+			System.out.println(search);
+			String law = search;
+			model.addAttribute("law", law);
+			return "lawdata/lawdata";
+		}
+		
 		
 		
 		

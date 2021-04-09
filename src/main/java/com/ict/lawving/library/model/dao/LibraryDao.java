@@ -90,9 +90,16 @@ public class LibraryDao {
 		return sqlSession.selectOne("libraryMapper.selectLibrary", library_idx);
 	}
 
+
 	public int insertlibrary(LibraryVo library) {
+
 		int result = 0;
 		result = sqlSession.insert("libraryMapper.insertlibrary", library);
+		return result;
+	}
+	public int updatelibrary(LibraryVo library) {
+		int result =0 ;
+		result = sqlSession.update("libraryMapper.updatelibrary",library);
 		return result;
 	}
 

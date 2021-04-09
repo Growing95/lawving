@@ -182,100 +182,94 @@ table tfoot ol.paging li a:hover {
 	}
 </script>
 <body>
-	<c:import url="/WEB-INF/views/header.jsp" />
-	<article>
-		<div id="box">
-			<!-- 오른쪽툴팁메뉴 -->
-			<ul id="ltoolmenu">
-				<li><button id="m1">
-						<a href="memberslist.do">회원정보</a>
-					</button></li>
-				<li><button id="m2">
-						<a href="blacklist.do">사용제한회원</a>
-					</button></li>
-				<li><button id="m3">
-						<a href="repotlist.do">신고접수</a>
-					</button></li>
-				<li><button id="m4">
-						<a href="limitlist.do">제제회원</a>
-					</button></li>
 
-			</ul>
-			<!-- 사용제한회원 -->
-			<div class="menu2" style="display: block;">
-				<table class="tab">
-					<thead>
-						<tr>
-							<th>회원번호</th>
-							<th>회원아이디</th>
-							<th>가입날짜</th>
-							<th>제제날짜</th>
-						</tr>
-					</thead>
-					<caption>사용제한 회원</caption>
-					<tbody>
-						<c:choose>
-							<c:when test="${empty blacklist}">
-								<tr>
-									<td colspan="4">회원정보없음</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="k" items="${blacklist }" varStatus="vs">
-									<tr>
-										<td>${k.members_idx }</td>
-										<td>${k.limit_id }</td>
-										<td>${k.reg }</td>
-										<td>${k.limit_reg }</td>
-									</tr>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="4">
-								<ol class="paging">
-									<!-- 이전 -->
-									<c:choose>
-										<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
-											<li class="disable">이전으로</li>
-										</c:when>
-										<c:otherwise>
-											<li><a
-												href="blacklist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
-										</c:otherwise>
-									</c:choose>
-									<!-- 블록안에 들어간 페이지번호들 -->
-									<c:forEach begin="${paging.beginBlock }"
-										end="${paging.endBlock}" step="1" var="k">
-										<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
-										<c:choose>
-											<c:when test="${k==paging.nowPage }">
-												<li class="now">${k}</li>
-											</c:when>
-											<c:otherwise>
-												<li><a href="blacklist.do?cPage=${k}">${k}</a></li>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-									<!-- 다음 -->
-									<c:choose>
-										<c:when test="${paging.endBlock >= paging.totalPage }">
-											<li class="disable">다음으로</li>
-										</c:when>
-										<c:otherwise>
-											<li><a
-												href="blacklist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
-										</c:otherwise>
-									</c:choose>
-								</ol>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-		</div>
-	</article>
+<c:import url="/WEB-INF/views/header.jsp" />
+<article>
+<div id="box">
+	<!-- 오른쪽툴팁메뉴 -->
+	<ul id="ltoolmenu">
+	<li><button id="m1"><a href="memberslist.do">회원정보</a></button></li>
+	<li><button id="m2"><a href="blacklist.do">사용제한회원</a></button></li>
+	<li><button id="m3"><a href="repotlist.do">신고접수</a></button></li>
+	<li><button id="m4"><a href="limitlist.do">제제회원</a></button></li>
+	
+	</ul>
+	<!-- 사용제한회원 -->
+	<div class="menu2" style="display: block;">
+	<table class="tab">
+		<thead>
+			<tr>
+				<th>회원번호</th>
+				<th>회원아이디</th>
+				<th>가입날짜</th>
+				<th>제제날짜</th>
+			</tr>
+		</thead>
+	<caption>사용제한 회원</caption>
+	<tbody>
+	 <c:choose>
+	<c:when test="${empty blacklist}">
+	<tr><td colspan="4">회원정보없음</td></tr>
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="k" items="${blacklist }" varStatus="vs">
+		<tr>
+			<td>${k.members_idx }</td>
+			<c:url value="/membersonelist.do" var="mol">
+				<c:param name="members_idx" value="${k.members_idx}" />
+			</c:url>
+			<td><a href="${mol }">${k.limit_id }</a></td>
+			<td>${k.reg }</td>
+			<td>${k.limit_reg }</td>
+		</tr>
+		</c:forEach>
+	</c:otherwise>
+	</c:choose>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4">
+				<ol class="paging">
+				<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
+							<li class="disable">이전으로</li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="blacklist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+								</c:otherwise>
+							</c:choose>
+							<!-- 블록안에 들어간 페이지번호들 -->
+							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
+								step="1" var="k">
+								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
+								<c:choose>
+									<c:when test="${k==paging.nowPage }">
+										<li class="now">${k}</li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="blacklist.do?cPage=${k}">${k}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<!-- 다음 -->
+							<c:choose>
+								<c:when test="${paging.endBlock >= paging.totalPage }">
+									<li class="disable">다음으로</li>
+								</c:when>
+								<c:otherwise>
+									<li><a
+										href="blacklist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ol>
+					</td>
+				</tr>
+			</tfoot>
+	</table>
+	</div>
+</div>
+</article>
+
 </body>
 </html>

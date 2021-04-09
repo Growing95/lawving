@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.lawving.qna.model.dao.QnaDao;
+import com.ict.lawving.qna.model.vo.QnaSearch;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Service("qnaService")
@@ -21,16 +22,54 @@ public class QnaServiceImpliment implements QnaService {
 	
 //	QNA 목록 조회하기
 	@Override
-	public ArrayList<QnaVo> selectQuestionList(int begin, int end) {
+	public ArrayList<QnaVo> selectQuestionList(
+			int begin, int end) {
 		return qnaDao.selectQuestionList(begin, end);
+	}
+	
+//	QNA 목록 조회하기 : 전체 게시물 수 구하기
+	@Override
+	public int getTotalCount(QnaSearch searchObject) {
+		return qnaDao.getCount(searchObject);
 	}
 
 //	QNA 검색
 	@Override
-	public ArrayList<QnaVo> searchQuestion(String keyword, String category) {
-		return qnaDao.searchQuestion(keyword, category);
+	public ArrayList<QnaVo> searchAllQuestionDesc(
+			QnaSearch searchObject, int begin, int end) {
+		return qnaDao.searchAllQuestionDesc(searchObject, begin, end);
 	}
-
+	
+	@Override
+	public ArrayList<QnaVo> searchAllQuestionAsc(
+			QnaSearch searchObject, int begin, int end) {
+		return qnaDao.searchAllQuestionAsc(searchObject, begin, end);
+	}
+	
+	@Override
+	public ArrayList<QnaVo> searchCompletedQuestionDesc(
+			QnaSearch searchObject, int begin, int end) {
+		return qnaDao.searchCompletedQuestionDesc(searchObject, begin, end);
+	}
+	
+	@Override
+	public ArrayList<QnaVo> searchCompletedQuestionAsc(
+			QnaSearch searchObject, int begin, int end) {
+		return qnaDao.searchCompletedQuestionAsc(searchObject, begin, end);
+	}
+	
+	@Override
+	public ArrayList<QnaVo> searchWaitingQuestionDesc(
+			QnaSearch searchObject, int begin, int end) {
+		return qnaDao.searchWaitingQuestionDesc(searchObject, begin, end);
+	}
+	
+	@Override
+	public ArrayList<QnaVo> searchWaitingQuestionAsc(
+			QnaSearch searchObject, int begin, int end) {
+		return qnaDao.searchWaitingQuestionAsc(searchObject, begin, end);
+	}
+	
 //	QNA 목록 상세보기
 	@Override
 	public QnaVo selectQuestionOnelist(String qna_idx) {

@@ -2,18 +2,16 @@ package com.ict.lawving.bookmark.model.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.lawving.bookmark.model.dao.BookmarkDao;
 import com.ict.lawving.bookmark.model.vo.BookmarkVo;
 
 @Service("bookmarkService")
 public class BookmarkServiceImpliment implements BookmarkService{
-
-	@Override
-	public int insertBookmark(String String) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	@Autowired
+	private BookmarkDao bookmarkDao;
 
 	@Override
 	public ArrayList<BookmarkVo> selectBookmarkList() {
@@ -38,5 +36,13 @@ public class BookmarkServiceImpliment implements BookmarkService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int insertBookmark(BookmarkVo b) {
+	
+		return bookmarkDao.insertBookmark(b);
+	}
+
+
 
 }

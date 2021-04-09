@@ -13,5 +13,6 @@ public interface MembersService {
 	List<MembersVo> getList(int begin, int end);
 	int updateMember(MembersVo m);
 	int deleteMembers(String id);
+	MembersVo selectOneList(int members_idx);
 
 }
