@@ -16,7 +16,6 @@
 </head>
 <body>
 	<c:import url="../header.jsp"/>
-	<!-- <c:import url="../common/menubar.jsp"/> -->
 	<article>
 		<div style="margin: 10px auto; width: 800px; text-align: left;">
 			Question and answer

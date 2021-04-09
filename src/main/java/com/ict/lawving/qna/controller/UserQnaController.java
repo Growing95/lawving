@@ -81,13 +81,11 @@ public class UserQnaController {
 			@ModelAttribute("order")String order,
 			@ModelAttribute("keyword")String keyword,
 			@ModelAttribute("cPage")String cPage
-//			HttpServletRequest request
 			) {
 		return "redirect:search_qna.do";
 	}
 	
-//	@RequestMapping(value = "search_qna.do", method = RequestMethod.POST)
-	@RequestMapping("search_qna.do")
+	@RequestMapping(value = "search_qna.do", method = RequestMethod.POST)
 	public String searchQuestionMethod(
 			@RequestParam("category") String category, 
 			@RequestParam("order") String order,
@@ -198,7 +196,6 @@ public class UserQnaController {
 	public String goInsertQuestion() {
 		return "qna/qnaWriteForm";
 	}
-	
 	
 //	QNA 문의 작성하기
 	@RequestMapping("insert_qna.do")
