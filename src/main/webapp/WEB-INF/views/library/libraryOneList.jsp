@@ -22,15 +22,28 @@
 <tr><th>첨부파일</th>
 <td>
 	<c:if test="${ !empty lvo.library_file_name }"> <%-- 첨부파일이 있다면 다운로드 설정함 --%>
-		<c:url var="unf" value="/download_library.do">
-			<c:param name="download_library" value="${ lvo.library_file_name }" />
+		<c:url var="dld" value="/download_library.do">
+	<c:param name="ofile" value="${ lvo.library_file_name }" />
+	<c:param name="rfile" value="${ lvo.library_refile_name }" />
 		</c:url>
-		<a href="${ unf }">${lvo.library_file_name }</a>
+		<a href="${ dld }">${lvo.library_file_name }</a>
 	</c:if>
 	<c:if test="${ empty lvo.library_file_name }">&nbsp;</c:if>
 </td></tr>
 <tr><th>내 용</th><td>${ lvo.library_content }</td></tr>
-<tr><th colspan="2"><button onclick="javascript:history.go(-1);">목록</button></th></tr>
+<c:if
+		test="${loginMember.members_lev=='2'}">
+		<div style="align: center; padding-left: 400px;">
+			<c:url var="update" value="/library_update.do" />
+			<c:url var="delete" value="/library_delete.do" />
+			<button onclick="javascript:location.href='${ update }';">수정</button>
+			<button onclick="javascript:location.href='${ delete }';">삭제</button>
+		</div>
+	</c:if>
+	<div>
+	<c:url var = "goback" value="/llist.do" />
+<tr><th colspan="2"><button onclick="javascript:location.href='${goback }';">목록</button></th></tr>
+	</div>
 </table>
 </body>
 </html>

@@ -90,8 +90,14 @@
 	</select>
 	
 	<insert id="insertlibrary" parameterType="LibraryVo">
-		insert into Library values(library_seq.nextval,#{library_idx},#{members_idx},#{library_category},#{library_title},#{library_writer},#{library_content},#{library_file_name},#{library_refile_name},sysdate)
+		insert into library values(library_seq.nextval,21,#{library_category},#{library_title},#{library_writer},#{library_content},#{library_file_name},#{library_refile_name},#{library_link},sysdate)
 	</insert>
+	<update id="updatelibrary" parameterType="LibraryVo">
+		update library set library_title=#{library_title},library_content=#{library_content}<if test="library_file_name == null">, library_file_name = null,library_refile_name = null</if>
+		<if test="library_file_name != null">, library_file_name = #{ library_file_name }, library_refile_name = #{ library_refile_name }
+		   </if>
+		where library_idx = #{library_idx}
+	</update>
 </mapper>
 
 

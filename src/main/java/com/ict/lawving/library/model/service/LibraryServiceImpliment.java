@@ -61,5 +61,11 @@ public class LibraryServiceImpliment implements LibraryService{
 		int result = libraryDao.insertlibrary(library);
 		return result;
 	}
+
+	@Override
+	public int updatelibrary(LibraryVo library) {
+		int result = libraryDao.updatelibrary(library);
+		return result;
+	}
 	
 }
