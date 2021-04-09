@@ -5,7 +5,8 @@
 <configuration>
 
 	<typeAliases>
-	<typeAlias type="com.ict.lawving.qna.model.vo.QnaVo" alias="qna"/>
+	<typeAlias type="com.ict.lawving.qna.model.vo.QnaVo" alias="QnaVo"/>
+	<typeAlias type="com.ict.lawving.qna.model.vo.QnaSearch" alias="QnaSearch"/>
 	<typeAlias type="com.ict.lawving.members.model.vo.MembersVo" alias="MembersVo"/>
 	<typeAlias type="com.ict.lawving.limit.model.vo.LimitVo" alias="LimitVo"/>
 	<typeAlias type="com.ict.lawving.repot.model.vo.RepotVo" alias="RepotVo"/>
