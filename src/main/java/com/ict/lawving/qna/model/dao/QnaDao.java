@@ -37,7 +37,7 @@ public class QnaDao {
 //	QNA 검색 : 검색된 게시물 수 구하기
 	public int getCount(QnaSearch searchObject) {
 		int result = 0;
-		switch (searchObject.getCategory()) {
+		switch (searchObject.getStatus()) {
 		case "all":
 			result = sqlSession.selectOne(
 					"qnaMapper.searchCountAll", searchObject);
@@ -58,11 +58,6 @@ public class QnaDao {
 	public ArrayList<QnaVo> searchAllQuestionDesc(
 			QnaSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
-		
-		System.out.println("AllDesc-Dao-keyword : "+searchObject.getKeyword());
-		System.out.println("AllDesc-Dao-begin : "+String.valueOf(begin));
-		System.out.println("AllDesc-Dao-end : "+String.valueOf(end));
-		
 		map.put("keyword", searchObject.getKeyword());
 		map.put("begin", String.valueOf(begin));
 		map.put("end", String.valueOf(end));
@@ -74,11 +69,6 @@ public class QnaDao {
 	public ArrayList<QnaVo> searchAllQuestionAsc(
 			QnaSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
-		
-		System.out.println("AllAsc-Dao-keyword : "+searchObject.getKeyword());
-		System.out.println("AllAsc-Dao-begin : "+String.valueOf(begin));
-		System.out.println("AllAsc-Dao-end : "+String.valueOf(end));
-		
 		map.put("keyword", searchObject.getKeyword());
 		map.put("begin", String.valueOf(begin));
 		map.put("end", String.valueOf(end));
@@ -139,6 +129,10 @@ public class QnaDao {
 	
 //	QNA 문의 작성하기
 	public int insertQuestion(QnaVo qna) {
+		switch (qna.getQna_category()) {
+			case "question": qna.setQna_category("질문"); break;
+			case "suggestion": qna.setQna_category("건의"); break;
+		}
 		int result = sqlSession.insert("qnaMapper.insertQuestion", qna);
 		return result;
 	}
