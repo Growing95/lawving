@@ -3,6 +3,7 @@ package com.ict.lawving.members.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ict.lawving.members.model.service.MembersService;
@@ -191,13 +194,26 @@ public class MembersController {
 		}
 		
 		
+		// ID찾기
+		@RequestMapping(value="find_id.do", method = RequestMethod.POST)
+		public String findId(HttpServletResponse response,
+							MembersVo members,
+							Model model) throws IOException {
+			model.addAttribute("members_id", membersService.findId(response, members));
+			return "member/find_id";
+		}
+		
+		// PW찾기
+		@RequestMapping(value="find_pw.do", method = RequestMethod.POST)
+		public String findPw(HttpServletResponse response,
+				MembersVo members,
+				Model model) throws IOException {
+			model.addAttribute("members_pw", membersService.findId(response, members));
+			return "member/find_pw";
+		}
 		
 		
-		
-		
-		
-		
-
+	
 
 		
 		

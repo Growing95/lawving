@@ -7,13 +7,22 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- 1. DataSource 등록 -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
-		<property name="username" value="c##lawving" />
-		<property name="password" value="lawving" />
-	</bean>
+	<bean id="realdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+      <property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
+      <property name="username" value="c##lawving" />
+      <property name="password" value="lawving" />
+   </bean>
+   <!-- log4jdbc-remix 관련 dataSource처리  -->
+   <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+      <constructor-arg ref="realdataSource" />
+      <property name="logFormatter">
+         <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+            <property name="loggingType" value="MULTI_LINE" />
+            <property name="sqlPrefix" value="[SQL] " />
+         </bean>
+      </property>
+   </bean>
 	<!-- 2. Spring 과 MyBatis 연동 처리 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation"

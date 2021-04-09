@@ -65,11 +65,6 @@ $(function(){
 	$("#findId").click
 })
 
-$(function(){
-	$("#findPw").click
-})
-
-
 
 </script>
 </head>
@@ -93,6 +88,7 @@ $(function(){
 	<div class="outer" align="center">
 		<form action="find_id.do" method="post" id="findID">
 			<table width="500" cellspacing="5">
+			
 				<tr>
 					<td align="center"><input id="fid_members_name" type="text" name="members_name" placeholder="이름" required></input></td>
 				</tr>
@@ -112,17 +108,15 @@ $(function(){
 	</div>
 	<div id="tab-2" class="tab-content">
 	<div class="outer" align="center">
-		<form action="find_pw.do" method="post" id="findPW">
+		<form>
 			<table width="500" cellspacing="5">
 				<tr>
-					<td align="center"><input type="text" name="members_name" placeholder="이름" required></input></td>
-				</tr>
-				<tr>
-					<td align="center"><input type="email" name="members_email" placeholder="이메일" required></td>
+					<h3 align="center">해당 이메일로 비밀번호를 전송하였습니다. </h3>
+					<h3 align="center">이메일을 확인해주세요. </h3>
 				</tr>		
 				<tr>
 					<td align="center">
-						<input id="findPw" type="submit" value="다음"  style="width:170px;" >
+						<input type="button" value="로그인하러가기" onclick="location.href='go_login.do'" style="width:170px;">
 					</td>
 				</tr>
 				<br>

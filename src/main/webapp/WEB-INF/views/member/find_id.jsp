@@ -61,14 +61,9 @@ $(document).ready(function(){
 
 });
 
-$(function(){
-	$("#findId").click
-})
-
-$(function(){
+$(function() {
 	$("#findPw").click
 })
-
 
 
 </script>
@@ -91,17 +86,15 @@ $(function(){
 
 	<div id="tab-1" class="tab-content current">
 	<div class="outer" align="center">
-		<form action="find_id.do" method="post" id="findID">
+		<form>
 			<table width="500" cellspacing="5">
+			
 				<tr>
-					<td align="center"><input id="fid_members_name" type="text" name="members_name" placeholder="이름" required></input></td>
-				</tr>
-				<tr>
-					<td align="center"><input id="fid_members_email" type="email" name="members_email" placeholder="이메일" required></td>
+					<h3>회원님의 ID : ${members_id } 입니다. </h3>
 				</tr>		
 				<tr>
 					<td align="center">
-						<input id="findId" type="submit" value="다음" style="width:170px;">
+						<input type="button" value="로그인하러가기" onclick="location.href='go_login.do'" style="width:170px;">
 					</td>
 				</tr>
 				<br>
