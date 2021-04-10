@@ -290,7 +290,19 @@ public class LibraryController {
 			return new ModelAndView("filedown2", "downFile", model);
 		}
 
-
+		
+		@RequestMapping("chkdelete.do")
+		public String chkDeleteMethod(HttpServletRequest request) {
+			String [] chkMsg=request.getParameterValues("chkArr");
+			int size = chkMsg.length;
+			for (int i = 0; i < size; i++) {
+				libraryService.chkdelete(chkMsg[i]);
+			}
+			return "redirect: llist.do";
+		}
+		
+		
+		
 }
 	
 	

@@ -102,5 +102,9 @@ public class LibraryDao {
 		result = sqlSession.update("libraryMapper.updatelibrary",library);
 		return result;
 	}
-
+	public void chklistdelete(String chkdel) {
+		sqlSession.delete("libraryMapper.chkdelete",chkdel);
+		
+	}
+	
 }
