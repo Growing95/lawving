@@ -1,7 +1,5 @@
 package com.ict.lawving.qna.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ict.lawving.common.Paging;
 import com.ict.lawving.qna.model.service.QnaService;
+import com.ict.lawving.qna.model.vo.QnaSearch;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Controller
@@ -30,6 +31,7 @@ public class UserQnaController {
 			Model model, HttpServletRequest request) {
 		ArrayList<QnaVo> qnaList = new ArrayList<QnaVo>();
 		Paging paging = new Paging();
+		
 		try {
 			// 1. 전체 게시물의 수 
 			int count= qnaService.getTotalCount();
@@ -37,8 +39,9 @@ public class UserQnaController {
 			// 2. 전체 페이지의 수
 			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 				paging.setTotalPage(1);
-			}else {
-				paging.setTotalPage(paging.getTotalRecord()/paging.getNumPerPage());
+			} else {
+				paging.setTotalPage(
+						paging.getTotalRecord()/paging.getNumPerPage());
 				if (paging.getTotalRecord()%paging.getNumPerPage() != 0) {
 					paging.setTotalPage(paging.getTotalPage()+1);
 				}
@@ -47,21 +50,22 @@ public class UserQnaController {
 			String cPage= request.getParameter("cPage");
 			if (cPage == null) {
 				paging.setNowPage(1);
-			}else {
+			} else {
 				paging.setNowPage(Integer.parseInt(cPage));
 			}
 			// 4. 시작번호, 끝번호
 			paging.setBegin((paging.getNowPage()-1)*paging.getNumPerPage()+1);
-			paging.setEnd( (paging.getBegin()-1)+paging.getNumPerPage() );
+			paging.setEnd((paging.getBegin()-1)+paging.getNumPerPage() );
 			// 5. 시작블록, 끝블록
-			paging.setBeginBlock( (int)((paging.getNowPage()-1)/paging.getPagePerBlock())*paging.getPagePerBlock() +1);
+			paging.setBeginBlock(
+					(int)((paging.getNowPage()-1)/paging.getPagePerBlock())*paging.getPagePerBlock()+1);
 			paging.setEndBlock((paging.getBeginBlock()+paging.getPagePerBlock()-1));
 			// 6. 주의사항(endBlock이 totalPage보다 클 수가 있다.)
-			if (paging.getEndBlock() > paging.getTotalPage()) {
+			if (paging.getEndBlock()>paging.getTotalPage()) {
 				paging.setEndBlock(paging.getTotalPage());
 			}
+			
 			qnaList = qnaService.selectQuestionList(paging.getBegin(),paging.getEnd());
-			System.out.println(qnaList);
 			model.addAttribute("qnaList", qnaList);
 			model.addAttribute("paging", paging);
 		} catch (Exception e) {
@@ -71,13 +75,108 @@ public class UserQnaController {
 	}
 	
 //	QNA 검색
-	@RequestMapping("search_qna.do")
+	@RequestMapping(value = "search_qna_get.do", method = RequestMethod.GET)
+	public String searchQuestionMethod_get(
+			@ModelAttribute("status")String status,
+			@ModelAttribute("order")String order,
+			@ModelAttribute("keyword")String keyword,
+			@ModelAttribute("cPage")String cPage
+			) {
+		return "redirect:search_qna.do";
+	}
+	
+	@RequestMapping(value = "search_qna.do", method = RequestMethod.POST)
 	public String searchQuestionMethod(
-			@RequestParam("keyword")String keyword, 
-			@RequestParam("category")String category) {
+			@RequestParam("status") String status, 
+			@RequestParam("order") String order,
+			@RequestParam("keyword") String keyword,
+			Model model, HttpServletRequest request) {
+		QnaSearch searchObject = new QnaSearch(status, order, keyword);
 		ArrayList<QnaVo> qnaList = new ArrayList<QnaVo>();
-		qnaList = qnaService.searchQuestion(keyword, category);
-		return "qna/qnaList";
+		Paging paging = new Paging();
+
+		// 1. 전체 게시물의 수 
+		int count= qnaService.getTotalCount(searchObject);
+		paging.setTotalRecord(count);
+		// 2. 전체 페이지의 수
+		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+			paging.setTotalPage(1);
+		} else {
+			paging.setTotalPage(paging.getTotalRecord()/paging.getNumPerPage());
+			if (paging.getTotalRecord()%paging.getNumPerPage() != 0) {
+				paging.setTotalPage(paging.getTotalPage()+1);
+			}
+		}
+		// 3. 현재 페이지
+		String cPage = request.getParameter("cPage");
+		if (cPage == null) {
+			paging.setNowPage(1);
+		} else {
+			paging.setNowPage(Integer.parseInt(cPage));
+		}
+		// 4. 시작번호, 끝번호
+		paging.setBegin((paging.getNowPage()-1)*paging.getNumPerPage()+1);
+		paging.setEnd( (paging.getBegin()-1)+paging.getNumPerPage() );
+		// 5. 시작블록, 끝블록
+		paging.setBeginBlock( (int)((paging.getNowPage()-1)/paging.getPagePerBlock())*paging.getPagePerBlock() +1);
+		paging.setEndBlock((paging.getBeginBlock()+paging.getPagePerBlock()-1));
+		// 6. 주의사항(endBlock이 totalPage보다 클 수가 있다.)
+		if (paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+		
+		switch (status) {
+			case "all": 
+				switch (order) {
+					case "desc": 
+						qnaList = qnaService.searchAllQuestionDesc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					case "asc": 
+						qnaList = qnaService.searchAllQuestionAsc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					}
+				break;
+			case "completed": 
+				switch (order) {
+					case "desc": 
+						System.out.println("답변완료-최신순 검색");
+						qnaList = qnaService.searchCompletedQuestionDesc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					case "asc": 
+						qnaList = qnaService.searchCompletedQuestionAsc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					}
+				break;
+			case "waiting": 
+				switch (order) {
+					case "desc": 
+						System.out.println("대기중-최신순 검색");
+						qnaList = qnaService.searchWaitingQuestionDesc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					case "asc": 
+						qnaList = qnaService.searchWaitingQuestionAsc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					}
+				break;
+		}
+		
+		if (qnaList.size() > 0) {
+			model.addAttribute("searchObject", searchObject);
+			model.addAttribute("qnaList", qnaList);
+			model.addAttribute("paging", paging);
+			return "qna/qnaListView";
+		} else {
+//			model.addAttribute("msg", "게시판에 "+keyword+"를 포함한 글이 없습니다.");
+//			return "common/errorPage";
+			model.addAttribute("noData", "게시판에 &quot;"+keyword+"&quot;를 포함한 글이 없습니다.");
+			return "qna/qnaListView";
+		}
 	}
 	
 //	QNA 목록 상세보기
@@ -91,17 +190,31 @@ public class UserQnaController {
 	
 //	QNA 문의 작성 페이지로 이동
 	@RequestMapping("go_insert_qna.do")
-	public String goInsertQuestion() {
+	public String goInsertQuestion(
+			@ModelAttribute("cPage")String cPage) {
 		return "qna/qnaWriteForm";
 	}
 	
-	
 //	QNA 문의 작성하기
-	@RequestMapping("insert_qna.do")
+	@RequestMapping(value = "insert_qna.do", method = RequestMethod.POST)
 	public String insertQuestionMethod(QnaVo qna) {
-		int result = 0;
-		result = qnaService.insertQuestion(qna);
-		return "redirect:list_qna.do";
+		System.out.println("getMembers_idx : "+qna.getMembers_idx());
+		System.out.println("getQna_category : "+qna.getQna_category());
+		System.out.println("getQna_title : "+qna.getQna_title());
+		System.out.println("getQna_writer : "+qna.getQna_writer());
+		System.out.println("getQna_content : "+qna.getQna_content());
+		if (qna.getQna_view().isEmpty()) {
+			qna.setQna_view("공개");
+		} else {
+			qna.setQna_view("비공개");
+		}
+		System.out.println("getQna_view : "+qna.getQna_view());
+		int result = qnaService.insertQuestion(qna);
+		if (result>0) {
+			return "redirect:list_qna.do";
+		} else {
+			return "redirect:list_qna.do";
+		}
 	}
 	
 //	QNA 문의 삭제하기

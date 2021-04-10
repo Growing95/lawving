@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.lawving.notice.model.vo.NoticeVo;
+import com.ict.lawving.qna.model.vo.QnaSearch;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Repository("qnaDao")
@@ -32,20 +34,90 @@ public class QnaDao {
 		return (ArrayList<QnaVo>)qnaList;
 	}
 	
-//	QNA 검색
-	public ArrayList<QnaVo> searchQuestion(String keyword, String category) {
-//		qna_content에서 keyword를 포함하는 데이터를 카테고리 파라미터에 따라 다르게 검색
-		List<QnaVo> qnaList = new ArrayList<QnaVo>();
-		switch (category) {
-//			searchDesc : 최신순으로 select 
-			case "최신순": qnaList = sqlSession.selectList("qnaMapper.searchDesc", keyword); break;
-//			searchAsc : 오래된순으로 select 
-			case "오래된순": qnaList = sqlSession.selectList("qnaMapper.searchAsc", keyword); break;
-//			searchCompleted : qna_status가 답변완료 상태인 데이터를 select
-			case "답변완료": qnaList = sqlSession.selectList("qnaMapper.searchCompleted", keyword); break;
-//			searchWaiting :  qna_status가 대기중 상태인 데이터를 select
-			case "대기중": qnaList = sqlSession.selectList("qnaMapper.searchWaiting", keyword); break;
+//	QNA 검색 : 검색된 게시물 수 구하기
+	public int getCount(QnaSearch searchObject) {
+		int result = 0;
+		switch (searchObject.getStatus()) {
+		case "all":
+			result = sqlSession.selectOne(
+					"qnaMapper.searchCountAll", searchObject);
+			break;
+		case "completed":
+			result = sqlSession.selectOne(
+					"qnaMapper.searchCountCompleted", searchObject);
+			break;
+		case "waiting":
+			result = sqlSession.selectOne(
+					"qnaMapper.searchCountWaiting", searchObject);
+			break;
 		}
+		return result;
+	}
+	
+//	QNA 검색
+	public ArrayList<QnaVo> searchAllQuestionDesc(
+			QnaSearch searchObject, int begin, int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<QnaVo> qnaList = sqlSession.selectList(
+				"qnaMapper.searchAllQuestionDesc", map);
+		return (ArrayList<QnaVo>)qnaList;
+	}
+	
+	public ArrayList<QnaVo> searchAllQuestionAsc(
+			QnaSearch searchObject, int begin, int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<QnaVo> qnaList = sqlSession.selectList(
+				"qnaMapper.searchAllQuestionAsc", map);
+		return (ArrayList<QnaVo>)qnaList;
+	}
+	
+	public ArrayList<QnaVo> searchCompletedQuestionDesc(
+			QnaSearch searchObject, int begin, int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<QnaVo> qnaList = sqlSession.selectList(
+				"qnaMapper.searchCompletedQuestionDesc", map);
+		return (ArrayList<QnaVo>)qnaList;
+	}
+	
+	public ArrayList<QnaVo> searchCompletedQuestionAsc(
+			QnaSearch searchObject, int begin, int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<QnaVo> qnaList = sqlSession.selectList(
+				"qnaMapper.searchCompletedQuestionAsc", map);
+		return (ArrayList<QnaVo>)qnaList;
+	}
+	
+	public ArrayList<QnaVo> searchWaitingQuestionDesc(
+			QnaSearch searchObject, int begin, int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<QnaVo> qnaList = sqlSession.selectList(
+				"qnaMapper.searchWaitingQuestionDesc", map);
+		return (ArrayList<QnaVo>)qnaList;
+	}
+	
+	public ArrayList<QnaVo> searchWaitingQuestionAsc(
+			QnaSearch searchObject, int begin, int end) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("keyword", searchObject.getKeyword());
+		map.put("begin", String.valueOf(begin));
+		map.put("end", String.valueOf(end));
+		List<QnaVo> qnaList = sqlSession.selectList(
+				"qnaMapper.searchWaitingQuestionAsc", map);
 		return (ArrayList<QnaVo>)qnaList;
 	}
 	
@@ -57,6 +129,10 @@ public class QnaDao {
 	
 //	QNA 문의 작성하기
 	public int insertQuestion(QnaVo qna) {
+		switch (qna.getQna_category()) {
+			case "question": qna.setQna_category("질문"); break;
+			case "suggestion": qna.setQna_category("건의"); break;
+		}
 		int result = sqlSession.insert("qnaMapper.insertQuestion", qna);
 		return result;
 	}

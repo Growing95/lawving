@@ -6,43 +6,111 @@
 	<select id="count" resultType="int">
 		SELECT COUNT(*) FROM QNA
 	</select>
-	<select id="list" resultType="qna" parameterType="Map">
-		SELECT * FROM (
-			SELECT ROWNUM r_num, a.* FROM (
-				SELECT * FROM QNA ORDER BY qna_reg DESC
-			) a
-		) WHERE r_num BETWEEN #{begin} AND #{end}
+	<select id="list" resultType="QnaVo" parameterType="Map">
+		SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * FROM QNA 
+					  ORDER BY qna_reg DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchCountAll" parameterType="QnaSearch" resultType="int">
+		SELECT COUNT(*) FROM QNA
+		WHERE	qna_title 	LIKE '%' || #{ keyword } || '%'
+		OR		qna_content LIKE '%' || #{ keyword } || '%'
+	</select>
+	<select id="searchCountCompleted" parameterType="QnaSearch" resultType="int">
+		SELECT count(*) 
+		FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
+		WHERE	qna_title	LIKE '%' || #{ keyword } || '%' 
+		OR		qna_content	LIKE '%' || #{ keyword } || '%'
+	</select>
+	<select id="searchCountWaiting" parameterType="QnaSearch" resultType="int">
+		SELECT count(*) 
+		FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
+		WHERE	qna_title	LIKE '%' || #{ keyword } || '%' 
+		OR		qna_content	LIKE '%' || #{ keyword } || '%'
+	</select>
+	<select id="searchAllQuestionDesc" parameterType="Map" resultType="QnaVo">
+		SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * FROM QNA
+	                  WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+	                  OR	qna_content	LIKE '%' || #{ keyword } || '%'
+	                  ORDER BY qna_reg DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchAllQuestionAsc" parameterType="Map" resultType="QnaVo">
+		SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * FROM QNA
+	                  WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+	                  OR	qna_content	LIKE '%' || #{ keyword } || '%'
+	                  ORDER BY qna_reg ASC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchCompletedQuestionDesc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_reg DESC
+				) a 
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchCompletedQuestionAsc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_reg ASC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchWaitingQuestionDesc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_reg DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchWaitingQuestionAsc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_reg ASC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
 	</select>
 <!-- 
-	<select id="searchDesc" resultType="qna" parameterType="String">
-		SELECT * FROM QNA 
-		WHERE	qna_title	LIKE '%#{keyword}%' 
-		OR		qna_content	LIKE '%#{keyword}%'
-		ORDER BY qna_reg DESC
-	</select>
-	
-	<select id="searchAsc" resultType="qna" parameterType="String">
-		SELECT * FROM QNA 
-		WHERE	qna_title	LIKE '%#{keyword}%' 
-		OR		qna_content	LIKE '%#{keyword}%'
-		ORDER BY qna_reg ASC
-	</select>
-	<select id="searchCompleted" resultType="qna" parameterType="String">
-		SELECT * FROM QNA
-		WHERE	qna_status = '답변완료' AND qna_content LIKE '%#{keyword}%'
-		OR		qna_status = '답변완료' AND qna_title LIKE '%#{keyword}%'
-		ORDER BY qna_reg DESC
-	</select>
-	<select id="searchWaiting" resultType="qna" parameterType="String">
-		SELECT * FROM QNA
-		WHERE	qna_status = '대기중' AND qna_content LIKE '%#{keyword}%'
-		OR		qna_status = '대기중' AND qna_title LIKE '%#{keyword}%'
-		ORDER BY qna_reg DESC
-	</select>
-
 	<select id="onelist" resultType="qna" parameterType="Number">
 		SELECT * FROM QNA WHERE qna_idx = #{qna_idx};
 	</select>
  -->
-
+ 	<insert id="insertQuestion" parameterType="QnaVo">
+ 		INSERT INTO QNA VALUES(
+			QNA_seq.nextval, members_idx=#{members_idx}, qna_category=#{qna_category}, 
+			qna_title=#{qna_title}, qna_writer=#{qna_writer}, qna_content=#{qna_content}, 
+			qna_view=#{qna_view}, sysdate, 0, '대기중', NULL, NULL, NULL)
+ 	</insert>
 </mapper>

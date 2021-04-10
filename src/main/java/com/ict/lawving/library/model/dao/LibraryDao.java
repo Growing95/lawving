@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ict.lawving.library.model.vo.LibrarySearch;
 import com.ict.lawving.library.model.vo.LibraryVo;
-import com.ict.lawving.members.model.vo.MembersVo;
-import com.ict.lawving.notice.model.vo.NoticeVo;
 
 @Repository("libraryDao")
 public class LibraryDao {
@@ -91,10 +89,22 @@ public class LibraryDao {
 	public LibraryVo selectOneList(int library_idx) {
 		return sqlSession.selectOne("libraryMapper.selectLibrary", library_idx);
 	}
+
+
 	public int insertlibrary(LibraryVo library) {
+
 		int result = 0;
 		result = sqlSession.insert("libraryMapper.insertlibrary", library);
 		return result;
 	}
-
+	public int updatelibrary(LibraryVo library) {
+		int result =0 ;
+		result = sqlSession.update("libraryMapper.updatelibrary",library);
+		return result;
+	}
+	public void chklistdelete(String chkdel) {
+		sqlSession.delete("libraryMapper.chkdelete",chkdel);
+		
+	}
+	
 }

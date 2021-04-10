@@ -13,14 +13,14 @@ public class LibraryVo {
 	private String library_content;
 	private String library_file_name;
 	private String library_refile_name;
-	private MultipartFile file;
+	private String library_link;
 	private Date library_reg;
 	
 	public LibraryVo() {}
 
 	public LibraryVo(int library_idx, int members_idx, String library_category, String library_title,
 			String library_writer, String library_content, String library_file_name, String library_refile_name,
-			MultipartFile file, Date library_reg) {
+			String library_link, Date library_reg) {
 		super();
 		this.library_idx = library_idx;
 		this.members_idx = members_idx;
@@ -30,7 +30,7 @@ public class LibraryVo {
 		this.library_content = library_content;
 		this.library_file_name = library_file_name;
 		this.library_refile_name = library_refile_name;
-		this.file = file;
+		this.library_link = library_link;
 		this.library_reg = library_reg;
 	}
 
@@ -98,12 +98,12 @@ public class LibraryVo {
 		this.library_refile_name = library_refile_name;
 	}
 
-	public MultipartFile getFile() {
-		return file;
+	public String getLibrary_link() {
+		return library_link;
 	}
 
-	public void setFile(MultipartFile file) {
-		this.file = file;
+	public void setLibrary_link(String library_link) {
+		this.library_link = library_link;
 	}
 
 	public Date getLibrary_reg() {
@@ -113,6 +113,8 @@ public class LibraryVo {
 	public void setLibrary_reg(Date library_reg) {
 		this.library_reg = library_reg;
 	}
+	
+
 	
 	
 }

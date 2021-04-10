@@ -66,6 +66,7 @@ article {
 </head>
 <body>
 
+
 	<header>
 		<center>
 			<a href="home.do"><img alt="logo"
@@ -96,12 +97,14 @@ article {
 			</c:choose>
 		</div>
 	</header>
-	<c:url var="list_notice" value="list_notice.do" />
+	<c:url var="nlist" value="nlist.do" />
 	<ul id="toolmenu">
-		<li><a href="${list_notice }">공지사항</a></li>
-		<li><a href="#">자료실</a></li>
-		<li><a href="#">Q&A</a></li>
-		<li><a href="#">챗봇테스트</a></li>
+		<li><a href="${ nlist }">공지사항</a></li>
+  <li><a href="llist.do">자료실</a></li>
+  <li><a href="list_qna.do">Q&A</a></li>
+  <li><a href="#">챗봇테스트</a></li>
+
+
 
 
 	</ul>
