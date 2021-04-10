@@ -6,6 +6,12 @@
 	<insert id="insertbookmark" parameterType="BookmarkVo">
 		insert into bookmark values(bookmark_seq.nextval,#{members_idx},#{bookmark_category},#{bookmark_question},#{bookmark_answer},sysdate)
 	</insert>
+	<select id="list_bookmark" parameterType="String" resultType="BookmarkVO">
+	select * from bookmark where members_idx=#{members_idx}
+	</select>
+	<select id="totalcount" parameterType="String" resultType="int">
+	select count(*) from bookmark where members_idx=#{mebers_idx}
+	</select>
 	
 </mapper>
 

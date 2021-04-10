@@ -36,6 +36,8 @@ button.law:hover {
 
 </head>
 
+
+
 <body>
 
 	<c:import url="header.jsp"/>
@@ -49,7 +51,6 @@ button.law:hover {
 
 <div id="selectlaw">
 <button class="law" value="부동산">부동산</button>
-
 <button class="law" value="상속">상속</button>
 <button class="law" value="임금">임금</button>
 <button class="law" value="해고">해고</button>
@@ -57,6 +58,11 @@ button.law:hover {
 </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </article>
-
+<!-- <button onclick="golaw()">법률api자료갱신</button>
+<script type="text/javascript">
+function golaw() {
+	location.href="update_lawdata.do";
+}
+</script> -->
 </body>
 </html>

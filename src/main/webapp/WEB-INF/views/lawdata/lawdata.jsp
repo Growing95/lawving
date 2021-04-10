@@ -33,13 +33,9 @@ z-index:200;
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-		 window.history.replaceState("test",null,"./lawdata");
 
-
-
-	
 		$.ajax({
-			url:"lawdata.do",
+			url:"resources/lawdata/dblaw.xml",
 			method:"get",
 			dataType:"xml",
 			beforeSend: function () {
@@ -90,14 +86,15 @@ $(function(){
 		$(document).on('click','#btn',function() {
 			if (${empty sessionScope.loginMember}) {
 				alert("로그인해주세요");
+				return;
 			}else if(${!empty sessionScope.loginMember}){
 	 		var save = $(this);
-	 		var tbody = save.parent().parent().parent();
+	 		var tbody = save.parent().parent().parent(); 
 	 		var tr = tbody.children();
 	 		var c = tr.eq(1).text();
 	 		var q = tr.eq(3).text();
 	 		var a= tr.eq(5).text();
-	 		var u = ${sessionScope.loginMember.members_idx}
+	 		var u = ${sessionScope.loginMember.members_idx};
 	 		location.href="insert_bookmark.do?bookmark_answer="+a+"&bookmark_category="+c+"&bookmark_question="+q+"&members_idx="+u;
 			}
 				
