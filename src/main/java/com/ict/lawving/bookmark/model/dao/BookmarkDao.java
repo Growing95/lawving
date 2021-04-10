@@ -33,5 +33,12 @@ public class BookmarkDao {
 	}
 
 
+	public int getDelete(String id) {
+		int result = 0;
+		result= sqlSessionTemplate.delete("chkbookmarkdelete",id );
+		return result;
+	}
+
+
 
 }

@@ -33,7 +33,6 @@ z-index:200;
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-
 		$.ajax({
 			url:"resources/lawdata/dblaw.xml",
 			method:"get",
@@ -67,7 +66,7 @@ $(function(){
 						} 
 					});
 				}else{
-					table+="<table>"
+					table+="<table class='table'>";
 					table+= "<tbody>";
 					table+="<tr><td><h2>관련된 자료가없습니다.</h2></td></tr>";
 				table += "</tbody></table>";
@@ -94,15 +93,11 @@ $(function(){
 	 		var c = tr.eq(1).text();
 	 		var q = tr.eq(3).text();
 	 		var a= tr.eq(5).text();
-	 		var u = ${sessionScope.loginMember.members_idx};
+	 		var u = ${loginMember.members_idx}
 	 		location.href="insert_bookmark.do?bookmark_answer="+a+"&bookmark_category="+c+"&bookmark_question="+q+"&members_idx="+u;
 			}
-				
 		});
-	
 	})
-
-
 </script>
 <script type="text/javascript">
 
