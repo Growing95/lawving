@@ -12,6 +12,9 @@
 	<select id="totalcount" parameterType="String" resultType="int">
 	select count(*) from bookmark where members_idx=#{mebers_idx}
 	</select>
+	<delete id="chkbookmarkdelete" parameterType="String">
+	delete from bookmark where bookmark_idx = #{bookmark_idx}
+	</delete>
 	
 </mapper>
 

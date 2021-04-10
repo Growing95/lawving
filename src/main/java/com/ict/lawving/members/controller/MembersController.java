@@ -26,7 +26,6 @@ import com.ict.lawving.common.Paging;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
 
-
 @SessionAttributes({"loginUser","loginAdmin"})
 @Controller
 public class MembersController {
@@ -257,12 +256,14 @@ public class MembersController {
 		
 		
 		
-		//마이페이지 이동
-		@RequestMapping("list_mypage.do")
-		public String select_mypageMethod(@ModelAttribute("members_idx")String members_idx) {
-			
-			return "list_bookmark.do";
-		}
+		
+		  //마이페이지 이동
+		  
+		 @RequestMapping("list_mypage.do") public String
+		  select_mypageMethod(@ModelAttribute("members_idx")String members_idx) {
+		  
+		  return "list_bookmark.do"; }
+		 
 		//회원정보수정
 		@RequestMapping(value = "update_members.do", method =RequestMethod.POST )
 		  public String updateMemberMethod(MembersVo m,Model model,HttpSession session) {
@@ -291,7 +292,7 @@ public class MembersController {
 				return "common/alert";
 			}else {
 				model.addAttribute("msg","[오류]회원탈퇴 실패.");
-				  model.addAttribute("url","list_mypage.do");
+				  model.addAttribute("url","list_bookmark.do");
 				return "common/alert";
 			}
 		}
