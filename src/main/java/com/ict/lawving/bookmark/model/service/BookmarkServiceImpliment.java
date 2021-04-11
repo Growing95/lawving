@@ -16,18 +16,6 @@ public class BookmarkServiceImpliment implements BookmarkService{
 
 
 	@Override
-	public int Deletebookmark(int[] bookmakr_idx) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteBookmark(int bookmark_idx) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int insertBookmark(BookmarkVo b) {
 	
 		return bookmarkDao.insertBookmark(b);
@@ -44,6 +32,17 @@ public class BookmarkServiceImpliment implements BookmarkService{
 	public int getTotalCount(String members_idx) {
 		
 		return bookmarkDao.getTotalCount(members_idx);
+	}
+
+	@Override
+	public BookmarkVo onelistbookmark(String bookmark_idx) {
+		return bookmarkDao.onelistbookmark(bookmark_idx);
+	}
+
+
+	@Override
+	public int deleteBookmark(String bookmark_idx) {
+		return bookmarkDao.deleteonebookmark(bookmark_idx);
 	}
 
 

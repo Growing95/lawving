@@ -255,15 +255,7 @@ public class MembersController {
 		
 		
 		
-		
-		
-		  //마이페이지 이동
-		  
-		 @RequestMapping("list_mypage.do") public String
-		  select_mypageMethod(@ModelAttribute("members_idx")String members_idx) {
-		  
-		  return "list_bookmark.do"; }
-		 
+
 		//회원정보수정
 		@RequestMapping(value = "update_members.do", method =RequestMethod.POST )
 		  public String updateMemberMethod(MembersVo m,Model model,HttpSession session) {
@@ -273,7 +265,7 @@ public class MembersController {
 			  MembersVo loginmember = membersService.selectloginCheck(id);
 			  session.setAttribute("loginMember", loginmember);
 			  model.addAttribute("msg","회원정보가 수정되었습니다.");
-			  model.addAttribute("url","list_mypage.do");
+			  model.addAttribute("url","list_mypage.do?members_idx="+loginmember.getMembers_idx());
 			return "common/alert";
 		  }else {
 			  model.addAttribute("message","회원정보수정에 실패하였습니다.");
@@ -292,7 +284,7 @@ public class MembersController {
 				return "common/alert";
 			}else {
 				model.addAttribute("msg","[오류]회원탈퇴 실패.");
-				  model.addAttribute("url","list_bookmark.do");
+				  model.addAttribute("url","home.do");
 				return "common/alert";
 			}
 		}

@@ -40,5 +40,16 @@ public class BookmarkDao {
 	}
 
 
+	public BookmarkVo onelistbookmark(String bookmark_idx) {
+
+		return sqlSessionTemplate.selectOne("onelist_bookmark",bookmark_idx);
+	}
+
+
+	public int deleteonebookmark(String bookmark_idx) {
+		return sqlSessionTemplate.delete("onedelete_bookmark", bookmark_idx);
+	}
+
+
 
 }

@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>정보조회</title>
 <style type="text/css">
-	.table{background-color: white; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; }
+a{text-decoration: none;}
+	.table{background-color: #B0C4DE; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; }
 	td{
 	text-align: center;
 	}
@@ -27,7 +28,8 @@ top: 50%;
 display:none;
 z-index:200;
 }
-
+#save{float: left;}
+h2{background-color: #AED6F1}
 
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -53,13 +55,12 @@ $(function(){
 							table+="<form id='post' method='post'>"
 						table+="<table class='table'>";
 					table+= "<tbody>";
-					table+="<tr><td colspan='2'><h2>카테고리</td></tr>";
-					table+="<tr><td>"+$(this).find("mainCategory").text()+"</td></tr>";
+					table+="<tr><td colspan='2'><a id='save'><img alt='bookmark' src='resources/images/bookmarks.png'></a><h2>카테고리</td></tr>";
+					table+="<tr><td style='font-size: 30px;'>"+$(this).find("mainCategory").text()+"</td></tr>";
 					table+="<tr><td colspan='2'><h2>질문</td></tr>";
-					table+="<tr><td>"+$(this).find("question").text()+"</td></tr>";
+					table+="<tr><td style='font-weight: bold;'>"+$(this).find("question").text()+"</td></tr>";
 					table+="<tr><td colspan='2'><h2>답변</td></tr>";
-					table+="<tr><td>"+$(this).find("answer").text()+"</td></tr>";
-					table+="<tr><td><input type='button' id='btn' value='저장' /></td></tr>";
+					table+="<tr><td style='color:;font-weight: bold; '>"+$(this).find("answer").text()+"</td></tr>";
 				table += "</tbody></table>";
 				table+="</form>"
 				table +="<br><br>";
@@ -82,7 +83,7 @@ $(function(){
 		});
 		//북마크기능
 		
-		$(document).on('click','#btn',function() {
+		$(document).on('click','#save',function() {
 			if (${empty sessionScope.loginMember}) {
 				alert("로그인해주세요");
 				return;
@@ -124,6 +125,7 @@ function FunLoadingBarEnd() {
 </script>
 </head>
 <body>
+
 <c:import url="/WEB-INF/views/header.jsp" />
 <article>
 <div id="result"></div>
