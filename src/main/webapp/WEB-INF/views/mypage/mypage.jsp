@@ -12,7 +12,7 @@
 	position: relative;
 	width: 600px;
 	height: auto;
-	margin: 0 auto;
+	margin: auto;
 }
 
 #ltoolmenu {
@@ -21,7 +21,7 @@
 	position: fixed;
 	overflow: auto;
 	left: 8%;
-	bottom: 40%;
+	bottom: 30%;
 	z-index: 10000;
 }
 
@@ -63,7 +63,7 @@
 /* 북마크테이블 */
 .bookmark {
 	background-color: white;
-	width: 700px;
+	width: auto;
 	height: auto;
 	margin: auto;
 	border-radius: 20px;
@@ -72,16 +72,15 @@
 
 .bookmark td {
 	font-weight: bold;
-	border-bottom: 1px solid black;
 	border-top: 1px solid black;
 }
 /* 콘텐츠영역 */
 #box div {
-	width: 600px;
+	width: auto;
 	height: auto;
 	margin: auto;
 }
-#box #menu3{width: 700px;
+#box #menu3{width: auto;
 	height: auto;
 	margin: auto;
 }
@@ -322,22 +321,21 @@ $.ajax({
 						<c:choose>
 							<c:when test="${empty blist}">
 								<tr>
-									<td colspan="3" width="500" height="500">북마크정보없음</td>
+									<td colspan="2"style="border-bottom: none;border-top: none; height: 500px;">북마크정보없음</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td style="border: none;"><input type="checkbox"
+									<td style="border: none;width: 90px;"><input type="checkbox"
 										id="all_chkdel" onclick="checkAll()" class="all_chkdel">전체선택</td>
-									<td style="border: none;"></td>
-									<td colspan="2" style="border: none;"></td>
-									<td style="border: none;"><button id="chkdelete">선택삭제</button></td>
+									<td style="border: none;"colspan="2"></td>
+									<td style="border: none;width: 50px;"><button id="chkdelete">선택삭제</button></td>
 								</tr>
 								<tr>
 									<td></td>
-									<td>카테고리</td>
+									<td style="width: 70px;">카테고리</td>
 									<td>질문</td>
-									<td>북마크날짜</td>
+									<td style="width: 80px;">북마크날짜</td>
 								</tr>
 								<c:forEach items="${blist }" var="b">
 									<tr>

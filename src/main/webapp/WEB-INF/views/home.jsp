@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-<title>Home</title>
+<title>LAWVING</title>
 <style type="text/css">
 article{ background-color: gainsboro;}
 .law {
@@ -57,10 +57,11 @@ $(function() {
 	<c:import url="header.jsp"/>
 
 <article>
-<!-- 슬라이더 배너부분 -->
+<!-- 슬라이더 배너부분 이미지 규격은1320*420로 한다. -->
  <div class="slider">
-    <div><img alt="banner" src="resources/images/banner2.jpg"></div>
+    <div><img alt="banner" src="resources/images/banner2.png"></div>
     <div><img alt="banner" src="resources/images/banner3.png"></div>
+    <div><img alt="banner" src="resources/images/banner4.png"></div>
  </div>
   <!-- 법률데이터조회부분 -->
 <div id="category">
