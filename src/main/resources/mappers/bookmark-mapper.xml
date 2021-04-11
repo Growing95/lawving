@@ -15,6 +15,12 @@
 	<delete id="chkbookmarkdelete" parameterType="String">
 	delete from bookmark where bookmark_idx = #{bookmark_idx}
 	</delete>
+	<select id="onelist_bookmark" parameterType="String" resultType="BookmarkVO">
+	select * from bookmark where bookmark_idx=#{bookmark_idx}
+	</select>
+	<delete id="onedelete_bookmark" parameterType="String">
+	delete from bookmark where bookmark_idx = #{bookmark_idx}
+	</delete>
 	
 </mapper>
 

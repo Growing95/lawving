@@ -86,7 +86,7 @@ article {
 						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수
 							: <%-- ${limit.limit_count} --%>0
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="#">MY북마크</a>
+							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
 				<c:otherwise>

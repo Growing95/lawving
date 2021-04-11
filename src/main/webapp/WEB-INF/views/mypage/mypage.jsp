@@ -63,8 +63,6 @@
 /* 북마크테이블 */
 .bookmark {
 	background-color: white;
-	width: auto;
-	height: auto;
 	margin: auto;
 	border-radius: 20px;
 	border-collapse: collapse;
@@ -137,11 +135,15 @@ table tfoot ol.paging li a:hover {
 	color: white;
 	font-weight: bold;
 }
+a{text-decoration: none;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	/* 툴팁메뉴버튼 제이쿼리는 추후 버튼누를시 정보 불러오기때문에 ajax로 변경해야함 */
 	$(function() {
+	
+		
+	
 
 		$(document).on('click', '#m3', function() {
 			$('.menu1').css('display', 'none');
@@ -185,6 +187,7 @@ $.ajax({
 			success : function(data) {
 				if (data.trim() >= '1') {
 					location.href = "list_bookmark.do?members_idx=${loginMember.members_idx}";
+					alert("삭제성공");
 				} else {
 					alert("삭제실패");
 				}
@@ -194,9 +197,16 @@ $.ajax({
 			}
 });
 });
+		var button = "${button}";
+		if (button!=null) {
+		if (button=="m3") {
+		$("#m3").trigger("click");
+		}
+		}
 	})
 </script>
 <script type="text/javascript">
+
 	function checkAll() {
 		if ($("#all_chkdel").is(':checked')) {
 			$("input[id=chk_id]").prop("checked", true);
@@ -321,7 +331,7 @@ $.ajax({
 						<c:choose>
 							<c:when test="${empty blist}">
 								<tr>
-									<td colspan="2"style="border-bottom: none;border-top: none; height: 500px;">북마크정보없음</td>
+									<td colspan="2"style="border-bottom: none;border-top: none; height: 500px; width: 600px;">북마크정보없음</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
@@ -342,7 +352,7 @@ $.ajax({
 										<td><input type="checkbox" name="chk_id" id="chk_id"
 											value="${b.bookmark_idx }"></td>
 										<td>${b.bookmark_category }</td>
-										<td><a href="#">${b.bookmark_question}</a></td>
+										<td><a href="onelist_bookmark.do?bookmark_idx=${b.bookmark_idx}">${b.bookmark_question}</a></td>
 										<td>${b.bookmark_reg}</td>
 									</tr>
 								</c:forEach>
