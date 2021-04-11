@@ -8,6 +8,14 @@
 <title>정보조회</title>
 <style type="text/css">
 a{text-decoration: none;}
+/* TOP버튼css */
+a#MOVE_TOP_BTN {
+    position: fixed;
+    right: 30%;
+    bottom: 50px;
+    display: none;
+    z-index: 999;
+}
 	.table{background-color: #B0C4DE; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; }
 	td{
 	text-align: center;
@@ -95,7 +103,25 @@ $(function(){
 	 		var q = tr.eq(3).text();
 	 		var a= tr.eq(5).text();
 	 		var u = ${loginMember.members_idx}
-	 		location.href="insert_bookmark.do?bookmark_answer="+a+"&bookmark_category="+c+"&bookmark_question="+q+"&members_idx="+u;
+	 		//location.href="insert_bookmark.do?bookmark_answer="+a+"&bookmark_category="+c+"&bookmark_question="+q+"&members_idx="+u;
+	 		$.ajax({
+				url:"insert_bookmark.do",
+				method:"post",
+				data:"bookmark_answer="+a+"&bookmark_category="+c+"&bookmark_question="+q+"&members_idx="+u,
+				dataType:"text",
+
+				success: function(data) {	
+					if (data.trim() >= '1') {
+						alert("북마크가저장되었습니다.");
+					} else {
+						alert("북마크저장을 실패하였습니다.");
+					}
+				},
+				error: function() {
+					alert("북마크저장에러")
+				}
+				
+			});
 			}
 		});
 	})
@@ -129,6 +155,26 @@ function FunLoadingBarEnd() {
 <c:import url="/WEB-INF/views/header.jsp" />
 <article>
 <div id="result"></div>
+<a id="MOVE_TOP_BTN" href="#"><img alt="top" src="resources/images/top.png"> </a>
 </article>
 </body>
+<script>
+//탑버튼 스크립트
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 500) {
+                $('#MOVE_TOP_BTN').fadeIn();
+            } else {
+                $('#MOVE_TOP_BTN').fadeOut();
+            }
+        });
+        
+        $("#MOVE_TOP_BTN").click(function() {
+            $('html, body').animate({
+                scrollTop : 0
+            }, 400);
+            return false;
+        });
+    });
+</script>
 </html>

@@ -59,9 +59,9 @@ $(function() {
 <article>
 <!-- 슬라이더 배너부분 이미지 규격은1320*420로 한다. -->
  <div class="slider">
-    <div><img alt="banner" src="resources/images/banner2.png"></div>
     <div><img alt="banner" src="resources/images/banner3.png"></div>
     <div><img alt="banner" src="resources/images/banner4.png"></div>
+    <div><img alt="banner" src="resources/images/banner2.png"></div>
  </div>
   <!-- 법률데이터조회부분 -->
 <div id="category">
@@ -77,11 +77,5 @@ $(function() {
 </div>
 <br><br><br><br><br><br>
 </article>
-<!-- <button onclick="golaw()">법률api자료갱신</button>
-<script type="text/javascript">
-function golaw() {
-	location.href="update_lawdata.do";
-}
-</script> -->
 </body>
 </html>

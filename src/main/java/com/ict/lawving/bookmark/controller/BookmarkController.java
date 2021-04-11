@@ -27,31 +27,25 @@ public class BookmarkController {
 	@Autowired
 	private Paging paging;
 
-	@RequestMapping("insert_bookmark.do")
-	public String insertBookmarkMethod(BookmarkVo b, Model model) {
-		String bookmark_category = b.getBookmark_category();
-		String bookmark_question = b.getBookmark_question();
-		String bookmark_answer = b.getBookmark_answer();
-		String members_idx = b.getMembers_idx();
-		System.out.println("카테고리:" + bookmark_category);
-		System.out.println("질문:" + bookmark_question);
-		System.out.println("답변:" + bookmark_answer);
-		System.out.println("유저번호:" + members_idx);
-		String law = bookmark_category;
-		model.addAttribute("law", law);
-		int result = bookmarkService.insertBookmark(b);
-
-		if (result > 0) {
-			return "redirect:list_lawdata.do";
-		} else {
-			model.addAttribute("msg", "북마크저장에실패하였습니다.다시시도해주세요");
-			model.addAttribute("url", "home.do");
-			return "common/alert";
-		}
-
-		
-
-	}
+	/*
+	 * @RequestMapping("insert_bookmark.do") public String
+	 * insertBookmarkMethod(BookmarkVo b, Model model) { String bookmark_category =
+	 * b.getBookmark_category(); String bookmark_question =
+	 * b.getBookmark_question(); String bookmark_answer = b.getBookmark_answer();
+	 * String members_idx = b.getMembers_idx(); System.out.println("카테고리:" +
+	 * bookmark_category); System.out.println("질문:" + bookmark_question);
+	 * System.out.println("답변:" + bookmark_answer); System.out.println("유저번호:" +
+	 * members_idx); String law = bookmark_category; model.addAttribute("law", law);
+	 * int result = bookmarkService.insertBookmark(b);
+	 * 
+	 * if (result > 0) { return "redirect:list_lawdata.do"; } else {
+	 * model.addAttribute("msg", "북마크저장에실패하였습니다.다시시도해주세요");
+	 * model.addAttribute("url", "home.do"); return "common/alert"; }
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 
 	@RequestMapping("list_bookmark.do")
 	public String selectBookmarkListMethod(@RequestParam("members_idx") String members_idx, Model model,

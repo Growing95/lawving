@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LAWVING_MYPAGE</title>
 </head>
 <style type="text/css">
 #box {
