@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LAWVING_BOOKMARK</title>
 <style type="text/css">
 article {
 	height: 0 auto;

@@ -63,10 +63,13 @@ article {
 	font-weight: bold;
 }
 </style>
+<script type="text/javascript">
+function golaw() {
+	location.href="update_lawdata.do";
+}
+</script>
 </head>
 <body>
-
-
 	<header>
 		<center>
 			<a href="home.do"><img alt="logo"
@@ -77,8 +80,8 @@ article {
 				<c:when test="${loginMember.members_lev=='2'}">
 					<div id="log">
 						<span style="font-weight: bold;">관리자</span>&nbsp;${loginMember.members_name }님|<a
-							href="logout.do">로그아웃</a><br> <a href="go_adminpage.do"
-							style="font-size: none; color: black;">회원정보관리</a>
+							href="logout.do">로그아웃</a><br> <a href="memberslist.do"
+							style="font-size: none; color: black;">회원정보관리</a><br><button onclick="golaw()">법률api자료갱신</button>
 					</div>
 				</c:when>
 				<c:when test="${loginMember.members_lev=='1' }">
@@ -103,10 +106,6 @@ article {
   <li><a href="llist.do">자료실</a></li>
   <li><a href="list_qna.do">Q&A</a></li>
   <li><a href="#">챗봇테스트</a></li>
-
-
-
-
 	</ul>
 	<br>
 	<br>

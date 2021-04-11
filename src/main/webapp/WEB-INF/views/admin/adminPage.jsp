@@ -150,7 +150,7 @@ table tfoot ol.paging li a:hover {
 <script type="text/javascript">
 	/* 툴팁메뉴버튼 제이쿼리는 추후 버튼누를시 정보 불러오기때문에 ajax로 변경해야함 */
 	$(function() {
-		$(document).on('click', '#m4', function() {
+/* 		$(document).on('click', '#m4', function() {
 			$('.menu1').css('display', 'none');
 			$('.menu2').css('display', 'none');
 			$('.menu3').css('display', 'none');
@@ -175,7 +175,7 @@ table tfoot ol.paging li a:hover {
 			$('.menu2').css('display', 'none');
 			$('.menu3').css('display', 'none');
 			$('.menu4').css('display', 'none');
-		});
+		}); */
 
 	})
 </script>
