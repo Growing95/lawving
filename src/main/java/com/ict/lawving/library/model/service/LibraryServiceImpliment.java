@@ -74,5 +74,11 @@ public class LibraryServiceImpliment implements LibraryService{
 	public void chkdelete(String chkdel) {
 		libraryDao.chklistdelete(chkdel);
 	}
+
+	@Override
+	public int deletelibrary(int library_idx) {
+		int result = libraryDao.deletelibrary(library_idx);
+		return result;
+	}
 	
 }
