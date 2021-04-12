@@ -19,7 +19,6 @@ public class NoticeServiceImpliment implements NoticeService {
 	@Autowired
 	private Paging paging;
 
-	
 	// 전체 목록공지사항 개수
 	@Override
 	public int getTotalCount() {
@@ -38,7 +37,6 @@ public class NoticeServiceImpliment implements NoticeService {
 		return noticeDao.getList(paging.getBegin(), paging.getEnd());
 	}
 
-	
 	@Override
 	public ArrayList<NoticeVo> selectSearchTitleDesc(NoticeSearch searchObject, int begin, int end) {
 		return noticeDao.selectSearchTitleDesc(searchObject, begin, end);
@@ -62,16 +60,27 @@ public class NoticeServiceImpliment implements NoticeService {
 
 	@Override
 	public NoticeVo selectOneList(int notice_idx) {
-		return noticeDao.selectOneList(notice_idx); 
+		return noticeDao.selectOneList(notice_idx);
 	}
 
 	@Override
 	public int insertNotice(NoticeVo notice) {
-		return noticeDao.insertNotice(notice); 
+		return noticeDao.insertNotice(notice);
 	}
 
-	
+	@Override
+	public int updateNotice(NoticeVo notice) {
+		return noticeDao.updateNotice(notice);
 	}
-	
 
+	@Override
+	public void chkdelete(String chkdel) {
+		noticeDao.chklistdelete(chkdel);
+	}
 
+	@Override
+	public int deleteNotice(int notice_idx) {
+		return noticeDao.deleteNotice(notice_idx);
+	}
+
+}

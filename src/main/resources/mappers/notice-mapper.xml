@@ -23,7 +23,7 @@
 		select count(*) from notice
 		where notice_title like '%' || #{ keyword } || '%'
 	</select>
-	
+	<!-- 검색조건이 있는 내용 -->
 	<select id="searchCountContent" parameterType="com.ict.lawving.notice.model.vo.NoticeSearch" resultType="int">
 		select count(*) from notice
 		where notice_content like '%' || #{ keyword } || '%'
@@ -95,9 +95,26 @@
 	</select>
  	
  	<!-- 글쓰기 -->
- 	<insert id="insertNotice" parameterType="int" >
+ 	<insert id="insertNotice" parameterType="NoticeVo">
 		insert into notice
-		values (seq_notice_idx.nextval, #{ notice_title },#{notice_writer}, #{notice_content}, 
-		#{ notice_file_name })
+		values (notice_seq.nextval,2, #{ notice_title },#{notice_writer}, #{notice_content}, 
+		#{ notice_file_name },#{ notice_refile_name },sysdate)
 	</insert>
+	<!-- 글수정 -->
+	<update id="updateNotice" parameterType="NoticeVo">
+		update notice set notice_title=#{notice_title},notice_content=#{notice_content}<if test="notice_file_name == null">, notice_file_name = null,notice_refile_name = null</if>
+      <if test="notice_file_name != null">, notice_file_name = #{ notice_file_name }, notice_refile_name = #{ notice_refile_name }
+         </if>
+      where notice_idx = #{notice_idx}
+	</update>
+	
+	<!-- 체크박스 삭제 -->
+	<delete id="chk_delete" parameterType="String">
+	delete from notice where notice_idx=#{chkdel}
+	</delete>
+
+	<delete id="deleteNotice" parameterType="int">
+	delete from notice where notice_idx=#{notice_idx}
+	</delete>
+
 </mapper>

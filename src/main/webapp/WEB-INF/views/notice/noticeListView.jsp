@@ -17,7 +17,7 @@
 	<br>
 	<c:if test="${ loginMember.members_lev=='2'}">
 		<div style="align: center; padding-left: 400px;">
-			<c:url var="nwf" value="/insert_notice.do" />
+			<c:url var="nwf" value="/notice_insert.do" />
 			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
 		</div>
 	</c:if>
@@ -124,12 +124,6 @@
 					</ol>
 				</td>
 			</tr>
-			<c:if test="${ loginMember.members_lev=='2'}">
-				<div style="align: center; padding-left: 400px;">
-					<c:url var="nld" value="/notice_delete.do" />
-					<button onclick="javascript:location.href='${ nld }';">선택항목삭제</button>
-				</div>
-			</c:if>
 		</tfoot>
 	</table>
 </body>
