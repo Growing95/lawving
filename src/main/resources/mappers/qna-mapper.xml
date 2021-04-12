@@ -10,7 +10,7 @@
 		SELECT * 
 			FROM (SELECT ROWNUM r_num, a.* 
 				FROM (SELECT * FROM QNA 
-					  ORDER BY qna_reg DESC
+					  ORDER BY qna_idx DESC
 				) a
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
@@ -38,7 +38,7 @@
 				FROM (SELECT * FROM QNA
 	                  WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
 	                  OR	qna_content	LIKE '%' || #{ keyword } || '%'
-	                  ORDER BY qna_reg DESC
+	                  ORDER BY qna_idx DESC
 				) a
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
@@ -49,7 +49,7 @@
 				FROM (SELECT * FROM QNA
 	                  WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
 	                  OR	qna_content	LIKE '%' || #{ keyword } || '%'
-	                  ORDER BY qna_reg ASC
+	                  ORDER BY qna_idx ASC
 				) a
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
@@ -61,7 +61,7 @@
                     FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
                     WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
                     OR	    qna_content	LIKE '%' || #{ keyword } || '%'
-                    ORDER BY qna_reg DESC
+                    ORDER BY qna_idx DESC
 				) a 
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
@@ -73,7 +73,7 @@
                     FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
                     WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
                     OR	    qna_content	LIKE '%' || #{ keyword } || '%'
-                    ORDER BY qna_reg ASC
+                    ORDER BY qna_idx ASC
 				) a
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
@@ -85,7 +85,7 @@
                     FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
                     WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
                     OR	    qna_content	LIKE '%' || #{ keyword } || '%'
-                    ORDER BY qna_reg DESC
+                    ORDER BY qna_idx DESC
 				) a
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
@@ -97,20 +97,44 @@
                     FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
                     WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
                     OR	    qna_content	LIKE '%' || #{ keyword } || '%'
-                    ORDER BY qna_reg ASC
+                    ORDER BY qna_idx ASC
 				) a
 			) 
 		WHERE r_num BETWEEN #{begin} AND #{end}
 	</select>
-<!-- 
-	<select id="onelist" resultType="qna" parameterType="Number">
-		SELECT * FROM QNA WHERE qna_idx = #{qna_idx};
+	<update id="updateQuestionHit" parameterType="String">
+		UPDATE QNA SET qna_hit = qna_hit + 1 WHERE qna_idx = #{qna_idx}
+	</update>
+	<select id="onelist" resultType="QnaVo" parameterType="String">
+		SELECT * FROM QNA WHERE qna_idx = #{qna_idx}
 	</select>
- -->
+	<select id="onelist_before" resultType="QnaVo" parameterType="String">
+		SELECT * 
+    		FROM (SELECT ROWNUM r_num, a.* 
+        		FROM (SELECT * FROM QNA 
+              		  WHERE qna_idx &lt; #{qna_idx}
+              		  ORDER BY qna_idx DESC
+        		) a 
+    		) 
+		WHERE r_num = 1
+	</select>
+	<select id="onelist_after" resultType="QnaVo" parameterType="String">
+		SELECT * 
+    		FROM (SELECT ROWNUM r_num, a.* 
+        		FROM (SELECT * FROM QNA 
+              		  WHERE qna_idx &gt; #{qna_idx}
+              		  ORDER BY qna_idx ASC
+        		) a 
+    		) 
+		WHERE r_num = 1
+	</select>
  	<insert id="insertQuestion" parameterType="QnaVo">
  		INSERT INTO QNA VALUES(
 			QNA_seq.nextval, #{members_idx}, #{qna_category}, 
 			#{qna_title}, #{qna_writer}, #{qna_content}, 
 			#{qna_view}, sysdate, 0, '대기중', NULL, NULL, NULL)
  	</insert>
+ 	<delete id="deleteQuestion" parameterType="String">
+ 		DELETE FROM QNA WHERE qna_idx = #{qna_idx}
+ 	</delete>
 </mapper>
