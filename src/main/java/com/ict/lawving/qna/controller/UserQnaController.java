@@ -3,6 +3,7 @@ package com.ict.lawving.qna.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +49,12 @@ public class UserQnaController {
 			}
 			// 3. 현재 페이지
 			String cPage= request.getParameter("cPage");
+			
+			System.out.println("cPage : "+cPage);
+			
 			if (cPage == null) {
+				paging.setNowPage(1);
+			} else if (cPage == "") {
 				paging.setNowPage(1);
 			} else {
 				paging.setNowPage(Integer.parseInt(cPage));
@@ -182,10 +188,43 @@ public class UserQnaController {
 //	QNA 목록 상세보기
 	@RequestMapping("onelist_qna.do")
 	public String selectQuestionOnelistMethod(
-			@RequestParam("qna_idx")String qna_idx) {
-		QnaVo qnaOnelist = new QnaVo();
-		qnaOnelist = qnaService.selectQuestionOnelist(qna_idx);
-		return "qna/qnaOnelist";
+			@ModelAttribute("qna_idx")String qna_idx,
+			@ModelAttribute("cPage")String cPage,
+			Model model, HttpServletRequest request) {
+		System.out.println("qna_idx : " + qna_idx);
+		System.out.println("cPage : " + cPage);
+		int result = qnaService.updateQuestionHit(qna_idx);
+		QnaVo qnaOnelist = qnaService.selectQuestionOnelist(qna_idx);
+		model.addAttribute("qnaOnelist", qnaOnelist);
+		return "qna/qnaOneList";
+	}
+	
+//	QNA 이전 글 보기
+	@RequestMapping("before_qna.do")
+	public String selectQuestionBeforeMethod(
+			@RequestParam("qna_idx")String qna_idx,
+			@ModelAttribute("cPage")String cPage,
+			Model model) {
+		System.out.println("qna_idx : " + qna_idx);
+		System.out.println("cPage : " + cPage);
+		QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
+		int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
+		model.addAttribute("qnaOnelist", qnaOnelist);
+		return "qna/qnaOneList";
+	}
+	
+//	QNA 다음 글 보기
+	@RequestMapping("after_qna.do")
+	public String selectQuestionAfterMethod(
+			@RequestParam("qna_idx")String qna_idx,
+			@ModelAttribute("cPage")String cPage,
+			Model model) {
+		System.out.println("qna_idx : " + qna_idx);
+		System.out.println("cPage : " + cPage);
+		QnaVo qnaOnelist = qnaService.selectQuestionAfter(qna_idx);
+		int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
+		model.addAttribute("qnaOnelist", qnaOnelist);
+		return "qna/qnaOneList";
 	}
 	
 //	QNA 문의 작성 페이지로 이동
@@ -197,7 +236,8 @@ public class UserQnaController {
 	
 //	QNA 문의 작성하기
 	@RequestMapping(value = "insert_qna.do", method = RequestMethod.POST)
-	public String insertQuestionMethod(QnaVo qna, HttpServletRequest request) {
+	public String insertQuestionMethod(
+			QnaVo qna, HttpServletRequest request) {
 		String qna_view_private = request.getParameter("private");
 		switch (qna.getQna_category()) {
 			case "question": qna.setQna_category("질문"); break;
@@ -217,19 +257,30 @@ public class UserQnaController {
 	}
 	
 //	QNA 문의 삭제하기
-	@RequestMapping("delete_qna.do")
+	@RequestMapping(value = "delete_qna.do", method = RequestMethod.POST)
 	public String deleteQuestionMethod(
-			@RequestParam("qna_idx")String qna_idx, 
-			@RequestParam("members_idx")String members_idx, 
-			@RequestParam("members_lev")String members_lev) {
-		int result = 0;
-		result = qnaService.deleteQuestion(qna_idx);
+			@RequestParam("qna_idx")String qna_idx,
+			@RequestParam("members_lev")String members_lev,
+			@RequestParam("members_idx")String members_idx,
+			Model model) {
+		int result =  qnaService.deleteQuestion(qna_idx);
+		System.out.println("members_lev : "+members_lev);
+		System.out.println("members_idx : "+members_idx);
+		System.out.println("qna_idx : " + qna_idx);
+		if (result>0) {
 //		로그인 한 유저가 회원이라면 목록으로 돌아간다.
-		if (members_lev=="1") {
-			return "redirect:list_qna.do";
+			if (members_lev == "1") {
+				return "redirect:list_qna.do";
 //		로그인 한 유저가 관리자라면 insert_limitmember.do로 redirect한다.
+			} 
+			else {
+				System.out.println("limit 테이블에 회원 추가");
+				return "redirect:list_qna.do";
+//				return "redirect:insert_limitmember.do?member_idx=" + members_idx;
+			}
 		} else {
-			return "redirect:insert_limitmember.do?member_idx="+members_idx;
+			model.addAttribute("msg", "문의글을 삭제하지 못했습니다.");
+			return "common/errorPage";
 		}
 	}
 }

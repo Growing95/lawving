@@ -21,7 +21,10 @@ public interface QnaService {
 			QnaSearch searchObject, int begin, int end);
 	public abstract ArrayList<QnaVo> searchWaitingQuestionAsc(
 			QnaSearch searchObject, int begin, int end);
+	public abstract int updateQuestionHit(String qna_idx);
 	public abstract QnaVo selectQuestionOnelist(String qna_idx);
+	public abstract QnaVo selectQuestionBefore(String qna_idx);
+	public abstract QnaVo selectQuestionAfter(String qna_idx);
 	public abstract int insertQuestion(QnaVo qna);
 	public abstract int deleteQuestion(String qna_idx);
 	public abstract int chkdeleteQuestion(String[] qna_idx);

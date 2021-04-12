@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lawving</title>
 <script type="text/javascript">
 	function saveTemp() {
 		localStorage.setItem('user_qna_category', document.insert_qna_form.qna_category.value);
