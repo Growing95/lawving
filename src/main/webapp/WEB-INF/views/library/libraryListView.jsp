@@ -108,7 +108,11 @@ $(function () {
 		<thead>
 		
 			<tr>
+			<c:choose>
+			<c:when test="${sessionScope.loginMember.members_lev=='2' }">
 				<th><input type="checkbox" id="chkall" name="chkall">전체선택</th>
+				</c:when>
+				</c:choose>
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
@@ -126,7 +130,11 @@ $(function () {
 					<c:forEach items="${ requestScope.librarylist }" var="k">
 
 						<tr>
+						<c:choose>
+						<c:when test="${sessionScope.loginMember.members_lev=='2' }">
 							<td><input type="checkbox" name="Rowcheck" value="${k.library_idx }"></td>
+							</c:when>
+							</c:choose>
 							<td align="center">${k.library_idx }</td>
 								<c:url value="/onelist_library.do" var="old">
 									<c:param name="library_idx" value="${k.library_idx}" />
