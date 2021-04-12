@@ -12,7 +12,12 @@ article {
 	background-color: #85929E;
 	border-radius: 20px;
 }
-.table{background-color: white; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; }
+.table{
+	background-color: #27496b; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; 
+	border-collapse:collapse;
+	 color: white; }
+	
+}
 td{
 text-align: center;
 }
