@@ -29,8 +29,11 @@ button.law:hover {
     width: 350px;
     text-align: center;
     border-radius: 20px;
+        height: 30px;
 }
-.slider div img {width: 100%;}
+.slider div img {width: 100%; height: 100%}
+.bx-wrapper{    height: 30%;
+    overflow: hidden;}
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -61,14 +64,16 @@ $(function() {
 <article>
 <!-- 슬라이더 배너부분 이미지 규격은1320*420로 한다. -->
  <div class="slider">
-    <div><img alt="banner" src="resources/images/banner3.png"></div>
-    <div><img alt="banner" src="resources/images/banner4.png"></div>
-    <div><img alt="banner" src="resources/images/banner2.png"></div>
+    <div><img alt="banner" src="resources/images/banner3.jpg"></div>
+    <div><img alt="banner" src="resources/images/banner4.jpg"></div>
+    <div><img alt="banner" src="resources/images/banner2.jpg"></div>
  </div>
   <!-- 법률데이터조회부분 -->
 <div id="category">
 <form action="search_lawdata.do" method="post">
-<input type="text" id="search" name="search" placeholder="검색할법률을 입력하세요" width="400px;"><input type="submit" value="검색">
+<input type="text" id="search" name="search" placeholder="검색할법률을 입력하세요" width="400px;"><input type="submit" value="검색" style="    height: 30px;
+    border-radius: 20px;
+    width: 80px;">
 </form>
 <div id="selectlaw">
 <button class="law" value="부동산">부동산</button>

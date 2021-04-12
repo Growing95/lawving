@@ -79,7 +79,9 @@ public class MembersController {
 	//비밀번호변경
 	@RequestMapping("update_pw.do")
 	  public String updatePwMethod(MembersVo member,Model model,HttpSession session) {
+		System.out.println("변경할비번:"+member.getMembers_pw());
 		member.setMembers_pw(bcryptPasswordEncoder.encode(member.getMembers_pw()));
+		System.out.println("암호화된 비번:"+member.getMembers_pw());
 		String id = member.getMembers_id();
 		int result = membersService.updatepw(member);
 		  if(result>0) { 
