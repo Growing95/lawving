@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>정보조회</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script type ="text/javascript" src="${ pageContext.request.contextPath }/resources/js/loadingbar.js"> </script>
 <style type="text/css">
 .table a{text-decoration: none;
@@ -18,7 +20,7 @@ a#MOVE_TOP_BTN {
     display: none;
     z-index: 999;
 }
-	.table{background-color: #27496b; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; color: white; }
+	.table{background-color: #27496b; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; color: white; font-style: font-family: 'Noto Sans KR', sans-serif; }
 	td{
 	text-align: center;
 	}
@@ -163,7 +165,7 @@ function FunLoadingBarEnd() {
 <c:import url="/WEB-INF/views/header.jsp" />
 <article>
 <div id="result"></div>
-<a id="MOVE_TOP_BTN" href="#"><img alt="top" src="resources/images/top.png"> </a>
+<a id="MOVE_TOP_BTN" href="#"><img alt="top" src="resources/images/top.png" style="width: 40px;"> </a>
 </article>
 <a height="32" width="32" ></a>
 </body>
