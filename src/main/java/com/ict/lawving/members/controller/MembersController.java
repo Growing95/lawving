@@ -56,6 +56,30 @@ public class MembersController {
 		return "member/memberInsertForm";
 
 	}
+	
+	
+	// ID찾기 페이지 이동
+	@RequestMapping("go_findid.do")
+	public String findidMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+			logger.debug("아이디찾기페이지");
+		
+		return "member/findid";
+		
+	}
+	
+	// ID찾기
+	@RequestMapping(value = "findid.do", method = RequestMethod.GET)
+	public void findIdGET() throws Exception{
+	}
+
+	@RequestMapping(value = "findid.do", method = RequestMethod.POST)
+	public void findIdPOST(@ModelAttribute MembersVo members, HttpServletResponse response) throws Exception{
+		membersService.findId(response, members);
+	}
+	
+	
+	
 	/* 비밀번호 찾기 페이지이동 */
 	@RequestMapping("go_findpw.do")
 	public String findpwMethod() {
