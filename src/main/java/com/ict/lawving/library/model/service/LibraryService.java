@@ -19,5 +19,6 @@ public interface LibraryService {
 	ArrayList<LibraryVo> selectSearchContentAsc(LibrarySearch searchObject, int begin, int end);
 	int updatelibrary(LibraryVo library);
 	void chkdelete(String chkdel);
+	int deletelibrary(int library_idx);
 
 }
