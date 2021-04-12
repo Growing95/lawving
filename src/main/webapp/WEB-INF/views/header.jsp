@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 @import
 	url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lobster&display=swap')
@@ -50,6 +51,7 @@ article {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
+	width: 96px;
 }
 
 #toolmenu li:hover {
@@ -85,10 +87,16 @@ z-index: 1000000;
 	color:white;
 }
 </style>
+
 <script>
 $(document).ready(function(){
   $("#chatbtn1").click(function(){
+	  if(${empty sessionScope.loginMember}){
+		  alert("챗봇기능은 로그인후 이용가능합니다.");
+	  }else{
+		  
     $("#iframe").toggle();
+	  }
   });
 });
 </script>
@@ -97,6 +105,35 @@ function golaw() {
 	location.href="update_lawdata.do";
 }
 </script>
+<!--카카오로그인계정정보불러오기 실패 <script type="text/javascript">
+$(function() {
+	$("#res").empty();
+	if(${!empty sessionScope.kakaoMember}){
+	$.ajax({
+		url:"kakao_member.do",
+		method:"post",
+		dataType:"json",
+		success: function(data) {
+			var name = "";
+			var email = "";
+			var profile_image_url ="";
+		$.each(data, function() {
+			var profile=this["profile"];
+			$.each(profile, function() {
+				 name = profile["nickname"];
+				 profile_image_url=profile["profile_image_url"];
+			});
+			email=this["email"];
+		});
+		$("#res").append(name+"님"+"<img src="+profile_image_url+">email:"+email);
+	},
+		error: function() {
+			alert("읽기실패");
+		}
+	});
+	}
+});
+</script> -->
 </head>
 <body>
 	<header>
@@ -121,6 +158,14 @@ function golaw() {
 							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
+				<c:when test="${kakaoMember=='kakao' }">
+					<div id="log">
+						<div id="res"></div>카카오회원 님|&nbsp; <span style="color: red;">누적신고수
+							: <%-- ${limit.limit_count} --%>0
+						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
+							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+					</div>
+				</c:when>
 				<c:otherwise>
 					<div id="log">
 						<a href="go_login.do">로그인</a>|<a href="go_signup.do">회원가입</a><br>
@@ -134,7 +179,7 @@ function golaw() {
 		<li><a href="${ nlist }">공지사항</a></li>
   <li><a href="llist.do">자료실</a></li>
   <li><a href="list_qna.do">Q&A</a></li>
-  <li><a id="chatbtn1">챗봇열기</a></li>
+  <li><a id="chatbtn1" style="cursor: pointer;">챗봇열기</a></li>
 	</ul>
 	<br>
 	<br>
@@ -143,11 +188,8 @@ function golaw() {
 	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
 	<c:choose>
 		<c:when test="${loginMember.members_lev=='1' }">
-			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe>
+			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.70:8090/chat.do" style="display: none;"></iframe>
 		</c:when>
-		<%-- <c:otherwise>
-			<iframe id="iframe" style="display:none;" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe>
-		</c:otherwise> --%>
 	</c:choose>
 	</div>
 </body>
