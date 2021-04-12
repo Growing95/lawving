@@ -33,7 +33,7 @@ button.law:hover {
 }
 .slider div img {width: 100%; height: 100%}
 .bx-wrapper{    height: 30%;
-    overflow: hidden;}
+   }
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -83,6 +83,8 @@ $(function() {
 </div>
 </div>
 <br><br><br><br><br><br>
+
 </article>
+
 </body>
 </html>
