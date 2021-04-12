@@ -101,6 +101,10 @@
 	<delete id="chkdelete" parameterType="String">
 	delete  from library where library_idx=#{chkdel}
 	</delete>
+	<delete id="deletelibrary" parameterType="int">
+	delete  from library where library_idx=#{library_idx}
+	</delete>
+	
 </mapper>
 
 

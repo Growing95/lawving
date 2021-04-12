@@ -2,6 +2,8 @@ package com.ict.lawving.members.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.ict.lawving.members.model.vo.MembersVo;
 
 public interface MembersService {
@@ -14,5 +16,11 @@ public interface MembersService {
 	int updateMember(MembersVo m);
 	int deleteMembers(String id);
 	MembersVo selectOneList(int members_idx);
-
+	//비밀번호찾기메소드
+	public void findPw(HttpServletResponse response, MembersVo member) throws Exception;
+	//이메일발송
+	public void sendEmail(MembersVo member, String div) throws Exception;
+	int updatepw(MembersVo member);
+	//ID찾기
+	public void findId(HttpServletResponse response, MembersVo members) throws Exception;
 }

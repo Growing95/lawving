@@ -62,7 +62,36 @@ article {
 	color: black;
 	font-weight: bold;
 }
+#iframe{
+position:fixed;
+width: 420px; 
+height: 300px;
+bottom:50px;
+right:100px;
+background-color: white;
+z-index: 1000000;
+}
+#chatbtn2{
+	position:fixed;
+	overflow: auto;
+	bottom:353px;
+	right:100px;
+	padding: 8px 15px 8px 15px;
+	font-weight: bold;
+	background-color: #2C3E50;
+	border-collapse: collapse;
+	border-top-right-radius: 20px;
+	border: 1px solid #4c5d6f;
+	color:white;
+}
 </style>
+<script>
+$(document).ready(function(){
+  $("#chatbtn1").click(function(){
+    $("#iframe").toggle();
+  });
+});
+</script>
 <script type="text/javascript">
 function golaw() {
 	location.href="update_lawdata.do";
@@ -105,10 +134,21 @@ function golaw() {
 		<li><a href="${ nlist }">공지사항</a></li>
   <li><a href="llist.do">자료실</a></li>
   <li><a href="list_qna.do">Q&A</a></li>
-  <li><a href="#">챗봇테스트</a></li>
+  <li><a id="chatbtn1">챗봇열기</a></li>
 	</ul>
 	<br>
 	<br>
 	<br>
+	<div>
+	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
+	<c:choose>
+		<c:when test="${loginMember.members_lev=='1' }">
+			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe>
+		</c:when>
+		<%-- <c:otherwise>
+			<iframe id="iframe" style="display:none;" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe>
+		</c:otherwise> --%>
+	</c:choose>
+	</div>
 </body>
 </html>

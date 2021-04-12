@@ -106,5 +106,10 @@ public class LibraryDao {
 		sqlSession.delete("libraryMapper.chkdelete",chkdel);
 		
 	}
+	public int deletelibrary(int library_idx) {
+		int result =0;
+		result=sqlSession.delete("deletelibrary",library_idx);
+		return result;
+	}
 	
 }

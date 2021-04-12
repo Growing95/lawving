@@ -53,5 +53,15 @@ public class MembersDao {
 	public MembersVo selectmemberonelist(int members_idx) {
 		return sqlSession.selectOne("selectonemember", members_idx);
 	}
+	//임시비번변경
+	public int updatePw(MembersVo member) {
+		
+		return sqlSession.update("updatepw",member);
+	}
+	
+	//ID찾기
+	public String findId(MembersVo members) {
+		return sqlSession.selectOne("memberMapper.findId", members);
+	}
 
 }

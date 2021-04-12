@@ -121,18 +121,32 @@ public class QnaDao {
 		return (ArrayList<QnaVo>)qnaList;
 	}
 	
+//	QNA 목록 상세보기 전 조회수 업데이트
+	public int updateQuestionHit(String qna_idx) {
+		int result = sqlSession.update("qnaMapper.updateQuestionHit", qna_idx);
+		return result;
+	}
+	
 //	QNA 목록 상세보기
 	public QnaVo selectQuestionOnelist(String qna_idx) {
 		QnaVo onelist = sqlSession.selectOne("qnaMapper.onelist", qna_idx);
 		return onelist;
 	}
 	
+//	QNA 이전 글 보기
+	public QnaVo selectQuestionBefore(String qna_idx) {
+		QnaVo onelist = sqlSession.selectOne("qnaMapper.onelist_before", qna_idx);
+		return onelist;
+	}
+	
+//	QNA 다음 글 보기
+	public QnaVo selectQuestionAfter(String qna_idx) {
+		QnaVo onelist = sqlSession.selectOne("qnaMapper.onelist_after", qna_idx);
+		return onelist;
+	}
+	
 //	QNA 문의 작성하기
 	public int insertQuestion(QnaVo qna) {
-		switch (qna.getQna_category()) {
-			case "question": qna.setQna_category("질문"); break;
-			case "suggestion": qna.setQna_category("건의"); break;
-		}
 		int result = sqlSession.insert("qnaMapper.insertQuestion", qna);
 		return result;
 	}
