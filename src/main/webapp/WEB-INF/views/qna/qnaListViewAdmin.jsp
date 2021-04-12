@@ -7,26 +7,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Lawving</title>
+<script type="text/javascript">
+	function see_waiting() {
+	
+	}
+	function see_completed() {
+	
+	}
+	function select_all() {
+	
+	}
+</script>
 </head>
 <body>
 	<c:import url="../header.jsp"/>
 	<article>
 		<div style="margin: 10px auto; width: 800px; text-align: left;">
-			Question and answer
+			<div id="status_display">답변 완료</div>
 			<h2 style="margin: 0px;">
 				<a href="list_qna.do" style="text-decoration: none; color: black;">Q&#38;A</a>
 			</h2>
+		</div>
+		<div>
+			<button name="status" value="waiting" onclick="see_waiting()">대기중</button>
+			<button name="status" value="completed" onclick="see_completed()">답변완료</button>
+			<button name="status" value="all" onclick="see_all()">모두보기</button>
 		</div>
 		<div>
 			<form action="search_qna.do" method="post">
 				<table style="margin: 10px auto; width: 800px;">
 					<tr>
 						<td style="width: 83%; text-align: right;">
-							<select name="status">
-								<option value="all" selected>모두보기</option>
-								<option value="completed">답변완료</option>
-								<option value="waiting">대기중</option>
-							</select>
 							<select name="order">
 								<option value="desc" selected>최신순</option>
 								<option value="asc">오래된순</option>
@@ -35,10 +46,13 @@
 								   style="width: 300px;">
 							<input type="submit" value="검색">
 						</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" onclick="select_all()">전체선택</td>
 						<td style="text-align: right;">
 							<c:if test="${!empty sessionScope.loginMember}">
-								<input type="button" value="문의작성" 
-									   onclick="location.href='go_insert_qna.do?cPage=${paging.nowPage}'">
+								<input type="button" value="선택항목 삭제" 
+									   onclick="location.href=''">
 							</c:if>
 						</td>
 					</tr>
@@ -83,7 +97,7 @@
 								<c:choose>
 									<c:when test="${list.qna_view=='비공개' && list.members_idx!=loginMember.members_idx}">
 										<tr style="border: 1px solid black; color: DarkGray;">
-											<td>${vs.count}</td>
+											<td><input type="checkbox" name="select_delete" value="${list.qna_idx}">${vs.count}</td>
 											<td>${list.qna_category}</td>
 											<td>비밀글은 로그인 한 본인만 열람 가능합니다.</td>
 											<td>${list.qna_status}</td>

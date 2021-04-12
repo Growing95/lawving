@@ -29,7 +29,7 @@
 			<br>
 			<div style="width: 100%; border: 1px solid black; padding: 10px;">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
-				<div style="float: right; font-size: 15px;" onclick="repot.do">
+				<div style="float: right; font-size: 15px;" onclick="location.href='repot.do'">
 					신고하기
 					<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;">
 				</div>
@@ -56,24 +56,57 @@
 			</div>
 			<br>
 			<c:choose>
-				<c:when test="${empty qnaOnelist.qna_comment}">
-					<div style="text-align: center;">
-						관리자 답변이 없습니다.
-					</div>
-					<br>
+				<c:when test="${loginMember.members_lev=='2'}">
+					<c:choose>
+						<c:when test="${empty qnaOnelist.qna_comment}">
+							<div style="text-align: center;">
+								<form action="update_answer.do">
+									<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+									<textarea name="qna_content" style="width: 100%"></textarea>
+									<script>
+										CKEDITOR.replace('qna_content');
+									</script>
+								</form>
+							</div>
+							<br>
+						</c:when>
+						<c:otherwise>
+							<div style="width: 100%; border: 1px solid black; padding: 10px;">
+								<strong>관리자 답변</strong>
+								<div style="text-align: right;">
+									작성일 : ${requestScope.qnaOnelist.qna_reg_a.substring(0,10)}
+								</div>
+							</div>
+							<br>
+							<div style="width: 100%; border: 1px dotted black; padding: 10px;">
+								${requestScope.qnaOnelist.qna_comment}
+							</div>
+							<br>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 				<c:otherwise>
-					<div style="width: 100%; border: 1px solid black; padding: 10px;">
-						<strong>관리자 답변</strong>
-						<div style="text-align: right;">
-							작성일 : ${requestScope.qnaOnelist.qna_reg_a.substring(0,10)}
-						</div>
-					</div>
-					<br>
-					<div style="width: 100%; border: 1px dotted black; padding: 10px;">
-						${requestScope.qnaOnelist.qna_comment}
-					</div>
-					<br>
+					<c:choose>
+						<c:when test="${empty qnaOnelist.qna_comment}">
+							<div style="text-align: center;">
+								관리자 답변이 없습니다.
+							</div>
+							<br>
+						</c:when>
+						<c:otherwise>
+							<div style="width: 100%; border: 1px solid black; padding: 10px;">
+								<strong>관리자 답변</strong>
+								<div style="text-align: right;">
+									작성일 : ${requestScope.qnaOnelist.qna_reg_a.substring(0,10)}
+								</div>
+							</div>
+							<br>
+							<div style="width: 100%; border: 1px dotted black; padding: 10px;">
+								${requestScope.qnaOnelist.qna_comment}
+							</div>
+							<br>
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>
 			</c:choose>
 			<div style="text-align: center;">
