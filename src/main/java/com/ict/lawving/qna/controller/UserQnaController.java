@@ -263,6 +263,7 @@ public class UserQnaController {
 			@RequestParam("members_lev")String members_lev,
 			@RequestParam("members_idx")String members_idx,
 			Model model) {
+//		qna 글 삭제
 		int result =  qnaService.deleteQuestion(qna_idx);
 		System.out.println("members_lev : "+members_lev);
 		System.out.println("members_idx : "+members_idx);

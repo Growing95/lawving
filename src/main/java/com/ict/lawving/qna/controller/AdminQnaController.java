@@ -76,7 +76,8 @@ public class AdminQnaController {
 //	QNA 문의글 답변 작성/수정하기
 	@RequestMapping(value = "update_answer.do", produces = "text/html; charset=utf-8")
 	@ResponseBody
-	public String updateAnswerMethod(QnaVo qna) {
+	public String updateAnswerMethod(QnaVo qna
+			) {
 		QnaVo qnaOnelist = new QnaVo();
 		qnaOnelist = qnaService.updateAnswer(qna);
 		String answer = qnaOnelist.getQna_comment();
