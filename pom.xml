@@ -32,7 +32,12 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
+<!-- 메일 api -->
+<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-email</artifactId>
+	<version>1.2</version>
+</dependency>
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

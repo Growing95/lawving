@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>정보조회</title>
+<script type ="text/javascript" src="${ pageContext.request.contextPath }/resources/js/loadingbar.js"> </script>
 <style type="text/css">
 .table a{text-decoration: none;
     font-size: 10px;}
@@ -133,7 +134,7 @@ $(function(){
 		});
 	})
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 /* 로딩바생성펑션 */
 function FunLoadingBarStart() {
@@ -155,7 +156,7 @@ function FunLoadingBarEnd() {
 	$('#back, #loadingBar').remove();
 	}
 
-</script>
+</script> -->
 </head>
 <body>
 

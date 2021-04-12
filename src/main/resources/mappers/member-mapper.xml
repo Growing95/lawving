@@ -45,6 +45,9 @@
 	<select id="selectonemember" parameterType="int" resultType="MembersVo">
 	select * from members where members_idx=#{members_idx}
 	</select>
+	<update id="updatepw" parameterType="MembersVo">
+	update members set members_pw = #{members_pw} where members_id = #{members_id}
+	</update>
 </mapper>
 
 

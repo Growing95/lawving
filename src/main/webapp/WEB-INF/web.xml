@@ -40,7 +40,7 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<welcome-files>
 		<welcome-file>index.jsp</welcome-file>
