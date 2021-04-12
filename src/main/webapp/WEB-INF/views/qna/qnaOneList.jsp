@@ -29,7 +29,7 @@
 			<br>
 			<div style="width: 100%; border: 1px solid black; padding: 10px;">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
-				<div style="float: right; font-size: 15px;" onclick="location.href='repot.do'">
+				<div style="float: right; font-size: 15px;" onclick="location.href='go_repot.do?members_idx=${sessionScope.loginMember.members_idx}&members_idx_2=${requestScope.qnaOnelist.qna_writer}'">
 					신고하기
 					<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;">
 				</div>
