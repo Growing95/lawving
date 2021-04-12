@@ -9,15 +9,19 @@
 
 	<!-- 1. DataSource 등록 -->
 
-	<bean id="realdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
+	<bean id="realdataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
 		<property name="username" value="c##lawving" />
 		<property name="password" value="lawving" />
 	</bean>
 
-	<!-- log4jdbc-remix 관련 dataSource처리  -->
-	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+	<!-- log4jdbc-remix 관련 dataSource처리 -->
+	<bean id="dataSource"
+		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="realdataSource" />
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
@@ -27,19 +31,36 @@
 		</property>
 	</bean>
 	<!-- 2. Spring 과 MyBatis 연동 처리 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation"
 			value="classpath:mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<!-- 3. MyBatis의 SqlSession 객체 생성 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSession" />
 	</bean>
-	 <!-- 파일업로드 용량  -->
- 	  <bean id="multipartResolver"
+	<!-- 파일업로드 용량 -->
+	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" />
 		<property name="maxInMemorySize" value="100000000" />
-	 </bean>
+	</bean>
+
+	<!-- Gmail -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="dpskdh@gmail.com" />
+		<property name="password" value="pin4042@@" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

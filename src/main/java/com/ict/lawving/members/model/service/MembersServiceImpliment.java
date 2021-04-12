@@ -152,6 +152,24 @@ public class MembersServiceImpliment implements MembersService{
 		public int updatepw(MembersVo member) {
 			return membersdao.updatePw(member);
 		}
+		
+		//ID찾기
+		@Override
+		public void findId(HttpServletResponse response, MembersVo members) throws Exception {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			String members_id = membersdao.findId(members);
+			
+			if (members_id == null) {
+				out.println("가입된 아이디가 없습니다.");
+				out.close();
+				
+			}else {
+				out.println("회원님의 아이디는 : "+members_id+" 입니다." );
+				out.close();
+			}
+		
+		}
 
 
 	
