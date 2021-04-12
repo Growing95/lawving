@@ -56,6 +56,44 @@ public class MembersController {
 		return "member/memberInsertForm";
 
 	}
+	/* 비밀번호 찾기 페이지이동 */
+	@RequestMapping("go_findpw.do")
+	public String findpwMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+		    logger.debug("비번찾기페이지");
+		
+		return "member/findpw";
+
+	}
+	
+	/* 비밀번호 찾기 */
+	@RequestMapping(value = "findpw.do", method = RequestMethod.GET)
+	public void findPwGET() throws Exception{
+	}
+
+	@RequestMapping(value = "findpw.do", method = RequestMethod.POST)
+	public void findPwPOST(@ModelAttribute MembersVo member, HttpServletResponse response) throws Exception{
+		membersService.findPw(response, member);
+	}
+	
+	//비밀번호변경
+	@RequestMapping("update_pw.do")
+	  public String updatePwMethod(MembersVo member,Model model,HttpSession session) {
+		member.setMembers_pw(bcryptPasswordEncoder.encode(member.getMembers_pw()));
+		String id = member.getMembers_id();
+		int result = membersService.updatepw(member);
+		  if(result>0) { 
+			  MembersVo loginmember = membersService.selectloginCheck(id);
+			  session.setAttribute("loginMember", loginmember);
+			  model.addAttribute("msg","패스워드가 변경되었습니다.");
+			  model.addAttribute("url","list_mypage.do?members_idx="+loginmember.getMembers_idx());
+			return "common/alert";
+		  }else {
+			  model.addAttribute("message","패스워드 변경에 실패하였습니다.");
+			  return "common/errorPage";
+		  }
+		  
+		  }
 	
 /*	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
 	public String insertMember(@ModelAttribute MembersVo members, Model model) {
@@ -171,13 +209,15 @@ public class MembersController {
 						 return "home";
 					}
 				}else {
-					model.addAttribute("message","로그인 실패! 패스워드가 일치하지 않습니다.");
-					return "common/errorPage";
+					model.addAttribute("msg","패스워드가 일치하지 않습니다.");
+					model.addAttribute("url","go_login.do");
+					return "common/alert";
 					
 				}
 			}else {
-				model.addAttribute("message","로그인 실패! 일치하는 아이디가 없습니다.");
-				return "common/errorPage";
+				model.addAttribute("msg","일치하는 아이디가 없습니다.");
+				model.addAttribute("url","go_login.do");
+				return "common/alert";
 			}
 		}
 		//로그아웃 처리

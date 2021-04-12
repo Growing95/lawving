@@ -30,6 +30,7 @@ button.law:hover {
     text-align: center;
     border-radius: 20px;
 }
+.slider div img {width: 100%;}
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">

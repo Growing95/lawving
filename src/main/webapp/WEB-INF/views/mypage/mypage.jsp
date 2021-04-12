@@ -280,7 +280,6 @@ $.ajax({
 			</div>
 			<!-- 내정보수정 -->
 			<div class="menu2" style="display: none;">
-				<form action="update_members.do" method="post" id="mupdateForm">
 					<table class="tab">
 						<caption>Set Information</caption>
 						<tbody>
@@ -291,6 +290,7 @@ $.ajax({
 									</tr>
 								</c:when>
 								<c:otherwise>
+								<form action="update_members.do" method="post" id="mupdateForm">
 									<tr>
 										<td>이름 :</td>
 										<td><input type="text" disabled value="${m.members_name}"></td>
@@ -315,15 +315,24 @@ $.ajax({
 										<td><input type="text" id="members_tel"
 											name="members_tel" value="${m.members_tel }" required></td>
 									</tr>
+									
 									<tr>
 										<td colspan="2"><button id="update" type="submit"
 												style="width: 100px; height: 50px; background-color: #85929E; color: white; font-weight: bold; border-radius: 40px;">수정하기</button></td>
 									</tr>
+								</form>
 								</c:otherwise>
 							</c:choose>
+									<form action="update_pw.do" method="post" id="pwdataForm">
+									<tr>
+										<td>패스워드변경</td>
+										<td><input type="text" id="members_pw" name="members_pw" placeholder="변경할 패스워드를 입력해주세요" required>
+										<button>변경</button></td>
+											<input type="hidden" id="members_id"name="members_id" value="${m.members_id}" >
+									</tr>
+									</from>
 						</tbody>
 					</table>
-				</form>
 			</div>
 			<!-- 북마크 -->
 			<div class="menu3" style="display: none;">
