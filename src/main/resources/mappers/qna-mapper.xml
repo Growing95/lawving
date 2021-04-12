@@ -109,8 +109,8 @@
  -->
  	<insert id="insertQuestion" parameterType="QnaVo">
  		INSERT INTO QNA VALUES(
-			QNA_seq.nextval, members_idx=#{members_idx}, qna_category=#{qna_category}, 
-			qna_title=#{qna_title}, qna_writer=#{qna_writer}, qna_content=#{qna_content}, 
-			qna_view=#{qna_view}, sysdate, 0, '대기중', NULL, NULL, NULL)
+			QNA_seq.nextval, #{members_idx}, #{qna_category}, 
+			#{qna_title}, #{qna_writer}, #{qna_content}, 
+			#{qna_view}, sysdate, 0, '대기중', NULL, NULL, NULL)
  	</insert>
 </mapper>

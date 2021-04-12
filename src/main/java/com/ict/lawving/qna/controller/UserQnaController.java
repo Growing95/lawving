@@ -197,18 +197,17 @@ public class UserQnaController {
 	
 //	QNA 문의 작성하기
 	@RequestMapping(value = "insert_qna.do", method = RequestMethod.POST)
-	public String insertQuestionMethod(QnaVo qna) {
-		System.out.println("getMembers_idx : "+qna.getMembers_idx());
-		System.out.println("getQna_category : "+qna.getQna_category());
-		System.out.println("getQna_title : "+qna.getQna_title());
-		System.out.println("getQna_writer : "+qna.getQna_writer());
-		System.out.println("getQna_content : "+qna.getQna_content());
-		if (qna.getQna_view().isEmpty()) {
-			qna.setQna_view("공개");
-		} else {
-			qna.setQna_view("비공개");
+	public String insertQuestionMethod(QnaVo qna, HttpServletRequest request) {
+		String qna_view_private = request.getParameter("private");
+		switch (qna.getQna_category()) {
+			case "question": qna.setQna_category("질문"); break;
+			case "suggestion": qna.setQna_category("건의"); break;
 		}
-		System.out.println("getQna_view : "+qna.getQna_view());
+		if (qna_view_private=="private") {
+			qna.setQna_view("비공개");
+		} else {
+			qna.setQna_view("공개");
+		}
 		int result = qnaService.insertQuestion(qna);
 		if (result>0) {
 			return "redirect:list_qna.do";
