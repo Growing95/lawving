@@ -129,10 +129,6 @@ public class QnaDao {
 	
 //	QNA 문의 작성하기
 	public int insertQuestion(QnaVo qna) {
-		switch (qna.getQna_category()) {
-			case "question": qna.setQna_category("질문"); break;
-			case "suggestion": qna.setQna_category("건의"); break;
-		}
 		int result = sqlSession.insert("qnaMapper.insertQuestion", qna);
 		return result;
 	}
