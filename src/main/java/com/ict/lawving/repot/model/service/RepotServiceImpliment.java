@@ -29,4 +29,10 @@ public class RepotServiceImpliment implements RepotService{
 		return repotDao.getList(paging.getBegin(),paging.getEnd());
 	}
 
+	@Override
+	public int insertrepot(String m_idx, String q_writer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
