@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>정보조회</title>
 <style type="text/css">
-a{text-decoration: none;}
+.table a{text-decoration: none;
+    font-size: 10px;}
 /* TOP버튼css */
 a#MOVE_TOP_BTN {
     position: fixed;
@@ -16,7 +17,7 @@ a#MOVE_TOP_BTN {
     display: none;
     z-index: 999;
 }
-	.table{background-color: #B0C4DE; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; }
+	.table{background-color: #27496b; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; border: 2px solid black; color: white; }
 	td{
 	text-align: center;
 	}
@@ -37,7 +38,8 @@ display:none;
 z-index:200;
 }
 #save{float: left;}
-h2{background-color: #AED6F1}
+h2{background: darkgray;
+    border-radius: 20px;}
 
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -63,7 +65,7 @@ $(function(){
 							table+="<form id='post' method='post'>"
 						table+="<table class='table'>";
 					table+= "<tbody>";
-					table+="<tr><td colspan='2'><a id='save'><img alt='bookmark' src='resources/images/bookmarks.png'></a><h2>카테고리</td></tr>";
+					table+="<tr><td colspan='2'><a id='save' height='32' width='32' style='cursor: pointer;' ><img alt='bookmark' src='resources/images/bookmarks.png'><br>북마크추가</a><h2>카테고리</td></tr>";
 					table+="<tr><td style='font-size: 30px;'>"+$(this).find("mainCategory").text()+"</td></tr>";
 					table+="<tr><td colspan='2'><h2>질문</td></tr>";
 					table+="<tr><td style='font-weight: bold;'>"+$(this).find("question").text()+"</td></tr>";
@@ -109,7 +111,12 @@ $(function(){
 				method:"post",
 				data:"bookmark_answer="+a+"&bookmark_category="+c+"&bookmark_question="+q+"&members_idx="+u,
 				dataType:"text",
-
+				beforeSend: function () {
+					FunLoadingBarStart(); //로딩바 생성펑션
+					},
+				complete: function () {
+					FunLoadingBarEnd(); //로딩바 제거
+				},
 				success: function(data) {	
 					if (data.trim() >= '1') {
 						alert("북마크가저장되었습니다.");
@@ -157,6 +164,7 @@ function FunLoadingBarEnd() {
 <div id="result"></div>
 <a id="MOVE_TOP_BTN" href="#"><img alt="top" src="resources/images/top.png"> </a>
 </article>
+<a height="32" width="32" ></a>
 </body>
 <script>
 //탑버튼 스크립트
@@ -176,5 +184,6 @@ function FunLoadingBarEnd() {
             return false;
         });
     });
+ 
 </script>
 </html>

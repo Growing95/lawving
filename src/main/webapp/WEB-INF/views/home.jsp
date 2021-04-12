@@ -11,14 +11,15 @@ article{ background-color: gainsboro;}
     height: 200px;
     float: left;
     color: white;
-    background-color: #aed6f1;
+    background-color: #2c3e50;
     border-radius: 30px;
+    border:2px solid;
     font-size: 30;
     font-weight: bold;
-    border-color: #b7e1fd;
+    border-color: #ab9e9e;
 }
 button.law:hover {
-    background-color: #2a9fef;
+    background-color: #808B96;
     color: white;
 }
 #selectlaw{margin: 0 auto; width: 800px; height: 200px;}

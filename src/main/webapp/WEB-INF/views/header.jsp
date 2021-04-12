@@ -34,10 +34,10 @@
 	color: #000;
 	padding: 8px 15px 8px 15px;
 	font-weight: bold;
-	background-color: #AED6F1;
+	background-color: #2C3E50;
 	border-collapse: collapse;
 	border-top-left-radius: 20px;
-	border: 1px solid white;
+	border: 1px solid #4c5d6f;
 }
 
 article {
@@ -53,8 +53,8 @@ article {
 }
 
 #toolmenu li:hover {
-	background-color: #1E90FF;
-	border-color: #1E90FF;
+	background-color: #808B96;
+	border-color: #808B96;
 }
 
 #log a {

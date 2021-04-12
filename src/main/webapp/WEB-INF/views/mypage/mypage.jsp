@@ -168,16 +168,18 @@ a{text-decoration: none;}
 <script type="text/javascript">
 	$(function() {
 		$("#chkdelete").click(function(){
-			alert("선택항목을 삭제합니다.");
+			
 			var chk_id = [];
 			$("input[name='chk_id']:checked").each(function() {
 				chk_id.push($(this).val());
 			});
-			// 하나도 선택하지않았을때 오류발생
 			if (chk_id.length == 0) {
 				alert("하나이상 선택해주세요");
 				return;
+			}else{
+				alert("선택항목을 삭제합니다.");
 			}
+			// 하나도 선택하지않았을때 오류발생
 $.ajax({
 		url : "chk_del.do",
 		method : "post",
