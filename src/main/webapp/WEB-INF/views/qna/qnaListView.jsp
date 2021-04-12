@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lawving QnA List</title>
+<title>Lawving</title>
 <style type="text/css">
 
 </style>
@@ -88,7 +88,7 @@
 									<td>${list.qna_category}</td>
 									<td>
 										<c:url var="onelist" value="onelist_qna.do">
-											<c:param name="page" value="${page}"/>
+											<c:param name="cPage" value="${paging.nowPage}"/>
 											<c:param name="qna_idx" value="${list.qna_idx}"/>
 										</c:url>
 										<a href="${onelist}">

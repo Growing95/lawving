@@ -70,10 +70,28 @@ public class QnaServiceImpliment implements QnaService {
 		return qnaDao.searchWaitingQuestionAsc(searchObject, begin, end);
 	}
 	
+//	QNA 목록 상세보기 전 조회수 업데이트
+	@Override
+	public int updateQuestionHit(String qna_idx) {
+		return qnaDao.updateQuestionHit(qna_idx);
+	}
+	
 //	QNA 목록 상세보기
 	@Override
 	public QnaVo selectQuestionOnelist(String qna_idx) {
 		return qnaDao.selectQuestionOnelist(qna_idx);
+	}
+	
+//	QNA 이전 글 보기
+	@Override
+	public QnaVo selectQuestionBefore(String qna_idx) {
+		return qnaDao.selectQuestionBefore(qna_idx);
+	}
+	
+//	QNA 다음 글 보기
+	@Override
+	public QnaVo selectQuestionAfter(String qna_idx) {
+		return qnaDao.selectQuestionAfter(qna_idx);
 	}
 
 //	QNA 문의 작성하기
