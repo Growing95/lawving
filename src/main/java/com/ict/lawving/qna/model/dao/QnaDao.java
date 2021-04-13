@@ -169,8 +169,7 @@ public class QnaDao {
 	
 //	QNA 문의글 답변 삭제하기
 	public int deleteAnswer(String qna_idx) {
-//		deleteAnswer : qna_idx를 사용해서 qna_comment를 null로 update하고 
-//		   			   qna_status를 waiting으로 update한다.
+//		deleteAnswer : qna_idx를 사용해서 qna_comment를 null로 update 
 		int result = sqlSession.update("qnaMapper.deleteAnswer", qna_idx);
 		return result;
 	}

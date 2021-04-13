@@ -139,10 +139,18 @@
  	</delete>
  	<update id="updateAnswer" parameterType="QnaVo">
  		UPDATE QNA 
- 		SET qna_comment = #{qna_comment}, 
+ 		SET qna_status = '답변완료',
+ 			qna_comment = #{qna_comment}, 
  			qna_comment_writer = #{qna_comment_writer}, 
- 			qna_status = '답변완료', 
  			qna_reg_a = sysdate 
+ 			WHERE qna_idx = #{qna_idx}
+ 	</update>
+ 	<update id="deleteAnswer" parameterType="String">
+ 	 	UPDATE QNA 
+ 		SET qna_status = '대기중',
+ 			qna_comment = null, 
+ 			qna_comment_writer = null, 
+ 			qna_reg_a = null 
  			WHERE qna_idx = #{qna_idx}
  	</update>
 </mapper>
