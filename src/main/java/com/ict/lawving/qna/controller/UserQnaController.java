@@ -172,7 +172,6 @@ public class UserQnaController {
 					}
 				break;
 		}
-		
 		if (qnaList.size() > 0) {
 			model.addAttribute("searchObject", searchObject);
 			model.addAttribute("qnaList", qnaList);
