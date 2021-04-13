@@ -109,7 +109,7 @@
 	</update>
 	
 	<!-- 체크박스 삭제 -->
-	<delete id="chk_delete" parameterType="String">
+	<delete id="chk_listdelete" parameterType="String">
 	delete from notice where notice_idx=#{chkdel}
 	</delete>
 

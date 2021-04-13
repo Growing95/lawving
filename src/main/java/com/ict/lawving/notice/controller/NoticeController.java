@@ -3,8 +3,11 @@ package com.ict.lawving.notice.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -281,31 +284,28 @@ public class NoticeController {
 		}
 	}
 
-	/*
-	 * // 다운로드
-	 * 
-	 * @RequestMapping("download_library.do") public ModelAndView
-	 * fileDownMethod(@RequestParam("ofile") String library_file_name,
-	 * 
-	 * @RequestParam("rfile") String library_refile_name, HttpServletRequest
-	 * request) { String savePath =
-	 * request.getSession().getServletContext().getRealPath(
-	 * "resources/library_files"); File renameFile = new File(savePath + "\\" +
-	 * library_refile_name);
-	 * 
-	 * Map<String, Object> model = new HashMap<String, Object>();
-	 * model.put("renameFile", renameFile); model.put("library_file_name",
-	 * library_file_name); return new ModelAndView("filedown2", "downFile", model);
-	 * }
-	 */
+	// 다운로드
+	@RequestMapping("download_notice.do")
+	public ModelAndView fileDownMethod(@RequestParam("nfile") String notice_file_name,
+			@RequestParam("rfile") String notice_refile_name, HttpServletRequest request) {
+		String savePath = request.getSession().getServletContext().getRealPath("resources/notice_files");
+		File renameFile = new File(savePath + "\\" + notice_refile_name);
 
-	/*
-	 * @RequestMapping("chkdelete.do") public String
-	 * chkDeleteMethod(HttpServletRequest request) { String[] chkMsg =
-	 * request.getParameterValues("chkArr"); int size = chkMsg.length; for (int i =
-	 * 0; i < size; i++) { noticeService.chkdelete(chkMsg[i]); } return
-	 * "redirect: nlist.do"; }
-	 */
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("renameFile", renameFile);
+		model.put("notice_file_name", notice_file_name);
+		return new ModelAndView("filedown2", "downFile", model);
+	}
+
+	@RequestMapping("chklistdelete.do")
+	public String chkDeleteMethod(HttpServletRequest request) {
+		String[] chkMsg = request.getParameterValues("chkArr");
+		int size = chkMsg.length;
+		for (int i = 0; i < size; i++) {
+			noticeService.chklistdelete(chkMsg[i]);
+		}
+		return "redirect: nlist.do";
+	}
 
 	@RequestMapping("notice_delete.do")
 	public String deletenoticeMethod(@RequestParam("notice_idx") int notice_idx) {
@@ -320,10 +320,15 @@ public class NoticeController {
 			@ModelAttribute("cPage") String cPage, HttpSession session, HttpServletRequest request) {
 		System.out.println("notice_idx : " + notice_idx);
 		System.out.println("cPage : " + cPage);
-		NoticeVo nvo = noticeService.selectNoticeBefore(notice_idx);
-		session.setAttribute("nvo", nvo);
-		return "notice/noticeOneList";
+		try {
+			NoticeVo nvo = noticeService.selectNoticeBefore(notice_idx);
+			session.setAttribute("nvo", nvo);
+			return "notice/noticeOneList";
+
+		} catch (Exception e) {
+			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
 		}
+	}
 
 	// Notice 다음 글 보기
 
@@ -332,9 +337,14 @@ public class NoticeController {
 			@ModelAttribute("cPage") String cPage, HttpSession session, HttpServletRequest request) {
 		System.out.println("notice_idx : " + notice_idx);
 		System.out.println("cPage : " + cPage);
-		NoticeVo nvo = noticeService.selectNoticeAfter(notice_idx);
-		session.setAttribute("nvo", nvo);
-		return "notice/noticeOneList";
-	}
+		try {
 
+			NoticeVo nvo = noticeService.selectNoticeAfter(notice_idx);
+			session.setAttribute("nvo", nvo);
+			return "notice/noticeOneList";
+
+		} catch (Exception e) {
+			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
+		}
+	}
 }
