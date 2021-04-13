@@ -41,7 +41,7 @@
 	<div id="chat" style="margin-bottom:0px; padding-bottom:0px;background-color: white;">
 	
 	</div>
-	<br><br><br><br><br>
+	<br><br><br><br><br><br><br>
 	<div id="chatForm" style="position:fixed;bottom:20px;width: 490px; height:30px; left:10px;">
 	<hr>
 		<form>  
