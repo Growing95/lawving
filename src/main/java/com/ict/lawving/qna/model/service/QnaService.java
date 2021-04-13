@@ -28,7 +28,7 @@ public interface QnaService {
 	public abstract int insertQuestion(QnaVo qna);
 	public abstract int deleteQuestion(String qna_idx);
 	public abstract int chkdeleteQuestion(String[] qna_idx);
-	public abstract QnaVo updateAnswer(QnaVo qna);
+	public abstract int updateAnswer(QnaVo qna);
 	public abstract int deleteAnswer(String qna_idx);
 	public abstract int selectQnaIdx(String qna_idx);
 }

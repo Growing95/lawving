@@ -74,13 +74,23 @@ public class NoticeServiceImpliment implements NoticeService {
 	}
 
 	@Override
-	public void chkdelete(String chkdel) {
+	public void chklistdelete(String chkdel) {
 		noticeDao.chklistdelete(chkdel);
 	}
 
 	@Override
 	public int deleteNotice(int notice_idx) {
 		return noticeDao.deleteNotice(notice_idx);
+	}
+
+	@Override
+	public NoticeVo selectNoticeBefore(String notice_idx) {
+		return noticeDao.selectNoticeBefore(notice_idx);
+	}
+
+	@Override
+	public NoticeVo selectNoticeAfter(String notice_idx) {
+		return noticeDao.selectNoticeAfter(notice_idx);
 	}
 
 }

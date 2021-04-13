@@ -77,14 +77,14 @@
 				<tr style="text-align: center;">
 					<th colspan="4">
 						<input type="button" value="목록" 
-							   onclick="location.href='list_qna.do?cPage=${cPage}'">&nbsp; 
+							   onclick="location.href='list_qna.do?cPage=${requestScope.cPage}'">&nbsp; 
 						<input type="button" value="임시저장" onclick="saveTemp()">&nbsp;
 						<input type="button" value="등록" onclick="insert_qna_func()">&nbsp;
 						<label for="private" style="font-weight: normal;">비공개</label>
-						<input type="checkbox" name="private" id="private" value="private">
+						<input type="checkbox" name="private" value="private">
 						<input type="hidden" name="qna_view" value="public">
-						<input type="hidden" name="members_idx" value="${loginMember.members_idx}">
-						<input type="hidden" name="qna_writer" value="${loginMember.members_name}">
+						<input type="hidden" name="members_idx" value="${sessionScope.loginMember.members_idx}">
+						<input type="hidden" name="qna_writer" value="${sessionScope.loginMember.members_name}">
 					</th>
 				</tr>
 			</table>
