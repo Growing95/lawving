@@ -6,10 +6,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 	span.guide {display:none; font-size:12px; top:12px, right:10px;}
 	span.ok{color:green;}
 	span.error{color:red;}
+	/* 로딩바스타일 */
+	#back{
+position: absolute;
+z-index: 100;
+background-color: #000000;
+display:none;
+left:100%;
+top:100%;
+}
+#loadingBar{
+position:absolute;
+left:43%;
+top: 25%;
+display:none;
+z-index:200;
+}
+.mybtn{
+  width:150px;
+  height:40px;
+  padding:0;
+  display:inline; 
+  border-radius: 4px; 
+  background: #212529;
+  color: #fff;
+  margin-top: 20px;
+  border: solid 2px #212529; 
+  transition: all 0.5s ease-in-out 0s;
+}
+.mybtn:hover .mybtn:focus {
+  background: white;
+  color: #212529;
+  text-decoration: none;
+}
+button{background: #212529;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -21,18 +57,23 @@ function validate() {
 	var pwdValue = document.getElementById("userpwd").value;
 	var pwdValue2 = document.getElementById("userpwd2").value;
 	var idcheck = document.getElementById("idcheck").value;
+	var emailcheck=document.getElementById("emailcheck").value;
 	if (pwdValue !== pwdValue2) {
 		alert("암호와 암호확인의 입력값이 일치하지 않습니다.");
 		document.getElementById("userpwd2").select();
 		return false;//전송취소처리
 	}
-	if(idcheck==1){
+	if(idcheck==1&&emailcheck==1){
 	return true; //전송 처리
 		
-	}else{
+	}else if (idcheck!=1) {
 		alert("아이디 중복확인이 필요합니다.");
 		return false;
+	}else if(emailcheck!=1){
+		alert("이메일 인증확인이 필요합니다.");
+		return false;
 	}
+	
 }
 //id중복확인용 함수
 function dupidCheck(){
@@ -45,7 +86,7 @@ function dupidCheck(){
 			console.log("success:"+data);
 			if (data=="ok") {
 				$("#msg").append("<p style='color: lightgreen;'>사용가능 아이디입니다.</p>");
-				$("#userpwd").focus();
+				$("#name").focus();
 				$('#idcheck').val('1');
 			}else{
 				$("#msg").append("<p style='color: red;'>사용중인 아이디입니다.</p>");
@@ -65,10 +106,49 @@ function dupidCheck(){
 	//function dupidCheck()
 }
 </script>
+<script type ="text/javascript" src="${ pageContext.request.contextPath }/resources/js/loadingbar.js"> </script>
+<script>
+$(function(){
+	$("#sendmail").click(function(){
+		$.ajax({
+			url : "email.do",
+			type : "POST",
+			data : {
+				members_email : $("#members_email").val()
+			},
+			beforeSend: function () {
+				FunLoadingBarStart(); //로딩바 생성펑션
+				},
+			complete: function () {
+				FunLoadingBarEnd(); //로딩바 제거
+			},
+			success : function(data) {
+				if (data=="no") {
+					alert("이미존재하는 이메일 입니다.");
+				}else{
+					alert("인증번호가 이메일로 전송되었습니다.")
+					localStorage.setItem('emailcode', data);
+				}
+			},
+		})
+	});
+	$("#codeok").click(function() {
+		var code = $("#emailcode").val();
+		if(code==(localStorage.getItem("emailcode"))){
+			alert("인증성공");
+			$('#emailcheck').val('1');
+			localStorage.clear();
+		}else{
+			alert("인증실패");
+			return;
+		}
+	});
+})
+</script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp" />
-	
+<!-- 	
 	<h1 align="center">회원가입</h1>
 	
 	<div class="outer" align="center">
@@ -76,10 +156,11 @@ function dupidCheck(){
 			<table width="500" cellspacing="5">
 				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크"onclick="return dupidCheck();">
 				<input type="hidden" id="idcheck" value="0">
+				<input type="hidden" id="emailcheck" value="0">
 				</td></tr>
 				<tr>
 					<td>* 이름</td>
-					<td><input type="text" name="members_name" required ></input></td>
+					<td><input type="text" name="members_name" id="name" required ></input></td>
 				</tr>
 				<tr>
 					<td>* 비밀번호</td>
@@ -91,7 +172,11 @@ function dupidCheck(){
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="email" name="members_email"></td>
+					<td><input type="email" name="members_email" id="members_email"><button type="button" id="sendmail">이메일인증</button></td>
+				</tr>
+				<tr>
+					<td>인증코드</td>
+					<td><input type="text" name="emailcode" id="emailcode"><button type="button" id="codeok">인증코드확인</button></td>
 				</tr>
 				<tr>
 					<td>생년월일</td>
@@ -101,7 +186,7 @@ function dupidCheck(){
 					<td>전화번호</td>
 					<td><input type="tel" name="members_tel" id="members_tel"></td>
 				</tr>
-				<!-- jQuery와 Postcodify를 로딩한다. -->
+				jQuery와 Postcodify를 로딩한다.
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" value="회원가입">
@@ -110,7 +195,55 @@ function dupidCheck(){
 					</td>
 				</tr>
 			</table>
-		</form>
+		</form> -->
+		<!--  -->
+		<div class="w3-content w3-container w3-margin-top">
+		<div class="w3-container w3-card-4 w3-auto" style="width: 382px;height: 456.3px;">
+			<form  action="anroll.do" method="post" onsubmit="return validate()">
+			<div class="w3-center w3-large w3-margin-top">
+				<h3>회원가입</h3>
+			</div>
+			<div>
+				<p>
+					<label id="msg">*아이디</label>
+					<input type="text" name="members_id" id="userid" class="w3-input" required> &nbsp;<input type="button" value="중복체크"onclick="return dupidCheck();">
+				</p>
+				<p>
+					<label>* 이름</label>
+					<input type="text" name="members_name" class="w3-input" id="name" required ></input>
+				</p>
+				<p>
+					<label>* 비밀번호</label>
+					<input type="password" name="members_pw" class="w3-input" id="userpwd" required>
+				</p>
+				<p>
+					<label>* 비밀번호확인</label>
+					<input type="password" name="pw2" class="w3-input" id="userpwd2" required>
+				</p>
+				<p>
+					<label>* 이메일</label>
+					<input type="email" name="members_email" class="w3-input" id="members_email"><button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="sendmail">이메일인증</button>
+				</p>
+				<p>
+					<label>* 인증코드</label>
+					<input type="text" name="emailcode" class="w3-input" id="emailcode"><button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="codeok">인증코드확인</button>
+				</p>
+				<p>
+					<label>생년월일</label>
+					<input type="number" name="members_birth" class="w3-input" placeholder="yyyymmdd">
+				</p>
+				<p>
+					<label>전화번호</label>
+					<input type="tel" name="members_tel" class="w3-input" id="members_tel">
+				</p>
+				<p class="w3-center">
+					<input type="submit" id="findBtn" class="w3-button w3-hover-white w3-ripple mybtn" value="회원가입">
+					<input type="reset" class="w3-button w3-hover-white w3-ripple mybtn" value="취소하기">
+				</p>
+			</div>
+				</form>
+		</div>
+	</div>
 		<br>
 		<br>
 	</div>

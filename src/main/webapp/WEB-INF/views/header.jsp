@@ -40,6 +40,8 @@
 	border-top-left-radius: 20px;
 	border: 1px solid #4c5d6f;
 }
+center{width: 70%; margin: auto;}
+
 
 article {
 	width: 70%;
@@ -87,6 +89,10 @@ z-index: 1000000;
 	color:white;
 }
 </style>
+<!--배너관련 스크립트  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	$("#res").empty();
@@ -135,10 +141,12 @@ function golaw() {
 </head>
 <body>
 	<header>
+	<div id="head">
 		<center>
 			<a href="home.do"><img alt="logo"
 				src="resources/images/Lawving-color1.png"></a>
 		</center>
+		</div>
 		<div id="loginUI">
 			<c:choose>
 				<c:when test="${loginMember.members_lev=='2'}">
@@ -179,9 +187,6 @@ function golaw() {
   <li><a href="list_qna.do">Q&A</a></li>
   <li><a id="chatbtn1" style="cursor: pointer;">챗봇열기</a></li>
 	</ul>
-	<br>
-	<br>
-	<br>
 	<div>
 	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
 	<c:choose>

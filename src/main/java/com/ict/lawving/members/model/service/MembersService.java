@@ -18,9 +18,13 @@ public interface MembersService {
 	MembersVo selectOneList(int members_idx);
 	//비밀번호찾기메소드
 	public void findPw(HttpServletResponse response, MembersVo member) throws Exception;
-	//이메일발송
+	//임시비밀번호 이메일발송
 	public void sendEmail(MembersVo member, String div) throws Exception;
 	int updatepw(MembersVo member);
 	//ID찾기
 	public void findId(HttpServletResponse response, MembersVo members) throws Exception;
+	//회원가입 이메일인증 메소드
+	public void emailpost(HttpServletResponse response, MembersVo members_email) throws Exception;
+	//인증번호 이메일발송
+	public void postEmail(MembersVo members_email, String div,String pw) throws Exception;
 }

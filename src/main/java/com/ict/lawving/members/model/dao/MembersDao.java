@@ -63,5 +63,9 @@ public class MembersDao {
 	public String findId(MembersVo members) {
 		return sqlSession.selectOne("memberMapper.findId", members);
 	}
+	public int seleckemailCheck(String members_email) {
+		
+		return sqlSession.selectOne("selectemail",members_email);
+	}
 
 }
