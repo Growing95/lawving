@@ -257,7 +257,6 @@ public class UserQnaController {
 			model.addAttribute("noData", "게시판에 &quot;"+keyword+"&quot;를 포함한 글이 없습니다.");
 			return "qna/qnaListView";
 		}
-		return null;
 	}
 	
 //	QNA 목록 상세보기
@@ -296,9 +295,8 @@ public class UserQnaController {
 			
 		} catch (Exception e) {
 			return "redirect:onelist_qna.do?qna_idx="+qna_idx;
-
 	}
-	
+	}
 //	QNA 다음 글 보기
 	@RequestMapping("after_qna.do")
 	public String selectQuestionAfterMethod(
