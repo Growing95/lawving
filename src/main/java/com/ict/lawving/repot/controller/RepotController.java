@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
@@ -71,6 +73,19 @@ public class RepotController {
 		return mv;
 	}
 	
-	
+	@RequestMapping("go_repot.do")
+	public String gorepotMethod() {
+		return "qna/repotForm";
+	}
+	@RequestMapping(value="insert_repot.do", method=RequestMethod.POST )
+	public String insertrepotMethod(@RequestParam("members_idx")String m_idx,@RequestParam("qna_writer")String q_writer) {
+		int result = repotService.insertrepot(m_idx,q_writer);
+		if (result>0) {
+			return "redirect:list_qna.do" ;
+		}else {
+			return "common/errorPage";
+		}
+		
+	}
 	
 }

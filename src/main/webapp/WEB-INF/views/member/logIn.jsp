@@ -27,7 +27,7 @@
 	<c:import url="/WEB-INF/views/header.jsp" />
 	<c:if test="${!empty msg }">
 	<script type="text/javascript">
-	alert(${msg});
+	alert(${msg}});
 	</script>
 	</c:if>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
@@ -68,12 +68,13 @@
 					<label>패스워드</label>
 					<input class="w3-input" type="password" id="members_pw" name="members_pw" placeholder="패스워드를 입력하세요" required>
 				</p>
-				<p><a href="#" >ID찾기</a>&nbsp;&nbsp;<a href="go_findpw.do" >비밀번호찾기</a></p>
+				<p><a href="go_findid.do" >ID찾기</a>&nbsp;&nbsp;<a href="go_findpw.do" >비밀번호찾기</a></p>
 				<p class="w3-center">
-				
 					<button type="submit" id="loginbtn" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">Login</button>
-				
 				</p>
+				<p class="w3-center"><a href="https://kauth.kakao.com/oauth/authorize?client_id=e2179d87d4b2efece0708e2c85212139&redirect_uri=http://localhost:8090/kakao_login.do&response_type=code">
+				<img alt="" src="resources/images/kakao_login.png">
+				</a></p>
 			</div>
 			</form>
 		</div>

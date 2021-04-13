@@ -10,39 +10,42 @@
 <body>
 	<c:import url="../header.jsp" />
 	<hr>
-	<h1 align="center">${ notice.nid }번 공지글 수정 페이지</h1>
+	<h1 align="center">${nvo.notice_idx }번 공지사항 수정 페이지</h1>
 	<%-- form 에서 입력값들과 파일을 같이 전송하려면, 반드시 enctype="multipart/form-data"
   속성 추가해야 함 --%>
-	<form action="nupdate.do" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="nid" value="${ notice.nid }">
-		<c:if test="${ !empty notice.file_path }">
-			<input type="hidden" name="file_path" value="${ notice.file_path }">
-		</c:if>
-		<table align="center" width="500" border="1" cellspacing="0"
-			cellpadding="5">
+	<form action="updatenotice.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="notice_idx" value="${nvo.notice_idx }">
+		<input type="hidden" name="notice_writer" value="${nvo.notice_writer }">
+		 <input type="hidden" name="cPage" value="${cPage }"> 
+			<input type="hidden" name="notice_file_name" value="${nvo.notice_file_name }"> 
+			<input type="hidden" name="notice_refile_name" value="${nvo.notice_refile_name }">
+			 <c:if test="${ !empty nvo.notice_file_name }">
+	<input type="hidden" name="file" value="${ nvo.notice_file_name }">
+</c:if> 
+		<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th>제 목</th>
-				<td><input type="text" name="ntitle" value="${ notice.ntitle }"></td>
+				<td><input type="text" name="notice_title" value="${ nvo.notice_title }"></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="nwriter" readonly
-					value="${ notice.nwriter }"></td>
+				<td><input type="text" name="notice_writer" readonly value="${ nvo.notice_writer }"></td>
 			</tr>
 			<tr>
 				<th>파일선택</th>
 				<td>
-					<%-- 원래 첨부파일이 있는 경우 --%> <c:if test="${ !empty notice.file_path }">
-		${ notice.file_path } &nbsp; 
-		<input type="checkbox" name="delFlag" value="yes"> 파일삭제 <br>
-					</c:if> <%-- 원래 첨부파일이 없는 경우 --%> <c:if test="${ empty notice.file_path }">
-						<input type="file" name="upfile">
+					<%-- 원래 첨부파일이 있는 경우 --%> 
+					<c:if test="${ !empty nvo.notice_file_name }">${ nvo.notice_file_name } &nbsp; 
+						<input type="checkbox" name="delFlag" value="yes"> 파일삭제 <br>
+					</c:if> <%-- 원래 첨부파일이 없는 경우 --%> 
+					<c:if test="${ empty nvo.notice_file_name }">
+						<input type="file" name="file">
 					</c:if>
 				</td>
 			</tr>
 			<tr>
 				<th>내 용</th>
-				<td><textarea name="ncontent" rows="5" cols="50">${ notice.ncontent }</textarea></td>
+				<td><textarea name="notice_content" rows="5" cols="50">${ nvo.notice_content }</textarea></td>
 			</tr>
 			<tr>
 				<th colspan="2"><input type="submit" value="수정하기">

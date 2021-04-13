@@ -63,6 +63,11 @@
 			<%-- 질문글 제목, 조회수, 작성자, 작성일 박스 --%>
 			<div style="width: 100%; border: 1px solid black; padding: 10px; box-sizing: border-box;">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
+				<div style="float: right; font-size: 15px;" onclick="location.href='go_repot.do?members_idx=${sessionScope.loginMember.members_idx}&members_idx_2=${requestScope.qnaOnelist.qna_writer}'">
+					신고하기
+					<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;">
+				</div>
+
 				<div style="text-align: right;">
 					조회수 : ${requestScope.qnaOnelist.qna_hit}&nbsp;&nbsp;&nbsp;
 					작성자 : ${requestScope.qnaOnelist.qna_writer}&nbsp;&nbsp;&nbsp;

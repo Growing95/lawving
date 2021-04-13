@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 @import
 	url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lobster&display=swap')
@@ -50,6 +51,7 @@ article {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
+	width: 96px;
 }
 
 #toolmenu li:hover {
@@ -62,7 +64,69 @@ article {
 	color: black;
 	font-weight: bold;
 }
+#iframe{
+position:fixed;
+width: 420px; 
+height: 300px;
+bottom:50px;
+right:100px;
+background-color: white;
+z-index: 1000000;
+}
+#chatbtn2{
+	position:fixed;
+	overflow: auto;
+	bottom:353px;
+	right:100px;
+	padding: 8px 15px 8px 15px;
+	font-weight: bold;
+	background-color: #2C3E50;
+	border-collapse: collapse;
+	border-top-right-radius: 20px;
+	border: 1px solid #4c5d6f;
+	color:white;
+}
 </style>
+<script type="text/javascript">
+$(function() {
+	$("#res").empty();
+	if(${kakaoMember=='kakao'}){
+	$.ajax({
+		url:"kakao_member.do",
+		method:"post",
+		dataType:"json",
+		success: function(data) {
+				var name = "";
+				var email = "";
+				var profile_image_url ="";
+			$.each(data, function() {
+				var profile=this["profile"];
+				$.each(profile, function() {
+					 name = profile["nickname"];
+				});
+			});
+			alert("카카오로그인 연계를통한 웹사이트이용은 개발중에있습니다.\n로그아웃후 별도로 회원가입을 진행해주시기 바랍니다.")
+			$("#res").append(name+"님");
+		},
+		error: function() {
+			alert("읽기실패");
+		}
+	});
+	}
+});
+</script>
+<script>
+$(document).ready(function(){
+  $("#chatbtn1").click(function(){
+	  if(${empty sessionScope.loginMember}){
+		  alert("챗봇기능은 로그인후 이용가능합니다.");
+	  }else{
+		  
+    $("#iframe").toggle();
+	  }
+  });
+});
+</script>
 <script type="text/javascript">
 function golaw() {
 	location.href="update_lawdata.do";
@@ -92,6 +156,14 @@ function golaw() {
 							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
+				<c:when test="${kakaoMember=='kakao' }">
+					<div id="log">
+						카카오회원 <div id="res"></div>|&nbsp; <span style="color: red;">누적신고수
+							: <%-- ${limit.limit_count} --%>0
+						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
+							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+					</div>
+				</c:when>
 				<c:otherwise>
 					<div id="log">
 						<a href="go_login.do">로그인</a>|<a href="go_signup.do">회원가입</a><br>
@@ -105,10 +177,19 @@ function golaw() {
 		<li><a href="${ nlist }">공지사항</a></li>
   <li><a href="llist.do">자료실</a></li>
   <li><a href="list_qna.do">Q&A</a></li>
-  <li><a href="#">챗봇테스트</a></li>
+  <li><a id="chatbtn1" style="cursor: pointer;">챗봇열기</a></li>
 	</ul>
 	<br>
 	<br>
 	<br>
+	<div>
+	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
+	<c:choose>
+		<c:when test="${loginMember.members_lev=='1' }">
+			<iframe id="iframe"  scrolling="yes" src="http://@localhost:8090/chat.do" style="display: none;"></iframe>
+			<!-- 자신의 ip로바꾼후 톰캣서버 모듈 / 로 수정해야 정상 작동 -->
+		</c:when>
+	</c:choose>
+	</div>
 </body>
 </html>

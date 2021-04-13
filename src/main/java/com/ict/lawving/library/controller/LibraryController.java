@@ -303,7 +303,11 @@ public class LibraryController {
 			return "redirect: llist.do";
 		}
 		
-		
+		@RequestMapping("library_delete.do")
+		public String deletelibraryMethod(@RequestParam("library_idx")int library_idx) {
+			int result = libraryService.deletelibrary(library_idx);
+			return "redirect: llist.do";
+		}
 		
 }
 	

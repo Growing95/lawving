@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.lawving.library.model.vo.LibraryVo;
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
 
@@ -101,4 +102,21 @@ public class NoticeDao {
 	public int insertNotice(NoticeVo notice) {
 		return sqlSession.insert("noticeMapper.insertNotice", notice);
 	}
+
+	// 수정
+	public int updateNotice(NoticeVo notice) {
+		return sqlSession.update("noticeMapper.updateNotice", notice);
+	}
+
+	// 체크박스 삭제
+	public void chklistdelete(String chkdel) {
+		sqlSession.delete("noticeMapper.chkdelete", chkdel);
+	}
+
+	// 게시물 삭제
+	public int deleteNotice(int notice_idx) {
+		return sqlSession.delete("noticeMapper.deleteNotice", notice_idx);
+
+	}
+
 }

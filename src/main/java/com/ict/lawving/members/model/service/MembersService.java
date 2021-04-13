@@ -21,5 +21,6 @@ public interface MembersService {
 	//이메일발송
 	public void sendEmail(MembersVo member, String div) throws Exception;
 	int updatepw(MembersVo member);
-
+	//ID찾기
+	public void findId(HttpServletResponse response, MembersVo members) throws Exception;
 }

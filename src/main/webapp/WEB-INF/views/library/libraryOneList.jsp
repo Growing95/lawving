@@ -35,9 +35,8 @@
 		test="${loginMember.members_lev=='2'}">
 		<div style="align: center; padding-left: 400px;">
 			<c:url var="update" value="/library_update.do" />
-			<c:url var="delete" value="/library_delete.do" />
 			<button onclick="javascript:location.href='${ update }';">수정</button>
-			<button onclick="javascript:location.href='${ delete }';">삭제</button>
+			<button onclick="location.href='library_delete.do?library_idx=${lvo.library_idx}'">삭제</button>
 		</div>
 	</c:if>
 	<div>

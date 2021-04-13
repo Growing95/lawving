@@ -21,6 +21,9 @@ public interface NoticeService {
 	
 	NoticeVo selectOneList(int notice_idx);
 	int insertNotice(NoticeVo notice);
+	int updateNotice(NoticeVo notice);
+	void chkdelete(String string);
+	int deleteNotice(int notice_idx);
 	
 	
 }

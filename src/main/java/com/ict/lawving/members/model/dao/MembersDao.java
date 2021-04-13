@@ -58,5 +58,10 @@ public class MembersDao {
 		
 		return sqlSession.update("updatepw",member);
 	}
+	
+	//ID찾기
+	public String findId(MembersVo members) {
+		return sqlSession.selectOne("memberMapper.findId", members);
+	}
 
 }

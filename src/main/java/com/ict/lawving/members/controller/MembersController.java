@@ -1,14 +1,21 @@
 package com.ict.lawving.members.controller;
 
+import java.io.BufferedReader;
+
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Member;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ict.lawving.common.Paging;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
+import org.json.simple.JSONObject;
+
 
 @SessionAttributes({"loginUser","loginAdmin"})
 @Controller
@@ -56,6 +65,30 @@ public class MembersController {
 		return "member/memberInsertForm";
 
 	}
+	
+	
+	// ID찾기 페이지 이동
+	@RequestMapping("go_findid.do")
+	public String findidMethod() {
+		if(logger.isDebugEnabled()) // 프로젝트 배포시에 성능저하를 막기위해 logger의 레벨이 DEBUG인지 여부를 확인
+			logger.debug("아이디찾기페이지");
+		
+		return "member/findid";
+		
+	}
+	
+	// ID찾기
+	@RequestMapping(value = "findid.do", method = RequestMethod.GET)
+	public void findIdGET() throws Exception{
+	}
+
+	@RequestMapping(value = "findid.do", method = RequestMethod.POST)
+	public void findIdPOST(@ModelAttribute MembersVo members, HttpServletResponse response) throws Exception{
+		membersService.findId(response, members);
+	}
+	
+	
+	
 	/* 비밀번호 찾기 페이지이동 */
 	@RequestMapping("go_findpw.do")
 	public String findpwMethod() {
@@ -79,7 +112,9 @@ public class MembersController {
 	//비밀번호변경
 	@RequestMapping("update_pw.do")
 	  public String updatePwMethod(MembersVo member,Model model,HttpSession session) {
+		System.out.println("변경할비번:"+member.getMembers_pw());
 		member.setMembers_pw(bcryptPasswordEncoder.encode(member.getMembers_pw()));
+		System.out.println("암호화된 비번:"+member.getMembers_pw());
 		String id = member.getMembers_id();
 		int result = membersService.updatepw(member);
 		  if(result>0) { 
@@ -220,6 +255,76 @@ public class MembersController {
 				return "common/alert";
 			}
 		}
+		//kakao 로그인
+		@RequestMapping("kakao_login.do")
+		public ModelAndView loginCommand(HttpServletRequest request,HttpSession session) {
+			// 1. 인증코드 받기
+			String code = request.getParameter("code");
+			
+			//2. 토큰받기
+			String access_Token="";
+			String refresh_Token="";
+			String reqURL="https://kauth.kakao.com/oauth/token";
+			
+			try {
+				URL url = new URL(reqURL);
+				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+				//POST방식으로 요청을위해
+				conn.setRequestMethod("POST");
+				conn.setDoOutput(true);
+				
+				//POST요청에 필요로 요구하는 파라미터들을 스트림 통해 전송
+				BufferedWriter bw = new BufferedWriter(
+							new OutputStreamWriter(conn.getOutputStream())
+						);
+				//요구하는 파라미터들
+				StringBuffer sb = new StringBuffer();
+				sb.append("grant_type=authorization_code");
+				sb.append("&client_id=e2179d87d4b2efece0708e2c85212139");
+				sb.append("&redirect_uri=http://localhost:8090/kakao_login.do");
+				sb.append("&code="+code);
+				bw.write(sb.toString());
+				bw.flush();
+				
+				//응답코드:200성공 ,4XX 클라이언트오류 5XX서버오류
+				
+				  int responeseCode = conn.getResponseCode();
+				 System.out.println("responeseCode="+responeseCode);
+				 
+				//요청을 통해 얻은 json 타입의 response메세지 읽어보기
+				BufferedReader br = 
+						new BufferedReader(
+								new InputStreamReader(conn.getInputStream()));
+				String line="";
+				String result = "";
+				while ((line=br.readLine())!=null) {
+					result += line;
+					
+				}
+				br.close();
+				bw.close();
+				System.out.println(result);
+				
+				//받은 정보가 Json
+				JSONParser parser = new JSONParser();
+				Object obj = parser.parse(result);
+				JSONObject j_obj=(JSONObject)obj;
+				
+				//엑세스 토큰 을 세션에 저장 해서 MyMember.java에서 호출한다.
+				String access_token=(String)j_obj.get("access_token");
+				request.getSession().setAttribute("access_token", access_token);
+				
+			} catch (Exception e) {
+				System.out.println("카카오로그인쪽 익셉션에러:"+e);
+			}
+			
+			
+			
+			//세션에 저장후 home.jsp간다 이후에 ajax를 이용 해서 정보 가져오기
+			session.setAttribute("kakaoMember", "kakao");
+			return new ModelAndView("home");
+		}
+		
 		//로그아웃 처리
 		@RequestMapping("logout.do")
 		public String logoutMethod(HttpSession session) {
