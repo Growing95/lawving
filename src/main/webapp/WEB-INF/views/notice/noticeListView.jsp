@@ -8,7 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js">
+	
+		
+	</script>
 </head>
 <body>
 	<c:import url="../header.jsp" />
