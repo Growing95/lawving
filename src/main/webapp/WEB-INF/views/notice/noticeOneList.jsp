@@ -2,17 +2,31 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+function loadNextPage(page){
+
+var param = "page="+page;
+
+$('#append_article').load("list.do", param, function(data){
+
+alert(data);
+
+});
+
+}
+</script>
 <body>
 	<%-- 절대경로로 처리한 경우 --%>
 	<c:import url="../header.jsp" />
 	<HR>
-	<h2 align="center">${nvo.notice_idx }번 공지사항 상세보기</h2>
+	<h2 align="center">${nvo.notice_idx }번공지사항 상세보기</h2>
 	<br>
 	<table align="center" width="850" border="1" cellspacing="0"
 		cellpadding="5">
@@ -48,16 +62,21 @@
 			<div style="align: center; padding-left: 400px;">
 				<c:url var="update" value="notice_update.do" />
 				<button onclick="javascript:location.href='${ update }';">수정</button>
-				<button onclick="location.href='notice_delete.do?notice_idx=${nvo.notice_idx}'">삭제</button>
+				<button
+					onclick="location.href='notice_delete.do?notice_idx=${nvo.notice_idx}'">삭제</button>
 			</div>
 		</c:if>
 		<div>
 			<c:url var="goback" value="/nlist.do" />
 			<tr>
-				<th colspan="2"><button
-						onclick="javascript:location.href='${goback }';">목록</button></th>
+				<th colspan="2">
+				<button onclick="location.href='before_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">이전글</button>
+				<button onclick="javascript:location.href='${goback }';">목록</button>
+				<button onclick="location.href='after_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">다음글</button>
+			</th>
 			</tr>
 		</div>
 	</table>
+
 </body>
 </html>

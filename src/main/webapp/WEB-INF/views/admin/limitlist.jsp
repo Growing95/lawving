@@ -114,7 +114,7 @@ function checkAll() {
 			<tr>
 				<th>번호</th>
 				<th>회원아이디</th>
-				<th>가입날짜</th>
+				<th>최초제제회원등록날짜</th>
 				<th>누적신고수</th>
 			</tr>
 		</thead>
@@ -126,7 +126,9 @@ function checkAll() {
 	</c:when>
 	<c:otherwise>
 		<c:forEach var="r" items="${limitlist }" varStatus="vs">
-		<tr><c:url value="/membersonelist.do" var="mol">
+		<tr>
+			<td>${r.members_idx }</td>
+			<c:url value="/membersonelist.do" var="mol">
 				<c:param name="members_idx" value="${r.members_idx}" />
 			</c:url>
 			<td><a href="${mol }">${r.limit_id }</a></td>

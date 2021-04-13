@@ -119,4 +119,14 @@ public class NoticeDao {
 
 	}
 
+	public NoticeVo selectNoticeBefore(String notice_idx) {
+		return sqlSession.selectOne("noticeMapper.n_before", notice_idx);
+
+	}
+
+	public NoticeVo selectNoticeAfter(String notice_idx) {
+		return sqlSession.selectOne("noticeMapper.n_after", notice_idx);
+
+	}
+
 }

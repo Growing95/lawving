@@ -15,6 +15,11 @@ public interface LimitService {
 	int getTotalBlackCount();
 	List<LimitVo> getList(int begin, int end);
 	List<LimitVo> getBlackList(int begin, int end);
+	int searchMember(LimitVo lvo);
+	int updateinfo(LimitVo lvo);
+	int insertinfo(LimitVo lvo);
+	int chkcount(LimitVo lvo);
+
 	
 	
 }
