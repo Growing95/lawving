@@ -1,7 +1,7 @@
 package com.ict.lawving.repot.model.vo;
 
 public class RepotVo {
-	private String repot_idx,qna_idx,members_idx,members_idx_2,repot_reg,repot_cause;
+	private String repot_idx,qna_idx,members_idx,members_idx_2,repot_reg,report_cause;
 
 	public String getRepot_idx() {
 		return repot_idx;
@@ -43,12 +43,13 @@ public class RepotVo {
 		this.repot_reg = repot_reg;
 	}
 
-	public String getRepot_cause() {
-		return repot_cause;
+
+	public String getReport_cause() {
+		return report_cause;
 	}
 
-	public void setRepot_cause(String repot_cause) {
-		this.repot_cause = repot_cause;
+	public void setReport_cause(String report_cause) {
+		this.report_cause = report_cause;
 	}
 	
 }

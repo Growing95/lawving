@@ -114,7 +114,7 @@ function checkAll() {
 			<tr>
 				<th>신고번호</th>
 				<th>신고한회원</th>
-				<th>게시글작성자</th>
+				<th>게시글번호</th>
 				<th>신고사유</th>
 				<th>신고접수날짜</th>
 			</tr>
@@ -130,8 +130,11 @@ function checkAll() {
 		<tr>
 			<td>${k.repot_idx }</td>
 			<td>${k.members_idx }</td>
-			<td>${k.members_idx_2 }</td>
-			<td>${k.repot_cause }</td>
+			<c:url var="onelist" value="onelist_qna.do">
+				<c:param name="qna_idx" value="${k.qna_idx}"/>
+			</c:url>
+			<td><a href="${onelist }">${k.qna_idx }</a></td>
+			<td>${k.report_cause }</td>
 			<td>${k.repot_reg }</td>
 		</tr>
 		</c:forEach>

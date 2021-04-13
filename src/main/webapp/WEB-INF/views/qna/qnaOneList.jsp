@@ -63,7 +63,7 @@
 			<%-- 질문글 제목, 조회수, 작성자, 작성일 박스 --%>
 			<div style="width: 100%; border: 1px solid black; padding: 10px; box-sizing: border-box;">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
-				<div style="float: right; font-size: 15px;" onclick="location.href='go_repot.do?members_idx=${sessionScope.loginMember.members_idx}&members_idx_2=${requestScope.qnaOnelist.qna_writer}'">
+				<div style="float: right; font-size: 15px;" onclick="location.href='go_repot.do?cPage=${cPage}'">
 					신고하기
 					<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;">
 				</div>
@@ -92,6 +92,21 @@
 					</form>
 					<br>
 				</c:if>
+				<div>
+				<c:if test="${loginMember.members_lev=='2'}">
+					<form action="delete_question.do" method="post">
+						<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
+						<input type="hidden" name="members_idx" value="${requestScope.qnaOnelist.members_idx}">
+						<input type="hidden" name="members_id" value="${requestScope.memberslist.members_id}">
+						<input type="hidden" name="delpost_category" value="${requestScope.qnaOnelist.qna_category}">
+						<input type="hidden" name="delpost_title" value="${requestScope.qnaOnelist.qna_title}">
+						<input type="hidden" name="delpost_writer" value="${requestScope.qnaOnelist.qna_writer}">
+						<input type="hidden" name="delpost_content" value="${requestScope.qnaOnelist.qna_content}">
+						<input type="submit" value="게시글삭제" >
+						
+					</form>
+				</c:if>
+				</div>
 			</div>
 			<br>
 			<%-- 답글 제목 박스 --%>

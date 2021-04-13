@@ -284,7 +284,7 @@ public class UserQnaController {
 	}
 	
 //	QNA 문의 삭제하기
-	@RequestMapping(value = "delete_qna.do", method = RequestMethod.POST)
+	@RequestMapping(value = "delete_qna.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String deleteQuestionMethod(
 			@RequestParam("qna_idx")String qna_idx,
 			@RequestParam("members_lev")String members_lev,

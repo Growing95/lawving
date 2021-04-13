@@ -63,5 +63,14 @@ public class MembersDao {
 	public String findId(MembersVo members) {
 		return sqlSession.selectOne("memberMapper.findId", members);
 	}
+	public String searchid(String members_idx) {
+		return sqlSession.selectOne("memberMapper.searchid",members_idx);
+	}
+	public String searchlev(String members_idx) {
+		return sqlSession.selectOne("memberMapper.searchlev",members_idx);
+	}
+	public String searchreg(String members_idx) {
+		return sqlSession.selectOne("memberMapper.searchreg",members_idx);
+	}
 
 }

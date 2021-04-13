@@ -17,13 +17,13 @@
 		<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th>신고 사유</th>
-				<td><textarea name="notice_content" rows="5" cols="50"></textarea></td>
+				<td><textarea name="report_cause" rows="5" cols="50"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-				<input type="hidden" value="${sessionScope.loginMember.members_idx}">
-				<input type="hidden" value="${requestScope.qnaOnelist.qna_writer}">
-				
+				<input type="hidden" name="members_idx" value="${sessionScope.loginMember.members_idx}">
+				<input type="hidden" name="members_idx_2" value="${param.qna_writer}">
+				<input type="hidden" name="qna_idx" value="${param.qna_idx}">
 					<input type="submit" value="신고하기"> &nbsp; 
 					<input type="reset" value="취소하기"> &nbsp;
 					<button onclick="javascript:history.go(-1); return false;">목록</button></td>
