@@ -308,4 +308,19 @@ public class UserQnaController {
 			return "common/errorPage";
 		}
 	}
+	
+//	관리자 QNA 문의글 답변 삭제하기
+	@RequestMapping(value = "delete_answer.do", method = RequestMethod.POST)
+	public String deleteAnswerMethod(
+			@ModelAttribute("qna_idx")String qna_idx, 
+			@ModelAttribute("cPage")String cPage, 
+			Model model) {
+		int result = qnaService.deleteAnswer(qna_idx);
+		if (result>0) {
+			return "redirect:onelist_qna.do";
+		} else {
+			model.addAttribute("msg", "답변을 삭제하지 못했습니다.");
+			return "common/errorPage";
+		}
+	}
 }
