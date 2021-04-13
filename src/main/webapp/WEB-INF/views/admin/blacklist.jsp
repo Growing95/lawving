@@ -201,7 +201,6 @@ table tfoot ol.paging li a:hover {
 			<tr>
 				<th>회원번호</th>
 				<th>회원아이디</th>
-				<th>가입날짜</th>
 				<th>제제날짜</th>
 			</tr>
 		</thead>
@@ -220,7 +219,6 @@ table tfoot ol.paging li a:hover {
 			</c:url>
 			<td><a href="${mol }">${k.limit_id }</a></td>
 			<td>${k.reg }</td>
-			<td>${k.limit_reg }</td>
 		</tr>
 		</c:forEach>
 	</c:otherwise>
