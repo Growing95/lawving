@@ -14,7 +14,7 @@ public class DelpostDao {
 	public int insertQuestion(DelpostVo dvo) {
 		int result = 0;
 		result = sqlSession.insert("delpostMapper.insertQuestion",dvo);
-		return result;
+		return result; 
 	}
 	
 	
