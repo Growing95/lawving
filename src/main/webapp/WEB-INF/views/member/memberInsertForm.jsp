@@ -29,14 +29,13 @@ display:none;
 z-index:200;
 }
 .mybtn{
-  width:150px;
+  width:140px;
   height:40px;
   padding:0;
   display:inline; 
   border-radius: 4px; 
   background: #212529;
   color: #fff;
-  margin-top: 20px;
   border: solid 2px #212529; 
   transition: all 0.5s ease-in-out 0s;
 }
@@ -45,6 +44,8 @@ z-index:200;
   color: #212529;
   text-decoration: none;
 }
+#msg{display: block; margin-top: 20px;}
+.w3-input{width: 300px; display: inline-block; margin-top: 20px;}
 button{background: #212529;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -198,44 +199,50 @@ $(function(){
 		</form> -->
 		<!--  -->
 		<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4 w3-auto" style="width: 382px;height: 456.3px;">
+		<div class="w3-container w3-card-4 w3-auto" style="width: 600px;height: auto;">
 			<form  action="anroll.do" method="post" onsubmit="return validate()">
+			<input type="hidden" id="idcheck" value="0">
+				<input type="hidden" id="emailcheck" value="0">
 			<div class="w3-center w3-large w3-margin-top">
 				<h3>회원가입</h3>
 			</div>
-			<div>
+			<div style="padding: 50px;">
 				<p>
 					<label id="msg">*아이디</label>
-					<input type="text" name="members_id" id="userid" class="w3-input" required> &nbsp;<input type="button" value="중복체크"onclick="return dupidCheck();">
+					<input type="text" name="members_id" placeholder="아이디를 입력하세요" id="userid" class="w3-input" required>&nbsp;
+					<input type="button" value="중복체크" class="w3-button w3-hover-white w3-ripple mybtn" onclick="return dupidCheck();">
 				</p>
 				<p>
-					<label>* 이름</label>
-					<input type="text" name="members_name" class="w3-input" id="name" required ></input>
+					<label id="msg">* 이름</label>
+					<input type="text" name="members_name" placeholder="이름을 입력하세요" class="w3-input" id="name" required ></input>
 				</p>
 				<p>
-					<label>* 비밀번호</label>
-					<input type="password" name="members_pw" class="w3-input" id="userpwd" required>
+					<label id="msg">* 비밀번호</label>
+					<input type="password" name="members_pw" placeholder="패스워드를 입력하세요" class="w3-input" id="userpwd" required>
 				</p>
 				<p>
-					<label>* 비밀번호확인</label>
-					<input type="password" name="pw2" class="w3-input" id="userpwd2" required>
+					<label id="msg">* 비밀번호확인</label>
+					<input type="password" name="pw2" placeholder="패스워드를 입력하세요" class="w3-input" id="userpwd2" required>
 				</p>
 				<p>
-					<label>* 이메일</label>
-					<input type="email" name="members_email" class="w3-input" id="members_email"><button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="sendmail">이메일인증</button>
+					<label id="msg">* 이메일</label>
+					<input type="email" name="members_email" placeholder="이메일을 입력하세요" class="w3-input" id="members_email">&nbsp;
+					<button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="sendmail">이메일인증</button>
 				</p>
 				<p>
-					<label>* 인증코드</label>
-					<input type="text" name="emailcode" class="w3-input" id="emailcode"><button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="codeok">인증코드확인</button>
+					<label id="msg">* 인증코드</label>
+					<input type="text" name="emailcode" placeholder="발송된 인증번호를 입력하세요" class="w3-input" id="emailcode">&nbsp;
+					<button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="codeok">인증코드확인</button>
 				</p>
 				<p>
-					<label>생년월일</label>
-					<input type="number" name="members_birth" class="w3-input" placeholder="yyyymmdd">
+					<label id="msg">생년월일</label>
+					<input type="number" placeholder="출생년도를 입력하세요" name="members_birth" class="w3-input" placeholder="yyyymmdd">
 				</p>
 				<p>
-					<label>전화번호</label>
-					<input type="tel" name="members_tel" class="w3-input" id="members_tel">
+					<label id="msg">전화번호</label>
+					<input type="tel" name="members_tel" placeholder="전화번호를 입력하세요" class="w3-input" id="members_tel">
 				</p>
+				<br>
 				<p class="w3-center">
 					<input type="submit" id="findBtn" class="w3-button w3-hover-white w3-ripple mybtn" value="회원가입">
 					<input type="reset" class="w3-button w3-hover-white w3-ripple mybtn" value="취소하기">

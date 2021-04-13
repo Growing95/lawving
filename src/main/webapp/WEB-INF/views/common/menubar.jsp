@@ -31,7 +31,6 @@
 </head>
 <body>
 	<%-- <c:set var="contextPath" value=" ${ pageContext.servletContext.contextPath}"  scope="application" /> --%>
-
 	<center><a href="home.do"><img alt="logo" src="resources/images/Lawving-color1.png"></a></center>
 	<br>
 	
