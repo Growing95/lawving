@@ -92,7 +92,7 @@
 			<%-- 질문글 제목, 조회수, 작성자, 작성일 박스 --%>
 			<div style="width: 100%; border: 1px solid black; padding: 10px; box-sizing: border-box;">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
-
+				<%-- 관리자는 신고 버튼 볼 수 없음 --%>
 				<c:if test="${sessionScope.loginMember.members_lev!='2'}">
 					<div style="float: right; font-size: 15px;">
 						신고하기

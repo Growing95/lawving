@@ -19,12 +19,14 @@ import com.ict.lawving.qna.model.vo.QnaSearch;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Controller
-public class UserQnaController {
+public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
 	@Autowired
 	private Paging paging;
+	
+//	사용자
 	
 //	QNA 목록 조회하기
 	@RequestMapping("list_qna.do")
@@ -308,6 +310,8 @@ public class UserQnaController {
 			return "common/errorPage";
 		}
 	}
+	
+//	관리자
 	
 //	관리자 QNA 문의글 답변 삭제하기
 	@RequestMapping(value = "delete_answer.do", method = RequestMethod.POST)

@@ -17,34 +17,37 @@
 				<a href="list_qna.do" style="text-decoration: none; color: black;">Q&#38;A</a>
 			</h2>
 		</div>
-		<div>
-			<form action="search_qna.do" method="post">
-				<table style="margin: 10px auto; width: 800px;">
-					<tr>
-						<td style="width: 83%; text-align: right;">
-							<select name="status">
-								<option value="all" selected>모두보기</option>
-								<option value="completed">답변완료</option>
-								<option value="waiting">대기중</option>
-							</select>
-							<select name="order">
-								<option value="desc" selected>최신순</option>
-								<option value="asc">오래된순</option>
-							</select>
-							<input type="text" name="keyword" placeholder="검색어를 입력해주세요."
-								   style="width: 300px;">
-							<input type="submit" value="검색">
-						</td>
-						<td style="text-align: right;">
-							<c:if test="${!empty sessionScope.loginMember}">
-								<input type="button" value="문의작성" 
-									   onclick="location.href='go_insert_qna.do?cPage=${paging.nowPage}'">
-							</c:if>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
+		<%-- 관리자는 검색/문의작성 볼 수 없음 --%>
+		<c:if test="${sessionScope.loginMember.members_lev!='2'}">
+			<div>
+				<form action="search_qna.do" method="post">
+					<table style="margin: 10px auto; width: 800px;">
+						<tr>
+							<td style="width: 83%; text-align: right;">
+								<select name="status">
+									<option value="all" selected>모두보기</option>
+									<option value="completed">답변완료</option>
+									<option value="waiting">대기중</option>
+								</select>
+								<select name="order">
+									<option value="desc" selected>최신순</option>
+									<option value="asc">오래된순</option>
+								</select>
+								<input type="text" name="keyword" placeholder="검색어를 입력해주세요."
+									   style="width: 300px;">
+								<input type="submit" value="검색">
+							</td>
+							<td style="text-align: right;">
+								<c:if test="${!empty sessionScope.loginMember}">
+									<input type="button" value="문의작성" 
+										   onclick="location.href='go_insert_qna.do?cPage=${paging.nowPage}'">
+								</c:if>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</c:if>
 		<c:choose>
 			<c:when test="${!empty requestScope.searchObject}">
 				<div style="margin: 10px auto;">"${requestScope.searchObject.keyword}"로 검색</div>
