@@ -108,7 +108,17 @@ public class LibraryDao {
 	}
 	public int deletelibrary(int library_idx) {
 		int result =0;
-		result=sqlSession.delete("deletelibrary",library_idx);
+		result=sqlSession.delete("libraryMapper.deletelibrary",library_idx);
+		return result;
+	}
+	public int selectlibraryBefore(String library_idx) {
+		int result =0;
+		result=sqlSession.selectOne("libraryMapper.libraryBefore",library_idx);
+		return result;
+	}
+	public int selectlibraryAfter(String library_idx) {
+		int result =0;
+		result=sqlSession.selectOne("libraryMapper.libraryBefore",library_idx);
 		return result;
 	}
 	

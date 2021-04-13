@@ -244,7 +244,7 @@ public class MembersServiceImpliment implements MembersService{
 				out.flush();
 				out.close();
 			}
-			
+		}
 
 		@Override
 		public String searchid(String members_idx) {

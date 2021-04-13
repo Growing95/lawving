@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ import com.ict.lawving.library.model.service.LibraryService;
 import com.ict.lawving.library.model.vo.LibrarySearch;
 import com.ict.lawving.library.model.vo.LibraryVo;
 import com.ict.lawving.notice.model.vo.NoticeVo;
+import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Controller
 public class LibraryController {
@@ -321,7 +323,45 @@ public class LibraryController {
 			return "redirect: llist.do";
 		}
 		
-}
+		
+		
+//		QNA 이전 글 보기
+		@RequestMapping("before_library.do")
+		public String selectlibraryBeforeMethod(
+				@RequestParam("library_idx")String library_idx,
+				@ModelAttribute("cPage")String cPage,
+				Model model) {
+			System.out.println("library_idx : " + library_idx);
+			System.out.println("cPage : " + cPage);
+			try {
+				int result = libraryService.selectlibraryBefore(library_idx);
+				model.addAttribute("result", result);
+				return "library/libraryOneList";
+				
+			} catch (Exception e) {
+				return "redirect:onelist_library.do?library_idx="+library_idx ;
+		}
+		}
+//		QNA 다음 글 보기
+		@RequestMapping("after_library.do")
+		public String selectlibraryAfterMethod(
+				@RequestParam("library_idx")String library_idx,
+				@ModelAttribute("cPage")String cPage,
+				Model model) {
+//			다음 글 가져오기
+			try {
+			int result = libraryService.selectlibraryAfter(library_idx);
+//				DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
+				model.addAttribute("result", result);
+				return "library/libraryOneList";
+			} catch (Exception e) {
+				return "redirect:onelist_library.do?library_idx="+library_idx ;
+		}
+	}
+}		
+		
+		
+
 	
 	
 	
