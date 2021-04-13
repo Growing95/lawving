@@ -102,11 +102,18 @@ public class MembersController {
 	/* 비밀번호 찾기 */
 	@RequestMapping(value = "findpw.do", method = RequestMethod.GET)
 	public void findPwGET() throws Exception{
+		
 	}
 
 	@RequestMapping(value = "findpw.do", method = RequestMethod.POST)
 	public void findPwPOST(@ModelAttribute MembersVo member, HttpServletResponse response) throws Exception{
 		membersService.findPw(response, member);
+	}
+	//이메일 인증
+	@RequestMapping(value = "email.do",method=RequestMethod.POST)
+	public void emailPost(@ModelAttribute MembersVo members_email,HttpServletResponse response) throws Exception{
+		membersService.emailpost(response,members_email);
+		
 	}
 	
 	//비밀번호변경

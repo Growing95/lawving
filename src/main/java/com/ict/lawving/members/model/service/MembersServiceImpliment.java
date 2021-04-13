@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,12 +74,12 @@ public class MembersServiceImpliment implements MembersService{
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
-		String hostSMTPid = "okok6827@naver.com";
-		String hostSMTPpwd = "imsinger1357+";
+		String hostSMTPid = "lawving@naver.com";
+		String hostSMTPpwd = "Lawving6827+";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "okok6827@naver.com";
-		String fromName = "로빙";
+		String fromEmail = "lawving@naver.com";
+		String fromName = "LAWVING";
 		String subject = "";
 		String msg = "";
 
@@ -113,7 +114,7 @@ public class MembersServiceImpliment implements MembersService{
 		}
 		
 	}
-	//비밀번호찾기
+	//비밀번호찾기(이메일인증)
 		@Override
 		public void findPw(HttpServletResponse response, MembersVo member) throws Exception {
 			response.setContentType("text/html;charset=utf-8");
@@ -171,6 +172,80 @@ public class MembersServiceImpliment implements MembersService{
 		
 		}
 
+
+		
+		@Override
+		public void postEmail(MembersVo members_email, String div,String pw) throws Exception {
+			// Mail Server 설정
+			String charSet = "utf-8";
+			String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
+			String hostSMTPid = "lawving@naver.com";
+			String hostSMTPpwd = "Lawving6827+";
+
+			// 보내는 사람 EMail, 제목, 내용
+			String fromEmail = "lawving@naver.com";
+			String fromName = "LAWVING";
+			String subject = "";
+			String msg = "";
+
+			if(div.equals("sendemail")) {
+				subject = "로빙사이트 회원가입 인증번호 입니다.";
+				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+				msg += "<h3 style='color: blue;'>";
+				msg +="인증번호 입니다.</h3>";
+				msg += "<p>인증번호 : ";
+				msg += pw +"</p></div>";
+			}
+
+			// 받는 사람 E-Mail 주소
+			String mail = members_email.getMembers_email();
+			try {
+				HtmlEmail email = new HtmlEmail();
+				email.setDebug(true);
+				email.setCharset(charSet);
+				email.setSSL(true);
+				email.setHostName(hostSMTP);
+				email.setSmtpPort(587); //네이버 이용시 587
+
+				email.setAuthentication(hostSMTPid, hostSMTPpwd);
+				email.setTLS(true);
+				email.addTo(mail, charSet);
+				email.setFrom(fromEmail, fromName, charSet);
+				email.setSubject(subject);
+				email.setHtmlMsg(msg);
+				email.send();
+			} catch (Exception e) {
+				System.out.println("메일발송 실패 : " + e);
+			}
+			
+		}
+
+		@Override
+		public void emailpost(HttpServletResponse response, MembersVo members_email) throws Exception {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			// 가입된 이메일이 없으면
+			if(membersdao.seleckemailCheck(members_email.getMembers_email())== 0) {
+				// 인증번호 생성
+				String pw = "";
+				for (int i = 0; i < 12; i++) {
+					pw += (char) ((Math.random() * 26) + 97);
+				}
+				//암호화된 비번을 다시 암호화처리전으로바꿔 이메일로보내준다.
+				// 비밀번호 변경 메일 발송
+				postEmail(members_email, "sendemail",pw);
+				out.append(pw);
+				out.flush();
+				out.close();
+				
+			//이미 등록된 이메일이면
+		}else {
+				out.append("no");
+				out.flush();
+				out.close();
+			}
+			
+
 		@Override
 		public String searchid(String members_idx) {
 			return membersdao.searchid(members_idx);
@@ -184,6 +259,7 @@ public class MembersServiceImpliment implements MembersService{
 		@Override
 		public String searchreg(String members_idx) {
 			return membersdao.searchreg(members_idx);
+
 		}
 
 
