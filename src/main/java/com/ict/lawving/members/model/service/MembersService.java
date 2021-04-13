@@ -23,4 +23,7 @@ public interface MembersService {
 	int updatepw(MembersVo member);
 	//ID찾기
 	public void findId(HttpServletResponse response, MembersVo members) throws Exception;
+	String searchid(String members_idx);
+	String searchlev(String members_idx);
+	String searchreg(String members_idx);
 }

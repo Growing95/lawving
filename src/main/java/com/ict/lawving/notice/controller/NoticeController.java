@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,10 +161,11 @@ public class NoticeController {
 
 	@RequestMapping(value = "onelist_notice.do", method = RequestMethod.GET)
 	public String selectNoticeOnelistMethod(@RequestParam("notice_idx") int notice_idx, Model model,
-			HttpSession session) {
+			HttpSession session, HttpServletRequest request) {
 		NoticeVo nvo = noticeService.selectOneList(notice_idx);
 		session.setAttribute("nvo", nvo);
 		return "notice/noticeOneList";
+
 	}
 
 	// 공지사항 글쓰기 페이지 이동(관리자)
@@ -219,7 +221,6 @@ public class NoticeController {
 		return "notice/noticeUpdateForm";
 	}
 
-	// 게시글 수정 요청 처리용
 	// 게시글 수정 요청 처리용
 	@RequestMapping(value = "updatenotice.do", method = RequestMethod.POST)
 	public String noticeUpdateMethod(NoticeVo notice, @RequestParam("cPage") String cPage,
@@ -310,6 +311,30 @@ public class NoticeController {
 	public String deletenoticeMethod(@RequestParam("notice_idx") int notice_idx) {
 		int result = noticeService.deleteNotice(notice_idx);
 		return "redirect: nlist.do";
+	}
+
+	// Notice 이전 글 보기
+
+	@RequestMapping("before_notice.do")
+	public String selectNoticeBeforeMethod(@RequestParam("notice_idx") String notice_idx,
+			@ModelAttribute("cPage") String cPage, HttpSession session, HttpServletRequest request) {
+		System.out.println("notice_idx : " + notice_idx);
+		System.out.println("cPage : " + cPage);
+		NoticeVo nvo = noticeService.selectNoticeBefore(notice_idx);
+		session.setAttribute("nvo", nvo);
+		return "notice/noticeOneList";
+		}
+
+	// Notice 다음 글 보기
+
+	@RequestMapping("after_notice.do")
+	public String selectNoticeAfterMethod(@RequestParam("notice_idx") String notice_idx,
+			@ModelAttribute("cPage") String cPage, HttpSession session, HttpServletRequest request) {
+		System.out.println("notice_idx : " + notice_idx);
+		System.out.println("cPage : " + cPage);
+		NoticeVo nvo = noticeService.selectNoticeAfter(notice_idx);
+		session.setAttribute("nvo", nvo);
+		return "notice/noticeOneList";
 	}
 
 }

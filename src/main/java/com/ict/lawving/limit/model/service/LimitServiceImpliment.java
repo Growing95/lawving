@@ -74,6 +74,27 @@ public class LimitServiceImpliment implements LimitService{
 		return limitDao.getBlackCount();
 	}
 
+	@Override
+	public int searchMember(LimitVo lvo) {
+		return limitDao.getsearch(lvo);
+	}
+
+	@Override
+	public int updateinfo(LimitVo lvo) {
+		return limitDao.getupdate(lvo);
+	}
+
+	@Override
+	public int insertinfo(LimitVo lvo) {
+		return limitDao.getinsert(lvo);
+	}
+
+	@Override
+	public int chkcount(LimitVo lvo) {
+		return limitDao.getchkcount(lvo);
+	}
+
+	
 
 
 }

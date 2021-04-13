@@ -31,5 +31,17 @@ public class RepotDao {
 		repotlist=sqlSession.selectList("repotMapper.repotlist",map);
 		return repotlist;
 	}
+
+	public int getinsert(RepotVo rvo) {
+		int result =0;
+		result=sqlSession.insert("repotMapper.insertrepot",rvo);
+		return result;
+	}
+
+	public int getdelete(String qna_idx) {
+		int result =0;
+		result=sqlSession.delete("repotMapper.deleterepot",qna_idx);
+		return result;
+	}
 	
 }
