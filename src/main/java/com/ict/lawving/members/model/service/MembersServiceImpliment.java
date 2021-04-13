@@ -171,6 +171,21 @@ public class MembersServiceImpliment implements MembersService{
 		
 		}
 
+		@Override
+		public String searchid(String members_idx) {
+			return membersdao.searchid(members_idx);
+		}
+
+		@Override
+		public String searchlev(String members_idx) {
+			return membersdao.searchlev(members_idx);
+		}
+
+		@Override
+		public String searchreg(String members_idx) {
+			return membersdao.searchreg(members_idx);
+		}
+
 
 	
 
