@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,73 +22,34 @@ public class AdminQnaController {
 	@Autowired
 	private QnaService qnaService;
 	
-//	QNA 목록 조회하기
-	@RequestMapping("list_qna_admin.do")
-	public String selectQuestionListMethod(
-			Model model, HttpServletRequest request) {
-		ArrayList<QnaVo> qnaList = new ArrayList<QnaVo>();
-		Paging paging = new Paging();
-		
-		try {
-			// 1. 전체 게시물의 수 
-			int count= qnaService.getTotalCount();
-			paging.setTotalRecord(count);
-			// 2. 전체 페이지의 수
-			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
-				paging.setTotalPage(1);
-			} else {
-				paging.setTotalPage(
-						paging.getTotalRecord()/paging.getNumPerPage());
-				if (paging.getTotalRecord()%paging.getNumPerPage() != 0) {
-					paging.setTotalPage(paging.getTotalPage()+1);
-				}
-			}
-			// 3. 현재 페이지
-			String cPage= request.getParameter("cPage");
-			
-			System.out.println("cPage : "+cPage);
-			
-			if (cPage == null) {
-				paging.setNowPage(1);
-			} else if (cPage == "") {
-				paging.setNowPage(1);
-			} else {
-				paging.setNowPage(Integer.parseInt(cPage));
-			}
-			// 4. 시작번호, 끝번호
-			paging.setBegin((paging.getNowPage()-1)*paging.getNumPerPage()+1);
-			paging.setEnd((paging.getBegin()-1)+paging.getNumPerPage() );
-			// 5. 시작블록, 끝블록
-			paging.setBeginBlock(
-					(int)((paging.getNowPage()-1)/paging.getPagePerBlock())*paging.getPagePerBlock()+1);
-			paging.setEndBlock((paging.getBeginBlock()+paging.getPagePerBlock()-1));
-			// 6. 주의사항(endBlock이 totalPage보다 클 수가 있다.)
-			if (paging.getEndBlock()>paging.getTotalPage()) {
-				paging.setEndBlock(paging.getTotalPage());
-			}
-			
-			qnaList = qnaService.selectQuestionList(paging.getBegin(),paging.getEnd());
-			model.addAttribute("qnaList", qnaList);
-			model.addAttribute("paging", paging);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "qna/qnaListViewAdmin";
-	}
-	
 //	QNA 문의글 답변 작성/수정하기
-	@RequestMapping(value = "update_answer.do", produces = "text/html; charset=utf-8")
+	@RequestMapping(value = "update_answer.do", 
+					method = RequestMethod.POST, 
+					produces = "text/html; charset=utf-8")
 	@ResponseBody
-	public String updateAnswerMethod(QnaVo qna
-			) {
-		QnaVo qnaOnelist = new QnaVo();
-		qnaOnelist = qnaService.updateAnswer(qna);
-		String answer = qnaOnelist.getQna_comment();
-		return answer;
+	public String updateAnswerMethod(QnaVo qna, Model model) {
+//		넘어온 qna_idx를 이용하여 comment, writer 업데이트
+		int result = qnaService.updateAnswer(qna);
+//		업데이트 성공시 
+		if (result>0) {
+			System.out.println("=======업데이트 성공========");
+//			업데이트 된 글 가져오기
+			QnaVo qnaOnelist = qnaService.selectQuestionOnelist(qna.getQna_idx());
+//			전송용 json 객체 준비
+			JSONObject sendJson = new JSONObject();
+//			qnaOnelist의 필드값을 sendJson으로 옮기기
+			sendJson.put("qna_commenst", qnaOnelist.getQna_comment());
+			sendJson.put("qna_comment_writer", qnaOnelist.getQna_comment_writer());
+//			jsonView 가 리턴됨
+			return sendJson.toJSONString();
+		} else {
+			model.addAttribute("msg", "답변을 입력하지 못했습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 //	QNA 문의글 답변 삭제하기
-	@RequestMapping(value = "delete_answer.do", produces = "text/html; charset=utf-8")
+	@RequestMapping(value = "delete_answer.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteAnswerMethod(String qna_idx) {
 		int result = qnaService.deleteAnswer(qna_idx);

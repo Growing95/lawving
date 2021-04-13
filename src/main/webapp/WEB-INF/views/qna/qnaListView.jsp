@@ -117,7 +117,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="6" class="paging">
-							<!-- 이전으로 -->
+							<%-- 이전으로 --%>
 							<c:choose>
 								<c:when test="${paging.beginBlock <= paging.pagePerBlock}">
 									<span style="color: gray;">이전으로</span>
@@ -128,7 +128,7 @@
 									</a>
 								</c:otherwise>
 							</c:choose>
-							<!-- 페이지번호 -->
+							<%-- 페이지번호 --%>
 							<c:forEach begin="${paging.beginBlock}" end="${paging.endBlock}" step="1" var="k">
 								<c:choose>
 									<%-- 현재 페이지일 때 --%>
@@ -137,12 +137,14 @@
 									</c:when>
 									<c:otherwise>
 										<c:choose>
+											<%-- 일반 페이지 이동 --%>
 											<c:when test="${empty searchObject}">
 												<c:url var="nonSearch" value="list_qna.do">
 													<c:param name="cPage" value="${k}"/>
 												</c:url>
 												<a href="${nonSearch}">${k}</a>
 											</c:when>
+											<%-- 검색하고서 페이지 이동 --%>
 											<c:otherwise>
 												<c:url var="search" value="search_qna_get.do">
 													<c:param name="cPage" value="${k}"/>
