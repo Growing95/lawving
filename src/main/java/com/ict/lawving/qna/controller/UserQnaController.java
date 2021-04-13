@@ -1,3 +1,4 @@
+
 package com.ict.lawving.qna.controller;
 
 import java.util.ArrayList;
@@ -186,6 +187,76 @@ public class UserQnaController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		// 3. 현재 페이지
+		String cPage = request.getParameter("cPage");
+		if (cPage == null) {
+			paging.setNowPage(1);
+		} else {
+			paging.setNowPage(Integer.parseInt(cPage));
+		}
+		// 4. 시작번호, 끝번호
+		paging.setBegin((paging.getNowPage()-1)*paging.getNumPerPage()+1);
+		paging.setEnd( (paging.getBegin()-1)+paging.getNumPerPage() );
+		// 5. 시작블록, 끝블록
+		paging.setBeginBlock( (int)((paging.getNowPage()-1)/paging.getPagePerBlock())*paging.getPagePerBlock() +1);
+		paging.setEndBlock((paging.getBeginBlock()+paging.getPagePerBlock()-1));
+		// 6. 주의사항(endBlock이 totalPage보다 클 수가 있다.)
+		if (paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+		
+		switch (status) {
+			case "all": 
+				switch (order) {
+					case "desc": 
+						qnaList = qnaService.searchAllQuestionDesc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					case "asc": 
+						qnaList = qnaService.searchAllQuestionAsc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					}
+				break;
+			case "completed": 
+				switch (order) {
+					case "desc": 
+						System.out.println("답변완료-최신순 검색");
+						qnaList = qnaService.searchCompletedQuestionDesc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					case "asc": 
+						qnaList = qnaService.searchCompletedQuestionAsc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					}
+				break;
+			case "waiting": 
+				switch (order) {
+					case "desc": 
+						System.out.println("대기중-최신순 검색");
+						qnaList = qnaService.searchWaitingQuestionDesc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					case "asc": 
+						qnaList = qnaService.searchWaitingQuestionAsc(
+								searchObject, paging.getBegin(),paging.getEnd());
+						break;
+					}
+				break;
+		}
+		if (qnaList.size() > 0) {
+			model.addAttribute("searchObject", searchObject);
+			model.addAttribute("qnaList", qnaList);
+			model.addAttribute("paging", paging);
+			return "qna/qnaListView";
+		} else {
+//			model.addAttribute("msg", "게시판에 "+keyword+"를 포함한 글이 없습니다.");
+//			return "common/errorPage";
+			model.addAttribute("noData", "게시판에 &quot;"+keyword+"&quot;를 포함한 글이 없습니다.");
+			return "qna/qnaListView";
+		}
 		return null;
 	}
 	
@@ -214,19 +285,18 @@ public class UserQnaController {
 			@RequestParam("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
 			Model model) {
-//		이전 글 가져오기
-		QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
-//		조회수 + 1 
-		int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
-		if (result>0) {
-//			DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
-			qnaOnelist.setQna_hit(qnaOnelist.getQna_hit() + 1);
+
+		System.out.println("qna_idx : " + qna_idx);
+		System.out.println("cPage : " + cPage);
+		try {
+			QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
+			int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
 			model.addAttribute("qnaOnelist", qnaOnelist);
 			return "qna/qnaOneList";
-		} else {
-			model.addAttribute("msg", "이전 글로 이동하지 못했습니다.");
-			return "common/errorPage";
-		}
+			
+		} catch (Exception e) {
+			return "redirect:onelist_qna.do?qna_idx="+qna_idx;
+
 	}
 	
 //	QNA 다음 글 보기

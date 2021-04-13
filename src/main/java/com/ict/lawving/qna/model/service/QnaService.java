@@ -30,4 +30,5 @@ public interface QnaService {
 	public abstract int chkdeleteQuestion(String[] qna_idx);
 	public abstract int updateAnswer(QnaVo qna);
 	public abstract int deleteAnswer(String qna_idx);
+	public abstract int selectQnaIdx(String qna_idx);
 }

@@ -173,4 +173,9 @@ public class QnaDao {
 		int result = sqlSession.update("qnaMapper.deleteAnswer", qna_idx);
 		return result;
 	}
+
+	public int selectQnaIdx(String qna_idx) {
+		int result = sqlSession.selectOne("qnaMapper.selectQnaIdx", qna_idx);
+		return result;
+	}
 }
