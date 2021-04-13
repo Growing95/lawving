@@ -94,6 +94,11 @@ public class LimitServiceImpliment implements LimitService{
 		return limitDao.getchkcount(lvo);
 	}
 
+	@Override
+	public void chkblackdelete(String chkdel) {
+		limitDao.chkblackdelete(chkdel);		
+	}
+
 	
 
 

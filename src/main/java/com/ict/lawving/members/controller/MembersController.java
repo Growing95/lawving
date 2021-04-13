@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
+import com.ict.lawving.limit.model.service.LimitService;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
 
@@ -42,6 +43,8 @@ public class MembersController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
 	private MembersService membersService;
+	@Autowired
+	private LimitService limitService;
 	@Autowired
 	private Paging paging;
 	
@@ -446,7 +449,15 @@ public class MembersController {
 			return "lawdata/lawdata";
 		}
 		
-		
+		@RequestMapping("chkblackdelete.do")
+		public String chkDeleteMethod(HttpServletRequest request) {
+			String [] chkMsg=request.getParameterValues("chkArr");
+			int size = chkMsg.length;
+			for (int i = 0; i < size; i++) {
+				limitService.chkblackdelete(chkMsg[i]);
+			}
+			return "redirect: memberslist.do";
+		}
 		
 		
 		

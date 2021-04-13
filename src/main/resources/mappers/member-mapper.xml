@@ -61,6 +61,9 @@
 	<select id="searchreg" parameterType="String" resultType="String">
 		select members_reg from members where members_idx=#{members_idx}
 	</select>
+	<update id="chkblackdelete" parameterType="String">
+		
+	</update>
 </mapper>
 
 

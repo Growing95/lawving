@@ -292,7 +292,19 @@ public class LibraryController {
 			return new ModelAndView("filedown2", "downFile", model);
 		}
 
-		
+	/*
+	 * @RequestMapping("bfdown.do") public ModelAndView
+	 * fileDownMethod(@RequestParam("ofile") String originalFilename,
+	 * 
+	 * @RequestParam("rfile") String renameFilename, HttpServletRequest request) {
+	 * String savePath =
+	 * request.getSession().getServletContext().getRealPath("resources/board_files")
+	 * ; File renameFile = new File(savePath + "\\" + renameFilename);
+	 * 
+	 * Map<String, Object> model = new HashMap<String, Object>();
+	 * model.put("renameFile", renameFile); model.put("originalFilename",
+	 * originalFilename); return new ModelAndView("filedown2", "downFile", model); }
+	 */		
 		@RequestMapping("chkdelete.do")
 		public String chkDeleteMethod(HttpServletRequest request) {
 			String [] chkMsg=request.getParameterValues("chkArr");

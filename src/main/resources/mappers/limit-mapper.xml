@@ -45,6 +45,9 @@
 	<select id="chkcount" parameterType="LimitVo" resultType="int">
 		select limit_count from limit where members_idx=#{members_idx}
 	</select>
+	<update id="chkblackdelete" parameterType="String">
+		update limit set limit_count=limit_count - 1 where members_idx=#{members_idx}
+	</update>
 </mapper>
 
 

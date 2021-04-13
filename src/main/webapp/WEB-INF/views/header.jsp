@@ -91,7 +91,7 @@ z-index: 1000000;
 <script>
 $(document).ready(function(){
   $("#chatbtn1").click(function(){
-	  if(${empty sessionScope.loginMember}){
+	  if(${empty sessionScope.loginMember}){ 
 		  alert("챗봇기능은 로그인후 이용가능합니다.");
 	  }else{
 		  
@@ -188,7 +188,7 @@ $(function() {
 	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
 	<c:choose>
 		<c:when test="${loginMember.members_lev=='1' }">
-			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.70:8090/chat.do" style="display: none;"></iframe>
+			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.89:8090/chat.do" style="display: none;"></iframe>
 		</c:when>
 	</c:choose>
 	</div>
