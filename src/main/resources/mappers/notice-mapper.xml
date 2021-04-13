@@ -116,5 +116,27 @@
 	<delete id="deleteNotice" parameterType="int">
 	delete from notice where notice_idx=#{notice_idx}
 	</delete>
+	
+	<select id="n_before" resultType="NoticeVo" parameterType="String">
+		SELECT * 
+    		FROM (SELECT ROWNUM r_num, a.* 
+        		FROM (SELECT * FROM NOTICE 
+              		  WHERE notice_idx &lt; #{notice_idx}
+              		  ORDER BY notice_idx DESC 
+        		) a 
+    		) 
+		WHERE r_num = 1
+	</select>
+	<select id="n_after" resultType="NoticeVo" parameterType="String">
+		SELECT * 
+    		FROM (SELECT ROWNUM r_num, a.* 
+        		FROM (SELECT * FROM NOTICE 
+              		  WHERE notice_idx &gt; #{notice_idx}
+              		  ORDER BY notice_idx ASC
+        		) a 
+    		) 
+		WHERE r_num = 1
+	</select>
+	
 
 </mapper>
