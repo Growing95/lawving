@@ -1,6 +1,7 @@
 package com.ict.lawving.members.controller;
 
 import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,8 +33,8 @@ import com.ict.lawving.common.Paging;
 import com.ict.lawving.limit.model.service.LimitService;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
+import org.json.simple.JSONObject;
 
-import net.sf.json.JSONObject;
 
 @SessionAttributes({"loginUser","loginAdmin"})
 @Controller
@@ -257,6 +258,7 @@ public class MembersController {
 				return "common/alert";
 			}
 		}
+		//kakao 로그인
 		@RequestMapping("kakao_login.do")
 		public ModelAndView loginCommand(HttpServletRequest request,HttpSession session) {
 			// 1. 인증코드 받기
@@ -288,10 +290,10 @@ public class MembersController {
 				bw.flush();
 				
 				//응답코드:200성공 ,4XX 클라이언트오류 5XX서버오류
-				/*
-				 * int responeseCode = conn.getResponseCode();
-				 * System.out.println("responeseCode="+responeseCode);
-				 */
+				
+				  int responeseCode = conn.getResponseCode();
+				 System.out.println("responeseCode="+responeseCode);
+				 
 				//요청을 통해 얻은 json 타입의 response메세지 읽어보기
 				BufferedReader br = 
 						new BufferedReader(
@@ -304,7 +306,7 @@ public class MembersController {
 				}
 				br.close();
 				bw.close();
-				//System.out.println(result);
+				System.out.println(result);
 				
 				//받은 정보가 Json
 				JSONParser parser = new JSONParser();
@@ -316,6 +318,7 @@ public class MembersController {
 				request.getSession().setAttribute("access_token", access_token);
 				
 			} catch (Exception e) {
+				System.out.println("카카오로그인쪽 익셉션에러:"+e);
 			}
 			
 			
