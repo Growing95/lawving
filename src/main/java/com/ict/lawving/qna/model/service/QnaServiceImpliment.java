@@ -112,7 +112,7 @@ public class QnaServiceImpliment implements QnaService {
 
 //	QNA 문의글 답변 작성/수정하기
 	@Override
-	public QnaVo updateAnswer(QnaVo qna) {
+	public int updateAnswer(QnaVo qna) {
 		return qnaDao.updateAnswer(qna);
 	}
 

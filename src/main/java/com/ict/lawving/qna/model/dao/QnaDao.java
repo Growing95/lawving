@@ -161,23 +161,10 @@ public class QnaDao {
 	public int chkdeleteQuestion(String[] qna_idx) {return 0;}
 	
 //	QNA 문의글 답변 작성/수정하기
-	public QnaVo updateAnswer(QnaVo qna) {
-//		updateAnswer : qna_idx를 사용해서 qna_comment를 update하고 
-//		   			   qna_status를 답변완료 상태로 update한다.
+	public int updateAnswer(QnaVo qna) {
+//		updateAnswer : qna_idx를 사용해서 qna_comment를 update
 		int result = sqlSession.update("qnaMapper.updateAnswer", qna);
-//		업데이트에 성공할 시
-		if (result>0) {
-//			onelist로 새로 받은 QNA를 가지고 return한다.
-			String idx = qna.getQna_idx();
-			QnaVo onelist = sqlSession.selectOne("qnaMapper.onelist", idx);
-			return onelist;
-//		업데이트에 실패할 시
-		} else {
-//			입력된 QNA에 실패 메세지를 덧씌워 return한다.
-			String msg = "답변을 입력하지 못했습니다.";
-			qna.setQna_comment(msg);
-			return qna;
-		}
+		return result;
 	}
 	
 //	QNA 문의글 답변 삭제하기
