@@ -1,3 +1,4 @@
+
 package com.ict.lawving.qna.controller;
 
 import java.util.ArrayList;
@@ -207,10 +208,15 @@ public class UserQnaController {
 			Model model) {
 		System.out.println("qna_idx : " + qna_idx);
 		System.out.println("cPage : " + cPage);
-		QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
-		int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
-		model.addAttribute("qnaOnelist", qnaOnelist);
-		return "qna/qnaOneList";
+		try {
+			QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
+			int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
+			model.addAttribute("qnaOnelist", qnaOnelist);
+			return "qna/qnaOneList";
+			
+		} catch (Exception e) {
+			return "redirect:onelist_qna.do?qna_idx="+qna_idx;
+		}
 	}
 	
 //	QNA 다음 글 보기

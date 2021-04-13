@@ -137,4 +137,7 @@
  	<delete id="deleteQuestion" parameterType="String">
  		DELETE FROM QNA WHERE qna_idx = #{qna_idx}
  	</delete>
+ 	<select id="selectQnaIdx" parameterType="String" resultType="int">
+ 		select count(*) from qna where qna_idx=#{qna_idx}
+	 	</select>
 </mapper>
