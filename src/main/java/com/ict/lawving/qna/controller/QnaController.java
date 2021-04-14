@@ -215,22 +215,21 @@ public class QnaController {
 			@ModelAttribute("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
 			Model model) {
+//		이전 글 가져오기
 		try {
-//			이전 글 가져오기
 			QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
-//			조회수 + 1 
+//		조회수 + 1 
 			int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
 			if (result>0) {
-//				DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
+//			DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
 				qnaOnelist.setQna_hit(qnaOnelist.getQna_hit() + 1);
 				model.addAttribute("qnaOnelist", qnaOnelist);
 				return "qna/qnaOneList";
 			} else {
-				model.addAttribute("msg", "이전 글로 이동하지 못했습니다.");
-				return "common/errorPage";
+				return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 			}
 		} catch (Exception e) {
-			return "redirect:onelist_qna.do";
+			return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 		}
 	}
 	
@@ -240,10 +239,11 @@ public class QnaController {
 			@ModelAttribute("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
 			Model model) {
+//		다음 글 가져오기
+		
 		try {
-//			다음 글 가져오기
 			QnaVo qnaOnelist = qnaService.selectQuestionAfter(qna_idx);
-//			조회수 + 1 
+//		조회수 + 1 
 			int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
 			if (result>0) {
 //			DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
@@ -252,10 +252,11 @@ public class QnaController {
 				return "qna/qnaOneList";
 			} else {
 				model.addAttribute("msg", "다음 글로 이동하지 못했습니다.");
-				return "common/errorPage";
+				return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 			}
+			
 		} catch (Exception e) {
-			return "redirect:onelist_qna.do";
+			return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 		}
 	}
 	

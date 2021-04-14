@@ -159,18 +159,18 @@ public class NoticeController {
 			model.addAttribute("paging", paging);
 			return "notice/noticeListView";
 		} else {
-			model.addAttribute("msg", keyword + "로 검색된 공지사항 정보가 없습니다.");
-			return "common/errorPage";
+			model.addAttribute("noticelist");
+			return "redirect:nlist.do";
 		}
 	}
 	// 상세보기
 
 	@RequestMapping(value = "onelist_notice.do", method = RequestMethod.GET)
 	public String selectNoticeOnelistMethod(
-			@RequestParam("notice_idx") int notice_idx,
+			@ModelAttribute("notice_idx") int notice_idx,
 			@ModelAttribute("cPage")String cPage,
 			Model model,
-			HttpSession session, HttpServletRequest request) {
+			HttpSession session) {
 		NoticeVo nvo = noticeService.selectOneList(notice_idx);
 		session.setAttribute("nvo", nvo);
 		return "notice/noticeOneList";
@@ -319,7 +319,7 @@ public class NoticeController {
 		return "redirect: nlist.do";
 	}
 
-//	Library 이전 글 보기
+//	notice 이전 글 보기
 	@RequestMapping("before_notice.do")
 	public String selectnoticeBeforeMethod(
 			@RequestParam("notice_idx")int notice_idx,
@@ -330,13 +330,13 @@ public class NoticeController {
 		try {
 			NoticeVo noticeOnelist = noticeService.selectNoticeBefore(notice_idx);
 			model.addAttribute("noticeOnelist", noticeOnelist);
-			return "redirect:onelist_notice.do?notice_idx="+noticeOnelist.getNotice_idx()+"&cPage="+cPage;
+			return "redirect:onelist_notice.do?notice_idx="+noticeOnelist.getNotice_idx();
 			
 		} catch (Exception e) {
 			return "redirect:onelist_notice.do?notice_idx="+notice_idx ;
 	}
 	}
-//	Library 다음 글 보기
+//	notice 다음 글 보기
 	@RequestMapping("after_notice.do")
 	public String selectnoticeAfterMethod(
 			@RequestParam("notice_idx")int notice_idx,

@@ -103,9 +103,8 @@
 							</c:when>
 							<%-- 로그인 한 경우 신고 화면으로 --%>
 							<c:otherwise>
-								<img class="repot_icon" src="resources/images/repot.png" 
-									 onclick="location.href='go_repot.do?members_idx=${sessionScope.loginMember.members_idx}
-									 									&members_idx_2=${requestScope.qnaOnelist.qna_writer}'">
+								<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;" 
+									 onclick="location.href='go_repot.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&members_idx=${sessionScope.loginMember.members_idx}'">
 							</c:otherwise>
 						</c:choose>
 					</div>
