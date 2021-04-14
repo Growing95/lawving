@@ -212,7 +212,7 @@ public class QnaController {
 //	QNA 이전 글 보기
 	@RequestMapping("before_qna.do")
 	public String selectQuestionBeforeMethod(
-			@RequestParam("qna_idx")String qna_idx,
+			@ModelAttribute("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
 			Model model) {
 //		이전 글 가져오기
@@ -236,7 +236,7 @@ public class QnaController {
 //	QNA 다음 글 보기
 	@RequestMapping("after_qna.do")
 	public String selectQuestionAfterMethod(
-			@RequestParam("qna_idx")String qna_idx,
+			@ModelAttribute("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
 			Model model) {
 //		다음 글 가져오기

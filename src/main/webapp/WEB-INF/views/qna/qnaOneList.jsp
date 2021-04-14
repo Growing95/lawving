@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Lawving</title>
+<link rel="stylesheet" type="text/css" href="resources/css/onelist.css">
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -82,26 +83,23 @@
 <body>
 	<c:import url="../header.jsp" />
 	<article>
-		<div style="margin: auto; width: 800px; text-align: left;">
-			<div style="width: 100%;">
+			<div class="category">
 				Question and answer
-				<h2 style="margin: 0px;">
-					<a href="list_qna.do" style="text-decoration: none; color: black;">Q&#38;A</a>
+				<h2>
+					<a href="list_qna.do">Q&#38;A</a>
 				</h2>
 			</div>
-			<br>
 			<%-- 질문글 제목, 조회수, 작성자, 작성일 박스 --%>
-			<div style="width: 100%; border: 1px solid black; padding: 10px; box-sizing: border-box;">
+			<div class="title">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
 				<%-- 관리자는 신고 버튼 볼 수 없음 --%>
 				<c:if test="${sessionScope.loginMember.members_lev!='2'}">
-					<div style="float: right; font-size: 15px;">
+					<div class="repot">
 						신고하기
 						<c:choose>
 							<%-- 로그인 하지 않은 경우 로그인 화면으로 --%>
 							<c:when test="${empty sessionScope.loginMember}">
-								<img src="resources/images/repot.png" onclick="location.href='go_login.do'" 
-									 style="height: 20px; vertical-align: middle;">
+								<img class="repot_icon" src="resources/images/repot.png" onclick="location.href='go_login.do'">
 							</c:when>
 							<%-- 로그인 한 경우 신고 화면으로 --%>
 							<c:otherwise>
@@ -111,57 +109,57 @@
 						</c:choose>
 					</div>
 				</c:if>
-				<div style="text-align: right;">
+				<div class="info">
 					조회수 : ${requestScope.qnaOnelist.qna_hit}&nbsp;&nbsp;&nbsp;
 					작성자 : ${requestScope.qnaOnelist.qna_writer}&nbsp;&nbsp;&nbsp;
 					작성일 : ${requestScope.qnaOnelist.qna_reg.substring(0,10)}
 				</div>
 			</div>
-			<br>
 			<%-- 질문글 내용 박스 --%>
-			<div style="width: 100%; border: 1px dotted black; padding: 10px; box-sizing: border-box;">
-				<div style="margin-bottom: 10px;">${requestScope.qnaOnelist.qna_content}</div>
+			<div class="content">
+				<div>${requestScope.qnaOnelist.qna_content}</div>
 				<%-- 사용자가 글쓴이와 동일인물일 경우 삭제/새질문작성 버튼 --%>
 				<c:if test="${requestScope.qnaOnelist.members_idx eq sessionScope.loginMember.members_idx}">
-					<button onclick="location.href='go_insert_qna.do'">새 질문 작성</button>
-					<form action="delete_qna.do" method="post" style="display: inline-block; float: right;">
-						<input type="button" value="삭제" onclick="delete_qna_check(this.form)" style="float: right;">
-						<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
-						<input type="hidden" name="members_lev" value="${sessionScope.loginMember.members_lev}">
-						<input type="hidden" name="members_idx" value="${sessionScope.loginMember.members_idx}">
+					<form action="delete_qna.do" method="post">
+						<div class="content_in_btn">
+							<input type="button" value="새 질문 작성" onclick="location.href='go_insert_qna.do'">
+							<input type="button" value="삭제" onclick="delete_qna_check(this.form)">
+							<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
+							<input type="hidden" name="members_lev" value="${sessionScope.loginMember.members_lev}">
+							<input type="hidden" name="members_idx" value="${sessionScope.loginMember.members_idx}">
+						</div>
 					</form>
-					<br>
 				</c:if>
 				<%-- 사용자가 관리자일 경우 관리자용 삭제버튼 --%>
 				<c:if test="${loginMember.members_lev=='2'}">
-					<form action="delete_question.do" method="post">
-						<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
-						<input type="hidden" name="members_idx" value="${requestScope.qnaOnelist.members_idx}">
-						<input type="hidden" name="members_id" value="${requestScope.memberslist.members_id}">
-						<input type="hidden" name="delpost_category" value="${requestScope.qnaOnelist.qna_category}">
-						<input type="hidden" name="delpost_title" value="${requestScope.qnaOnelist.qna_title}">
-						<input type="hidden" name="delpost_writer" value="${requestScope.qnaOnelist.qna_writer}">
-						<input type="hidden" name="delpost_content" value="${requestScope.qnaOnelist.qna_content}">
-						<input type="submit" value="게시글삭제" >
+					<form class="content_in_btn" action="delete_question.do" method="post">
+						<div class="content_in_btn">
+							<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
+							<input type="hidden" name="members_idx" value="${requestScope.qnaOnelist.members_idx}">
+							<input type="hidden" name="members_id" value="${requestScope.memberslist.members_id}">
+							<input type="hidden" name="delpost_category" value="${requestScope.qnaOnelist.qna_category}">
+							<input type="hidden" name="delpost_title" value="${requestScope.qnaOnelist.qna_title}">
+							<input type="hidden" name="delpost_writer" value="${requestScope.qnaOnelist.qna_writer}">
+							<input type="hidden" name="delpost_content" value="${requestScope.qnaOnelist.qna_content}">
+							<input type="submit" value="게시글삭제" >
+						</div>
 					</form>
 				</c:if>
 			</div>
-			<br>
 			<%-- 답글 제목 박스 --%>
-			<div style="width: 100%; border: 1px solid black; padding: 10px; box-sizing: border-box;">
+			<div class="title">
 				<strong>관리자 답변</strong>
 				<%-- 입력된 답변이 있을 때 --%>
 				<c:if test="${!empty requestScope.qnaOnelist.qna_comment}">
-					<div id="writer_and_reg_box_old" style="text-align: right;">
+					<div class="info" id="writer_and_reg_box_old">
 						작성자 : ${requestScope.qnaOnelist.qna_comment_writer}&nbsp;&nbsp;&nbsp;
 						작성일 : ${requestScope.qnaOnelist.qna_reg_a.substring(0,10)}
 					</div>
 				</c:if>
-				<div id="writer_and_reg_box_new" style="text-align: right;"></div>
+				<div class="info" id="writer_and_reg_box_new"></div>
 			</div>
-			<br>
 			<%-- 답글 내용 박스 --%>
-			<div style="width: 100%; border: 1px dotted black; padding: 10px; box-sizing: border-box;">
+			<div class="content">
 				<div id="print_box"></div>
 				<c:choose>
 					<%-- 입력된 답변이 있을 때 --%>
@@ -176,20 +174,19 @@
 									<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 									<textarea name="qna_comment" style="width: 100%">${requestScope.qnaOnelist.qna_comment}</textarea>
 									<script>CKEDITOR.replace('qna_comment');</script>
-									<div style="margin: 10px auto; text-align: center;">
+									<div class="btn">
 										<input type="button" value="수정취소" onclick="switch_to_button_box()">
 										<input type="button" value="답변수정" onclick="update_answer_func()">
 									</div>
 								</form>
 							</div>
-							<div id="button_box" style="text-align: right;">
-								<form action="delete_answer.do" method="post" style="display: inline-block; float: right;">
+							<div id="button_box" class="content_in_btn" style="text-align: right;">
+								<form action="delete_answer.do" method="post">
 									<input type="button" value="수정" onclick="switch_to_insert_box()">
 									<input type="button" value="삭제" onclick="delete_answer_check(this.form)">
 									<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
 									<input type="hidden" name="cPage" value="${cPage}">
 								</form>
-								<br>
 							</div>
 						</c:if>
 					</c:when>
@@ -203,7 +200,7 @@
 										<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 										<textarea name="qna_comment" style="width: 100%"></textarea>
 										<script>CKEDITOR.replace('qna_comment');</script>
-										<div style="margin: 10px auto; text-align: center;">
+										<div class="btn">
 											<input type="button" value="답변쓰기" onclick="update_answer_func()">
 										</div>
 									</form>
@@ -217,13 +214,11 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<br>
-			<div style="text-align: center;">
+			<div class="btn">
 				<button onclick="location.href='before_qna.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&cPage=${cPage}'">이전글</button>
 				<button onclick="location.href='list_qna.do?cPage=${cPage}'">목록</button>
 				<button onclick="location.href='after_qna.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&cPage=${cPage}'">다음글</button>
 			</div>
-		</div>
 	</article>
 </body>
 </html>
