@@ -66,8 +66,9 @@
 		select members_reg from members where members_idx=#{members_idx}
 
 	</select>
-	<update id="chkblackdelete" parameterType="String">
-		
+	
+	<update id="updatelev" parameterType="String" >
+		update members set members_lev= 3 where members_idx=#{members_idx}
 	</update>
 </mapper>
 
