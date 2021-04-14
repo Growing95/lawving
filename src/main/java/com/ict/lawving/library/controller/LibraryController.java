@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ import com.ict.lawving.library.model.service.LibraryService;
 import com.ict.lawving.library.model.vo.LibrarySearch;
 import com.ict.lawving.library.model.vo.LibraryVo;
 import com.ict.lawving.notice.model.vo.NoticeVo;
+import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Controller
 public class LibraryController {
@@ -59,6 +61,8 @@ public class LibraryController {
 			// 3. 현재 페이지
 			String cPage= request.getParameter("cPage");
 			if (cPage == null) {
+				paging.setNowPage(1);
+			}else if(cPage =="") {
 				paging.setNowPage(1);
 			}else {
 				paging.setNowPage(Integer.parseInt(cPage));
@@ -159,7 +163,10 @@ public class LibraryController {
 	// 상세보기
 
 		@RequestMapping(value = "onelist_library.do", method = RequestMethod.GET)
-		public String selectlibraryOnelistMethod(@RequestParam("library_idx") int library_idx, Model model,
+		public String selectlibraryOnelistMethod(
+				@ModelAttribute("library_idx")int library_idx,
+				@ModelAttribute("cPage")String cPage,
+				Model model,
 				HttpSession session) {
 			LibraryVo lvo = libraryService.selectOneList(library_idx);
 			
@@ -292,7 +299,19 @@ public class LibraryController {
 			return new ModelAndView("filedown2", "downFile", model);
 		}
 
-		
+	/*
+	 * @RequestMapping("bfdown.do") public ModelAndView
+	 * fileDownMethod(@RequestParam("ofile") String originalFilename,
+	 * 
+	 * @RequestParam("rfile") String renameFilename, HttpServletRequest request) {
+	 * String savePath =
+	 * request.getSession().getServletContext().getRealPath("resources/board_files")
+	 * ; File renameFile = new File(savePath + "\\" + renameFilename);
+	 * 
+	 * Map<String, Object> model = new HashMap<String, Object>();
+	 * model.put("renameFile", renameFile); model.put("originalFilename",
+	 * originalFilename); return new ModelAndView("filedown2", "downFile", model); }
+	 */		
 		@RequestMapping("chkdelete.do")
 		public String chkDeleteMethod(HttpServletRequest request) {
 			String [] chkMsg=request.getParameterValues("chkArr");
@@ -309,7 +328,44 @@ public class LibraryController {
 			return "redirect: llist.do";
 		}
 		
-}
+		
+		
+//		Library 이전 글 보기
+		@RequestMapping("before_library.do")
+		public String selectlibraryBeforeMethod(
+				@RequestParam("library_idx")int library_idx,
+				@ModelAttribute("cPage")String cPage,
+				Model model) {
+			System.out.println("library_idx : " + library_idx);
+			System.out.println("cPage : " + cPage);
+			try {
+				LibraryVo libraryOnelist = libraryService.selectlibraryBefore(library_idx);
+				model.addAttribute("libraryOnelist", libraryOnelist);
+				return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx()+"&cPage="+cPage;
+				
+			} catch (Exception e) {
+				return "redirect:onelist_library.do?library_idx="+library_idx ;
+		}
+		}
+//		Library 다음 글 보기
+		@RequestMapping("after_library.do")
+		public String selectlibraryAfterMethod(
+				@RequestParam("library_idx")int library_idx,
+				@ModelAttribute("cPage")String cPage,
+				Model model) {
+//			다음 글 가져오기
+			try {
+			LibraryVo libraryOnelist = libraryService.selectlibraryAfter(library_idx);
+			model.addAttribute("libraryOnelist", libraryOnelist);
+			return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx()+"&cPage="+cPage;
+			} catch (Exception e) {
+			return "redirect:onelist_library.do?library_idx="+library_idx ;
+		}
+	}
+}		
+		
+		
+
 	
 	
 	

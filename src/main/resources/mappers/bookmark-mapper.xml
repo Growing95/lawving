@@ -6,12 +6,20 @@
 	<insert id="insertbookmark" parameterType="BookmarkVo">
 		insert into bookmark values(bookmark_seq.nextval,#{members_idx},#{bookmark_category},#{bookmark_question},#{bookmark_answer},sysdate)
 	</insert>
-	<select id="list_bookmark" parameterType="String" resultType="BookmarkVO">
-	select * from bookmark where members_idx=#{members_idx}
-	</select>
+	
 	<select id="totalcount" parameterType="String" resultType="int">
 	select count(*) from bookmark where members_idx=#{mebers_idx}
 	</select>
+		<select id="bookmarklist" resultType="BookmarkVO" parameterType="Map">
+	SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (select * from(SELECT * FROM BOOKMARK where members_idx = #{members_idx})
+					  ORDER BY bookmark_idx DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	
 	<delete id="chkbookmarkdelete" parameterType="String">
 	delete from bookmark where bookmark_idx = #{bookmark_idx}
 	</delete>

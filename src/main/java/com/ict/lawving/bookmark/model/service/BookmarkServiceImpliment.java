@@ -21,13 +21,6 @@ public class BookmarkServiceImpliment implements BookmarkService{
 		return bookmarkDao.insertBookmark(b);
 	}
 
-
-	@Override
-	public ArrayList<BookmarkVo> selectBookmarkList(String members_idx) {
-		
-		return bookmarkDao.selectBookmarkList(members_idx);
-	}
-
 	@Override
 	public int getTotalCount(String members_idx) {
 		
@@ -44,6 +37,13 @@ public class BookmarkServiceImpliment implements BookmarkService{
 	public int deleteBookmark(String bookmark_idx) {
 		return bookmarkDao.deleteonebookmark(bookmark_idx);
 	}
+
+	@Override
+	public ArrayList<BookmarkVo> selectBookmarklist(String members_idx, int begin, int end) {
+		// TODO Auto-generated method stub
+		return bookmarkDao.selectBookmarkList(members_idx,begin,end);
+	}
+
 
 
 	

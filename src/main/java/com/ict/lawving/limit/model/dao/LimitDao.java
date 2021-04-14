@@ -71,6 +71,11 @@ public class LimitDao {
 		return lcount;
 	}
 
+	public void chkblackdelete(String chkdel) {
+		sqlSession.update("limitMapper.chkblackdelete",chkdel);
+		
+	}
+
 	
 
 }

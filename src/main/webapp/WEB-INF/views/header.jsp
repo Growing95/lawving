@@ -40,6 +40,8 @@
 	border-top-left-radius: 20px;
 	border: 1px solid #4c5d6f;
 }
+center{width: 70%; margin: auto;}
+
 
 article {
 	width: 70%;
@@ -87,6 +89,10 @@ z-index: 1000000;
 	color:white;
 }
 </style>
+<!--배너관련 스크립트  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	$("#res").empty();
@@ -118,7 +124,7 @@ $(function() {
 <script>
 $(document).ready(function(){
   $("#chatbtn1").click(function(){
-	  if(${empty sessionScope.loginMember}){
+	  if(${empty sessionScope.loginMember}){ 
 		  alert("챗봇기능은 로그인후 이용가능합니다.");
 	  }else{
 		  
@@ -135,10 +141,12 @@ function golaw() {
 </head>
 <body>
 	<header>
+	<div id="head">
 		<center>
 			<a href="home.do"><img alt="logo"
 				src="resources/images/Lawving-color1.png"></a>
 		</center>
+		</div>
 		<div id="loginUI">
 			<c:choose>
 				<c:when test="${loginMember.members_lev=='2'}">
@@ -153,7 +161,7 @@ function golaw() {
 						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수
 							: <%-- ${limit.limit_count} --%>0
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
 				<c:when test="${kakaoMember=='kakao' }">
@@ -161,7 +169,7 @@ function golaw() {
 						카카오회원 <div id="res"></div>|&nbsp; <span style="color: red;">누적신고수
 							: <%-- ${limit.limit_count} --%>0
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }&cPage=1">MY북마크</a>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -179,15 +187,16 @@ function golaw() {
   <li><a href="list_qna.do">Q&A</a></li>
   <li><a id="chatbtn1" style="cursor: pointer;">챗봇열기</a></li>
 	</ul>
-	<br>
-	<br>
-	<br>
 	<div>
 	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
 	<c:choose>
 		<c:when test="${loginMember.members_lev=='1' }">
-			<iframe id="iframe"  scrolling="yes" src="http://@localhost:8090/chat.do" style="display: none;"></iframe>
+
+
+			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.89:8090/chat.do" style="display: none;"></iframe>
+
 			<!-- 자신의 ip로바꾼후 톰캣서버 모듈 / 로 수정해야 정상 작동 -->
+
 		</c:when>
 	</c:choose>
 	</div>

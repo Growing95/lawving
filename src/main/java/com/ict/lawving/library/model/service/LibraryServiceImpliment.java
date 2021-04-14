@@ -81,4 +81,14 @@ public class LibraryServiceImpliment implements LibraryService{
 		return result;
 	}
 	
+	@Override
+	public LibraryVo selectlibraryAfter(int library_idx) {
+		return libraryDao.selectlibraryAfter(library_idx);
+	}
+
+	@Override
+	public LibraryVo selectlibraryBefore(int library_idx) {
+		return libraryDao.selectlibraryBefore(library_idx);
+	}
+	
 }

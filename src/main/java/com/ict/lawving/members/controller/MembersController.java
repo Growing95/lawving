@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
+import com.ict.lawving.limit.model.service.LimitService;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
 import org.json.simple.JSONObject;
@@ -43,6 +44,8 @@ public class MembersController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
 	private MembersService membersService;
+	@Autowired
+	private LimitService limitService;
 	@Autowired
 	private Paging paging;
 	
@@ -102,11 +105,18 @@ public class MembersController {
 	/* 비밀번호 찾기 */
 	@RequestMapping(value = "findpw.do", method = RequestMethod.GET)
 	public void findPwGET() throws Exception{
+		
 	}
 
 	@RequestMapping(value = "findpw.do", method = RequestMethod.POST)
 	public void findPwPOST(@ModelAttribute MembersVo member, HttpServletResponse response) throws Exception{
 		membersService.findPw(response, member);
+	}
+	//이메일 인증
+	@RequestMapping(value = "email.do",method=RequestMethod.POST)
+	public void emailPost(@ModelAttribute MembersVo members_email,HttpServletResponse response) throws Exception{
+		membersService.emailpost(response,members_email);
+		
 	}
 	
 	//비밀번호변경
@@ -130,47 +140,6 @@ public class MembersController {
 		  
 		  }
 	
-/*	@RequestMapping(value="insert_member.do",method=RequestMethod.POST)
-	public String insertMember(@ModelAttribute MembersVo members, Model model) {
-		
-		// 회원가입전에 회원정보를 출력
-		System.out.println("Member 정보 : " + members.getMembers_id());
-		System.out.println("Member 패스워드 : " + members.getMembers_pw());
-		
-		
-		
-		 * 비밀번호 -> 평문으로 되어있다. 1234 
-		 * DB에 저장을 할때 평문으로 저장하면 안되기 때문에 "암호화" 처리를 한다.
-		 * 
-		 * 스프링 시큐리티라는 모듈에서 제공하는 bcrypt라는 암호화 방식으로 암호화 처리를 할꺼다.
-		 * 
-		 * * bcrypt란?
-		 *   DB에 비밀번호를 저장할 목적으로 설계되었다.
-		 *   
-		 *   jsp/servlet 에서 했던 SHA-512암호화(단방향해쉬알고리즘)
-		 *   
-		 *   단점 : 111 평문 동일한 암호화 코드를 반화한다. 
-		 *   
-		 *   해결점 : 솔팅(salting) -> 원문에 아주작은랜덤문자열 추가해서 암호화 코드를 발생시킨다.
-		 
-		
-		// 기존의 평문을 암호문으로 바꾸서 m객체에 다시 담자.
-		String encPwd = bcryptPasswordEncoder.encode(members.getMembers_pw());
-		System.out.println("암호화 처리 후 값 : " +encPwd);
-		// setter를 통해서 Member객체의 pwd를 변경
-		members.setMembers_pw(encPwd);
-		
-		System.out.println("수정된 Member객체 : " + members);
-		
-		// 회원가입 서비스를 호출
-		int result = membersService.insertMember(members);
-		
-		if(result > 0) {
-			return "redirect:home.do";
-		}else {
-			
-			return "common/errorPage";
-		}*/
 		//회원가입시 작성 아이디 중복 체크 확인용
 		@RequestMapping(value = "idCheck.do",method = RequestMethod.POST)
 		public void idDuplicationCheck(@RequestParam("members_id")String id,HttpServletResponse response) throws IOException {
@@ -239,9 +208,13 @@ public class MembersController {
 					 if (level==2) {
 						 session.setAttribute("loginMember", loginmember);
 						return"admin/adminIndex";
+					}else if(level == 3) {
+						model.addAttribute("msg","5회이상의 누적신고수로 인하여 로그인이 제한되었습니다.");
+						model.addAttribute("url","go_login.do");
+						return "common/alert";
 					}else {
 						 session.setAttribute("loginMember", loginmember);
-						 return "home";
+						 return "home"; 
 					}
 				}else {
 					model.addAttribute("msg","패스워드가 일치하지 않습니다.");
@@ -393,13 +366,6 @@ public class MembersController {
 			mv.addObject("mvo",mvo);
 			return mv;
 		}
-		
-		
-		
-		
-		
-		
-		
 
 		//회원정보수정
 		@RequestMapping(value = "update_members.do", method =RequestMethod.POST )
@@ -449,11 +415,14 @@ public class MembersController {
 			return "lawdata/lawdata";
 		}
 		
-		
-		
-		
-		
-		
-		
+		@RequestMapping("chkblackdelete.do")
+		public String chkDeleteMethod(HttpServletRequest request) {
+			String [] chkMsg=request.getParameterValues("chkArr");
+			int size = chkMsg.length;
+			for (int i = 0; i < size; i++) {
+				limitService.chkblackdelete(chkMsg[i]);
+			}
+			return "redirect: memberslist.do";
+		}
 		
 	}

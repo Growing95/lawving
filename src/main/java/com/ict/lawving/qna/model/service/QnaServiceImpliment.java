@@ -123,4 +123,10 @@ public class QnaServiceImpliment implements QnaService {
 	public int deleteAnswer(String qna_idx) {
 		return qnaDao.deleteAnswer(qna_idx);
 	}
+
+	@Override
+	public int selectQnaIdx(String qna_idx) {
+		return qnaDao.selectQnaIdx(qna_idx);
+	}
+
 }

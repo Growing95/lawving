@@ -39,10 +39,11 @@
 			<button onclick="location.href='library_delete.do?library_idx=${lvo.library_idx}'">삭제</button>
 		</div>
 	</c:if>
-	<div>
-	<c:url var = "goback" value="/llist.do" />
-<tr><th colspan="2"><button onclick="javascript:location.href='${goback }';">목록</button></th></tr>
-	</div>
+	<div style="text-align: center;">
+				<button onclick="location.href='before_library.do?library_idx=${lvo.library_idx}&cPage=${cPage}'">이전글</button>
+				<button onclick="location.href='llist.do?cPage=${cPage }'">목록</button>
+				<button onclick="location.href='after_library.do?library_idx=${lvo.library_idx}&cPage=${cPage}'">다음글</button>
+			</div>
 </table>
 </body>
 </html>

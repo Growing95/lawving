@@ -63,6 +63,10 @@ public class MembersDao {
 	public String findId(MembersVo members) {
 		return sqlSession.selectOne("memberMapper.findId", members);
 	}
+
+	public int seleckemailCheck(String members_email) {
+		return sqlSession.selectOne("selectemail",members_email);
+	}
 	public String searchid(String members_idx) {
 		return sqlSession.selectOne("memberMapper.searchid",members_idx);
 	}
@@ -71,6 +75,10 @@ public class MembersDao {
 	}
 	public String searchreg(String members_idx) {
 		return sqlSession.selectOne("memberMapper.searchreg",members_idx);
+
+	}
+	public int updatelev(String members_idx) {
+		return sqlSession.selectOne("memberMapper.updatelev",members_idx);
 	}
 
 }

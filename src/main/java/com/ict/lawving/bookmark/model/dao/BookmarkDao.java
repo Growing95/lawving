@@ -1,7 +1,9 @@
 package com.ict.lawving.bookmark.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,6 @@ public class BookmarkDao {
 	
 	public int insertBookmark(BookmarkVo b) {
 		return sqlSessionTemplate.insert("insertbookmark",b);
-	}
-
-
-	public ArrayList<BookmarkVo> selectBookmarkList(String members_idx) {
-		List<BookmarkVo> bblist = new ArrayList<BookmarkVo>();
-		bblist=sqlSessionTemplate.selectList("list_bookmark",members_idx);
-		return (ArrayList<BookmarkVo>) bblist;
 	}
 
 
@@ -49,6 +44,24 @@ public class BookmarkDao {
 	public int deleteonebookmark(String bookmark_idx) {
 		return sqlSessionTemplate.delete("onedelete_bookmark", bookmark_idx);
 	}
+
+
+	public int selecttotal() {
+		return sqlSessionTemplate.selectOne("total");
+	}
+
+	public ArrayList<BookmarkVo> selectBookmarkList(String members_idx, int begin, int end) {
+	Map<String,Integer> map = new HashMap<String, Integer>();
+	int idx = Integer.parseInt(members_idx);
+	map.put("members_idx", idx);
+	map.put("begin", begin);
+	map.put("end", end);
+	List<BookmarkVo> blist = new ArrayList<BookmarkVo>();
+	blist= sqlSessionTemplate.selectList("bookmarklist",map);
+		return (ArrayList<BookmarkVo>) blist;
+	}
+
+
 
 
 
