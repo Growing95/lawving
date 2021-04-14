@@ -3,39 +3,158 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnaMapper"> 
-	<select id="list" resultType="qna">
-		SELECT * FROM QNA ORDER BY qna_reg DESC
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM QNA
 	</select>
-<!-- 
-	<select id="searchDesc" resultType="qna" parameterType="String">
-		SELECT * FROM QNA 
-		WHERE	qna_title	LIKE '%#{keyword}%' 
-		OR		qna_content	LIKE '%#{keyword}%'
-		ORDER BY qna_reg DESC
+	<select id="list" resultType="QnaVo" parameterType="Map">
+		SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * FROM QNA 
+					  ORDER BY qna_idx DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
 	</select>
-	
-	<select id="searchAsc" resultType="qna" parameterType="String">
-		SELECT * FROM QNA 
-		WHERE	qna_title	LIKE '%#{keyword}%' 
-		OR		qna_content	LIKE '%#{keyword}%'
-		ORDER BY qna_reg ASC
+	<select id="searchCountAll" parameterType="QnaSearch" resultType="int">
+		SELECT COUNT(*) FROM QNA
+		WHERE	qna_title 	LIKE '%' || #{ keyword } || '%'
+		OR		qna_content LIKE '%' || #{ keyword } || '%'
 	</select>
-	<select id="searchCompleted" resultType="qna" parameterType="String">
-		SELECT * FROM QNA
-		WHERE	qna_status = '답변완료' AND qna_content LIKE '%#{keyword}%'
-		OR		qna_status = '답변완료' AND qna_title LIKE '%#{keyword}%'
-		ORDER BY qna_reg DESC
+	<select id="searchCountCompleted" parameterType="QnaSearch" resultType="int">
+		SELECT count(*) 
+		FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
+		WHERE	qna_title	LIKE '%' || #{ keyword } || '%' 
+		OR		qna_content	LIKE '%' || #{ keyword } || '%'
 	</select>
-	<select id="searchWaiting" resultType="qna" parameterType="String">
-		SELECT * FROM QNA
-		WHERE	qna_status = '대기중' AND qna_content LIKE '%#{keyword}%'
-		OR		qna_status = '대기중' AND qna_title LIKE '%#{keyword}%'
-		ORDER BY qna_reg DESC
+	<select id="searchCountWaiting" parameterType="QnaSearch" resultType="int">
+		SELECT count(*) 
+		FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
+		WHERE	qna_title	LIKE '%' || #{ keyword } || '%' 
+		OR		qna_content	LIKE '%' || #{ keyword } || '%'
 	</select>
-
-	<select id="onelist" resultType="qna" parameterType="Number">
-		SELECT * FROM QNA WHERE qna_idx = #{qna_idx};
+	<select id="searchAllQuestionDesc" parameterType="Map" resultType="QnaVo">
+		SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * FROM QNA
+	                  WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+	                  OR	qna_content	LIKE '%' || #{ keyword } || '%'
+	                  ORDER BY qna_idx DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
 	</select>
- -->
+	<select id="searchAllQuestionAsc" parameterType="Map" resultType="QnaVo">
+		SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * FROM QNA
+	                  WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+	                  OR	qna_content	LIKE '%' || #{ keyword } || '%'
+	                  ORDER BY qna_idx ASC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchCompletedQuestionDesc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_idx DESC
+				) a 
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchCompletedQuestionAsc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '답변완료')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_idx ASC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchWaitingQuestionDesc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_idx DESC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="searchWaitingQuestionAsc" parameterType="Map" resultType="QnaVo">
+        SELECT * 
+			FROM (SELECT ROWNUM r_num, a.* 
+				FROM (SELECT * 
+                    FROM (SELECT * FROM QNA WHERE qna_status = '대기중')
+                    WHERE	qna_title	LIKE '%' || #{ keyword } || '%'
+                    OR	    qna_content	LIKE '%' || #{ keyword } || '%'
+                    ORDER BY qna_idx ASC
+				) a
+			) 
+		WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<update id="updateQuestionHit" parameterType="String">
+		UPDATE QNA SET qna_hit = qna_hit + 1 WHERE qna_idx = #{qna_idx}
+	</update>
+	<select id="onelist" resultType="QnaVo" parameterType="String">
+		SELECT * FROM QNA WHERE qna_idx = #{qna_idx}
+	</select>
+	<select id="onelist_before" resultType="QnaVo" parameterType="String">
+		SELECT * 
+    		FROM (SELECT ROWNUM r_num, a.* 
+        		FROM (SELECT * FROM QNA 
+              		  WHERE qna_idx &lt; #{qna_idx}
+              		  ORDER BY qna_idx DESC
+        		) a 
+    		) 
+		WHERE r_num = 1
+	</select>
+	<select id="onelist_after" resultType="QnaVo" parameterType="String">
+		SELECT * 
+    		FROM (SELECT ROWNUM r_num, a.* 
+        		FROM (SELECT * FROM QNA 
+              		  WHERE qna_idx &gt; #{qna_idx}
+              		  ORDER BY qna_idx ASC
+        		) a 
+    		) 
+		WHERE r_num = 1
+	</select>
+ 	<insert id="insertQuestion" parameterType="QnaVo">
+ 		INSERT INTO QNA VALUES(
+			QNA_seq.nextval, #{members_idx}, #{qna_category}, 
+			#{qna_title}, #{qna_writer}, #{qna_content}, 
+			#{qna_view}, sysdate, 0, '대기중', NULL, NULL, NULL)
+ 	</insert>
+ 	<delete id="deleteQuestion" parameterType="String">
+ 		DELETE FROM QNA WHERE qna_idx = #{qna_idx}
+ 	</delete>
+ 	<select id="selectQnaIdx" parameterType="String" resultType="int">
+ 		select count(*) from qna where qna_idx=#{qna_idx}
+	 	</select>
+ 	<update id="updateAnswer" parameterType="QnaVo">
+ 		UPDATE QNA 
+ 		SET qna_status = '답변완료',
+ 			qna_comment = #{qna_comment}, 
+ 			qna_comment_writer = #{qna_comment_writer}, 
+ 			qna_reg_a = sysdate 
+ 			WHERE qna_idx = #{qna_idx}
+ 	</update>
+ 	<update id="deleteAnswer" parameterType="String">
+ 	 	UPDATE QNA 
+ 		SET qna_status = '대기중',
+ 			qna_comment = null, 
+ 			qna_comment_writer = null, 
+ 			qna_reg_a = null 
+ 			WHERE qna_idx = #{qna_idx}
+ 	</update>
 
 </mapper>
