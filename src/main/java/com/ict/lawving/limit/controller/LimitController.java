@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,7 +113,7 @@ public class LimitController {
 	}
 	@RequestMapping(value="register_limit.do",method={RequestMethod.GET,RequestMethod.POST})
 	public String registerLimitMethod(LimitVo lvo,MembersVo mvo,RedirectAttributes redirectAttributes,
-			@RequestParam("members_idx")String members_idx,@RequestParam("qna_idx")String qna_idx
+			@RequestParam("members_idx")String members_idx,@RequestParam("qna_idx")String qna_idx,Model model
 			) {
 		String members_id= membersService.searchid(members_idx);
 		String members_lev=membersService.searchlev(members_idx);
@@ -124,9 +125,15 @@ public class LimitController {
 		if (count>0) {
 			System.out.println("***************리미트업데이트성공");
 			int lcount = limitService.chkcount(lvo);
-			if (lcount >= 5) {
-				return "redirect:delete_repot.do?qna_idx="+qna_idx+"&members_idx="+members_idx;
-			}else {
+			if (lcount == 5) {
+				try {
+					int result=membersService.getupdatelev(members_idx);
+					return "redirect:delete_repot.do?qna_idx="+qna_idx+"&members_idx="+members_idx;
+				} catch (Exception e) {
+					model.addAttribute("msg","처리완료"); model.addAttribute("url","home.do"); 
+					return "common/alert";
+				}
+				}else {
 				int result=limitService.updateinfo(lvo);
 				return "redirect:delete_repot.do?qna_idx="+qna_idx+"&members_idx="+members_idx;
 			}

@@ -32,5 +32,6 @@ public interface MembersService {
 	String searchid(String members_idx);
 	String searchlev(String members_idx);
 	String searchreg(String members_idx);
+	int getupdatelev(String members_idx);
 
 }
