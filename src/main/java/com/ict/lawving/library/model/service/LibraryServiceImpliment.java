@@ -80,5 +80,17 @@ public class LibraryServiceImpliment implements LibraryService{
 		int result = libraryDao.deletelibrary(library_idx);
 		return result;
 	}
+
+	@Override
+	public int selectlibraryBefore(String library_idx) {
+		int result = libraryDao.selectlibraryBefore(library_idx);
+		return result;
+	}
+
+	@Override
+	public int selectlibraryAfter(String library_idx) {
+		int result = libraryDao.selectlibraryAfter(library_idx);
+		return result;
+	}
 	
 }

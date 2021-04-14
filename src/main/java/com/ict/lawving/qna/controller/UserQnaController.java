@@ -294,9 +294,11 @@ public class UserQnaController {
 			return "qna/qnaOneList";
 			
 		} catch (Exception e) {
-			return "redirect:onelist_qna.do?qna_idx="+qna_idx;
+
+			return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 	}
-	}
+  }
+	
 //	QNA 다음 글 보기
 	@RequestMapping("after_qna.do")
 	public String selectQuestionAfterMethod(
