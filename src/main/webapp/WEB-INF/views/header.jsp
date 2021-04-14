@@ -119,7 +119,7 @@ $(function() {
 		}
 	});
 	}
-});
+ }); 
 </script>
 <script>
 $(document).ready(function(){
@@ -191,7 +191,7 @@ function golaw() {
 		<c:when test="${loginMember.members_lev=='1' }">
 
 
-			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.89:8090/chat.do" style="display: none;"></iframe>
+			<iframe id="iframe"  scrolling="yes" src="http://@localhost:8081/chat.do" style="display: none;"></iframe>
 
 			<!-- 자신의 ip로바꾼후 톰캣서버 모듈 / 로 수정해야 정상 작동 -->
 
