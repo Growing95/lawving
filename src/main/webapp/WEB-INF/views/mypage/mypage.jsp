@@ -71,6 +71,7 @@
 .bookmark td {
 	font-weight: bold;
 	border-top: 1px solid white;
+	padding: 10px;
 }
 .bookmark td a {color: white;}
 /* 콘텐츠영역 */
@@ -102,16 +103,16 @@ article {
 	padding-top: 50px;
 }
 /* paging 영역*/
-table tfoot ol.paging {
+ol.paging {
 	list-style: none;
 }
 
-table tfoot ol.paging li {
+ol.paging li {
 	float: left;
 	margin-right: 8px;
 }
 
-table tfoot ol.paging li a {
+ol.paging li a {
 	display: block;
 	padding: 3px 7px;
 	border: 1px solid #00B3DC;
@@ -119,7 +120,7 @@ table tfoot ol.paging li a {
 	font-weight: bold;
 }
 
-table tfoot ol.paging li a:hover {
+ol.paging li a:hover {
 	background: #00B3DC;
 	color: white;
 	font-weight: bold;
@@ -415,10 +416,47 @@ table tfoot ol.paging li a:hover {
 											value="${b.bookmark_idx }"></td>
 										<td>${b.bookmark_category }</td>
 										<td><a
-											href="onelist_bookmark.do?bookmark_idx=${b.bookmark_idx}">${b.bookmark_question}</a></td>
+											href="onelist_bookmark.do?bookmark_idx=${b.bookmark_idx}&cPage=${paging.nowPage}">${b.bookmark_question}</a></td>
 										<td width="100">(${b.bookmark_reg.substring(0,10)})</td>
 									</tr>
 								</c:forEach>
+								<tr>
+								<td colspan="4">
+								<ol class="paging">
+				<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
+							<li class="disable" style=" margin-left: 25%;">이전으로</li>
+						</c:when>
+						<c:otherwise>
+							<li style=" margin-left: 25%;"><a href="list_bookmark.do?cPage=${paging.beginBlock-paging.pagePerBlock }&members_idx=${loginMember.members_idx}">이전으로</a></li>
+								</c:otherwise>
+							</c:choose>
+							<!-- 블록안에 들어간 페이지번호들 -->
+							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
+								step="1" var="k">
+								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
+								<c:choose>
+									<c:when test="${k==paging.nowPage }">
+										<li class="now">${k}</li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_bookmark.do?cPage=${k}&members_idx=${loginMember.members_idx}">${k}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<!-- 다음 -->
+							<c:choose>
+								<c:when test="${paging.endBlock >= paging.totalPage }">
+									<li class="disable">다음으로</li>
+								</c:when>
+								<c:otherwise>
+									<li><a
+										href="list_bookmark.do?cPage=${paging.beginBlock+paging.pagePerBlock }&members_idx=${loginMember.members_idx}">다음으로</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ol>
+						</td></tr>
 							</c:otherwise>
 						</c:choose>
 					</tbody>

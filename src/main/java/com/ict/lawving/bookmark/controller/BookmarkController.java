@@ -1,7 +1,6 @@
 package com.ict.lawving.bookmark.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,13 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.bookmark.model.service.BookmarkService;
 import com.ict.lawving.bookmark.model.vo.BookmarkVo;
 import com.ict.lawving.common.Paging;
-import com.ict.lawving.library.model.vo.LibraryVo;
-import com.ict.lawving.qna.model.vo.QnaVo;
 
 @Controller
 public class BookmarkController {
@@ -33,6 +29,7 @@ public class BookmarkController {
 	public String selectBookmarkListMethod(
 			Model model, HttpServletRequest request,@RequestParam("members_idx") String members_idx) {
 //		사용할 객체 생성
+		System.out.println("북마크리스트 메소드 시작");
 		ArrayList<BookmarkVo> bookmarklist= new ArrayList<BookmarkVo>();
 		Paging paging = new Paging();
 //		페이징
@@ -99,7 +96,7 @@ public class BookmarkController {
 	 */
 	@RequestMapping("list_mypage.do")
 	public String selectBookmarkListMethod2(
-			Model model, HttpServletRequest request,@RequestParam("members_idx") String members_idx) {
+			Model model, @RequestParam("cPage")String cPage,@RequestParam("members_idx") String members_idx) {
 //		사용할 객체 생성
 		ArrayList<BookmarkVo> bookmarklist= new ArrayList<BookmarkVo>();
 		Paging paging = new Paging();
@@ -119,8 +116,6 @@ public class BookmarkController {
 				}
 			}
 			// 3. 현재 페이지
-			String cPage= request.getParameter("cPage");
-			
 			System.out.println("cPage : "+cPage);
 			
 			if (cPage == null) {
@@ -153,10 +148,14 @@ public class BookmarkController {
 
 	
 	@RequestMapping("onelist_bookmark.do")
-	public String onelist_bookmarkMethod(@RequestParam("bookmark_idx")String bookmark_idx,Model model) {
+	public String onelist_bookmarkMethod(@RequestParam("bookmark_idx")String bookmark_idx,Model model
+			,@ModelAttribute("cPage")String cPage) {
+		System.out.println("북마크원리스트 메소드실행");
+		System.out.println("받은 cPage값"+cPage);
 		BookmarkVo bookmark = bookmarkService.onelistbookmark(bookmark_idx);
 		if (bookmark!=null) {
 			model.addAttribute("bookmark",bookmark);
+			model.addAttribute("cPage", cPage);
 			return "mypage/bookmark/bookmark_onelist";
 		}else {
 			model.addAttribute("msg","정보를불러오는도중 오류가발생했습니다.");

@@ -161,7 +161,7 @@ function golaw() {
 						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수
 							: <%-- ${limit.limit_count} --%>0
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
 				<c:when test="${kakaoMember=='kakao' }">
@@ -169,7 +169,7 @@ function golaw() {
 						카카오회원 <div id="res"></div>|&nbsp; <span style="color: red;">누적신고수
 							: <%-- ${limit.limit_count} --%>0
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }&cPage=1">MY북마크</a>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -192,7 +192,7 @@ function golaw() {
 	<c:choose>
 		<c:when test="${loginMember.members_lev=='1' }">
 
-			<iframe id="iframe"  scrolling="yes" src="http://@192.168.71.1:8081/chat.do" style="display: none;"></iframe>
+			<iframe id="iframe"  scrolling="yes" src="http://@localhost:8081/chat.do" style="display: none;"></iframe>
 			<!-- 자신의 ip로바꾼후 톰캣서버 모듈 / 로 수정해야 정상 작동 -->
 
 		</c:when>
