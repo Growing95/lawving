@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
 import com.ict.lawving.limit.model.service.LimitService;
+import com.ict.lawving.limit.model.vo.LimitVo;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
 import org.json.simple.JSONObject;
@@ -196,6 +197,10 @@ public class MembersController {
 			member.setMembers_pw(bcryptPasswordEncoder.encode(pw));
 			logger.info("암호화pw:"+member.getMembers_pw());
 			MembersVo loginmember = membersService.selectloginCheck(id);
+			LimitVo lvo = new LimitVo();
+			lvo.setMembers_idx(loginmember.getMembers_idx());
+			int limit = limitService.chkcount(lvo);
+			session.setAttribute("limit", limit);
 			//System.out.println("조회해온회원비밀번호:"+loginmember.getMembers_pw());
 			//전송은 패스워드 (일반글자)와 조회해온 패스워드(암호화글자) 비교시
 			//matchs()사용한다
