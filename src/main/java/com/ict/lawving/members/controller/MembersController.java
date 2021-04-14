@@ -426,6 +426,7 @@ public class MembersController {
 			int size = chkMsg.length;
 			for (int i = 0; i < size; i++) {
 				limitService.chkblackdelete(chkMsg[i]);
+				membersService.changelev(chkMsg[i]);
 			}
 			return "redirect: memberslist.do";
 		}
