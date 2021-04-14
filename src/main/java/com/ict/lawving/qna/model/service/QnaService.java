@@ -30,4 +30,5 @@ public interface QnaService {
 	void chkdeleteQuestion(String chkdel);
 	int updateAnswer(QnaVo qna);
 	int deleteAnswer(String qna_idx);
+	int selectQnaIdx(String qna_idx);
 }
