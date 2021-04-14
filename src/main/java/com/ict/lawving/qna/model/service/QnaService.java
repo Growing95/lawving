@@ -31,3 +31,5 @@ public interface QnaService {
 	int updateAnswer(QnaVo qna);
 	int deleteAnswer(String qna_idx);
 }
+
+
