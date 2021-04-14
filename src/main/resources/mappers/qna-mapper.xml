@@ -137,6 +137,9 @@
  	<delete id="deleteQuestion" parameterType="String">
  		DELETE FROM QNA WHERE qna_idx = #{qna_idx}
  	</delete>
+ 	<delete id="chkdeleteQuestion" parameterType="String">
+ 		DELETE FROM QNA WHERE qna_idx = #{chkdel}
+ 	</delete>
  	<update id="updateAnswer" parameterType="QnaVo">
  		UPDATE QNA 
  		SET qna_status = '답변완료',

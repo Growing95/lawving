@@ -157,8 +157,10 @@ public class QnaDao {
 		return result;
 	}
 	
-//	체크된 QNA 문의 삭제하기 (관리자 전용) -> 보류
-	public int chkdeleteQuestion(String[] qna_idx) {return 0;}
+//	체크된 QNA 문의 삭제하기
+	public void chkdeleteQuestion(String chkdel) {
+		sqlSession.delete("qnaMapper.chkdeleteQuestion", chkdel);
+	}
 	
 //	QNA 문의글 답변 작성/수정하기
 	public int updateAnswer(QnaVo qna) {
