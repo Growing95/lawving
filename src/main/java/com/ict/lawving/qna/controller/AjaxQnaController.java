@@ -1,12 +1,11 @@
 package com.ict.lawving.qna.controller;
 
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +13,7 @@ import com.ict.lawving.qna.model.service.QnaService;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
 @RestController
-public class AdminQnaController {
+public class AjaxQnaController {
 	@Autowired
 	private QnaService qnaService;
 	

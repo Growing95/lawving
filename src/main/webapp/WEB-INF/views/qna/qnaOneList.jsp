@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Lawving</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	/* 질문 삭제 */
 	function delete_qna_check(form) {
@@ -92,15 +93,17 @@
 			<%-- 질문글 제목, 조회수, 작성자, 작성일 박스 --%>
 			<div style="width: 100%; border: 1px solid black; padding: 10px; box-sizing: border-box;">
 				<strong>${requestScope.qnaOnelist.qna_title}</strong>
-
+				<%-- 관리자는 신고 버튼 볼 수 없음 --%>
 				<c:if test="${sessionScope.loginMember.members_lev!='2'}">
 					<div style="float: right; font-size: 15px;">
 						신고하기
 						<c:choose>
+							<%-- 로그인 하지 않은 경우 로그인 화면으로 --%>
 							<c:when test="${empty sessionScope.loginMember}">
-								<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;"
-									 onclick="location.href='go_login.do'">
+								<img src="resources/images/repot.png" onclick="location.href='go_login.do'" 
+									 style="height: 20px; vertical-align: middle;">
 							</c:when>
+							<%-- 로그인 한 경우 신고 화면으로 --%>
 							<c:otherwise>
 								<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;" 
 									 onclick="location.href='go_repot.do?members_idx=${sessionScope.loginMember.members_idx}&members_idx_2=${requestScope.qnaOnelist.qna_writer}'">
@@ -108,7 +111,6 @@
 						</c:choose>
 					</div>
 				</c:if>
-
 				<div style="text-align: right;">
 					조회수 : ${requestScope.qnaOnelist.qna_hit}&nbsp;&nbsp;&nbsp;
 					작성자 : ${requestScope.qnaOnelist.qna_writer}&nbsp;&nbsp;&nbsp;
@@ -119,12 +121,9 @@
 			<%-- 질문글 내용 박스 --%>
 			<div style="width: 100%; border: 1px dotted black; padding: 10px; box-sizing: border-box;">
 				<div style="margin-bottom: 10px;">${requestScope.qnaOnelist.qna_content}</div>
-				<%-- 사용자가 글쓴이와 동일인물이거나 관리자일 경우 삭제 버튼 --%>
-				<c:if test="${requestScope.qnaOnelist.members_idx eq sessionScope.loginMember.members_idx || loginMember.members_lev=='2'}">
-					<%-- 사용자가 글쓴이와 동일인물일 경우 새 질문 작성 버튼 --%>
-					<c:if test="${requestScope.qnaOnelist.members_idx eq sessionScope.loginMember.members_idx}">
+				<%-- 사용자가 글쓴이와 동일인물일 경우 삭제/새질문작성 버튼 --%>
+				<c:if test="${requestScope.qnaOnelist.members_idx eq sessionScope.loginMember.members_idx}">
 					<button onclick="location.href='go_insert_qna.do'">새 질문 작성</button>
-					</c:if>
 					<form action="delete_qna.do" method="post" style="display: inline-block; float: right;">
 						<input type="button" value="삭제" onclick="delete_qna_check(this.form)" style="float: right;">
 						<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
@@ -133,7 +132,7 @@
 					</form>
 					<br>
 				</c:if>
-				<div>
+				<%-- 사용자가 관리자일 경우 관리자용 삭제버튼 --%>
 				<c:if test="${loginMember.members_lev=='2'}">
 					<form action="delete_question.do" method="post">
 						<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
@@ -144,10 +143,8 @@
 						<input type="hidden" name="delpost_writer" value="${requestScope.qnaOnelist.qna_writer}">
 						<input type="hidden" name="delpost_content" value="${requestScope.qnaOnelist.qna_content}">
 						<input type="submit" value="게시글삭제" >
-						
 					</form>
 				</c:if>
-				</div>
 			</div>
 			<br>
 			<%-- 답글 제목 박스 --%>
@@ -178,9 +175,7 @@
 								<form name="update_answer_form">
 									<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 									<textarea name="qna_comment" style="width: 100%">${requestScope.qnaOnelist.qna_comment}</textarea>
-									<script>
-										CKEDITOR.replace('qna_comment');
-									</script>
+									<script>CKEDITOR.replace('qna_comment');</script>
 									<div style="margin: 10px auto; text-align: center;">
 										<input type="button" value="수정취소" onclick="switch_to_button_box()">
 										<input type="button" value="답변수정" onclick="update_answer_func()">
@@ -207,9 +202,7 @@
 									<form name="update_answer_form">
 										<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 										<textarea name="qna_comment" style="width: 100%"></textarea>
-										<script>
-											CKEDITOR.replace('qna_comment');
-										</script>
+										<script>CKEDITOR.replace('qna_comment');</script>
 										<div style="margin: 10px auto; text-align: center;">
 											<input type="button" value="답변쓰기" onclick="update_answer_func()">
 										</div>

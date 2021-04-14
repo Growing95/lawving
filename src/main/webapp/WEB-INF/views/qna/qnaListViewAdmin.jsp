@@ -23,7 +23,7 @@
 	<c:import url="../header.jsp"/>
 	<article>
 		<div style="margin: 10px auto; width: 800px; text-align: left;">
-			<div id="status_display">답변 완료</div>
+			<div>Question and answer</div>
 			<h2 style="margin: 0px;">
 				<a href="list_qna.do" style="text-decoration: none; color: black;">Q&#38;A</a>
 			</h2>
@@ -36,17 +36,6 @@
 		<div>
 			<form action="search_qna.do" method="post">
 				<table style="margin: 10px auto; width: 800px;">
-					<tr>
-						<td style="width: 83%; text-align: right;">
-							<select name="order">
-								<option value="desc" selected>최신순</option>
-								<option value="asc">오래된순</option>
-							</select>
-							<input type="text" name="keyword" placeholder="검색어를 입력해주세요."
-								   style="width: 300px;">
-							<input type="submit" value="검색">
-						</td>
-					</tr>
 					<tr>
 						<td><input type="checkbox" onclick="select_all()">전체선택</td>
 						<td style="text-align: right;">
