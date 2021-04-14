@@ -13,9 +13,9 @@
 
 	<bean id="realdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@203.236.220.55:1521:xe" />
-		<property name="username" value="c##lawving" />
-		<property name="password" value="lawving" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="system" />
+		<property name="password" value="gksekfdp3!" />
 	</bean>
 
 	<!-- log4jdbc-remix 관련 dataSource처리 -->
