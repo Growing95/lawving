@@ -11,6 +11,7 @@
 <body>
 <%-- 절대경로로 처리한 경우 --%>
 	<c:import url="../header.jsp" />
+	<article>
 <HR>
 <h2 align="center">${lvo.library_idx } 번 공지 상세보기</h2>
 <br>
@@ -45,5 +46,6 @@
 				<button onclick="location.href='after_library.do?library_idx=${lvo.library_idx}&cPage=${cPage}'">다음글</button>
 			</div>
 </table>
+</article>
 </body>
 </html>

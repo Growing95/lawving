@@ -7,12 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 </head>
 <body>
 	<!-- 절대경로로 처리한 경우 -->
 	<c:import url="../header.jsp" />
-	<HR>
-	<h2 align="center">${nvo.notice_idx }번 공지 상세보기</h2>
+	<article>
+		<div class="category" style="margin: auto;">
+			${nvo.notice_idx }번 공지 상세보기
+			<h2><a href="nlist.do">공지사항</a></h2>
+		</div>
 	<br>
 	<table align="center" width="500" border="1" cellspacing="0"
 		cellpadding="5">
@@ -59,5 +63,6 @@
 				<button onclick="javascript:history.go(-1);">목록</button></th>
 		</tr>
 	</table>
+	</article>
 </body>
 </html>

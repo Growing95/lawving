@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 </head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
 function loadNextPage(page){
@@ -25,8 +26,11 @@ alert(data);
 <body>
 	<%-- 절대경로로 처리한 경우 --%>
 	<c:import url="../header.jsp" />
-	<HR>
-	<h2 align="center">${nvo.notice_idx }번공지사항 상세보기</h2>
+	<article>
+		<div class="category" style="margin: auto;">
+			${nvo.notice_idx }번 공지 상세보기
+			<h2><a href="lnlist.do">공지사항</a></h2>
+		</div>
 	<br>
 	<table align="center" width="850" border="1" cellspacing="0"
 		cellpadding="5">
@@ -76,6 +80,6 @@ alert(data);
 			</tr>
 		</div>
 	</table>
-
+</article>
 </body>
 </html>
