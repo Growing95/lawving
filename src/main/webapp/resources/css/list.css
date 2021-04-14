@@ -1,12 +1,12 @@
 @charset "UTF-8";
 /* div 기본 크기 */
-.box { margin: 10px auto; width: 800px; }
+.box { margin: auto; width: 800px; }
 /* 게시판 이름 박스 */
 .category { margin: 10px auto; width: 800px; text-align: left;}
 h2 { margin: 0px; }
 a { text-decoration: none; color: black; }
 /* table 기본 크기 */
-table { margin: auto; width: 100% }
+table { margin: auto; width: 800px; }
 /* 리스트용 테이블 기본 */
 .list { border: 1px solid black; border-collapse: collapse; text-align: center; }
 /* 검색 모듈 */

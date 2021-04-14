@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css?1=1">
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js">
 	
@@ -15,8 +16,11 @@
 </head>
 <body>
 	<c:import url="../header.jsp" />
-	<hr>
-	<h1 align="center">공지사항</h1>
+	<article>
+		<div class="category" style="margin: auto;">
+				NOTICE
+			<h2><a href="nlist.do">공지사항</a></h2>
+		</div>
 	<br>
 	<c:if test="${ loginMember.members_lev=='2'}">
 		<div style="align: center; padding-left: 400px;">
@@ -26,25 +30,26 @@
 	</c:if>
 	<br>
 	<!-- 검색기능 -->
-	<center>
 		<div>
 			<form action="nsearch.do" method="post">
 				<table>
-					<tr>
-						<td><select name="category">
+					<tr >
+						<td class="search_box_td">
+						<select name="category">
 								<option value="notice_title" selected>제목</option>
 								<option value="notice_content">내용</option>
-						</select></td>
-						<td><select name="order">
+						</select>
+						<select name="order">
 								<option value="desc" selected>최신순</option>
 								<option value="asc">오래된순</option>
-						</select></td>
-						<td><input type="text" name="keyword"></td>
-						<td><input type="submit" value="검색"></td>
+						</select>
+					<input type="text" name="keyword">
+					<input type="submit" value="검색">
+							</td>
+						</tr>
 				</table>
 			</form>
 		</div>
-	</center>
 	<br>
 	<div style="align: center; padding-left: 400px;">
 		<c:url var="nlist" value="/nlist.do" />
@@ -130,5 +135,6 @@
 			</tr>
 		</tfoot>
 	</table>
+	</article>
 </body>
 </html>

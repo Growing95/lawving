@@ -60,7 +60,7 @@
 <body>
 	<c:import url="../header.jsp"/>
 	<article>
-		<div class="category">
+		<div class="category" style="margin: auto;">
 			Question and answer
 			<h2><a href="list_qna.do">Q&#38;A</a></h2>
 		</div>
@@ -246,6 +246,7 @@
 				</tfoot>
 			</table>
 		</div>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</article>
 </body>
 </html>

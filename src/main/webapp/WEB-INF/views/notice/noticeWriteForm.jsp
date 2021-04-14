@@ -6,11 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 </head>
 <body>
 	<c:import url="../header.jsp" />
-	<hr>
-	<h1 align="center">새 공지사항 등록 페이지</h1>
+	<article>
+		<div class="category" style="margin: auto;">
+			공지사항 작성
+			<h2><a href="nlist.do">공지사항</a></h2>
+		</div>
 	<%-- form 에서 입력값들과 파일을 같이 전송하려면, 반드시 enctype="multipart/form-data"
   속성 추가해야 함 --%>
 	<form action="insert_notice.do" method="post" enctype="multipart/form-data">
@@ -39,5 +43,6 @@
 			</tr>
 		</table>
 	</form>
+	</article>
 </body>
 </html>

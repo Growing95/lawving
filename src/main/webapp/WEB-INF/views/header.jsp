@@ -40,13 +40,14 @@
 	border-top-left-radius: 20px;
 	border: 1px solid #4c5d6f;
 }
-center{width: 70%; margin: auto;}
+center{width: 70%; margin: auto; background-color: white;}
 
 
 article {
 	width: 70%;
 	margin: 0 auto;
 	text-align: center;
+	background-color: white;
 }
 
 #toolmenu li a {
@@ -88,6 +89,7 @@ z-index: 1000000;
 	border: 1px solid #4c5d6f;
 	color:white;
 }
+html{background-color: lightgray;}
 </style>
 <!--배너관련 스크립트  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
