@@ -208,6 +208,10 @@ public class MembersController {
 					 if (level==2) {
 						 session.setAttribute("loginMember", loginmember);
 						return"admin/adminIndex";
+					}else if(level == 3) {
+						model.addAttribute("msg","5회이상의 누적신고수로 인하여 로그인이 제한되었습니다.");
+						model.addAttribute("url","go_login.do");
+						return "common/alert";
 					}else {
 						 session.setAttribute("loginMember", loginmember);
 						 return "home";
