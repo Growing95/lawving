@@ -23,7 +23,7 @@
 		select count(*) from notice
 		where notice_title like '%' || #{ keyword } || '%'
 	</select>
-	
+	<!-- 검색조건이 있는 내용 -->
 	<select id="searchCountContent" parameterType="com.ict.lawving.notice.model.vo.NoticeSearch" resultType="int">
 		select count(*) from notice
 		where notice_content like '%' || #{ keyword } || '%'
@@ -42,8 +42,7 @@
 	</select>
 
 	<!-- 검색기능 -->
-	<select id="searchTitleDesc" parameterType="map"
-		resultMap="noticeResultSet">
+	<select id="searchTitleDesc" parameterType="map" resultMap="noticeResultSet">
 		select * 
 		from (select rownum r_num,a.* 
 			  from(select * 
@@ -55,8 +54,7 @@
 		where r_num between to_number(#{begin}) and to_number(#{end})
 	</select>
 
-<select id="searchTitleAsc" parameterType="map"
-		resultMap="noticeResultSet">
+	<select id="searchTitleAsc" parameterType="map" resultMap="noticeResultSet">
 		select * 
 		from (select rownum r_num,a.* 
 			  from(select * 
@@ -68,8 +66,7 @@
 		where r_num between to_number(#{begin}) and to_number(#{end})
 	</select>
 	
-	<select id="searchContentDesc" parameterType="map"
-		resultMap="noticeResultSet">
+	<select id="searchContentDesc" parameterType="map"  resultMap="noticeResultSet">
 		select * 
 		from (select rownum r_num,a.* 
 			  from(select * 
@@ -81,8 +78,7 @@
 		where r_num between to_number(#{begin}) and to_number(#{end})
 	</select>
 	
-	<select id="searchContentAsc" parameterType="map"
-		resultMap="noticeResultSet">
+	<select id="searchContentAsc" parameterType="map"  resultMap="noticeResultSet">
 		select * 
 		from (select rownum r_num,a.* 
 			  from(select * 
@@ -94,9 +90,31 @@
 		where r_num between to_number(#{begin}) and to_number(#{end})
 	</select>
 	<!-- 상세보기 -->
-	<select id="nonelist" parameterType="int"
-		resultMap="noticeResultSet">
+	<select id="selectNotice" parameterType="int" resultMap="noticeResultSet">
 		select * from notice where notice_idx = #{ notice_idx }
 	</select>
+ 	
+ 	<!-- 글쓰기 -->
+ 	<insert id="insertNotice" parameterType="NoticeVo">
+		insert into notice
+		values (notice_seq.nextval,2, #{ notice_title },#{notice_writer}, #{notice_content}, 
+		#{ notice_file_name },#{ notice_refile_name },sysdate)
+	</insert>
+	<!-- 글수정 -->
+	<update id="updateNotice" parameterType="NoticeVo">
+		update notice set notice_title=#{notice_title},notice_content=#{notice_content}<if test="notice_file_name == null">, notice_file_name = null,notice_refile_name = null</if>
+      <if test="notice_file_name != null">, notice_file_name = #{ notice_file_name }, notice_refile_name = #{ notice_refile_name }
+         </if>
+      where notice_idx = #{notice_idx}
+	</update>
+	
+	<!-- 체크박스 삭제 -->
+	<delete id="chk_delete" parameterType="String">
+	delete from notice where notice_idx=#{chkdel}
+	</delete>
+
+	<delete id="deleteNotice" parameterType="int">
+	delete from notice where notice_idx=#{notice_idx}
+	</delete>
 
 </mapper>
