@@ -67,11 +67,10 @@ alert(data);
 			</div>
 		</c:if>
 		<div>
-			<c:url var="goback" value="/nlist.do" />
 			<tr>
 				<th colspan="2">
 				<button onclick="location.href='before_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">이전글</button>
-				<button onclick="javascript:location.href='${goback }';">목록</button>
+				<button onclick="location.href='nlist.do?cPage=${cPage }';">목록</button>
 				<button onclick="location.href='after_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">다음글</button>
 			</th>
 			</tr>
