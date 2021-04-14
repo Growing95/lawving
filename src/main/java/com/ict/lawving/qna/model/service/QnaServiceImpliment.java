@@ -106,9 +106,11 @@ public class QnaServiceImpliment implements QnaService {
 		return qnaDao.deleteQuestion(qna_idx);
 	}
 
-//	체크된 QNA 문의 삭제하기 (관리자 전용) -> 보류
+//	체크된 QNA 문의 삭제하기
 	@Override
-	public int chkdeleteQuestion(String[] qna_idx) {return 0;}
+	public void chkdeleteQuestion(String chkdel) {
+		qnaDao.chkdeleteQuestion(chkdel);
+	}
 
 //	QNA 문의글 답변 작성/수정하기
 	@Override
@@ -126,8 +128,5 @@ public class QnaServiceImpliment implements QnaService {
 	public int selectQnaIdx(String qna_idx) {
 		return qnaDao.selectQnaIdx(qna_idx);
 	}
-	
-
-
 
 }

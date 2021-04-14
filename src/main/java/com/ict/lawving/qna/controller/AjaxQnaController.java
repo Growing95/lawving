@@ -13,7 +13,7 @@ import com.ict.lawving.qna.model.service.QnaService;
 import com.ict.lawving.qna.model.vo.QnaVo;
 
 @RestController
-public class AdminQnaController {
+public class AjaxQnaController {
 	@Autowired
 	private QnaService qnaService;
 	
