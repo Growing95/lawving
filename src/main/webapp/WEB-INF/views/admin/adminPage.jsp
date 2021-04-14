@@ -195,7 +195,7 @@ table tfoot ol.paging li a:hover {
 <div id="box">
 	<!-- 오른쪽툴팁메뉴 -->
 	<ul id="ltoolmenu">
-	<li><button id="m1"><a href="memberslist.do" style="width: 200px; border: 1px soild purple;" >회원정보</a></button></li>
+	<li><button id="m1"><a href="memberslist.do" width="200px" >회원정보</a></button></li>
 	<li><button id="m2"><a href="blacklist.do" >사용제한회원</a></button></li>
 	<li><button id="m3"><a href="repotlist.do" >신고접수</a></button></li>
 	<li><button id="m4"><a href="limitlist.do" >제제회원</a></button></li>
