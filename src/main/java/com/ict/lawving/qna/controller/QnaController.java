@@ -294,7 +294,16 @@ public class QnaController {
 //		qna 글 삭제
 		int result =  qnaService.deleteQuestion(qna_idx);
 		if (result>0) {
-			return "redirect:list_qna.do";
+//			로그인 한 유저가 회원이라면 목록으로 돌아간다.
+				if (members_lev == "1") {
+					return "redirect:list_qna.do";
+//			로그인 한 유저가 관리자라면 insert_limitmember.do로 redirect한다.
+				} 
+				else {
+					System.out.println("limit 테이블에 회원 추가");
+					return "redirect:list_qna.do";
+//					return "redirect:insert_limitmember.do?member_idx=" + members_idx;
+				}
 		} else {
 			model.addAttribute("msg", "문의글을 삭제하지 못했습니다.");
 			return "common/errorPage";
