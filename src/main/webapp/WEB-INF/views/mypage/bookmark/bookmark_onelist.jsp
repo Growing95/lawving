@@ -46,7 +46,7 @@ h2{background: darkgray;
 <tr><td>조회된 정보가 없습니다.</td></tr>
 </c:otherwise>
 </c:choose>
-<tr><td><input type='button' id='home' value='목록' onclick="location.href='list_bookmark.do?members_idx=${loginMember.members_idx}'" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<tr><td><input type='button' id='home' value='목록' onclick="location.href='list_bookmark.do?members_idx=${loginMember.members_idx}&cPage=${cPage}'" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type='button' id='delete' value='삭제' onclick="location.href='delete_bookmark.do?bookmark_idx=${bookmark.bookmark_idx}&members_idx=${loginMember.members_idx}'" /></td></tr>
 </tbody>
 </table>
