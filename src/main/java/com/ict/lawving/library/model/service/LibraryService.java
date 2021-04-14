@@ -20,7 +20,7 @@ public interface LibraryService {
 	int updatelibrary(LibraryVo library);
 	void chkdelete(String chkdel);
 	int deletelibrary(int library_idx);
-	int selectlibraryBefore(String library_idx);
-	int selectlibraryAfter(String library_idx);
+	LibraryVo selectlibraryBefore(int library_idx);
+	LibraryVo selectlibraryAfter(int library_idx);
 
 }
