@@ -104,7 +104,7 @@
 	<delete id="deletelibrary" parameterType="int">
 	delete  from library where library_idx=#{library_idx}
 	</delete>
-	<select id="libraryBefore" resultType="int" parameterType="String">
+	<select id="libraryBefore" resultType="LibraryVo" parameterType="int">
 		SELECT * 
     		FROM (SELECT ROWNUM r_num, a.* 
         		FROM (SELECT * FROM library 
@@ -114,10 +114,10 @@
     		) 
 		WHERE r_num = 1
 	</select>
-	<select id="libraryAfter" resultType="int" parameterType="String">
+	<select id="libraryAfter" resultType="LibraryVo" parameterType="int">
 		SELECT * 
     		FROM (SELECT ROWNUM r_num, a.* 
-        		FROM (SELECT * FROM QNA 
+        		FROM (SELECT * FROM library 
               		  WHERE library_idx &gt; #{library_idx}
               		  ORDER BY library_idx ASC
         		) a 

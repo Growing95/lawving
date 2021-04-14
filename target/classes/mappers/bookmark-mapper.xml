@@ -10,10 +10,10 @@
 	<select id="totalcount" parameterType="String" resultType="int">
 	select count(*) from bookmark where members_idx=#{mebers_idx}
 	</select>
-		<select id="bookmakrlist" resultType="BookmarkVO" parameterType="Map">
+		<select id="bookmarklist" resultType="BookmarkVO" parameterType="Map">
 	SELECT * 
 			FROM (SELECT ROWNUM r_num, a.* 
-				FROM (select * from(SELECT * FROM BOOKMARK where members_idx = #{id})
+				FROM (select * from(SELECT * FROM BOOKMARK where members_idx = #{members_idx})
 					  ORDER BY bookmark_idx DESC
 				) a
 			) 

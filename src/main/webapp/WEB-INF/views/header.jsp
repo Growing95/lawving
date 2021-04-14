@@ -158,16 +158,14 @@ function golaw() {
 				</c:when>
 				<c:when test="${loginMember.members_lev=='1' }">
 					<div id="log">
-						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수
-							: <%-- ${limit.limit_count} --%>0
-						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
+						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수${limit}</span>회<br> <a href="logout.do">로그아웃</a><br> <a
 							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
 				<c:when test="${kakaoMember=='kakao' }">
 					<div id="log">
 						카카오회원 <div id="res"></div>|&nbsp; <span style="color: red;">누적신고수
-							: <%-- ${limit.limit_count} --%>0
+							:${limit}
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
 							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }&cPage=1">MY북마크</a>
 					</div>
