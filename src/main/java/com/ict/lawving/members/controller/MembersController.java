@@ -214,7 +214,7 @@ public class MembersController {
 						return "common/alert";
 					}else {
 						 session.setAttribute("loginMember", loginmember);
-						 return "home";
+						 return "home"; 
 					}
 				}else {
 					model.addAttribute("msg","패스워드가 일치하지 않습니다.");
