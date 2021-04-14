@@ -62,6 +62,8 @@ public class LibraryController {
 			String cPage= request.getParameter("cPage");
 			if (cPage == null) {
 				paging.setNowPage(1);
+			}else if(cPage =="") {
+				paging.setNowPage(1);
 			}else {
 				paging.setNowPage(Integer.parseInt(cPage));
 			}
@@ -161,7 +163,10 @@ public class LibraryController {
 	// 상세보기
 
 		@RequestMapping(value = "onelist_library.do", method = RequestMethod.GET)
-		public String selectlibraryOnelistMethod(@RequestParam("library_idx") int library_idx, Model model,
+		public String selectlibraryOnelistMethod(
+				@ModelAttribute("library_idx")int library_idx,
+				@ModelAttribute("cPage")String cPage,
+				Model model,
 				HttpSession session) {
 			LibraryVo lvo = libraryService.selectOneList(library_idx);
 			
@@ -325,37 +330,36 @@ public class LibraryController {
 		
 		
 		
-//		QNA 이전 글 보기
+//		Library 이전 글 보기
 		@RequestMapping("before_library.do")
 		public String selectlibraryBeforeMethod(
-				@RequestParam("library_idx")String library_idx,
+				@RequestParam("library_idx")int library_idx,
 				@ModelAttribute("cPage")String cPage,
 				Model model) {
 			System.out.println("library_idx : " + library_idx);
 			System.out.println("cPage : " + cPage);
 			try {
-				int result = libraryService.selectlibraryBefore(library_idx);
-				model.addAttribute("result", result);
-				return "library/libraryOneList";
+				LibraryVo libraryOnelist = libraryService.selectlibraryBefore(library_idx);
+				model.addAttribute("libraryOnelist", libraryOnelist);
+				return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx()+"&cPage="+cPage;
 				
 			} catch (Exception e) {
 				return "redirect:onelist_library.do?library_idx="+library_idx ;
 		}
 		}
-//		QNA 다음 글 보기
+//		Library 다음 글 보기
 		@RequestMapping("after_library.do")
 		public String selectlibraryAfterMethod(
-				@RequestParam("library_idx")String library_idx,
+				@RequestParam("library_idx")int library_idx,
 				@ModelAttribute("cPage")String cPage,
 				Model model) {
 //			다음 글 가져오기
 			try {
-			int result = libraryService.selectlibraryAfter(library_idx);
-//				DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
-				model.addAttribute("result", result);
-				return "library/libraryOneList";
+			LibraryVo libraryOnelist = libraryService.selectlibraryAfter(library_idx);
+			model.addAttribute("libraryOnelist", libraryOnelist);
+			return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx()+"&cPage="+cPage;
 			} catch (Exception e) {
-				return "redirect:onelist_library.do?library_idx="+library_idx ;
+			return "redirect:onelist_library.do?library_idx="+library_idx ;
 		}
 	}
 }		

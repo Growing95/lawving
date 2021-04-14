@@ -138,6 +138,7 @@ $(function () {
 							<td align="center">${k.library_idx }</td>
 								<c:url value="/onelist_library.do" var="old">
 									<c:param name="library_idx" value="${k.library_idx}" />
+									<c:param name="cPage" value="${paging.nowPage}"/>
 								</c:url>
 							<td align="center"><a href="${old }">${k.library_title }</a></td>
 							<td align="center">${k.library_writer }</td>
