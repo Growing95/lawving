@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Lawving</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -54,79 +55,59 @@
 			}
 		}
 	}
-	function see_waiting() {
-		
-	}
-	function see_completed() {
-	
-	}
-	function select_all() {
-	
-	}
 </script>
 </head>
 <body>
 	<c:import url="../header.jsp"/>
 	<article>
-		<div style="margin: 10px auto; width: 800px; text-align: left;">
+		<div class="category">
 			Question and answer
-			<h2 style="margin: 0px;">
-				<a href="list_qna.do" style="text-decoration: none; color: black;">Q&#38;A</a>
-			</h2>
+			<h2><a href="list_qna.do">Q&#38;A</a></h2>
+		</div>
+		<div class="box">
+			<form action="search_qna.do" method="post">
+				<table>
+					<tr>
+						<td class="search_box_td">
+							<select name="status">
+								<option value="all" selected>모두보기</option>
+								<option value="completed">답변완료</option>
+								<option value="waiting">대기중</option>
+							</select>
+							<select name="order">
+								<option value="desc" selected>최신순</option>
+								<option value="asc">오래된순</option>
+							</select>
+							<input type="text" name="keyword" placeholder="검색어를 입력해주세요.">
+							<input type="submit" value="검색">
+						</td>
+						<%-- 사용자가 로그인 했을 경우 문의작성 버튼 --%>
+						<td class="insert_btn_td">
+							<c:if test="${!empty sessionScope.loginMember && sessionScope.loginMember.members_lev!='2'}">
+								<input type="button" value="문의작성" onclick="location.href='go_insert_qna.do?cPage=${paging.nowPage}'">
+							</c:if>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 		<%-- 사용자가 관리자일 때 리스트 상태 전환 버튼, 선택삭제 버튼 --%>
 		<c:if test="${sessionScope.loginMember.members_lev=='2'}">
-			<div>
-				<button name="status" value="waiting" onclick="see_waiting()">대기중</button>
-				<button name="status" value="completed" onclick="see_completed()">답변완료</button>
-				<button name="status" value="all" onclick="see_all()">모두보기</button>
-			</div>
-			<br>
-			<div style="margin: 10px auto; width: 800px;">
-				<input type="checkbox" id="chkall" name="chkall" style="float: left;">
-				<label for="chkall" style="float: left;">전체선택</label>
-				<button onclick="chkdelete()" style="float: right;">선택삭제</button>
+			<div class="box">
+				<input type="checkbox" id="chkall" name="chkall">
+				<label class="label_chkall" for="chkall">전체선택</label>
+				<button class="select_delete" onclick="chkdelete()">선택삭제</button>
 				<br>
-			</div>
-		</c:if>
-		<%-- 관리자는 검색/문의작성 볼 수 없음 --%>
-		<c:if test="${sessionScope.loginMember.members_lev!='2'}">
-			<div>
-				<form action="search_qna.do" method="post">
-					<table style="margin: 10px auto; width: 800px;">
-						<tr>
-							<td style="width: 83%; text-align: right;">
-								<select name="status">
-									<option value="all" selected>모두보기</option>
-									<option value="completed">답변완료</option>
-									<option value="waiting">대기중</option>
-								</select>
-								<select name="order">
-									<option value="desc" selected>최신순</option>
-									<option value="asc">오래된순</option>
-								</select>
-								<input type="text" name="keyword" placeholder="검색어를 입력해주세요." style="width: 300px;">
-								<input type="submit" value="검색">
-							</td>
-							<%-- 사용자가 로그인 했을 경우 문의작성 버튼 --%>
-							<c:if test="${!empty sessionScope.loginMember}">
-								<td style="text-align: right;">
-									<input type="button" value="문의작성" onclick="location.href='go_insert_qna.do?cPage=${paging.nowPage}'">
-								</td>
-							</c:if>
-						</tr>
-					</table>
-				</form>
 			</div>
 		</c:if>
 		<%-- 검색결과를 볼 때 검색 키워드 안내 --%>
 		<c:if test="${!empty requestScope.searchObject}">
-			<div style="margin: 10px auto;">"${requestScope.searchObject.keyword}"로 검색</div>
+			<div class="box">"${requestScope.searchObject.keyword}"로 검색</div>
 		</c:if>
-		<div>
-			<table style="margin: auto; width: 800px; border: 1px solid black; border-collapse: collapse; text-align: center;">
+		<div class="box">
+			<table class="list">
 				<thead>
-					<tr style="border: 1px solid black;">
+					<tr class="list">
 						<th>No.</th>
 						<th>카테고리</th>
 						<th>제목</th>
@@ -139,16 +120,20 @@
 					<c:choose>
 						<%-- 검색 결과가 없을 때 --%>
 						<c:when test="${!empty requestScope.noData}">
-							<td colspan="6">${requestScope.noData}</td>
+							<tr class="list">
+								<td colspan="6">${requestScope.noData}</td>
+							</tr>
 						</c:when>
 						<%-- 등록된 게시물이 없을 때 --%>
 						<c:when test="${empty requestScope.qnaList}">
-							<td colspan="6">등록된 게시물이 없습니다.</td>
+							<tr class="list">
+								<td colspan="6">등록된 게시물이 없습니다.</td>
+							</tr>
 						</c:when>
 						<%-- 검색/리스트 결과 출력 --%>
 						<c:otherwise>
 							<c:forEach items="${requestScope.qnaList}" var="list" varStatus="vs">
-								<tr style="border: 1px solid black;">
+								<tr class="list">
 									<%-- 사용자가 관리자가 아닐 때 --%>
 									<c:if test="${sessionScope.loginMember.members_lev!='2'}">
 										<c:choose>
@@ -207,7 +192,7 @@
 							<%-- 이전으로 --%>
 							<c:choose>
 								<c:when test="${paging.beginBlock <= paging.pagePerBlock}">
-									<span style="color: gray;">이전으로</span>
+									<span class="non_active">이전으로</span>
 								</c:when>
 								<c:otherwise>
 									<a href="list_qna.do?cPage=${paging.beginBlock-paging.pagePerBlock}">
@@ -220,7 +205,7 @@
 								<c:choose>
 									<%-- 현재 페이지일 때 --%>
 									<c:when test="${k==paging.nowPage}">
-										<span style="color: red;">${k}</span>
+										<span class="now">${k}</span>
 									</c:when>
 									<c:otherwise>
 										<c:choose>
@@ -248,7 +233,7 @@
 							<!-- 다음으로 -->
 							<c:choose>
 								<c:when test="${paging.endBlock >= paging.totalPage}">
-									<span style="color: gray;">다음으로</span>
+									<span class="non_active">다음으로</span>
 								</c:when>
 								<c:otherwise>
 									<a href="list_qna.do?cPage=${paging.beginBlock+paging.pagePerBlock}">

@@ -1,0 +1,18 @@
+@charset "UTF-8";
+/* 게시판 이름 박스 */
+.category { margin: 10px auto; margin-bottom: 30px; width: 800px; text-align: left;}
+h2 { margin: 0px; }
+a { text-decoration: none; color: black; }
+/* 타이틀 박스 */
+.title { margin: 10px auto; width: 800px; text-align: left; border: 1px solid black; padding: 10px; box-sizing: border-box; }
+/* 신고버튼 */
+.repot { float: right; font-size: 15px; }
+.repot_icon { height: 18px; vertical-align: middle; }
+/* 조회수, 작성자, 작성일 */
+.info { text-align: right; }
+/* 컨텐츠 박스 */
+.content { margin: 10px auto; margin-bottom: 30px; width: 800px; text-align: left; border: 1px dotted black; padding: 10px; box-sizing: border-box; }
+/* 컨텐츠 박스 안 버튼 오른쪽 정렬 */
+.content_in_btn { text-align: right; }
+/* 버튼 가운데정렬 */
+.btn { margin: 10px auto; text-align: center; }
