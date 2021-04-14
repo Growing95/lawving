@@ -176,5 +176,3 @@ public class QnaDao {
 		return result;
 	}
 }
-
-

@@ -156,5 +156,4 @@
  			qna_reg_a = null 
  			WHERE qna_idx = #{qna_idx}
  	</update>
- 	
 </mapper>

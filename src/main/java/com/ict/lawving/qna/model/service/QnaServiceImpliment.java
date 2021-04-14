@@ -124,5 +124,3 @@ public class QnaServiceImpliment implements QnaService {
 		return qnaDao.deleteAnswer(qna_idx);
 	}
 }
-
-
