@@ -8,7 +8,7 @@
 
 
 	</style>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="resources/js/sockjs.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -41,7 +41,7 @@
 	<div id="chat" style="margin-bottom:0px; padding-bottom:0px;background-color: white;">
 	
 	</div>
-	<br><br><br><br><br>
+	<br><br><br><br><br><br><br>
 	<div id="chatForm" style="position:fixed;bottom:20px;width: 490px; height:30px; left:10px;">
 	<hr>
 		<form>  

@@ -47,4 +47,35 @@ public class LimitDao {
 		return blacklist;
 	}
 
+	public int getsearch(LimitVo lvo) {
+		int result = 0;
+		result = sqlSession.selectOne("limitMapper.search",lvo);
+		return result;
+	}
+
+	public int getinsert(LimitVo lvo) {
+		int result = 0;
+		result = sqlSession.insert("limitMapper.insert",lvo);
+		return result;
+	}
+
+	public int getupdate(LimitVo lvo) {
+		int result = 0;
+		result = sqlSession.update("limitMapper.update",lvo);
+		return result;
+	}
+
+	public int getchkcount(LimitVo lvo) {
+		int lcount = 0;
+		lcount = sqlSession.selectOne("limitMapper.chkcount",lvo);
+		return lcount;
+	}
+
+	public void chkblackdelete(String chkdel) {
+		sqlSession.update("limitMapper.chkblackdelete",chkdel);
+		
+	}
+
+	
+
 }

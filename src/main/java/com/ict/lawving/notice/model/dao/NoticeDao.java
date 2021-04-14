@@ -118,5 +118,15 @@ public class NoticeDao {
 		return sqlSession.delete("noticeMapper.deleteNotice", notice_idx);
 
 	}
+	// 이전글
+	public NoticeVo selectNoticeBefore(String notice_idx) {
+		return sqlSession.selectOne("noticeMapper.n_before", notice_idx);
+
+	}
+	// 다음글
+	public NoticeVo selectNoticeAfter(String notice_idx) {
+		return sqlSession.selectOne("noticeMapper.n_after", notice_idx);
+
+	}
 
 }

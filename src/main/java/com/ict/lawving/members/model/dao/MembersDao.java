@@ -64,4 +64,18 @@ public class MembersDao {
 		return sqlSession.selectOne("memberMapper.findId", members);
 	}
 
+	public int seleckemailCheck(String members_email) {
+		return sqlSession.selectOne("selectemail",members_email);
+	}
+	public String searchid(String members_idx) {
+		return sqlSession.selectOne("memberMapper.searchid",members_idx);
+	}
+	public String searchlev(String members_idx) {
+		return sqlSession.selectOne("memberMapper.searchlev",members_idx);
+	}
+	public String searchreg(String members_idx) {
+		return sqlSession.selectOne("memberMapper.searchreg",members_idx);
+
+	}
+
 }

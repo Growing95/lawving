@@ -33,9 +33,21 @@
 			) a
 		) where r_num between #{begin} and #{end}
 	</select>
-	<!-- <insert id="insertlimitmembers" parameterType="MembersVo">
-	</insert> -->
-		
+	<select id="search" resultType="int">
+		select count(*) from limit where members_idx=#{members_idx}
+	</select>
+	<insert id="insert" parameterType="LimitVo">
+		insert into limit values(#{members_idx},#{limit_id},1,#{reg},sysdate)
+	</insert>	
+	<update id="update" parameterType="LimitVo">
+		update limit set limit_count=limit_count + 1 where members_idx=#{members_idx}
+	</update>
+	<select id="chkcount" parameterType="LimitVo" resultType="int">
+		select limit_count from limit where members_idx=#{members_idx}
+	</select>
+	<update id="chkblackdelete" parameterType="String">
+		update limit set limit_count=limit_count - 1 where members_idx=#{members_idx}
+	</update>
 </mapper>
 
 

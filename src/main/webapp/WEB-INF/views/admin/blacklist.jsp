@@ -173,13 +173,46 @@ table tfoot ol.paging li a:hover {
 	})
 </script>
 <script type="text/javascript">
-	function checkAll() {
-		if ($("#all_chkdel").is(':checked')) {
-			$("input[id=chkdel]").prop("checked", true);
-		} else {
-			$("input[id=chkdel]").prop("checked", false);
+$(function () {
+	var chkObj= document.getElementsByName("Rowcheck");
+	var chkNum=chkObj.length;
+	$("input[name='chkall']").click(function() {
+		var chk_listArr = $("input[name='Rowcheck']");
+		for (var i = 0; i < chk_listArr.length; i++) {
+			chk_listArr[i].checked=this.checked;
+		}
+	})
+	
+})	
+	function chkdelete1() {
+	var url="chkblackdelete.do";
+	var chkArr= new Array();
+	var list =$("input[name='Rowcheck']");
+	for (var i = 0; i < list.length; i++) {
+		if (list[i].checked) {
+			chkArr.push(list[i].value);
 		}
 	}
+	if (chkArr.length==0) {
+		alert("선택된 회원이 없습니다.");
+	}else{
+		var chk = confirm("선택한 회원을 제한 해제하겠습니까?");
+		$.ajax({
+			url: url,
+			method: "POST",
+			traditional:true,
+			data :{chkArr:chkArr},
+			success: function (data) {
+				if (data = 1) {
+					alert("선택된 회원의 제한을 해제하였습니다.");
+					location.replace("memberslist.do");
+				}else{
+					alert("제한해제 실패");
+				}
+			}
+		});
+	}
+}
 </script>
 <body>
 
@@ -197,11 +230,12 @@ table tfoot ol.paging li a:hover {
 	<!-- 사용제한회원 -->
 	<div class="menu2" style="display: block;">
 	<table class="tab">
+	<button onclick="chkdelete1()" style="position:relative; left:260px;top:50px;width: 70px;height: 40px;">제한해제</button>
 		<thead>
 			<tr>
+			<th><input type="checkbox" id="chkall" name="chkall" >전체선택</th>
 				<th>회원번호</th>
 				<th>회원아이디</th>
-				<th>가입날짜</th>
 				<th>제제날짜</th>
 			</tr>
 		</thead>
@@ -214,13 +248,13 @@ table tfoot ol.paging li a:hover {
 	<c:otherwise>
 		<c:forEach var="k" items="${blacklist }" varStatus="vs">
 		<tr>
+		<td><input type="checkbox" name="Rowcheck" value="${k.members_idx }"></td>
 			<td>${k.members_idx }</td>
 			<c:url value="/membersonelist.do" var="mol">
 				<c:param name="members_idx" value="${k.members_idx}" />
 			</c:url>
 			<td><a href="${mol }">${k.limit_id }</a></td>
 			<td>${k.reg }</td>
-			<td>${k.limit_reg }</td>
 		</tr>
 		</c:forEach>
 	</c:otherwise>

@@ -52,7 +52,23 @@
 	<select id="findId" parameterType="String" resultType="String">
 		select members_id from members where members_email = #{members_email} and members_name = #{members_name}
 	</select>
-	
+
+	<select id="selectemail" parameterType="String" resultType="int">
+		select count(members_email) from members where members_email=#{members_email}
+</select>
+	<select id="searchid" parameterType="String" resultType="String">
+		select members_id from members where members_idx=#{members_idx}
+	</select>
+	<select id="searchlev" parameterType="String" resultType="String">
+		select members_lev from members where members_idx=#{members_idx}
+	</select>
+	<select id="searchreg" parameterType="String" resultType="String">
+		select members_reg from members where members_idx=#{members_idx}
+
+	</select>
+	<update id="chkblackdelete" parameterType="String">
+		
+	</update>
 </mapper>
 
 

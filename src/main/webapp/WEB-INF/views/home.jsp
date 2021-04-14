@@ -6,18 +6,6 @@
 <title>LAWVING</title>
 <style type="text/css">
 article{ background-color: gainsboro;}
-.law {
-    width: 200px;
-    height: 200px;
-    float: left;
-    color: white;
-    background-color: #2c3e50;
-    border-radius: 30px;
-    border:2px solid;
-    font-size: 30;
-    font-weight: bold;
-    border-color: #ab9e9e;
-}
 button.law:hover {
     background-color: #808B96;
     color: white;
@@ -34,25 +22,37 @@ button.law:hover {
 .slider div img {width: 100%; height: 100%}
 .bx-wrapper{    height: 30%;
    }
+#lawbtn{    
+	 width: 200px;
+    height: 200px;
+     font-weight: bold;
+     font-size:30px;
+    display: inline;
+    float:left;
+    border-radius: 30px;
+    background: #2c3e50;
+    color: #fff;
+    margin-top: 20px;
+    border: solid 2px #212529;
+    transition: all 0.5s ease-in-out 0s;}
 </style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function() {
-	 $(".law").click(function(){
+	 $(".w3-button").click(function(){
 	        var law =$(this).val();
 	        location.href="list_lawdata.do?law="+law;
 	    });
 })
 </script>
-<!--배너관련 스크립트  -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script>
     $(document).ready(function(){
       $('.slider').bxSlider();
     });
 </script>
+
 </head>
 
 
@@ -64,9 +64,9 @@ $(function() {
 <article>
 <!-- 슬라이더 배너부분 이미지 규격은1320*420로 한다. -->
  <div class="slider">
-    <div><img alt="banner" src="resources/images/banner3.jpg"></div>
-    <div><img alt="banner" src="resources/images/banner4.jpg"></div>
-    <div><img alt="banner" src="resources/images/banner2.jpg"></div>
+        <div><img alt="banner" src="resources/images/banner3.png"></div>
+        <div><img alt="banner" src="resources/images/banner2.png"></div>
+    <div><img alt="banner" src="resources/images/banner1.png"></div>
  </div>
   <!-- 법률데이터조회부분 -->
 <div id="category">
@@ -76,10 +76,10 @@ $(function() {
     width: 80px;">
 </form>
 <div id="selectlaw">
-<button class="law" value="부동산">부동산</button>
-<button class="law" value="상속">상속</button>
-<button class="law" value="임금">임금</button>
-<button class="law" value="해고">해고</button>
+<button class="w3-button w3-hover-white w3-ripple mybtn" value="부동산" id="lawbtn">부동산</button>
+<button class="w3-button w3-hover-white w3-ripple mybtn" value="상속" id="lawbtn">상속</button>
+<button class="w3-button w3-hover-white w3-ripple mybtn" value="임금" id="lawbtn">임금</button>
+<button class="w3-button w3-hover-white w3-ripple mybtn" value="해고" id="lawbtn">해고</button>
 </div>
 </div>
 <br><br><br><br><br><br>

@@ -21,6 +21,9 @@ article {
 td{
 text-align: center;
 }
+h2{background: darkgray;
+    border-radius: 20px;}
+    #answer{font-weight: bold;}
 </style>
 </head>
 <body>
@@ -36,8 +39,8 @@ text-align: center;
 		<tr><td>${bookmark.bookmark_category}</td></tr>
 		<tr><td colspan='2'><h2>질문</td></tr>
 		<tr><td>${bookmark.bookmark_question}</td></tr>
-		<tr><td colspan='2'><h2>답변</td></tr>
-		<tr><td>${bookmark.bookmark_answer}</td></tr>
+		<tr><td colspan='2' ><h2>답변</td></tr>
+		<tr><td id="answer">${bookmark.bookmark_answer}</td></tr>
 </c:when>
 <c:otherwise>
 <tr><td>조회된 정보가 없습니다.</td></tr>

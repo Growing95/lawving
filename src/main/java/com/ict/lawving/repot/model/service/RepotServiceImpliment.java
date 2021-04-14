@@ -28,11 +28,24 @@ public class RepotServiceImpliment implements RepotService{
 	public List<RepotVo> getList(int begin, int end) {
 		return repotDao.getList(paging.getBegin(),paging.getEnd());
 	}
+	/*
+	 * @Override public int insertrepot(String qna_idx, String members_idx_2, String
+	 * members_idx) { return repotDao.getinsert(qna_idx, members_idx_2,
+	 * members_idx); }
+	 */
 
 	@Override
-	public int insertrepot(String m_idx, String q_writer) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertrepot(RepotVo rvo) {
+		return repotDao.getinsert(rvo);
 	}
+
+	@Override
+	public int getdelete(String qna_idx) {
+		return repotDao.getdelete(qna_idx);
+	}
+
+
+
+	
 
 }

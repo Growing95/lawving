@@ -416,7 +416,7 @@ table tfoot ol.paging li a:hover {
 										<td>${b.bookmark_category }</td>
 										<td><a
 											href="onelist_bookmark.do?bookmark_idx=${b.bookmark_idx}">${b.bookmark_question}</a></td>
-										<td>${b.bookmark_reg}</td>
+										<td width="100">(${b.bookmark_reg.substring(0,10)})</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>

@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ict.lawving.common.Paging;
 import com.ict.lawving.limit.controller.LimitController;
 import com.ict.lawving.limit.model.vo.LimitVo;
+import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.repot.model.service.RepotService;
 import com.ict.lawving.repot.model.vo.RepotVo;
 
@@ -23,6 +26,8 @@ import com.ict.lawving.repot.model.vo.RepotVo;
 public class RepotController {
 	@Autowired
 	private RepotService repotService;
+	@Autowired
+	private MembersService membersService;
 	@Autowired
 	private Paging paging;
 	
@@ -77,15 +82,28 @@ public class RepotController {
 	public String gorepotMethod() {
 		return "qna/repotForm";
 	}
-	@RequestMapping(value="insert_repot.do", method=RequestMethod.POST )
-	public String insertrepotMethod(@RequestParam("members_idx")String m_idx,@RequestParam("qna_writer")String q_writer) {
-		int result = repotService.insertrepot(m_idx,q_writer);
+	@RequestMapping("insert_repot.do")
+	public String insertrepotMethod(RepotVo rvo,
+			@ModelAttribute("cPage")String cPage,
+			@RequestParam("qna_idx")String qna_idx,
+			@RequestParam("members_idx_2")String members_idx_2,
+			@RequestParam("members_idx")String members_idx,
+			@RequestParam("report_cause")String report_cause,Model model
+			) {
+		int result = repotService.insertrepot(rvo);
 		if (result>0) {
 			return "redirect:list_qna.do" ;
 		}else {
 			return "common/errorPage";
 		}
-		
+	}
+	@RequestMapping("delete_repot.do")
+	public String deleterepotMethod(@RequestParam("qna_idx")String qna_idx,
+			@RequestParam("members_idx")String members_idx) {
+		String members_id= membersService.searchid(members_idx);
+		String members_lev=membersService.searchlev(members_idx);
+		int result= repotService.getdelete(qna_idx);
+		return "redirect:delete_qna.do?qna_idx="+qna_idx+"&members_lev="+members_lev+"&members_idx="+members_idx;
 	}
 	
 }

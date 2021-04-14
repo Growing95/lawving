@@ -112,7 +112,7 @@ public class QnaServiceImpliment implements QnaService {
 
 //	QNA 문의글 답변 작성/수정하기
 	@Override
-	public QnaVo updateAnswer(QnaVo qna) {
+	public int updateAnswer(QnaVo qna) {
 		return qnaDao.updateAnswer(qna);
 	}
 
@@ -121,4 +121,13 @@ public class QnaServiceImpliment implements QnaService {
 	public int deleteAnswer(String qna_idx) {
 		return qnaDao.deleteAnswer(qna_idx);
 	}
+
+	@Override
+	public int selectQnaIdx(String qna_idx) {
+		return qnaDao.selectQnaIdx(qna_idx);
+	}
+	
+
+
+
 }

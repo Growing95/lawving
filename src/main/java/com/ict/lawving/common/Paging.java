@@ -16,6 +16,22 @@ public class Paging {
 	private int end = 0;
 	private int beginBlock = 0;
 	private int endBlock = 0;
+	
+	private int next = 0;
+	public int getNext() {
+		return next;
+	}
+	public void setNext(int next) {
+		this.next = next;
+	}
+	public int getBack() {
+		return back;
+	}
+	public void setBack(int back) {
+		this.back = back;
+	}
+	private int back = 0;
+	
 	public int getNowPage() {
 		return nowPage;
 	}
