@@ -75,6 +75,7 @@
 							<td align="center">${k.notice_idx }</td>
 							<c:url value="/onelist_notice.do" var="und">
 								<c:param name="notice_idx" value="${k.notice_idx}" />
+								<c:param name="cPage" value="${paging.nowPage}"/>
 							</c:url>
 							<td align="center"><a href="${und }">${k.notice_title }</a></td>
 							<td align="center">${k.notice_writer }</td>

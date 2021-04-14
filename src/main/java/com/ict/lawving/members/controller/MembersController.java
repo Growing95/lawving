@@ -132,7 +132,8 @@ public class MembersController {
 			  MembersVo loginmember = membersService.selectloginCheck(id);
 			  session.setAttribute("loginMember", loginmember);
 			  model.addAttribute("msg","패스워드가 변경되었습니다.");
-			  model.addAttribute("url","list_mypage.do?members_idx="+loginmember.getMembers_idx());
+			  model.addAttribute("url","go_login.do");
+			  session.invalidate();
 			return "common/alert";
 		  }else {
 			  model.addAttribute("message","패스워드 변경에 실패하였습니다.");
@@ -197,8 +198,6 @@ public class MembersController {
 			member.setMembers_pw(bcryptPasswordEncoder.encode(pw));
 			logger.info("암호화pw:"+member.getMembers_pw());
 			MembersVo loginmember = membersService.selectloginCheck(id);
-			LimitVo lvo = new LimitVo();
-			lvo.setMembers_idx(loginmember.getMembers_idx());
 			//System.out.println("조회해온회원비밀번호:"+loginmember.getMembers_pw());
 			//전송은 패스워드 (일반글자)와 조회해온 패스워드(암호화글자) 비교시
 			//matchs()사용한다
@@ -217,6 +216,8 @@ public class MembersController {
 						return "common/alert";
 					}else {
 						try {
+							LimitVo lvo = new LimitVo();
+							lvo.setMembers_idx(loginmember.getMembers_idx());
 							int limit = limitService.chkcount(lvo);
 							session.setAttribute("limit", limit);
 							session.setAttribute("loginMember", loginmember);
