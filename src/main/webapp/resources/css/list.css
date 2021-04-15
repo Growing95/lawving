@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* 전체 화면 높이 */
+body { height: 100vh; margin: 0px; }
+article { height: 100%; }
+/* div 기본 크기 */
+.box { margin: auto; width: 800px; }
+/* 게시판 이름 박스 */
+.category { margin: 10px auto; width: 800px; text-align: left;}
+h2 { margin: 0px; }
+a { text-decoration: none; color: black; }
+/* table 기본 크기 */
+table { margin: auto; width: 800px; }
+/* 리스트용 테이블 기본 */
+.list { border: 1px solid black; border-collapse: collapse; text-align: center; }
+/* 검색 모듈 */
+.search_box_td { width: 83%; text-align: right; }
+input[name=keyword] { width: 300px; }
+/* 사용자 글쓰기 버튼 */
+.insert_btn_td { text-align: right; }
+/* 관리자 전체선택 체크박스 */
+input[name=chkall] { float: left; }
+.label_chkall { float: left; }
+/* 관리자 선택삭제 버튼 */
+.select_delete { float: right; }
+/* 비활성화 */
+.non_active { color: gray; }
+/* 현재페이지 */
+.now { color: red; }

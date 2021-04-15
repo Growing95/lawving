@@ -77,5 +77,11 @@ public class MembersDao {
 		return sqlSession.selectOne("memberMapper.searchreg",members_idx);
 
 	}
+	public int updatelev(String members_idx) {
+		return sqlSession.selectOne("memberMapper.updatelev",members_idx);
+	}
+	public void changelev(String chkdel) {
+		sqlSession.update("memberMapper.changelev",chkdel);
+	}
 
 }

@@ -10,7 +10,8 @@
 </head>
 <body>o
 <%-- 절대경로로 처리한 경우 --%>
-<c:import url="/WEB-INF/views/common/menubar.jsp" />                              
+<c:import url="/WEB-INF/views/common/menubar.jsp" />     
+<article>                         
 <HR>
 <h2 align="center">${notice.nid } 번 공지 상세보기</h2>
 <br>
@@ -47,5 +48,6 @@
 <%-- 이전페이지로 이동 --%>
 <button onclick="javascript:history.go(-1);">목록</button></th></tr>
 </table>
+</article>
 </body>
 </html>

@@ -26,7 +26,7 @@
 	<insert id="insertlimitmembers" parameterType="MembersVo">
 	</insert>
 	<insert id="insertrepot" parameterType="RepotVo">
-		insert into repot values(repot_seq.nextval,#{qna_idx},#{members_idx},#{members_idx_2},#{report_cause},sysdate)
+		insert into repot values(repot_seq.nextval,#{qna_idx},#{members_idx},1,#{report_cause},sysdate)
 	</insert>
 	<delete id="deleterepot" parameterType="String" >
 		delete from repot where qna_idx=#{qna_idx}

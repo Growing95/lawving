@@ -156,8 +156,8 @@ public class LibraryController {
 			model.addAttribute("paging", paging);
 			return "library/libraryListView";
 		} else {
-			model.addAttribute("msg", keyword + "로 검색된 자료 정보가 없습니다.");
-			return "common/errorPage";
+			model.addAttribute("librarylist");
+			return "redirect:llist.do";
 		}
 	}
 	// 상세보기
@@ -341,7 +341,7 @@ public class LibraryController {
 			try {
 				LibraryVo libraryOnelist = libraryService.selectlibraryBefore(library_idx);
 				model.addAttribute("libraryOnelist", libraryOnelist);
-				return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx()+"&cPage="+cPage;
+				return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx();
 				
 			} catch (Exception e) {
 				return "redirect:onelist_library.do?library_idx="+library_idx ;
@@ -357,7 +357,7 @@ public class LibraryController {
 			try {
 			LibraryVo libraryOnelist = libraryService.selectlibraryAfter(library_idx);
 			model.addAttribute("libraryOnelist", libraryOnelist);
-			return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx()+"&cPage="+cPage;
+			return "redirect:onelist_library.do?library_idx="+libraryOnelist.getLibrary_idx();
 			} catch (Exception e) {
 			return "redirect:onelist_library.do?library_idx="+library_idx ;
 		}

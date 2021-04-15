@@ -15,6 +15,7 @@
 #loginUI {
 	float: right;
 	margin-top: -150px;
+	margin-right:20%;
 	z-index: 5000;
 	position: relative;
 }
@@ -40,13 +41,15 @@
 	border-top-left-radius: 20px;
 	border: 1px solid #4c5d6f;
 }
-center{width: 70%; margin: auto;}
+center{width: 70%; margin: auto; background-color: white;}
 
 
 article {
 	width: 70%;
 	margin: 0 auto;
 	text-align: center;
+	background-color: white;
+	height: 100%;
 }
 
 #toolmenu li a {
@@ -88,6 +91,7 @@ z-index: 1000000;
 	border: 1px solid #4c5d6f;
 	color:white;
 }
+html{background-color: lightgray;}
 </style>
 <!--배너관련 스크립트  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -119,7 +123,7 @@ $(function() {
 		}
 	});
 	}
-});
+});  
 </script>
 <script>
 $(document).ready(function(){
@@ -158,18 +162,16 @@ function golaw() {
 				</c:when>
 				<c:when test="${loginMember.members_lev=='1' }">
 					<div id="log">
-						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수
-							: <%-- ${limit.limit_count} --%>0
-						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+						${loginMember.members_name }님|&nbsp; <span style="color: red;">누적신고수${limit}</span>회<br> <a href="logout.do">로그아웃</a><br> <a
+							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }">MY북마크</a>
 					</div>
 				</c:when>
 				<c:when test="${kakaoMember=='kakao' }">
 					<div id="log">
 						카카오회원 <div id="res"></div>|&nbsp; <span style="color: red;">누적신고수
-							: <%-- ${limit.limit_count} --%>0
+							:${limit}
 						</span>회<br> <a href="logout.do">로그아웃</a><br> <a
-							href="list_mypage.do?members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?members_idx=${loginMember.members_idx }">MY북마크</a>
+							href="list_mypage.do?cPage=1&members_idx=${loginMember.members_idx }">MY페이지</a>|<a href="list_bookmark.do?cPage=1&members_idx=${loginMember.members_idx }&cPage=1">MY북마크</a>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -191,10 +193,8 @@ function golaw() {
 	<!-- <iframe id="iframe" scrolling="yes" src="http://@203.236.220.89:8090/chat.do"></iframe> -->
 	<c:choose>
 		<c:when test="${loginMember.members_lev=='1' }">
-
-			<iframe id="iframe"  scrolling="yes" src="http://@203.236.220.89:8090/chat.do" style="display: none;"></iframe>
+			<iframe id="iframe"  scrolling="yes" src="http://@l203.236.220.89:8090/chat.do" style="display: none;"></iframe>
 			<!-- 자신의 ip로바꾼후 톰캣서버 모듈 / 로 수정해야 정상 작동 -->
-
 		</c:when>
 	</c:choose>
 	</div>

@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
 import com.ict.lawving.limit.model.service.LimitService;
+import com.ict.lawving.limit.model.vo.LimitVo;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
 import org.json.simple.JSONObject;
@@ -131,7 +132,8 @@ public class MembersController {
 			  MembersVo loginmember = membersService.selectloginCheck(id);
 			  session.setAttribute("loginMember", loginmember);
 			  model.addAttribute("msg","패스워드가 변경되었습니다.");
-			  model.addAttribute("url","list_mypage.do?members_idx="+loginmember.getMembers_idx());
+			  model.addAttribute("url","go_login.do");
+			  session.invalidate();
 			return "common/alert";
 		  }else {
 			  model.addAttribute("message","패스워드 변경에 실패하였습니다.");
@@ -208,9 +210,24 @@ public class MembersController {
 					 if (level==2) {
 						 session.setAttribute("loginMember", loginmember);
 						return"admin/adminIndex";
+					}else if(level == 3) {
+						model.addAttribute("msg","5회이상의 누적신고수로 인하여 로그인이 제한되었습니다.");
+						model.addAttribute("url","go_login.do");
+						return "common/alert";
 					}else {
-						 session.setAttribute("loginMember", loginmember);
-						 return "home";
+						try {
+							LimitVo lvo = new LimitVo();
+							lvo.setMembers_idx(loginmember.getMembers_idx());
+							int limit = limitService.chkcount(lvo);
+							session.setAttribute("limit", limit);
+							session.setAttribute("loginMember", loginmember);
+							return "home"; 
+							
+						} catch (Exception e) {
+							session.setAttribute("limit", "0");
+							session.setAttribute("loginMember", loginmember);
+							return "home"; 
+						}
 					}
 				}else {
 					model.addAttribute("msg","패스워드가 일치하지 않습니다.");
@@ -417,6 +434,7 @@ public class MembersController {
 			int size = chkMsg.length;
 			for (int i = 0; i < size; i++) {
 				limitService.chkblackdelete(chkMsg[i]);
+				membersService.changelev(chkMsg[i]);
 			}
 			return "redirect: memberslist.do";
 		}

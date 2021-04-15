@@ -7,92 +7,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css?1=1">
+<style type="text/css">
+body{height: 100vh;}
+article{height: 80%;}
+</style>
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js">
 	
-</script>
-<style type="text/css">
-table tfoot ol.paging {
-	list-style: none;
-}
-
-table tfoot ol.paging li {
-	float: left;
-	margin-right: 8px;
-}
-
-table tfoot ol.paging li a {
-	display: block;
-	padding: 3px 7px;
-	border: 1px solid #00B3DC;
-	color: #2f313e;
-	font-weight: bold;
-}
-
-table tfoot ol.paging li a:hover {
-	background: #00B3DC;
-	color: white;
-	font-weight: bold;
-}
-
-.disable {
-	padding: 3px 7px;
-	border: 1px solid silver;
-	color: silver;
-}
-
-.now {
-	padding: 3px 7px;
-	border: 1px solid #ff4aa5;
-	background: #ff4aa5;
-	color: white;
-	font-weight: bold;
-}
-
-#btn {
-	margin: 50px 0 0 345px;
-    position: absolute;
-    width: 80px;
-    height: 35px;
-}
-</style>
+		
+	</script>
 </head>
 <body>
 	<c:import url="../header.jsp" />
-	<hr>
-	<h2
-		style="text-align: center; font-weight: lighter; margin: 40px 780px 0 0;">Notice</h2>
-	<h1 style="text-align: center; margin: 0 730px 0 0">공지사항</h1>
-	<br>
+	<article>
+		<div class="category" style="margin: auto;">
+				NOTICE
+			<h2><a href="nlist.do">공지사항</a></h2>
+			<br>
+		<img alt="" src="resources/images/notice.png" style="padding-left: 6px;">
+		</div>
+	<br><br><br><br>
 	<c:if test="${ loginMember.members_lev=='2'}">
-		<div style="text-align: center;" >
+		<div style="align: center; padding-left: 400px;">
 			<c:url var="nwf" value="/notice_insert.do" />
-			<button id="btn" onclick="javascript:location.href='${ nwf }';">글쓰기</button>
+			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
 		</div>
 	</c:if>
 	<br>
 	<!-- 검색기능 -->
-	<center>
-		<div class="search">
+		<div>
 			<form action="nsearch.do" method="post">
 				<table>
-					<tr>
-						<td><select name="category">
+					<tr >
+						<td>
+						<select name="category">
 								<option value="notice_title" selected>제목</option>
 								<option value="notice_content">내용</option>
-						</select></td>
-						<td><select name="order">
+						</select>
+						<select name="order">
 								<option value="desc" selected>최신순</option>
 								<option value="asc">오래된순</option>
-						</select></td>
-						<td><input id="box" type="text" name="keyword"
-							placeholder="검색어를 입력해 주세요."></td>
-						<td><input type="submit" value="검색"></td>
+						</select>
+					<input type="text" name="keyword">
+					<input type="submit" value="검색">
+							</td>
+						</tr>
 				</table>
 			</form>
 		</div>
-	</center>
-	<br>
 	<div style="align: center; padding-left: 400px;">
 		<c:url var="nlist" value="/nlist.do" />
 	</div>
@@ -122,6 +85,7 @@ table tfoot ol.paging li a:hover {
 							<td align="center">${k.notice_idx }</td>
 							<c:url value="/onelist_notice.do" var="und">
 								<c:param name="notice_idx" value="${k.notice_idx}" />
+								<c:param name="cPage" value="${paging.nowPage}"/>
 							</c:url>
 							<td align="center"><a href="${und }">${k.notice_title }</a></td>
 							<td align="center">${k.notice_writer }</td>
@@ -136,45 +100,42 @@ table tfoot ol.paging li a:hover {
 
 		<tfoot>
 			<tr>
-				<td colspan="4" style="padding-bottom: 7px;">
-					<ol class="paging" style="margin-left: 230px;">
-						<!-- 이전 -->
+				<td colspan="4" class="paging">
+					<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock}">
+							<span class="non_active">이전으로</span>
+						</c:when>
+						<c:otherwise>
+							<a href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a>
+						</c:otherwise>
+					</c:choose>
+					<!-- 블록안에 들어간 페이지번호들 -->
+					<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}" step="1" var="k">
+						<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
 						<c:choose>
-							<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
-								<li class="disable">이전으로</li>
+							<c:when test="${k==paging.nowPage }">
+								<span class="now">${k}</span>
 							</c:when>
 							<c:otherwise>
-								<li><a
-									href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+								<a href="nlist.do?cPage=${k}">${k}</a>
 							</c:otherwise>
 						</c:choose>
-						<!-- 블록안에 들어간 페이지번호들 -->
-						<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
-							step="1" var="k">
-							<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
-							<c:choose>
-								<c:when test="${k==paging.nowPage }">
-									<li class="now">${k}</li>
-								</c:when>
-								<c:otherwise>
-									<li><a href="nlist.do?cPage=${k}">${k}</a></li>
-								</c:otherwise>
-							</c:choose>
 						</c:forEach>
 						<!-- 다음 -->
 						<c:choose>
 							<c:when test="${paging.endBlock >= paging.totalPage }">
-								<li class="disable">다음으로</li>
+								<span class="non_active">다음으로</span>
 							</c:when>
 							<c:otherwise>
-								<li><a
-									href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+								<a href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a>
 							</c:otherwise>
 						</c:choose>
-					</ol>
-				</td>
-			</tr>
-		</tfoot>
+					</td>
+				</tr>
+			</tfoot>
 	</table>
+	</article>
 </body>
 </html>
+

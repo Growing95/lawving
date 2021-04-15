@@ -84,13 +84,15 @@ public class NoticeServiceImpliment implements NoticeService {
 	}
 
 	@Override
-	public NoticeVo selectNoticeBefore(String notice_idx) {
+	public NoticeVo selectNoticeBefore(int notice_idx) {
 		return noticeDao.selectNoticeBefore(notice_idx);
 	}
 
 	@Override
-	public NoticeVo selectNoticeAfter(String notice_idx) {
+	public NoticeVo selectNoticeAfter(int notice_idx) {
 		return noticeDao.selectNoticeAfter(notice_idx);
 	}
+
+	
 
 }

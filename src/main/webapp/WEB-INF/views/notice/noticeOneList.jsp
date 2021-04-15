@@ -8,80 +8,78 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#btn1 {
-	height: 70px;
-	width: 100px;
-	margin-right: 8px;
-	margin-top: 8px;
-}
-#btn2 {
-	width: 80px; height: 30px;
-	margin-bottom: 10px;
-	
-}
-</style>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 </head>
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+function loadNextPage(page){
 
+var param = "page="+page;
+
+$('#append_article').load("list.do", param, function(data){
+
+alert(data);
+
+});
+
+}
 </script>
-
 <body>
 	<%-- 절대경로로 처리한 경우 --%>
 	<c:import url="../header.jsp" />
-	<HR>
-	<h2 align="center">${nvo.notice_idx }번공지사항 상세보기</h2>
+	<article>
+		<div class="category" style="margin: auto;">
+			${nvo.notice_idx }번 공지 상세보기
+			<h2><a href="lnlist.do">공지사항</a></h2>
+		</div>
 	<br>
-	<table frame=void align="center" width="850" border="1" cellspacing="0"
- 		cellpadding="5">
+	<table align="center" width="850" border="1" cellspacing="0"
+		cellpadding="5">
 		<tr>
-			<!-- 제목 -->
-			<td colspan="5" style="padding-left:10px;"><h1>${ nvo.notice_title }</h1>
-		
-		
-			<p style="margin: 0 0 0 540px; ">작성자 :
-			${ nvo.notice_writer }
-		
-		
-			 / 작성날짜 : 
-			<fmt:formatDate value="${nvo.notice_reg }"
-					pattern="yyyy-MM-dd" /></p></td>
+			<th>제 목</th>
+			<td>${ nvo.notice_title }</td>
 		</tr>
-		<tr style="border:hidden;">
-			<th colspan="2" style="border:hidden; padding: 10px 0 10px 640px; ">첨부파일
-			<c:if test="${ !empty nvo.notice_file_name }">
+		<tr>
+			<th>작성자</th>
+			<td>${ nvo.notice_writer }</td>
+		</tr>
+		<tr>
+			<th>날 짜</th>
+			<td><fmt:formatDate value="${nvo.notice_reg }"
+					pattern="yyyy-MM-dd" /></td>
+		</tr>
+		<tr>
+			<th>첨부파일</th>
+			<td><c:if test="${ !empty nvo.notice_file_name }">
 					<%-- 첨부파일이 있다면 다운로드 설정함 --%>
 					<c:url var="dnd" value="/download_notice.do">
 						<c:param name="ofile" value="${ nvo.notice_file_name }" />
 						<c:param name="rfile" value="${ nvo.notice_refile_name }" />
 					</c:url>
 					<a href="${ dnd }">${nvo.notice_file_name }</a>
-				</c:if> <c:if test="${ empty nvo.notice_file_name }">&nbsp;</c:if></th>
+				</c:if> <c:if test="${ empty nvo.notice_file_name }">&nbsp;</c:if></td>
 		</tr>
-		
 		<tr>
-			<!-- 내용 -->
-			<td style="text-align: left; height: 500px; display: block;">${ nvo.notice_content }</td>
+			<th>내 용</th>
+			<td>${ nvo.notice_content }</td>
 		</tr>
 		<c:if test="${loginMember.members_lev=='2'}">
-			<div style="text-align: center; margin-left: 683px;">
+			<div style="align: center; padding-left: 400px;">
 				<c:url var="update" value="notice_update.do" />
-				<button id="btn2"  onclick="javascript:location.href='${ update }';">수정</button>
-				<button id="btn2"  onclick="location.href='notice_delete.do?notice_idx=${nvo.notice_idx}'">삭제</button>
+				<button onclick="javascript:location.href='${ update }';">수정</button>
+				<button
+					onclick="location.href='notice_delete.do?notice_idx=${nvo.notice_idx}'">삭제</button>
 			</div>
 		</c:if>
 		<div>
-			<c:url var="goback" value="/nlist.do" />
 			<tr>
-				<th colspan="2" style="border: hidden;">
-				<button id="btn1" onclick="location.href='before_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">이전글</button>
-				<button id="btn1" onclick="javascript:location.href='${goback }';">목록</button>
-				<button id="btn1" onclick="location.href='after_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">다음글</button>
+				<th colspan="2">
+				<button onclick="location.href='before_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">이전글</button>
+				<button onclick="location.href='nlist.do?cPage=${cPage }'">목록</button>
+				<button onclick="location.href='after_notice.do?notice_idx=${nvo.notice_idx}&cPage=${cPage}'">다음글</button>
 			</th>
 			</tr>
 		</div>
 	</table>
-
+</article>
 </body>
 </html>

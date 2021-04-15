@@ -117,7 +117,7 @@
 	delete from notice where notice_idx=#{notice_idx}
 	</delete>
 	
-	<select id="n_before" resultType="NoticeVo" parameterType="String">
+	<select id="n_before" resultType="NoticeVo" parameterType="int">
 		SELECT * 
     		FROM (SELECT ROWNUM r_num, a.* 
         		FROM (SELECT * FROM NOTICE 
@@ -127,7 +127,7 @@
     		) 
 		WHERE r_num = 1
 	</select>
-	<select id="n_after" resultType="NoticeVo" parameterType="String">
+	<select id="n_after" resultType="NoticeVo" parameterType="int">
 		SELECT * 
     		FROM (SELECT ROWNUM r_num, a.* 
         		FROM (SELECT * FROM NOTICE 
@@ -137,6 +137,5 @@
     		) 
 		WHERE r_num = 1
 	</select>
-	
 
 </mapper>

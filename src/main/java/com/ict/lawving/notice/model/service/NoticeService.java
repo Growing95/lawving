@@ -24,8 +24,8 @@ public interface NoticeService {
 	int updateNotice(NoticeVo notice);
 	void chklistdelete(String string);
 	int deleteNotice(int notice_idx);
-	NoticeVo selectNoticeBefore(String notice_idx);
-	NoticeVo selectNoticeAfter(String notice_idx);
+	NoticeVo selectNoticeBefore(int notice_idx);
+	NoticeVo selectNoticeAfter(int notice_idx);
 	
 	
 }

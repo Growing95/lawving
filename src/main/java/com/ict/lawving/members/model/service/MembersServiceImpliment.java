@@ -262,6 +262,17 @@ public class MembersServiceImpliment implements MembersService{
 
 		}
 
+		@Override
+		public int getupdatelev(String members_idx) {
+			return membersdao.updatelev(members_idx);
+		}
+
+		@Override
+		public void changelev(String chkdel) {
+			membersdao.changelev(chkdel);
+			
+		}
+
 
 
 	

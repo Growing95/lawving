@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.lawving.common.Paging;
+import com.ict.lawving.library.model.vo.LibraryVo;
 import com.ict.lawving.notice.model.service.NoticeService;
 import com.ict.lawving.notice.model.vo.NoticeSearch;
 import com.ict.lawving.notice.model.vo.NoticeVo;
@@ -60,6 +61,8 @@ public class NoticeController {
 			// 3. 현재 페이지
 			String cPage = request.getParameter("cPage");
 			if (cPage == null) {
+				paging.setNowPage(1);
+			}else if(cPage =="") {
 				paging.setNowPage(1);
 			} else {
 				paging.setNowPage(Integer.parseInt(cPage));
@@ -156,15 +159,18 @@ public class NoticeController {
 			model.addAttribute("paging", paging);
 			return "notice/noticeListView";
 		} else {
-			model.addAttribute("msg", keyword + "로 검색된 공지사항 정보가 없습니다.");
-			return "common/errorPage";
+			model.addAttribute("noticelist");
+			return "redirect:nlist.do";
 		}
 	}
 	// 상세보기
 
 	@RequestMapping(value = "onelist_notice.do", method = RequestMethod.GET)
-	public String selectNoticeOnelistMethod(@RequestParam("notice_idx") int notice_idx, Model model,
-			HttpSession session, HttpServletRequest request) {
+	public String selectNoticeOnelistMethod(
+			@ModelAttribute("notice_idx") int notice_idx,
+			@ModelAttribute("cPage")String cPage,
+			Model model,
+			HttpSession session) {
 		NoticeVo nvo = noticeService.selectOneList(notice_idx);
 		session.setAttribute("nvo", nvo);
 		return "notice/noticeOneList";
@@ -286,7 +292,7 @@ public class NoticeController {
 
 	// 다운로드
 	@RequestMapping("download_notice.do")
-	public ModelAndView fileDownMethod(@RequestParam("nfile") String notice_file_name,
+	public ModelAndView fileDownMethod(@RequestParam("ofile") String notice_file_name,
 			@RequestParam("rfile") String notice_refile_name, HttpServletRequest request) {
 		String savePath = request.getSession().getServletContext().getRealPath("resources/notice_files");
 		File renameFile = new File(savePath + "\\" + notice_refile_name);
@@ -294,7 +300,7 @@ public class NoticeController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("renameFile", renameFile);
 		model.put("notice_file_name", notice_file_name);
-		return new ModelAndView("filedown2", "downFile", model);
+		return new ModelAndView("filedown3", "downFile", model);
 	}
 
 	@RequestMapping("chklistdelete.do")
@@ -313,38 +319,36 @@ public class NoticeController {
 		return "redirect: nlist.do";
 	}
 
-	// Notice 이전 글 보기
-
+//	notice 이전 글 보기
 	@RequestMapping("before_notice.do")
-	public String selectNoticeBeforeMethod(@RequestParam("notice_idx") String notice_idx,
-			@ModelAttribute("cPage") String cPage, HttpSession session, HttpServletRequest request) {
+	public String selectnoticeBeforeMethod(
+			@RequestParam("notice_idx")int notice_idx,
+			@ModelAttribute("cPage")String cPage,
+			Model model) {
 		System.out.println("notice_idx : " + notice_idx);
 		System.out.println("cPage : " + cPage);
 		try {
-			NoticeVo nvo = noticeService.selectNoticeBefore(notice_idx);
-			session.setAttribute("nvo", nvo);
-			return "notice/noticeOneList";
-
+			NoticeVo noticeOnelist = noticeService.selectNoticeBefore(notice_idx);
+			model.addAttribute("noticeOnelist", noticeOnelist);
+			return "redirect:onelist_notice.do?notice_idx="+noticeOnelist.getNotice_idx();
+			
 		} catch (Exception e) {
-			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
-		}
+			return "redirect:onelist_notice.do?notice_idx="+notice_idx ;
 	}
-
-	// Notice 다음 글 보기
-
+	}
+//	notice 다음 글 보기
 	@RequestMapping("after_notice.do")
-	public String selectNoticeAfterMethod(@RequestParam("notice_idx") String notice_idx,
-			@ModelAttribute("cPage") String cPage, HttpSession session, HttpServletRequest request) {
-		System.out.println("notice_idx : " + notice_idx);
-		System.out.println("cPage : " + cPage);
+	public String selectnoticeAfterMethod(
+			@RequestParam("notice_idx")int notice_idx,
+			@ModelAttribute("cPage")String cPage,
+			Model model) {
+//		다음 글 가져오기
 		try {
-
-			NoticeVo nvo = noticeService.selectNoticeAfter(notice_idx);
-			session.setAttribute("nvo", nvo);
-			return "notice/noticeOneList";
-
+		NoticeVo noticeOnelist = noticeService.selectNoticeAfter(notice_idx);
+		model.addAttribute("noticeOnelist", noticeOnelist);
+		return "redirect:onelist_notice.do?notice_idx="+noticeOnelist.getNotice_idx();
 		} catch (Exception e) {
-			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
-		}
+		return "redirect:onelist_notice.do?notice_idx="+notice_idx ;
 	}
+}
 }
