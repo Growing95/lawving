@@ -28,14 +28,14 @@
 	</select>
 	<insert id="insertmembers" parameterType="MembersVo">
 		insert into members values(members_seq.nextval,#{members_id},#{members_pw},#{members_name},#{members_email},
-		#{members_birth},#{members_tel},1,sysdate)
+		#{members_birth},#{members_tel},1,#{members_address},sysdate)
 	</insert>
 	
 	<select id="selectlogin" parameterType="String" resultType="MembersVo">
 		select * from members where members_id=#{members_id}
 	</select>
 	<update id="updateMember" parameterType="MembersVo">
-		update members SET members_email=#{members_email},members_birth=#{members_birth},members_tel=#{members_tel}where members_id=#{members_id} 
+		update members SET members_email=#{members_email},members_birth=#{members_birth},members_tel=#{members_tel},members_address=#{members_address}where members_id=#{members_id} 
 	</update> 
 	
 	<delete id="delete_member" parameterType="String">

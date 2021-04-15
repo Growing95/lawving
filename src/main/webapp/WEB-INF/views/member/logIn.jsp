@@ -21,9 +21,12 @@
     border: solid 2px #212529;
     transition: all 0.5s ease-in-out 0s;}
     a{text-decoration: none;}
+    body{height: 100vh;}
+    
 </style>
 </head>
 <body>
+<article>
 	<c:import url="/WEB-INF/views/header.jsp" />
 	<c:if test="${!empty msg }">
 	<script type="text/javascript">
@@ -79,5 +82,6 @@
 			</form>
 		</div>
 	</div>
+	</article>
 </body>
 </html>

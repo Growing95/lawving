@@ -75,7 +75,7 @@ public class MembersServiceImpliment implements MembersService{
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
 		String hostSMTPid = "lawving@naver.com";
-		String hostSMTPpwd = "Lawving6827+";
+		String hostSMTPpwd = "fhqldtm6827+";
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = "lawving@naver.com";
@@ -110,7 +110,7 @@ public class MembersServiceImpliment implements MembersService{
 			email.setHtmlMsg(msg);
 			email.send();
 		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
+			System.out.println("임시비번메일발송 실패 : " + e);
 		}
 		
 	}
@@ -180,7 +180,7 @@ public class MembersServiceImpliment implements MembersService{
 			String charSet = "utf-8";
 			String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
 			String hostSMTPid = "lawving@naver.com";
-			String hostSMTPpwd = "Lawving6827+";
+			String hostSMTPpwd = "fhqldtm6827+";
 
 			// 보내는 사람 EMail, 제목, 내용
 			String fromEmail = "lawving@naver.com";

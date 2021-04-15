@@ -165,13 +165,21 @@ public class MembersController {
 		
 		//회원가입 처리(패스워드 암호화 처리)
 		@RequestMapping(value = "anroll.do",method = RequestMethod.POST)
-		public String enrollMemberMethod(MembersVo members, Model model) {
+		public String enrollMemberMethod(MembersVo members, Model model,
+				@RequestParam("members_post")String members_post,
+				@RequestParam("members_addr1")String members_addr1,
+				@RequestParam("members_addr2")String members_addr2
+				) {
 			logger.info("anroll.do :"+members);//넘어오는 파라미터값 확인
 			logger.info("아이디값확인"+members.getMembers_id());
 			//패스워드 암호화 처리
 			members.setMembers_pw(bcryptPasswordEncoder.encode(members.getMembers_pw()));
 			logger.info("pw encode:"+members.getMembers_pw()+","+members.getMembers_pw().length());//암호화된 패스워드 값과 그 길이 확인 
-			
+		
+		  if (!members_post.equals("")) { 
+		  members.setMembers_address(members_post + ", " + members_addr1 + ", " + members_addr2);
+		  }
+		 
 			//서비스로 전송하고 결과를 받기
 			int result = membersService.insertMember(members);
 			
@@ -389,7 +397,7 @@ public class MembersController {
 			  MembersVo loginmember = membersService.selectloginCheck(id);
 			  session.setAttribute("loginMember", loginmember);
 			  model.addAttribute("msg","회원정보가 수정되었습니다.");
-			  model.addAttribute("url","list_mypage.do?members_idx="+loginmember.getMembers_idx());
+			  model.addAttribute("url","list_mypage.do?members_idx="+loginmember.getMembers_idx()+"&cPage=1");
 			return "common/alert";
 		  }else {
 			  model.addAttribute("message","회원정보수정에 실패하였습니다.");
