@@ -84,7 +84,7 @@ function dupidCheck(){
 	      return false;
 	    }
 	$("#msg").empty();
-	$.ajax({ 
+	$.ajax({  
 		url:"idCheck.do",
 		method:"post",
 		data:{members_id: $("#userid").val()},
