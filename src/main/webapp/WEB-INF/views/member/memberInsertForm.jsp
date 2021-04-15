@@ -79,6 +79,10 @@ function validate() {
 }
 //id중복확인용 함수
 function dupidCheck(){
+	if($.trim($("#userid").val())==''){
+	      alert("아이디를 입력해주세요.");
+	      return false;
+	    }
 	$("#msg").empty();
 	$.ajax({
 		url:"idCheck.do",
@@ -113,9 +117,10 @@ function dupidCheck(){
 <script>
 $(function(){
 	$("#sendmail").click(function(){
-		if(($("members_email").val())==null){
-			alert("인증번호를 확인할 이메일을 입력해주세요");
-		}else{
+		if($.trim($("#members_email").val())==''){
+		      alert("이메일을 입력해주세요.");
+		      return false;
+		    }
 		$.ajax({
 			url : "email.do",
 			type : "POST",
@@ -137,7 +142,7 @@ $(function(){
 				}
 			},
 		})
-		}
+		
 	});
 	$("#codeok").click(function() {
 		var code = $("#emailcode").val();
