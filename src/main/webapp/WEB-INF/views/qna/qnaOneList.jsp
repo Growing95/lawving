@@ -9,6 +9,17 @@
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+	/* 신고 */
+	function repot() {
+		var qna_members_idx = '${requestScope.qnaOnelist.members_idx}';
+		var login_members_idx = '${sessionScope.loginMember.members_idx}';
+		if (qna_members_idx == login_members_idx) {
+			alert("자신의 게시물은 신고할 수 없습니다.");
+			return;
+		} else {
+			repot_form.submit();
+		}
+	}
 	/* 질문 삭제 */
 	function delete_qna_check(form) {
 		var chk = confirm("정말 삭제할까요?");
@@ -103,8 +114,13 @@
 							</c:when>
 							<%-- 로그인 한 경우 신고 화면으로 --%>
 							<c:otherwise>
-								<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;" 
-									 onclick="location.href='go_repot.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&members_idx=${sessionScope.loginMember.members_idx}'">
+								<form name="repot_form" action="go_repot.do" style="display: inline-block;">
+									<a onclick="repot()">
+										<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;">
+									</a>
+									<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
+									<input type="hidden" name="members_idx" value="${sessionScope.loginMember.members_idx}">
+								</form>
 							</c:otherwise>
 						</c:choose>
 					</div>

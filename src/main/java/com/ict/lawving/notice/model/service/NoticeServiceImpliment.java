@@ -74,11 +74,6 @@ public class NoticeServiceImpliment implements NoticeService {
 	}
 
 	@Override
-	public void chklistdelete(String chkdel) {
-		noticeDao.chklistdelete(chkdel);
-	}
-
-	@Override
 	public int deleteNotice(int notice_idx) {
 		return noticeDao.deleteNotice(notice_idx);
 	}
@@ -91,6 +86,12 @@ public class NoticeServiceImpliment implements NoticeService {
 	@Override
 	public NoticeVo selectNoticeAfter(int notice_idx) {
 		return noticeDao.selectNoticeAfter(notice_idx);
+	}
+
+	@Override
+	public void chkdeleteNotice(String chkdel) {
+		noticeDao.chkdeleteNotice(chkdel);
+		
 	}
 
 	

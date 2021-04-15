@@ -60,13 +60,18 @@
 <body>
 	<c:import url="../header.jsp"/>
 	<article>
-		<div class="category" style="margin: auto;">
-			Question and answer
-			<h2><a href="list_qna.do">Q&#38;A</a></h2>
-			<br>
-			<img alt="" src="resources/images/qna.png" style="padding-left: 6px;">
+		<div class="category">
+			<table>
+				<tr>
+					<td rowspan="2" style="width: 10%">
+						<img src="resources/images/qna.png" style="padding-right: 10px;">
+					</td>
+					<td>Question and answer</td>
+				</tr>
+				<tr><td><h2><a href="list_qna.do">Q&#38;A</a></h2></td></tr>
+			</table>
 		</div>
-		<br><br><br><br>
+		<br>
 		<div class="box">
 			<form action="search_qna.do" method="post">
 				<table>
@@ -94,6 +99,7 @@
 				</table>
 			</form>
 		</div>
+		<br>
 		<%-- 사용자가 관리자일 때 전체선택, 선택삭제 버튼 --%>
 		<c:if test="${sessionScope.loginMember.members_lev=='2'}">
 			<div class="box">
@@ -102,6 +108,7 @@
 				<button class="select_delete" onclick="chkdelete()">선택삭제</button>
 				<br>
 			</div>
+			<br>
 		</c:if>
 		<%-- 검색결과를 볼 때 검색 키워드 안내 --%>
 		<c:if test="${!empty requestScope.searchObject}">
@@ -110,8 +117,8 @@
 		<div class="box">
 			<table class="list">
 				<thead>
-					<tr class="list">
-						<th>No.</th>
+					<tr>
+						<th>번호</th>
 						<th>카테고리</th>
 						<th>제목</th>
 						<th>상태</th>
@@ -142,7 +149,7 @@
 										<c:choose>
 											<%-- 자신의 것이 아닌 비공개 글 --%>
 											<c:when test="${list.qna_view=='비공개' && list.members_idx!=loginMember.members_idx}">
-												<td>${vs.count}</td>
+												<td>${list.qna_idx}</td>
 												<td>${list.qna_category}</td>
 												<td>비밀글은 로그인 한 본인만 열람 가능합니다.</td>
 												<td>${list.qna_status}</td>
@@ -151,7 +158,7 @@
 											</c:when>
 											<%-- 공개글 혹은 자신의 비공개글 --%>
 											<c:otherwise>
-												<td>${vs.count}</td>
+												<td>${list.qna_idx}</td>
 												<td>${list.qna_category}</td>
 												<td>
 													<c:url var="onelist" value="onelist_qna.do">
@@ -170,7 +177,7 @@
 									<c:if test="${sessionScope.loginMember.members_lev=='2'}">
 										<td>
 											<input type="checkbox" name="Rowcheck" value="${list.qna_idx}">
-											${vs.count}
+											${list.qna_idx}
 										</td>
 										<td>${list.qna_category}</td>
 										<td>

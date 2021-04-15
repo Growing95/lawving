@@ -31,6 +31,9 @@
 	<delete id="deleterepot" parameterType="String" >
 		delete from repot where qna_idx=#{qna_idx}
 	</delete>
+	<select id="chkRepot" parameterType="RepotVo" resultType="int">
+		select count(*) from repot where qna_idx = #{qna_idx} and members_idx = #{members_idx}
+	</select>
 </mapper>
 
 

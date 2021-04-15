@@ -22,10 +22,10 @@ public interface NoticeService {
 	NoticeVo selectOneList(int notice_idx);
 	int insertNotice(NoticeVo notice);
 	int updateNotice(NoticeVo notice);
-	void chklistdelete(String string);
 	int deleteNotice(int notice_idx);
 	NoticeVo selectNoticeBefore(int notice_idx);
 	NoticeVo selectNoticeAfter(int notice_idx);
+	void chkdeleteNotice(String chkdel);
 	
 	
 }

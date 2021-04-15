@@ -9,4 +9,5 @@ public interface RepotService {
 	List<RepotVo> getList(int begin, int end);
 	int insertrepot(RepotVo rvo);
 	int getdelete(String qna_idx);
+	int chkRepot(RepotVo repotVo);
 }

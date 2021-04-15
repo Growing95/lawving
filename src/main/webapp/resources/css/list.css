@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /* 전체 화면 높이 */
-body { height: 100vh; margin: 0px; }
-article { height: 100%; }
+body { min-height: 100vh; max-height: unset; margin: 0px; }
+article { min-height: 100%; max-height: unset; padding-bottom: 100px; }
 /* div 기본 크기 */
 .box { margin: auto; width: 800px; }
 /* 게시판 이름 박스 */
-.category { margin: 10px auto; width: 800px; text-align: left;}
+.category { margin: auto; width: 800px; text-align: left;}
 h2 { margin: 0px; }
 a { text-decoration: none; color: black; }
 /* table 기본 크기 */
