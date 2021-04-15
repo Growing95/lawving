@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/* 전체 화면 높이 */
+body { height: 100vh; margin: 0px; }
+article { height: 100%; }
+/* 게시판 이름 박스 */
+.category { margin: auto; margin-bottom: 30px; width: 800px; text-align: left;}
+h2 { margin: 0px; }
+a { text-decoration: none; color: black; }
+table { margin: auto; width: 800px; text-align: left; }
+/* 불러오기 버튼 */
+.call_btn_td { text-align: right; }
+textarea { width: 100% }
+/* 버튼 가운데정렬 */
+.btn { margin: 10px auto; text-align: center; }

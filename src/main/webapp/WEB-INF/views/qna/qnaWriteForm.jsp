@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Lawving</title>
+<link rel="stylesheet" type="text/css" href="resources/css/writeForm.css">
 <script type="text/javascript">
 	function saveTemp() {
 		localStorage.setItem('user_qna_category', document.insert_qna_form.qna_category.value);
@@ -24,7 +25,7 @@
 		} else if (document.insert_qna_form.qna_title.value == '') {
 			alert("제목을 입력하세요.");
 			return;
-		}else if (CKEDITOR.instances['qna_content'].getData() == '') {
+		} else if (CKEDITOR.instances['qna_content'].getData() == '') {
 			alert("내용을 입력하세요.");
 			return;
 		} else {
@@ -34,21 +35,20 @@
 </script>
 </head>
 <body>
-	<c:import url="../header.jsp" />
 	<article>
-		<div style="margin: 10px auto; width: 800px; text-align: left;">
+	<c:import url="../header.jsp" />
+		<div class="category">
 			Question and answer
-			<h2 style="margin: 0px;">
-				<a href="list_qna.do" style="text-decoration: none; color: black;">Q&#38;A</a>
-			</h2>
+			<h2><a href="list_qna.do">Q&#38;A</a></h2>
 		</div>
 		<form name="insert_qna_form" action="insert_qna.do" method="post">
-			<table style="margin: 10px auto; width: 800px; text-align: left;">
+			<table>
 				<tr>
-					<td colspan="4" style="text-align: right;">
+					<td colspan="4" class="call_btn_td">
 						<input type="button" value="불러오기" onclick="callSave()">
 					</td>
 				</tr>
+				<tr><td colspan="4">&nbsp;</td></tr>
 				<tr>
 					<th style="width: 10%;">카테고리</th>
 					<td style="width: 10%;">
@@ -67,14 +67,14 @@
 				<tr>
 					<td colspan="4">
 						<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-						<textarea name="qna_content" style="width: 100%"></textarea>
+						<textarea name="qna_content"></textarea>
 						<script>
 							CKEDITOR.replace('qna_content');
 						</script>
 					</td>
 				</tr>
 				<tr><td colspan="4">&nbsp;</td></tr>
-				<tr style="text-align: center;">
+				<tr class="btn">
 					<th colspan="4">
 						<input type="button" value="목록" 
 							   onclick="location.href='list_qna.do?cPage=${requestScope.cPage}'">&nbsp; 

@@ -1,4 +1,7 @@
 @charset "UTF-8";
+/* 전체 화면 높이 */
+body { height: 100vh; margin: 0px; }
+article { height: 100%; }
 /* div 기본 크기 */
 .box { margin: auto; width: 800px; }
 /* 게시판 이름 박스 */

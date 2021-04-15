@@ -58,8 +58,8 @@
 </script>
 </head>
 <body>
-	<c:import url="../header.jsp"/>
 	<article>
+	<c:import url="../header.jsp"/>
 		<div class="category" style="margin: auto;">
 			Question and answer
 			<h2><a href="list_qna.do">Q&#38;A</a></h2>
@@ -94,7 +94,7 @@
 				</table>
 			</form>
 		</div>
-		<%-- 사용자가 관리자일 때 리스트 상태 전환 버튼, 선택삭제 버튼 --%>
+		<%-- 사용자가 관리자일 때 전체선택, 선택삭제 버튼 --%>
 		<c:if test="${sessionScope.loginMember.members_lev=='2'}">
 			<div class="box">
 				<input type="checkbox" id="chkall" name="chkall">
@@ -249,7 +249,6 @@
 				</tfoot>
 			</table>
 		</div>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</article>
 </body>
 </html>

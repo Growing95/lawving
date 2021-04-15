@@ -1,4 +1,7 @@
 @charset "UTF-8";
+/* 전체 화면 높이 */
+body { height: 100vh; margin: 0px; }
+article { height: 100%; }
 /* 게시판 이름 박스 */
 .category { margin: auto; margin-bottom: 30px; width: 800px; text-align: left;}
 h2 { margin: 0px; }
