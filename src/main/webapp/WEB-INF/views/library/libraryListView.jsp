@@ -8,14 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/css/list.css">
-<style type="text/css">
-body { height: 100vh; margin: 0px; }
-article { height: 100%; background-color: White; }
-</style>
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-$(function () {
+$(function () { 
 	var chkObj= document.getElementsByName("Rowcheck");
 	var chkNum=chkObj.length;
 	$("input[name='chkall']").click(function() {
