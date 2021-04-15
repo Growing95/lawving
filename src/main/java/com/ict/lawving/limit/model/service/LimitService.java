@@ -20,6 +20,7 @@ public interface LimitService {
 	int insertinfo(LimitVo lvo);
 	int chkcount(LimitVo lvo);
 	void chkblackdelete(String string);
+	int deleteOneLimit(String id);
 
 	
 	

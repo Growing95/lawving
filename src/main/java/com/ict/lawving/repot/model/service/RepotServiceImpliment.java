@@ -48,4 +48,9 @@ public class RepotServiceImpliment implements RepotService{
 	public int chkRepot(RepotVo repotVo) {
 		return repotDao.chkRepot(repotVo);
 	}
+
+	@Override
+	public int deleteAll(String members_idx) {
+		return repotDao.delteAll(members_idx);
+	}
 }

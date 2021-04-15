@@ -10,4 +10,5 @@ public interface RepotService {
 	int insertrepot(RepotVo rvo);
 	int getdelete(String qna_idx);
 	int chkRepot(RepotVo repotVo);
+	int deleteAll(String members_idx);
 }

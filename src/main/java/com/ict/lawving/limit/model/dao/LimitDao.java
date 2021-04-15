@@ -76,6 +76,10 @@ public class LimitDao {
 		
 	}
 
+	public int deleteOneLimit(String id) {
+		return sqlSession.delete("delete",id);
+	}
+
 	
 
 }

@@ -37,7 +37,7 @@
 		select count(*) from limit where members_idx=#{members_idx}
 	</select>
 	<insert id="insert" parameterType="LimitVo">
-		insert into limit values(#{members_idx},#{limit_id},1,#{reg},sysdate)
+		insert into limit values(#{members_idx},#{limit_id},#{limit_reg},sysdate)
 	</insert>	
 	<update id="update" parameterType="LimitVo">
 		update limit set limit_count=limit_count + 1 where members_idx=#{members_idx}
@@ -48,6 +48,9 @@
 	<update id="chkblackdelete" parameterType="String">
 		update limit set limit_count=limit_count - 1  where members_idx=#{members_idx}
 	</update>
+	<delete id="delete" parameterType="String">
+		delete from limit where members_idx=#{members_idx}
+	</delete>
 </mapper>
 
 

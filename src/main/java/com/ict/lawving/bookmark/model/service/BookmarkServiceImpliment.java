@@ -44,6 +44,11 @@ public class BookmarkServiceImpliment implements BookmarkService{
 		return bookmarkDao.selectBookmarkList(members_idx,begin,end);
 	}
 
+	@Override
+	public int deleteAllBookmark(String members_idx) {
+		return bookmarkDao.deleteAllbookmark(members_idx);
+	}
+
 
 
 	

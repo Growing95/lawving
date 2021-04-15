@@ -179,4 +179,8 @@ public class QnaDao {
 		int result = sqlSession.selectOne("qnaMapper.selectQnaIdx", qna_idx);
 		return result;
 	}
+
+	public int deleteAll(String members_idx) {
+		return sqlSession.delete("qnaMapper.repotdeleteAll",members_idx);
+	}
 }

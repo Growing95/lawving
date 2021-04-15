@@ -29,6 +29,9 @@
 	<delete id="onedelete_bookmark" parameterType="String">
 	delete from bookmark where bookmark_idx = #{bookmark_idx}
 	</delete>
+	<delete id="deleteAll" parameterType="String">
+	delete from bookmark where members_idx=#{members_idx}
+	</delete>
 	
 </mapper>
 

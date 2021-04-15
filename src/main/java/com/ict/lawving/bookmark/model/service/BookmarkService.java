@@ -11,6 +11,7 @@ int getTotalCount(String members_idx);
 BookmarkVo onelistbookmark(String bookmark_idx);
 int deleteBookmark(String bookmark_idx);
 public abstract ArrayList<BookmarkVo> selectBookmarklist(String members_idx, int begin, int end);
+int deleteAllBookmark(String members_idx);
 
  
 }
