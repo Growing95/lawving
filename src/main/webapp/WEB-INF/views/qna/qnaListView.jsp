@@ -228,7 +228,7 @@
 											</c:when>
 											<%-- 검색하고서 페이지 이동 --%>
 											<c:otherwise>
-												<c:url var="search" value="search_qna_get.do">
+												<c:url var="search" value="search_qna.do">
 													<c:param name="cPage" value="${k}"/>
 													<c:param name="status" value="${searchObject.status}"/>
 													<c:param name="order" value="${searchObject.order}"/>

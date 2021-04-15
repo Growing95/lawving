@@ -82,16 +82,7 @@ public class QnaController {
 	
 //	QNA 검색
 //	검색했을 때 다음 페이지로 이동
-	@RequestMapping(value = "search_qna_get.do", method = RequestMethod.GET)
-	public String searchQuestionMethod_get(
-			@ModelAttribute("status")String status,
-			@ModelAttribute("order")String order,
-			@ModelAttribute("keyword")String keyword,
-			@ModelAttribute("cPage")String cPage
-			) {
-		return "redirect:search_qna.do";
-	}
-	@RequestMapping(value = "search_qna.do", method = RequestMethod.POST)
+	@RequestMapping("search_qna.do")
 	public String searchQuestionMethod(
 			@RequestParam("status") String status, 
 			@RequestParam("order") String order,
