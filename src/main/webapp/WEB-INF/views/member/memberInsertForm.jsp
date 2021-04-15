@@ -117,6 +117,7 @@ function dupidCheck(){
 <script>
 $(function(){
 	$("#sendmail").click(function(){
+
 		if($.trim($("#members_email").val())==''){
 		      alert("이메일을 입력해주세요.");
 		      return false;
@@ -142,7 +143,6 @@ $(function(){
 				}
 			},
 		})
-		
 	});
 	$("#codeok").click(function() {
 		var code = $("#emailcode").val();
