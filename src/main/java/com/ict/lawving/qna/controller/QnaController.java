@@ -54,12 +54,7 @@ public class QnaController {
 			}
 			// 3. 현재 페이지
 			String cPage= request.getParameter("cPage");
-			
-			System.out.println("cPage : "+cPage);
-			
-			if (cPage == null) {
-				paging.setNowPage(1);
-			} else if (cPage == "") {
+			if (cPage==null || cPage.isEmpty()) {
 				paging.setNowPage(1);
 			} else {
 				paging.setNowPage(Integer.parseInt(cPage));
@@ -122,7 +117,7 @@ public class QnaController {
 			}
 			// 3. 현재 페이지
 			String cPage = request.getParameter("cPage");
-			if (cPage == null) {
+			if (cPage==null || cPage.isEmpty()) {
 				paging.setNowPage(1);
 			} else {
 				paging.setNowPage(Integer.parseInt(cPage));
@@ -207,7 +202,7 @@ public class QnaController {
 			model.addAttribute("qnaOnelist", qnaOnelist);
 			return "qna/qnaOneList";
 		} else {
-			model.addAttribute("msg", "선택한 글로 이동하지 못했습니다.");
+			model.addAttribute("message", "선택한 글로 이동하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -226,12 +221,8 @@ public class QnaController {
 			QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
 			String view = qnaOnelist.getQna_view();
 			String qna_members_idx = qnaOnelist.getMembers_idx();
-//			회원이 남이 쓴 비공개글 조회 시도
+//			남이 쓴 비공개글 조회 시도
 			if (view.equals("비공개") && members_idx != qna_members_idx) {
-				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
-				out.flush();
-//			로그인 안한 사용자의 비공개글 조회시도
-			} else if (view.equals("비공개") && members_idx.isEmpty()) {
 				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
 				out.flush();
 //			공개글 조회
@@ -269,10 +260,6 @@ public class QnaController {
 			if (view.equals("비공개") && members_idx != qna_members_idx) {
 				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
 				out.flush();
-//			로그인 안한 사용자의 비공개글 조회시도
-			} else if (view.equals("비공개") && members_idx.isEmpty()) {
-				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
-				out.flush();
 //			공개글 조회
 			} else {
 //				조회수 + 1 
@@ -303,7 +290,7 @@ public class QnaController {
 			QnaVo qna, HttpServletRequest request, Model model) {
 //		private 선택 여부 확인
 		String qna_view_private = request.getParameter("private");
-		if (qna_view_private=="private") {
+		if (qna_view_private.equals(qna_view_private)) {
 			qna.setQna_view("비공개");
 		} else {
 			qna.setQna_view("공개");
@@ -318,7 +305,7 @@ public class QnaController {
 		if (result>0) {
 			return "redirect:list_qna.do";
 		} else {
-			model.addAttribute("msg", "문의글을 작성하지 못했습니다.");
+			model.addAttribute("message", "문의글을 작성하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -334,7 +321,7 @@ public class QnaController {
 		int result =  qnaService.deleteQuestion(qna_idx);
 		if (result>0) {
 //			로그인 한 유저가 회원이라면 목록으로 돌아간다.
-				if (members_lev == "1") {
+				if (members_lev.equals("1")) {
 					return "redirect:list_qna.do";
 //			로그인 한 유저가 관리자라면 insert_limitmember.do로 redirect한다.
 				} 
@@ -344,7 +331,7 @@ public class QnaController {
 //					return "redirect:insert_limitmember.do?member_idx=" + members_idx;
 				}
 		} else {
-			model.addAttribute("msg", "문의글을 삭제하지 못했습니다.");
+			model.addAttribute("message", "문의글을 삭제하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -372,7 +359,7 @@ public class QnaController {
 		if (result>0) {
 			return "redirect:onelist_qna.do";
 		} else {
-			model.addAttribute("msg", "답변을 삭제하지 못했습니다.");
+			model.addAttribute("message", "답변을 삭제하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}

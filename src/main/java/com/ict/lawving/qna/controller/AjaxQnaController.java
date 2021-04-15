@@ -38,7 +38,7 @@ public class AjaxQnaController {
 //			jsonView 가 리턴됨
 			return sendJson.toJSONString();
 		} else {
-			model.addAttribute("msg", "답변을 입력하지 못했습니다.");
+			model.addAttribute("message", "답변을 입력하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
