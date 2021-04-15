@@ -110,7 +110,7 @@ public class MembersServiceImpliment implements MembersService{
 			email.setHtmlMsg(msg);
 			email.send();
 		} catch (Exception e) {
-			System.out.println("메일발송 실패 : " + e);
+			System.out.println("임시비번메일발송 실패 : " + e);
 		}
 		
 	}

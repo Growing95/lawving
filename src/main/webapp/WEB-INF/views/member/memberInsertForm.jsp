@@ -47,6 +47,7 @@ z-index:200;
 #msg{display: block; margin-top: 20px;}
 .w3-input{width: 300px; display: inline-block; margin-top: 20px;}
 button{background: #212529;}
+p{text-align: left;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -112,6 +113,9 @@ function dupidCheck(){
 <script>
 $(function(){
 	$("#sendmail").click(function(){
+		if(($("members_email").val())==null){
+			alert("인증번호를 확인할 이메일을 입력해주세요");
+		}else{
 		$.ajax({
 			url : "email.do",
 			type : "POST",
@@ -133,6 +137,7 @@ $(function(){
 				}
 			},
 		})
+		}
 	});
 	$("#codeok").click(function() {
 		var code = $("#emailcode").val();
@@ -149,56 +154,9 @@ $(function(){
 </script>
 </head>
 <body>
+<article>
 	<c:import url="/WEB-INF/views/header.jsp" />
-<!-- 	
-	<h1 align="center">회원가입</h1>
-	
-	<div class="outer" align="center">
-		<form  action="anroll.do" method="post" onsubmit="return validate()">
-			<table width="500" cellspacing="5">
-				<tr><td id="msg" width="150">*아이디</td><td><input type="text" name="members_id" id="userid" required> &nbsp;<input type="button" value="중복체크"onclick="return dupidCheck();">
-				<input type="hidden" id="idcheck" value="0">
-				<input type="hidden" id="emailcheck" value="0">
-				</td></tr>
-				<tr>
-					<td>* 이름</td>
-					<td><input type="text" name="members_name" id="name" required ></input></td>
-				</tr>
-				<tr>
-					<td>* 비밀번호</td>
-					<td><input type="password" name="members_pw" id="userpwd" required></td>
-				</tr>
-				<tr>
-					<td>* 비밀번호확인</td>
-					<td><input type="password" name="pw2" id="userpwd2" required></td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td><input type="email" name="members_email" id="members_email"><button type="button" id="sendmail">이메일인증</button></td>
-				</tr>
-				<tr>
-					<td>인증코드</td>
-					<td><input type="text" name="emailcode" id="emailcode"><button type="button" id="codeok">인증코드확인</button></td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td><input type="number" name="members_birth" placeholder="yyyymmdd"></td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td><input type="tel" name="members_tel" id="members_tel"></td>
-				</tr>
-				jQuery와 Postcodify를 로딩한다.
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="회원가입">
-						&nbsp;
-						<input type="reset" value="취소하기">
-					</td>
-				</tr>
-			</table>
-		</form> -->
-		<!--  -->
+
 		<div class="w3-content w3-container w3-margin-top">
 		<div class="w3-container w3-card-4 w3-auto" style="width: 600px;height: auto;">
 			<form  action="anroll.do" method="post" onsubmit="return validate()">
@@ -275,5 +233,6 @@ $(function(){
 		<br>
 		<br>
 	</div>
+	</article>
 </body>
 </html>

@@ -1,17 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>LAWVING_BOOKMARK</title>
 <style type="text/css">
-article {
-	height: 0 auto;
-	background-color: #85929E;
-	border-radius: 20px;
-}
 .table{
 	background-color: #27496b; width: 600px; height: auto; margin: 0 auto; border-radius: 20px; 
 	border-collapse:collapse;
@@ -21,25 +15,41 @@ article {
 td{
 text-align: center;
 }
-h2{background: darkgray;
+a { text-decoration: none; color: black; }
+bc{background: darkgray;
     border-radius: 20px;}
     #answer{font-weight: bold;}
+    body { height: 100vh; margin: 0px; }
+article { height: 100%;}
+section{background-color: #ffe6002e;
+border-radius: 100px;
+    width: 80%;
+    margin: auto;
+    min-width: 800px;
+    min-height: 800px;
+}
+.category { margin: 10px auto; width: 800px; text-align: left;}
 </style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/header.jsp" />
 <article>
-<center><h1 style="font-size: 40px;">BOOK MARK</h1></center>
-<center><h1 style="font-size: 20px;">상세보기</h1></center>
+<section>
+		<div class="category" style="margin: auto;">
+			BOOKMARK
+			<h2><a href="list_qna.do">북마크 상세보기</a></h2>
+			<br>
+			<img alt="" src="resources/images/bookmark.png" style="padding-left: 6px;">
+		</div>
 <table class='table'>
 <tbody>
 <c:choose>
 <c:when test="${!empty bookmark}">
-		<tr><td colspan='2'><h2>카테고리</td></tr>
+		<tr><td colspan='2'><h2 class="bc">카테고리</td></tr>
 		<tr><td>${bookmark.bookmark_category}</td></tr>
-		<tr><td colspan='2'><h2>질문</td></tr>
+		<tr><td colspan='2'><h2 class="bc">질문</td></tr>
 		<tr><td>${bookmark.bookmark_question}</td></tr>
-		<tr><td colspan='2' ><h2>답변</td></tr>
+		<tr><td colspan='2' ><h2 class="bc">답변</td></tr>
 		<tr><td id="answer">${bookmark.bookmark_answer}</td></tr>
 </c:when>
 <c:otherwise>
@@ -50,7 +60,8 @@ h2{background: darkgray;
 <input type='button' id='delete' value='삭제' onclick="location.href='delete_bookmark.do?bookmark_idx=${bookmark.bookmark_idx}&members_idx=${loginMember.members_idx}'" /></td></tr>
 </tbody>
 </table>
-<br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
+</section>
 </article>
 </body>
 </html>

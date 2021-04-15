@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="resources/css/list.css?1=1">
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 <style type="text/css">
 body {
 	height: 100vh;
