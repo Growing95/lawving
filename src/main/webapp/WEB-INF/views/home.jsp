@@ -111,6 +111,8 @@ ul {
 .visible {
   z-index: 100 !important;
   opacity: 1 !important;
+  font-size: 40px;
+    font-weight: bold;
 }
 
 .shape-circle {
@@ -328,10 +330,10 @@ function golaw() {
 <!--Navbar Links-->
 <nav id="nav">
   <ul>
-    <li class="shape-circle circle-one"><a href="list_lawdata.do?law=부동산">부동산</a></li>
-    <li class="shape-circle circle-two"><a href="list_lawdata.do?law=상속">상속</a></li>
-    <li class="shape-circle circle-three"><a href="list_lawdata.do?law=임금">임금</a></li>
-    <li class="shape-circle circle-five"><a href="list_lawdata.do?law=해고">해고</a></li>
+    <li class="shape-circle circle-one"><a href="list_lawdata.do?law=부동산"><img src="resources/images/house.png"> 부동산</a></li>
+    <li class="shape-circle circle-two"><a href="list_lawdata.do?law=상속"><img src="resources/images/money.png"> 상속</a></li>
+    <li class="shape-circle circle-three"><a href="list_lawdata.do?law=임금"><img src="resources/images/pay.png">임금</a></li>
+    <li class="shape-circle circle-five"><a href="list_lawdata.do?law=해고"><img src="resources/images/fired.png">해고</a></li>
   </ul>
 </nav>
 
