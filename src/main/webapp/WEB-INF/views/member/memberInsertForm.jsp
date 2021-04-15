@@ -83,7 +83,7 @@ function dupidCheck(){
 	      alert("아이디를 입력해주세요.");
 	      return false;
 	    }
-	$("#msg").empty();
+	$("#msg").empty(); 
 	$.ajax({  
 		url:"idCheck.do",
 		method:"post",
