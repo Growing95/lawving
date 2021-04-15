@@ -230,7 +230,7 @@ table tfoot ol.paging li a:hover {
 											<c:param name="members_idx" value="${r.members_idx}" />
 										</c:url>
 										<td><a href="${mol }">${r.limit_id }</a></td>
-										<td>${r.reg }</td>
+										<td>${r.limit_reg }</td>
 										<td>${r.limit_count }</td>
 									</tr>
 								</c:forEach>
