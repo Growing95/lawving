@@ -34,7 +34,7 @@ public class NoticeDao {
 		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchTitleDesc", map);
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
-
+ 
 	public ArrayList<NoticeVo> selectSearchTitleAsc(NoticeSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", searchObject.getKeyword());
@@ -126,6 +126,11 @@ public class NoticeDao {
 
 	public void chkdeleteNotice(String chkdel) {
 		sqlSession.delete("noticeMapper.chkdeleteNotice", chkdel);
+		
+	}
+
+	public int nonextNotice(NoticeVo noticeVo) {
+		return sqlSession.selectOne("noticeMapper.nonext", noticeVo);
 		
 	}
 

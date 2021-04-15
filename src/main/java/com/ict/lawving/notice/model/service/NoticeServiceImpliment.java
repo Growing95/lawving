@@ -94,6 +94,13 @@ public class NoticeServiceImpliment implements NoticeService {
 		
 	}
 
+	@Override
+	public int nonext(NoticeVo noticeVo) {
+		return noticeDao.nonextNotice(noticeVo);
+	}
+
+	
+
 	
 
 }
