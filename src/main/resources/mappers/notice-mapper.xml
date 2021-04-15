@@ -97,7 +97,7 @@
  	<!-- 글쓰기 -->
  	<insert id="insertNotice" parameterType="NoticeVo">
 		insert into notice
-		values (notice_seq.nextval,2, #{ notice_title },#{notice_writer}, #{notice_content}, 
+		values (notice_seq.nextval,1, #{ notice_title },#{notice_writer}, #{notice_content}, 
 		#{ notice_file_name },#{ notice_refile_name },sysdate)
 	</insert>
 	<!-- 글수정 -->
@@ -135,4 +135,8 @@
 	<delete id="chkdeleteNotice" parameterType="String">
  		DELETE FROM NOTICE WHERE notice_idx = #{chkdel}
  	</delete>
+ 	
+ 	<select id="nonext" parameterType="NoticeVo" resultType="int">
+		select count(*) from notice where notice_idx = #{notice_idx} and members_idx = #{members_idx}
+	</select>
 </mapper>

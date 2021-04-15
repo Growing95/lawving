@@ -129,4 +129,9 @@ public class NoticeDao {
 		
 	}
 
+	public int nonextNotice(NoticeVo noticeVo) {
+		return sqlSession.selectOne("noticeMapper.nonext", noticeVo);
+		
+	}
+
 }

@@ -40,7 +40,7 @@
 			<div class="category">
 				NOTICE
 				<h2>
-					<a href="list_notice.do">공지사항</a>
+					<a href="onelist_notice.do">공지사항</a>
 				</h2>
 			</div>
 		<br>
@@ -68,12 +68,12 @@
 		<div class="n_file">첨부파일
 			<c:if test="${ !empty nvo.notice_file_name }">
 					<%-- 첨부파일이 있다면 다운로드 설정함 --%>
-					<c:url var="dnd" value="/download_notice.do">
+					<c:url  var="dnd" value="/download_notice.do">
 						<c:param name="ofile" value="${ nvo.notice_file_name }" />
 						<c:param name="rfile" value="${ nvo.notice_refile_name }" />
 					</c:url>
-					<a href="${ dnd }">${nvo.notice_file_name }</a>
-				</c:if> <c:if test="${ empty nvo.notice_file_name }">&nbsp;</c:if></div>
+					<a style="color: blue;" href="${ dnd }">${nvo.notice_file_name }</a>
+				</c:if> <c:if test="${ empty nvo.notice_file_name }">&nbsp;파일없음</c:if></div>
 		
 		<div>
 			<!-- 내용 -->

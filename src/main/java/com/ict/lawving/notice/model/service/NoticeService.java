@@ -26,6 +26,7 @@ public interface NoticeService {
 	NoticeVo selectNoticeBefore(int notice_idx);
 	NoticeVo selectNoticeAfter(int notice_idx);
 	void chkdeleteNotice(String chkdel);
+	int nonext(NoticeVo noticeVo);
 	
 	
 }

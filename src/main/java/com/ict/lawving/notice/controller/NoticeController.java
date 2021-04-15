@@ -1,6 +1,8 @@
 package com.ict.lawving.notice.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -308,16 +311,22 @@ public class NoticeController {
 
 //	notice 이전 글 보기
 	@RequestMapping("before_notice.do")
-	public String selectnoticeBeforeMethod(@RequestParam("notice_idx") int notice_idx,
-			@ModelAttribute("cPage") String cPage, Model model) {
-		System.out.println("notice_idx : " + notice_idx);
-		System.out.println("cPage : " + cPage);
+	public String selectnoticeBeforeMethod(
+			@RequestParam("notice_idx") int notice_idx,
+			HttpServletResponse response,
+			@ModelAttribute("cPage") String cPage, 
+			Model model)  throws IOException {
+	      response.setContentType("text/html; charset=UTF-8");
+	      PrintWriter out = response.getWriter();
+
+		// 이전글 가져오기
 		try {
 			NoticeVo noticeOnelist = noticeService.selectNoticeBefore(notice_idx);
 			model.addAttribute("noticeOnelist", noticeOnelist);
 			return "redirect:onelist_notice.do?notice_idx=" + noticeOnelist.getNotice_idx();
-
 		} catch (Exception e) {
+			out.println("<script>alert('이전 글이 없습니다.'); history.go(-1);</script>");
+	        out.flush();
 			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
 		}
 	}
@@ -326,7 +335,8 @@ public class NoticeController {
 	@RequestMapping("after_notice.do")
 	public String selectnoticeAfterMethod(@RequestParam("notice_idx") int notice_idx,
 			@ModelAttribute("cPage") String cPage, Model model) {
-//		다음 글 가져오기
+
+//	다음 글 가져오기
 		try {
 			NoticeVo noticeOnelist = noticeService.selectNoticeAfter(notice_idx);
 			model.addAttribute("noticeOnelist", noticeOnelist);
