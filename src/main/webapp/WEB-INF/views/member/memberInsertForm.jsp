@@ -79,9 +79,13 @@ function validate() {
 }
 //id중복확인용 함수
 function dupidCheck(){
-	$("#msg").empty();
-	$.ajax({
-		url:"idCheck.do",
+	if($.trim($("#userid").val())==''){
+	      alert("아이디를 입력해주세요.");
+	      return false;
+	    }
+	$("#msg").empty(); 
+	$.ajax({  
+		url:"idCheck.do",  
 		method:"post",
 		data:{members_id: $("#userid").val()},
 		success: function(data) {
@@ -113,6 +117,11 @@ function dupidCheck(){
 <script>
 $(function(){
 	$("#sendmail").click(function(){
+
+		if($.trim($("#members_email").val())==''){
+		      alert("이메일을 입력해주세요.");
+		      return false;
+		    }
 		$.ajax({
 			url : "email.do",
 			type : "POST",
