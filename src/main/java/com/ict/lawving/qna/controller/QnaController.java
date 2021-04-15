@@ -202,7 +202,7 @@ public class QnaController {
 			model.addAttribute("qnaOnelist", qnaOnelist);
 			return "qna/qnaOneList";
 		} else {
-			model.addAttribute("msg", "선택한 글로 이동하지 못했습니다.");
+			model.addAttribute("message", "선택한 글로 이동하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -305,7 +305,7 @@ public class QnaController {
 		if (result>0) {
 			return "redirect:list_qna.do";
 		} else {
-			model.addAttribute("msg", "문의글을 작성하지 못했습니다.");
+			model.addAttribute("message", "문의글을 작성하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -331,7 +331,7 @@ public class QnaController {
 //					return "redirect:insert_limitmember.do?member_idx=" + members_idx;
 				}
 		} else {
-			model.addAttribute("msg", "문의글을 삭제하지 못했습니다.");
+			model.addAttribute("message", "문의글을 삭제하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
@@ -359,7 +359,7 @@ public class QnaController {
 		if (result>0) {
 			return "redirect:onelist_qna.do";
 		} else {
-			model.addAttribute("msg", "답변을 삭제하지 못했습니다.");
+			model.addAttribute("message", "답변을 삭제하지 못했습니다.");
 			return "common/errorPage";
 		}
 	}
