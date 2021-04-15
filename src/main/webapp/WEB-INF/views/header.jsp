@@ -15,6 +15,7 @@
 #loginUI {
 	float: right;
 	margin-top: -150px;
+	margin-right:20%;
 	z-index: 5000;
 	position: relative;
 }
@@ -48,6 +49,7 @@ article {
 	margin: 0 auto;
 	text-align: center;
 	background-color: white;
+	height: 100%;
 }
 
 #toolmenu li a {

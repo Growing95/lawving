@@ -63,7 +63,10 @@
 		<div class="category" style="margin: auto;">
 			Question and answer
 			<h2><a href="list_qna.do">Q&#38;A</a></h2>
+			<br>
+			<img alt="" src="resources/images/qna.png" style="padding-left: 6px;">
 		</div>
+		<br><br><br><br>
 		<div class="box">
 			<form action="search_qna.do" method="post">
 				<table>

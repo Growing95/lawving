@@ -54,7 +54,6 @@ h2{background: darkgray;
 article{ background-color: white;}
 center{background-color: white;}
 header{background-color: lightgrey;}
-#loginUI{margin-right:20%;}
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
