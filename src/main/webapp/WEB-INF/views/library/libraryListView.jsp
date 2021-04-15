@@ -59,7 +59,10 @@ $(function () {
 		<div class="category">
 			Data
 		<h2><a href="llist.do">자료실</a></h2>
+		<br>
+			<img alt="" src="resources/images/library1.png" >
 	</div>
+	<br><br><br><br>
 	<!-- 검색기능 -->
 		<div class="box">
 			<form action="lsearch.do" method="post">
@@ -103,7 +106,7 @@ $(function () {
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
-				<th>날짜</th>
+			    <th>날짜</th>
 			</tr>
 		</thead>
 		<tbody>

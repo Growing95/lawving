@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/css/list.css?1=1">
+<style type="text/css">
+body{height: 100vh;}
+article{height: 80%;}
+</style>
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js">
 	
@@ -20,8 +24,10 @@
 		<div class="category" style="margin: auto;">
 				NOTICE
 			<h2><a href="nlist.do">공지사항</a></h2>
+			<br>
+		<img alt="" src="resources/images/notice.png" style="padding-left: 6px;">
 		</div>
-	<br>
+	<br><br><br><br>
 	<c:if test="${ loginMember.members_lev=='2'}">
 		<div style="align: center; padding-left: 400px;">
 			<c:url var="nwf" value="/notice_insert.do" />
@@ -34,7 +40,7 @@
 			<form action="nsearch.do" method="post">
 				<table>
 					<tr >
-						<td class="search_box_td">
+						<td>
 						<select name="category">
 								<option value="notice_title" selected>제목</option>
 								<option value="notice_content">내용</option>
@@ -50,7 +56,6 @@
 				</table>
 			</form>
 		</div>
-	<br>
 	<div style="align: center; padding-left: 400px;">
 		<c:url var="nlist" value="/nlist.do" />
 	</div>
@@ -95,45 +100,40 @@
 
 		<tfoot>
 			<tr>
-				<td colspan="4">
-					<ol class="paging">
-						<!-- 이전 -->
+				<td colspan="4" class="paging">
+					<!-- 이전 -->
+					<c:choose>
+						<c:when test="${paging.beginBlock <= paging.pagePerBlock}">
+							<span class="non_active">이전으로</span>
+						</c:when>
+						<c:otherwise>
+							<a href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a>
+						</c:otherwise>
+					</c:choose>
+					<!-- 블록안에 들어간 페이지번호들 -->
+					<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}" step="1" var="k">
+						<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
 						<c:choose>
-							<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
-								<li class="disable">이전으로</li>
+							<c:when test="${k==paging.nowPage }">
+								<span class="now">${k}</span>
 							</c:when>
 							<c:otherwise>
-								<li><a
-									href="nlist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
+								<a href="nlist.do?cPage=${k}">${k}</a>
 							</c:otherwise>
 						</c:choose>
-						<!-- 블록안에 들어간 페이지번호들 -->
-						<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
-							step="1" var="k">
-							<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
-							<c:choose>
-								<c:when test="${k==paging.nowPage }">
-									<li class="now">${k}</li>
-								</c:when>
-								<c:otherwise>
-									<li><a href="nlist.do?cPage=${k}">${k}</a></li>
-								</c:otherwise>
-							</c:choose>
 						</c:forEach>
 						<!-- 다음 -->
 						<c:choose>
 							<c:when test="${paging.endBlock >= paging.totalPage }">
-								<li class="disable">다음으로</li>
+								<span class="non_active">다음으로</span>
 							</c:when>
 							<c:otherwise>
-								<li><a
-									href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
+								<a href="nlist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a>
 							</c:otherwise>
 						</c:choose>
-					</ol>
-				</td>
-			</tr>
-		</tfoot>
+					</td>
+				</tr>
+			</tfoot>
 	</table>
 	</article>
 </body>
