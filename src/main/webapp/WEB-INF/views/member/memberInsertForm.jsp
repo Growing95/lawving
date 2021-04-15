@@ -113,9 +113,6 @@ function dupidCheck(){
 <script>
 $(function(){
 	$("#sendmail").click(function(){
-		if(($("members_email").val())==null){
-			alert("인증번호를 확인할 이메일을 입력해주세요");
-		}else{
 		$.ajax({
 			url : "email.do",
 			type : "POST",
@@ -137,7 +134,6 @@ $(function(){
 				}
 			},
 		})
-		}
 	});
 	$("#codeok").click(function() {
 		var code = $("#emailcode").val();

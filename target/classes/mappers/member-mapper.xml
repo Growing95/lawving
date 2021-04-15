@@ -28,14 +28,14 @@
 	</select>
 	<insert id="insertmembers" parameterType="MembersVo">
 		insert into members values(members_seq.nextval,#{members_id},#{members_pw},#{members_name},#{members_email},
-		#{members_birth},#{members_tel},1,sysdate)
+		#{members_birth},#{members_tel},1,#{members_address},sysdate)
 	</insert>
 	
 	<select id="selectlogin" parameterType="String" resultType="MembersVo">
 		select * from members where members_id=#{members_id}
 	</select>
 	<update id="updateMember" parameterType="MembersVo">
-		update members SET members_email=#{members_email},members_birth=#{members_birth},members_tel=#{members_tel}where members_id=#{members_id} 
+		update members SET members_email=#{members_email},members_birth=#{members_birth},members_tel=#{members_tel},members_address=#{members_address}where members_id=#{members_id} 
 	</update> 
 	
 	<delete id="delete_member" parameterType="String">
@@ -66,8 +66,12 @@
 		select members_reg from members where members_idx=#{members_idx}
 
 	</select>
-	<update id="chkblackdelete" parameterType="String">
-		
+	
+	<update id="updatelev" parameterType="String" >
+		update members set members_lev= 3 where members_idx=#{members_idx}
+	</update>
+	<update id="changelev" parameterType="String">
+		update members set members_lev = 1 where members_idx=#{members_idx}
 	</update>
 </mapper>
 
