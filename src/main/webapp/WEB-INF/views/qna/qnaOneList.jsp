@@ -110,13 +110,13 @@
 						<c:choose>
 							<%-- 로그인 하지 않은 경우 로그인 화면으로 --%>
 							<c:when test="${empty sessionScope.loginMember}">
-								<img class="repot_icon" src="resources/images/repot.png" onclick="location.href='go_login.do'">
+								<img class="repot_icon" src="resources/images/repot.png" onclick="location.href='go_login.do'" style="cursor: pointer;">
 							</c:when>
 							<%-- 로그인 한 경우 신고 화면으로 --%>
 							<c:otherwise>
 								<form name="repot_form" action="go_repot.do" style="display: inline-block;">
 									<a onclick="repot()">
-										<img src="resources/images/repot.png" style="height: 20px; vertical-align: middle;">
+										<img class="repot_icon" src="resources/images/repot.png" style="cursor: pointer;"">
 									</a>
 									<input type="hidden" name="qna_idx" value="${requestScope.qnaOnelist.qna_idx}">
 									<input type="hidden" name="members_idx" value="${sessionScope.loginMember.members_idx}">
@@ -231,9 +231,9 @@
 				</c:choose>
 			</div>
 			<div class="btn">
-				<button onclick="location.href='before_qna.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&cPage=${cPage}'">이전글</button>
+				<button onclick="location.href='before_qna.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&cPage=${cPage}&members_idx=${sessionScope.loginMember.members_idx}'">이전글</button>
 				<button onclick="location.href='list_qna.do?cPage=${cPage}'">목록</button>
-				<button onclick="location.href='after_qna.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&cPage=${cPage}'">다음글</button>
+				<button onclick="location.href='after_qna.do?qna_idx=${requestScope.qnaOnelist.qna_idx}&cPage=${cPage}&members_idx=${sessionScope.loginMember.members_idx}'">다음글</button>
 			</div>
 	</article>
 </body>

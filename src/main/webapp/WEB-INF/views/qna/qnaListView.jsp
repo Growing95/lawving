@@ -151,7 +151,7 @@
 											<c:when test="${list.qna_view=='비공개' && list.members_idx!=loginMember.members_idx}">
 												<td>${list.qna_idx}</td>
 												<td>${list.qna_category}</td>
-												<td>비밀글은 로그인 한 본인만 열람 가능합니다.</td>
+												<td class="non_active">비밀글은 로그인 한 본인만 열람 가능합니다.</td>
 												<td>${list.qna_status}</td>
 												<td>${list.qna_writer.substring(0,3)}***</td>
 												<td>${list.qna_reg.substring(0,10)}</td>
