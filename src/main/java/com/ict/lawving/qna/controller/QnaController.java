@@ -1,8 +1,11 @@
 package com.ict.lawving.qna.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -214,23 +217,38 @@ public class QnaController {
 	public String selectQuestionBeforeMethod(
 			@ModelAttribute("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
-			Model model) {
+			@RequestParam("members_idx")String members_idx,
+			Model model, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 //		이전 글 가져오기
 		try {
 			QnaVo qnaOnelist = qnaService.selectQuestionBefore(qna_idx);
-//		조회수 + 1 
-			int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
-			if (result>0) {
-//			DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
+			String view = qnaOnelist.getQna_view();
+			String qna_members_idx = qnaOnelist.getMembers_idx();
+//			회원이 남이 쓴 비공개글 조회 시도
+			if (view.equals("비공개") && members_idx != qna_members_idx) {
+				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
+				out.flush();
+//			로그인 안한 사용자의 비공개글 조회시도
+			} else if (view.equals("비공개") && members_idx.isEmpty()) {
+				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
+				out.flush();
+//			공개글 조회
+			} else {
+//				조회수 + 1 
+				int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
+//				DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
 				qnaOnelist.setQna_hit(qnaOnelist.getQna_hit() + 1);
 				model.addAttribute("qnaOnelist", qnaOnelist);
 				return "qna/qnaOneList";
-			} else {
-				return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 			}
+//		DB에 이전 글이 없을 때 catch
 		} catch (Exception e) {
-			return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
+			out.println("<script>alert('이전 글이 없습니다.'); history.go(-1);</script>");
+			out.flush();
 		}
+		return null;
 	}
 	
 //	QNA 다음 글 보기
@@ -238,26 +256,38 @@ public class QnaController {
 	public String selectQuestionAfterMethod(
 			@ModelAttribute("qna_idx")String qna_idx,
 			@ModelAttribute("cPage")String cPage,
-			Model model) {
+			@RequestParam("members_idx")String members_idx,
+			Model model, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 //		다음 글 가져오기
-		
 		try {
 			QnaVo qnaOnelist = qnaService.selectQuestionAfter(qna_idx);
-//		조회수 + 1 
-			int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
-			if (result>0) {
-//			DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
+			String view = qnaOnelist.getQna_view();
+			String qna_members_idx = qnaOnelist.getMembers_idx();
+//			회원이 남이 쓴 비공개글 조회 시도
+			if (view.equals("비공개") && members_idx != qna_members_idx) {
+				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
+				out.flush();
+//			로그인 안한 사용자의 비공개글 조회시도
+			} else if (view.equals("비공개") && members_idx.isEmpty()) {
+				out.println("<script>alert('비밀글입니다.'); history.go(-1);</script>");
+				out.flush();
+//			공개글 조회
+			} else {
+//				조회수 + 1 
+				int result = qnaService.updateQuestionHit(qnaOnelist.getQna_idx());
+//				DB에는 조회수 Update 했지만 이미 가져온 데이터는 아니기 때문에 1 더하여 전송
 				qnaOnelist.setQna_hit(qnaOnelist.getQna_hit() + 1);
 				model.addAttribute("qnaOnelist", qnaOnelist);
 				return "qna/qnaOneList";
-			} else {
-				model.addAttribute("msg", "다음 글로 이동하지 못했습니다.");
-				return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
 			}
-			
+//		DB에 다음 글이 없을 때 catch
 		} catch (Exception e) {
-			return "redirect:onelist_qna.do?qna_idx="+qna_idx ;
+			out.println("<script>alert('다음 글이 없습니다.'); history.go(-1);</script>");
+			out.flush();
 		}
+		return null;
 	}
 	
 //	QNA 문의 작성 페이지로 이동
