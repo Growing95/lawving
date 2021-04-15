@@ -32,6 +32,14 @@ z-index:200;
 <script>
 	$(function(){
 		$("#findBtn").click(function(){
+			if($.trim($("#name").val())==''){
+			      alert("아이디를 입력해주세요.");
+			      return false;
+			    }
+			if($.trim($("#email").val())==''){
+			      alert(" 이메일을 입력해주세요.");
+			      return false;
+			    }
 			$.ajax({
 				url : "findid.do",
 				type : "POST",
@@ -49,6 +57,7 @@ z-index:200;
 					alert(result);
 				},
 			})
+			
 		});
 	})
 </script>
@@ -70,10 +79,12 @@ z-index:200;
   color: #212529;
   text-decoration: none;
 }
+article{min-height: 100vh;}
 </style>
 <title>아이디 찾기</title>
 </head>
 <body>
+<article>
 <c:import url="/WEB-INF/views/header.jsp" />
 	<div class="w3-content w3-container w3-margin-top">
 		<div class="w3-container w3-card-4 w3-auto" style="width: 382px;height: 456.3px;">
@@ -98,5 +109,6 @@ z-index:200;
 			</div>
 		</div>
 	</div>
+	</article>
 </body>
 </html>
