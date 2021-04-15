@@ -11,7 +11,7 @@
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-$(function () {
+$(function () { 
 	var chkObj= document.getElementsByName("Rowcheck");
 	var chkNum=chkObj.length;
 	$("input[name='chkall']").click(function() {
