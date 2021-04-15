@@ -35,7 +35,6 @@
 	font-family: 'Abril Fatface', cursive;
 	color: white;
 }
-body { height: 130vh; margin: 0px; }
 /* 오른쪽툴팁메뉴 */
 #m1:hover {
 	background-color: white;
@@ -137,7 +136,7 @@ ol.paging li a:hover {
 	font-weight: bold;
 }
 
-article{height: 100vh;}
+article{min-height: 100vh;}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

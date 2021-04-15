@@ -159,5 +159,8 @@
  			qna_reg_a = null 
  			WHERE qna_idx = #{qna_idx}
  	</update>
+ 	<delete id="repotdeleteAll" parameterType="String">
+ 		delete from qna where members_idx=#{members_idx}
+ 	</delete>
 
 </mapper>

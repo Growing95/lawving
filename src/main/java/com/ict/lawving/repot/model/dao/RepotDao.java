@@ -49,4 +49,8 @@ public class RepotDao {
 		result = sqlSession.selectOne("repotMapper.chkRepot", repotVo);
 		return result;
 	}
+
+	public int delteAll(String members_idx) {
+		return sqlSession.delete("repotMapper.deleteAll",members_idx);
+	}
 }

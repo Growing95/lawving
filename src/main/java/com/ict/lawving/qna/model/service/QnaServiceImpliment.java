@@ -129,4 +129,9 @@ public class QnaServiceImpliment implements QnaService {
 		return qnaDao.selectQnaIdx(qna_idx);
 	}
 
+	@Override
+	public int deleteAll(String members_idx) {
+		return qnaDao.deleteAll(members_idx);
+	}
+
 }

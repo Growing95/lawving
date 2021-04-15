@@ -99,6 +99,11 @@ public class LimitServiceImpliment implements LimitService{
 		limitDao.chkblackdelete(chkdel);		
 	}
 
+	@Override
+	public int deleteOneLimit(String id) {
+		return limitDao.deleteOneLimit(id);
+	}
+
 	
 
 

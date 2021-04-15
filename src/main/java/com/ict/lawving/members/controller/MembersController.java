@@ -29,11 +29,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.lawving.bookmark.model.service.BookmarkService;
 import com.ict.lawving.common.Paging;
 import com.ict.lawving.limit.model.service.LimitService;
 import com.ict.lawving.limit.model.vo.LimitVo;
 import com.ict.lawving.members.model.service.MembersService;
 import com.ict.lawving.members.model.vo.MembersVo;
+import com.ict.lawving.qna.model.service.QnaService;
+import com.ict.lawving.repot.model.service.RepotService;
+
 import org.json.simple.JSONObject;
 
 
@@ -49,6 +53,15 @@ public class MembersController {
 	private LimitService limitService;
 	@Autowired
 	private Paging paging;
+	
+	@Autowired
+	 private BookmarkService bookmarkService;
+	
+	@Autowired
+	private RepotService repotService;
+
+	@Autowired
+	private QnaService qnaService;
 	
 	private Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
@@ -408,6 +421,18 @@ public class MembersController {
 		//회원탈퇴
 		@RequestMapping("delete_members.do")
 		public String deleteMembersMethod(@RequestParam("members_idx")String id,Model model,HttpSession session) {
+			try {
+			int result1 =bookmarkService.deleteAllBookmark(id);
+			int result2 = limitService.deleteOneLimit(id);
+			int result3= repotService.deleteAll(id);
+			int result4= qnaService.deleteAll(id);
+			
+			} catch (Exception e) {
+				System.out.println(e);
+				model.addAttribute("msg","[오류]회원탈퇴 실패.");
+				  model.addAttribute("url","home.do");
+				  return "common/alert";
+			}
 			int result = membersService.deleteMembers(id);
 			if (result>0) {
 				session.invalidate();
@@ -419,6 +444,8 @@ public class MembersController {
 				  model.addAttribute("url","home.do");
 				return "common/alert";
 			}
+			
+			
 		}
 		//정보조회
 		@RequestMapping(value = "list_lawdata.do",method = RequestMethod.GET)
