@@ -58,17 +58,20 @@ $(function () {
 </script>
 </head>
 <body>
-	<article>
 	<c:import url="../header.jsp" />
+	<article>
 		<div class="category">
-			Library
-		<h2><a href="llist.do">자료실</a></h2>
-
+			<table>
+				<tr>
+					<td rowspan="2" style="width: 10%">
+						<img src="resources/images/library1.png" style="padding-right: 10px;">
+					</td>
+					<td>Library</td>
+				</tr>
+				<tr><td><h2><a href="llist.do">자료실</a></h2></td></tr>
+			</table>
+		</div>
 		<br>
-			<img alt="" src="resources/images/library1.png" >
-	</div>
-	<br><br><br><br>
-
 	<!-- 검색기능 -->
 		<div class="box">
 			<form action="lsearch.do" method="post">
@@ -90,6 +93,7 @@ $(function () {
 				</table>
 			</form>
 		</div>
+		<br>
 	<c:if test="${loginMember.members_lev=='2'}">
 		<div class="box">
 			<input type="checkbox" id="chkall" name="chkall">
@@ -99,8 +103,7 @@ $(function () {
 				<button onclick="javascript:location.href='${ lwf }';">글쓰기</button>
 				<button onclick="chkdelete()">선택삭제</button>
 			</div>
-		</div>
-		<br>
+		</div><br><br>
 	</c:if>
 	<div class="box">
 	<table class="list">
@@ -177,7 +180,6 @@ $(function () {
 				</tr>
 			</tfoot>
 		</table>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		</div>
 	</article>
 </body>
