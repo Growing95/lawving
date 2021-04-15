@@ -44,8 +44,8 @@ public class RepotServiceImpliment implements RepotService{
 		return repotDao.getdelete(qna_idx);
 	}
 
-
-
-	
-
+	@Override
+	public int chkRepot(RepotVo repotVo) {
+		return repotDao.chkRepot(repotVo);
+	}
 }

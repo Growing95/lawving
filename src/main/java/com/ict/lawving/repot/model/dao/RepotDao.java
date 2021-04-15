@@ -44,4 +44,9 @@ public class RepotDao {
 		return result;
 	}
 	
+	public int chkRepot(RepotVo repotVo) {
+		int result = 0;
+		result = sqlSession.selectOne("repotMapper.chkRepot", repotVo);
+		return result;
+	}
 }
