@@ -327,14 +327,19 @@ public class NoticeController {
 		} catch (Exception e) {
 			out.println("<script>alert('이전 글이 없습니다.'); history.go(-1);</script>");
 	        out.flush();
-			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
+			return null;
 		}
 	}
 
 //	notice 다음 글 보기
 	@RequestMapping("after_notice.do")
-	public String selectnoticeAfterMethod(@RequestParam("notice_idx") int notice_idx,
-			@ModelAttribute("cPage") String cPage, Model model) {
+	public String selectnoticeAfterMethod(
+			@RequestParam("notice_idx") int notice_idx,
+			HttpServletResponse response,
+			@ModelAttribute("cPage") String cPage, 
+			Model model)  throws IOException {
+	      response.setContentType("text/html; charset=UTF-8");
+	      PrintWriter out = response.getWriter();
 
 //	다음 글 가져오기
 		try {
@@ -342,7 +347,9 @@ public class NoticeController {
 			model.addAttribute("noticeOnelist", noticeOnelist);
 			return "redirect:onelist_notice.do?notice_idx=" + noticeOnelist.getNotice_idx();
 		} catch (Exception e) {
-			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
+			out.println("<script>alert('다음 글이 없습니다.'); history.go(-1);</script>");
+	        out.flush();
+			return null;
 		}
 	}
 
