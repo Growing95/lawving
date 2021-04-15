@@ -1,8 +1,11 @@
 package com.ict.lawving.repot.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,9 +82,20 @@ public class RepotController {
 	}
 	
 	@RequestMapping("go_repot.do")
-	public String gorepotMethod() {
-		return "qna/repotForm";
+	public String gorepotMethod(RepotVo repotVo,
+			HttpServletResponse response) throws IOException {
+		int result = repotService.chkRepot(repotVo);
+		if (result > 0) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 신고한 게시물 입니다'); history.go(-1);</script>");
+			out.flush(); 
+		} else {
+			return "qna/repotForm";
+		}
+		return null;
 	}
+	
 	@RequestMapping("insert_repot.do")
 	public String insertrepotMethod(RepotVo rvo,
 			@ModelAttribute("cPage")String cPage,
