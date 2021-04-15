@@ -108,11 +108,6 @@ public class NoticeDao {
 		return sqlSession.update("noticeMapper.updateNotice", notice);
 	}
 
-	// 체크박스 삭제
-	public void chklistdelete(String chkdel) {
-		sqlSession.delete("noticeMapper.chkdelete", chkdel);
-	}
-
 	// 게시물 삭제
 	public int deleteNotice(int notice_idx) {
 		return sqlSession.delete("noticeMapper.deleteNotice", notice_idx);
@@ -127,6 +122,11 @@ public class NoticeDao {
 	public NoticeVo selectNoticeAfter(int notice_idx) {
 		return sqlSession.selectOne("noticeMapper.n_after", notice_idx);
 
+	}
+
+	public void chkdeleteNotice(String chkdel) {
+		sqlSession.delete("noticeMapper.chkdeleteNotice", chkdel);
+		
 	}
 
 }
