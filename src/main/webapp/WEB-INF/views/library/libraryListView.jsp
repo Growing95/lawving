@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/css/list.css">
+<style type="text/css">
+body { height: 100vh; margin: 0px; }
+article { height: 100%; background-color: White; }
+</style>
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -54,15 +58,17 @@ $(function () {
 </script>
 </head>
 <body>
-	<c:import url="../header.jsp" />
 	<article>
+	<c:import url="../header.jsp" />
 		<div class="category">
-			Data
+			Library
 		<h2><a href="llist.do">자료실</a></h2>
+
 		<br>
 			<img alt="" src="resources/images/library1.png" >
 	</div>
 	<br><br><br><br>
+
 	<!-- 검색기능 -->
 		<div class="box">
 			<form action="lsearch.do" method="post">
@@ -84,9 +90,6 @@ $(function () {
 				</table>
 			</form>
 		</div>
-	<div style="align: center; padding-left: 400px;">
-		<c:url var="llist" value="/llist.do" />
-	</div>
 	<c:if test="${loginMember.members_lev=='2'}">
 		<div class="box">
 			<input type="checkbox" id="chkall" name="chkall">
@@ -174,6 +177,7 @@ $(function () {
 				</tr>
 			</tfoot>
 		</table>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		</div>
 	</article>
 </body>
