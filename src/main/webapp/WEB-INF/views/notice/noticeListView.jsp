@@ -9,13 +9,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/css/list.css">
 <style type="text/css">
-body {
-	height: 100vh;
-}
-
-article {
-	height: 80%;
-}
 </style>
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
@@ -69,16 +62,19 @@ article {
 </script>
 </head>
 <body>
-	<article>
 	<c:import url="../header.jsp" />
-		<div class="category" style="margin: auto;">NOTICE
-		<h2><a href="nlist.do">공지사항</a></h2>
-			<br> <img alt="" src="resources/images/notice.png" style="padding-right: 10px;">
+	<article>
+		<div class="category">
+			<table>
+				<tr>
+					<td rowspan="2" style="width: 10%">
+						<img src="resources/images/notice.png" style="padding-right: 10px;">
+					</td>
+					<td>NOTICE</td>
+				</tr>
+				<tr><td><h2><a href="list_notice.do">공지사항</a></h2></td></tr>
+			</table>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
 		<br>
 		<!-- 검색기능 -->
 		<div>
@@ -108,6 +104,7 @@ article {
 			</div>
 			</div>
 		</c:if>
+		<br>
 		<div style="align: center;">
 			<c:url var="nlist" value="/nlist.do" />
 		</div>
@@ -188,8 +185,8 @@ article {
 						</td>
 					</tr>
 				</tfoot>
-				</table>
-				</div>
-				</article>
+			</table>
+		</div>
+	</article>
 </body>
 </html>
