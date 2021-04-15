@@ -34,7 +34,7 @@ public class NoticeDao {
 		List<NoticeVo> NoticeList = sqlSession.selectList("noticeMapper.searchTitleDesc", map);
 		return (ArrayList<NoticeVo>) NoticeList;
 	}
-
+ 
 	public ArrayList<NoticeVo> selectSearchTitleAsc(NoticeSearch searchObject, int begin, int end) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", searchObject.getKeyword());
