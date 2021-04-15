@@ -287,6 +287,12 @@ ol.paging li a:hover {
 									<td><input type="text" disabled value="${m.members_tel }"></td>
 								</tr>
 								<tr>
+									<td>주소</td>
+									<td><input type="text" disabled value="${m.members_address }"></td>
+								</tr>
+								
+								
+								<tr>
 									<td>가입날짜</td>
 									<td><input type="text" disabled value="${m.members_reg }"></td>
 								</tr>
@@ -336,6 +342,11 @@ ol.paging li a:hover {
 										<td>휴대전화</td>
 										<td><input type="text" id="members_tel"
 											name="members_tel" value="${m.members_tel }" required></td>
+									</tr>
+									<tr>
+										<td>주소</td>
+										<td><input type="text" id="members_address"
+											name="members_address" value="${m.members_address }" required></td>
 									</tr>
 
 									<tr>

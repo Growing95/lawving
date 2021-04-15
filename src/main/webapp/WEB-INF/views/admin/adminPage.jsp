@@ -18,7 +18,7 @@ a {text-decoration: none;color: orange;}
 #m3:hover {background-color: white;color: black;}
 #m4:hover {	background-color: white;color: black;}
 /* 테이블 */
-.tab {background-color: white;width: 600px;height: 500px;margin: auto;border-radius: 20px;}
+.tab {background-color: white;width: 600px;height: 500px;margin: auto;border-radius: 20px;border: 1px solid black;}
 .tab table th, .tab table td {text-align: center;border: 1px solid black;padding: 4px 10px;}
 /* 콘텐츠영역 */
 #box div {
@@ -121,7 +121,7 @@ article {
 						<c:choose>
 							<c:when test="${empty memberslist}">
 								<tr>
-									<td colspan="4">회원정보없음</td>
+									<td colspan="5">회원정보없음</td>
 								</tr>
 							</c:when>
 							<c:otherwise>

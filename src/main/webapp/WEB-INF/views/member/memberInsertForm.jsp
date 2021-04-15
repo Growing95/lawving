@@ -108,6 +108,7 @@ function dupidCheck(){
 }
 </script>
 <script type ="text/javascript" src="${ pageContext.request.contextPath }/resources/js/loadingbar.js"> </script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script>
 $(function(){
 	$("#sendmail").click(function(){
@@ -242,11 +243,31 @@ $(function(){
 					<label id="msg">전화번호</label>
 					<input type="tel" name="members_tel" placeholder="전화번호를 입력하세요" class="w3-input" id="members_tel">
 				</p>
+				</p>
+					<label id="msg">우편번호</label>
+					<input type="text" style="width:305px;" name="members_post" id="members_post" class="postcodify_postcode5 w3-input"   placeholder="우편번호를 입력하세요.">&nbsp;
+					<button type="button" class="w3-button w3-hover-white w3-ripple mybtn" id="postcodify_search_button">검색</button>
+				</p>
+				<p>
+					<label id="msg">도로명 주소</label>
+					<input type="text" style="width:305px;" name="members_addr1" id="members_addr1" class="postcodify_address w3-input" placeholder="도로명 주소입력란">
+				</p>
+				<p>
+					<label id="msg">상세 주소</label> 
+					<input type="text" style="width:305px;" name="members_addr2" id="members_addr2" class="postcodify_extra_info w3-input" placeholder="상세주소 입력란">
+				</p>
 				<br>
 				<p class="w3-center">
 					<input type="submit" id="findBtn" class="w3-button w3-hover-white w3-ripple mybtn" value="회원가입">
 					<input type="reset" class="w3-button w3-hover-white w3-ripple mybtn" value="취소하기">
 				</p>
+				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+				<script>
+					/*  검색 단추를 누르면 팝업 레이어가 열리도록 설정한다. */
+					$(function(){
+						$("#postcodify_search_button").postcodifyPopUp();
+					});
+				</script>
 			</div>
 				</form>
 		</div>

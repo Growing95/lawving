@@ -58,35 +58,7 @@ table tfoot ol.paging li a:hover {background: #00B3DC;color: white;font-weight: 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 /* 툴팁메뉴버튼 제이쿼리는 추후 버튼누를시 정보 불러오기때문에 ajax로 변경해야함 */
-$(function() {
-	$(document).on('click','#m4',function() {
-		$('.menu1').css('display','none');
-	    $('.menu2').css('display','none');
-	    $('.menu3').css('display','none');
-	    $('.menu4').css('display','');
-	    
-	});
-	$(document).on('click','#m3',function() {
-		$('.menu1').css('display','none');
-	    $('.menu2').css('display','none');
-	    $('.menu3').css('display','');
-	    $('.menu4').css('display','none');
-	    
-	});
-	$(document).on('click','#m2',function() {
-		$('.menu1').css('display','none');
-	    $('.menu2').css('display','');
-	    $('.menu3').css('display','none');
-	    $('.menu4').css('display','none');
-	});
-	$(document).on('click','#m1',function() {
-	    $('.menu1').css('display','');
-		$('.menu2').css('display','none');
-	    $('.menu3').css('display','none');
-	    $('.menu4').css('display','none');
-  	});
-	
-})
+
 </script>
 <script type="text/javascript">
 function checkAll() {
@@ -118,6 +90,7 @@ function checkAll() {
 	<tr><td>Email :${mvo.members_email }</td></tr>
 	<tr><td>생년월일 : ${mvo.members_birth}</td></tr>
 	<tr><td>휴대전화 : ${mvo.members_tel }</td></tr>
+	<tr><td>주소 : ${mvo.members_address }</td></tr>
 	<tr><td>가입날짜 : ${mvo.members_reg }</td></tr>
 	<tr><td colspan="2"><button id="signout" style="width: 100px; height: 50px; 
 	background-color:#85929E; color: white; font-weight: bold;border-radius: 20px;" onclick="javascript:history.go(-1);">목록으로</button></td></tr>

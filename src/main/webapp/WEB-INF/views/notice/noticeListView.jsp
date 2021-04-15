@@ -21,16 +21,17 @@ article{height: 80%;}
 <body>
 	<c:import url="../header.jsp" />
 	<article>
-		<div class="category">
-			<table>
-				<tr>
-					<td rowspan="2" style="width: 10%">
-						<img src="resources/images/notice.png" style="padding-right: 10px;">
-					</td>
-					<td>NOTICE</td>
-				</tr>
-				<tr><td><h2><a href="nlist.do">공지사항</a></h2></td></tr>
-			</table>
+		<div class="category" style="margin: auto;">
+				NOTICE
+			<h2><a href="nlist.do">공지사항</a></h2>
+			<br>
+		<img alt="" src="resources/images/notice.png" style="padding-left: 6px;">
+		</div>
+	<br><br><br><br>
+	<c:if test="${ loginMember.members_lev=='2'}">
+		<div style="align: center; padding-left: 700px;">  
+			<c:url var="nwf" value="/notice_insert.do" />
+			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
 		</div>
 		<br>
 	<!-- 검색기능 -->
