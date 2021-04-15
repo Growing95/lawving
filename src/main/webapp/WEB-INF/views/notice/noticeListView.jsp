@@ -29,7 +29,7 @@ article{height: 80%;}
 		</div>
 	<br><br><br><br>
 	<c:if test="${ loginMember.members_lev=='2'}">
-		<div style="align: center; padding-left: 400px;">
+		<div style="align: center; padding-left: 700px;">  
 			<c:url var="nwf" value="/notice_insert.do" />
 			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
 		</div>

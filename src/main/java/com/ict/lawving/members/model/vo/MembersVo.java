@@ -1,7 +1,15 @@
 package com.ict.lawving.members.model.vo;
 
 public class MembersVo {
-	private String members_idx,members_id,members_pw,members_name,members_email,members_birth,members_tel,members_lev,members_reg;
+	private String members_idx,members_id,members_pw,members_name,members_email,members_birth,members_tel,members_lev,members_address,members_reg;
+
+	public String getMembers_address() {
+		return members_address;
+	}
+
+	public void setMembers_address(String members_address) {
+		this.members_address = members_address;
+	}
 
 	public String getMembers_idx() {
 		return members_idx;

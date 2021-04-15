@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 <style type="text/css">
 a {
 	text-decoration: none;
@@ -66,40 +67,7 @@ a {
 	height: 500px;
 	margin: auto;
 	border-radius: 20px;
-}
-
-/* 북마크테이블 */
-.bookmark {
-	background-color: white;
-	width: 600px;
-	height: 500px;
-	margin: auto;
-	border-radius: 20px;
-	border-collapse: collapse;
-}
-
-.bookmark td {
-	font-weight: bold;
-	border-bottom: 1px solid black;
-	border-top: 1px solid black;
-}
-/* 콘텐츠영역 */
-#box div {
-	width: 600px;
-	height: auto;
-	margin: auto;
-}
-
-caption {
-	font-weight: bold;
-	color: white;
-	font-size: 40px;
-}
-
-article {
-	height: 0 auto;
-	background-color: #85929E;
-	border-radius: 20px;
+	border: 1px solid black;
 }
 /* paging 영역*/
 table tfoot ol.paging {
@@ -144,7 +112,7 @@ table tfoot ol.paging li a:hover {
 <script type="text/javascript">
 	/* 툴팁메뉴버튼 제이쿼리는 추후 버튼누를시 정보 불러오기때문에 ajax로 변경해야함 */
 	$(function() {
-		$(document).on('click', '#m4', function() {
+		/* $(document).on('click', '#m4', function() {
 			$('.menu1').css('display', 'none');
 			$('.menu2').css('display', 'none');
 			$('.menu3').css('display', 'none');
@@ -169,141 +137,147 @@ table tfoot ol.paging li a:hover {
 			$('.menu2').css('display', 'none');
 			$('.menu3').css('display', 'none');
 			$('.menu4').css('display', 'none');
-		});
+		}); */
 	})
 </script>
 <script type="text/javascript">
-$(function () {
-	var chkObj= document.getElementsByName("Rowcheck");
-	var chkNum=chkObj.length;
-	$("input[name='chkall']").click(function() {
-		var chk_listArr = $("input[name='Rowcheck']");
-		for (var i = 0; i < chk_listArr.length; i++) {
-			chk_listArr[i].checked=this.checked;
-		}
-	})
-	
-})	
-	function chkdelete1() {
-	var url="chkblackdelete.do";
-	var chkArr= new Array();
-	var list =$("input[name='Rowcheck']");
-	for (var i = 0; i < list.length; i++) {
-		if (list[i].checked) {
-			chkArr.push(list[i].value);
-		}
-	}
-	if (chkArr.length==0) {
-		alert("선택된 회원이 없습니다.");
-	}else{
-		var chk = confirm("선택한 회원을 제한 해제하겠습니까?");
-		$.ajax({
-			url: url,
-			method: "POST",
-			traditional:true,
-			data :{chkArr:chkArr},
-			success: function (data) {
-				if (data = 1) {
-					alert("선택된 회원의 제한을 해제하였습니다.");
-					location.replace("memberslist.do");
-				}else{
-					alert("제한해제 실패");
-				}
+	$(function() {
+		var chkObj = document.getElementsByName("Rowcheck");
+		var chkNum = chkObj.length;
+		$("input[name='chkall']").click(function() {
+			var chk_listArr = $("input[name='Rowcheck']");
+			for (var i = 0; i < chk_listArr.length; i++) {
+				chk_listArr[i].checked = this.checked;
 			}
-		});
+		})
+
+	})
+	function chkdelete1() {
+		var url = "chkblackdelete.do";
+		var chkArr = new Array();
+		var list = $("input[name='Rowcheck']");
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].checked) {
+				chkArr.push(list[i].value);
+			}
+		}
+		if (chkArr.length == 0) {
+			alert("선택된 회원이 없습니다.");
+		} else {
+			var chk = confirm("선택한 회원을 제한 해제하겠습니까?");
+			$.ajax({
+				url : url,
+				method : "POST",
+				traditional : true,
+				data : {
+					chkArr : chkArr
+				},
+				success : function(data) {
+					if (data = 1) {
+						alert("선택된 회원의 제한을 해제하였습니다.");
+						location.replace("memberslist.do");
+					} else {
+						alert("제한해제 실패");
+					}
+				}
+			});
+		}
 	}
-}
 </script>
 <body>
+	<c:import url="/WEB-INF/views/header.jsp" />
+	<article>
+		<div id="box">
+			<!-- 오른쪽툴팁메뉴 -->
+			<ul id="ltoolmenu">
+				<li><button id="m1">
+						<a href="memberslist.do">회원정보</a>
+					</button></li>
+				<li><button id="m2">
+						<a href="blacklist.do">사용제한회원</a>
+					</button></li>
+				<li><button id="m3">
+						<a href="repotlist.do">신고접수</a>
+					</button></li>
+				<li><button id="m4">
+						<a href="limitlist.do">제제회원</a>
+					</button></li>
 
-<c:import url="/WEB-INF/views/header.jsp" />
-<article>
-<div id="box">
-	<!-- 오른쪽툴팁메뉴 -->
-	<ul id="ltoolmenu">
-	<li><button id="m1"><a href="memberslist.do">회원정보</a></button></li>
-	<li><button id="m2"><a href="blacklist.do">사용제한회원</a></button></li>
-	<li><button id="m3"><a href="repotlist.do">신고접수</a></button></li>
-	<li><button id="m4"><a href="limitlist.do">제제회원</a></button></li>
-	
-	</ul>
-	<!-- 사용제한회원 -->
-	<div class="menu2" style="display: block;">
-	<table class="tab">
-	<button onclick="chkdelete1()" style="position:relative; left:260px;top:50px;width: 70px;height: 40px;">제한해제</button>
-		<thead>
-			<tr>
-			<th><input type="checkbox" id="chkall" name="chkall" >전체선택</th>
-				<th>회원번호</th>
-				<th>회원아이디</th>
-				<th>제제날짜</th>
-			</tr>
-		</thead>
-	<caption>사용제한 회원</caption>
-	<tbody>
-	 <c:choose>
-	<c:when test="${empty blacklist}">
-	<tr><td colspan="4">회원정보없음</td></tr>
-	</c:when>
-	<c:otherwise>
-		<c:forEach var="k" items="${blacklist }" varStatus="vs">
-		<tr>
-		<td><input type="checkbox" name="Rowcheck" value="${k.members_idx }"></td>
-			<td>${k.members_idx }</td>
-			<c:url value="/membersonelist.do" var="mol">
-				<c:param name="members_idx" value="${k.members_idx}" />
-			</c:url>
-			<td><a href="${mol }">${k.limit_id }</a></td>
-			<td>${k.reg }</td>
-		</tr>
-		</c:forEach>
-	</c:otherwise>
-	</c:choose>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="4">
-				<ol class="paging">
-				<!-- 이전 -->
-					<c:choose>
-						<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
-							<li class="disable">이전으로</li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="blacklist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a></li>
-								</c:otherwise>
-							</c:choose>
-							<!-- 블록안에 들어간 페이지번호들 -->
-							<c:forEach begin="${paging.beginBlock }" end="${paging.endBlock}"
-								step="1" var="k">
-								<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
-								<c:choose>
-									<c:when test="${k==paging.nowPage }">
-										<li class="now">${k}</li>
+			</ul>
+			<div class="menu2" style="display: block;">
+				<button onclick="chkdelete1()"
+					style="position: relative; left: 250px; top: 0px; width: 70px; height: 40px;">제한해제</button>
+				<table class="tab">
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="chkall" name="chkall">전체선택</th>
+							<th>회원번호</th>
+							<th>회원아이디</th>
+							<th>제제날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+							<c:when test="${empty blacklist}">
+								<tr>
+									<td colspan="4">회원정보없음</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="k" items="${blacklist }" varStatus="vs">
+									<tr>
+										<td><input type="checkbox" name="Rowcheck"
+											value="${k.members_idx }"></td>
+										<td>${k.members_idx }</td>
+										<c:url value="/membersonelist.do" var="mol">
+											<c:param name="members_idx" value="${k.members_idx}" />
+										</c:url>
+										<td><a href="${mol }">${k.limit_id }</a></td>
+										<td>${k.reg }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" class="paging">
+								<!-- 이전 --> <c:choose>
+									<c:when test="${paging.beginBlock <= paging.pagePerBlock}">
+										<span class="non_active">이전으로</span>
 									</c:when>
 									<c:otherwise>
-										<li><a href="blacklist.do?cPage=${k}">${k}</a></li>
+										<a
+											href="blacklist.do?cPage=${paging.beginBlock-paging.pagePerBlock }">이전으로</a>
+									</c:otherwise>
+								</c:choose> <!-- 블록안에 들어간 페이지번호들 --> <c:forEach
+									begin="${paging.beginBlock }" end="${paging.endBlock}" step="1"
+									var="k">
+									<%--현재 페이지와 현재 페이지가 아니것으로 구분 --%>
+									<c:choose>
+										<c:when test="${k==paging.nowPage }">
+											<span class="now">${k}</span>
+										</c:when>
+										<c:otherwise>
+											<a href="blacklist.do?cPage=${k}">${k}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach> <!-- 다음 --> <c:choose>
+									<c:when test="${paging.endBlock >= paging.totalPage }">
+										<span class="non_active">다음으로</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="blacklist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a>
 									</c:otherwise>
 								</c:choose>
-							</c:forEach>
-							<!-- 다음 -->
-							<c:choose>
-								<c:when test="${paging.endBlock >= paging.totalPage }">
-									<li class="disable">다음으로</li>
-								</c:when>
-								<c:otherwise>
-									<li><a
-										href="blacklist.do?cPage=${paging.beginBlock+paging.pagePerBlock }">다음으로</a></li>
-								</c:otherwise>
-							</c:choose>
-						</ol>
-					</td>
-				</tr>
-			</tfoot>
-	</table>
-	</div>
-</div>
-</article>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</article>
 
 </body>
 </html>
