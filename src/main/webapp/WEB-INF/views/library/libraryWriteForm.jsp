@@ -18,11 +18,11 @@
 <table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
 <tr>
 <td>카테고리</td>
-<td><input type="text" name="library_category"></td>
+<td><input type="text" name="library_category" required="required"></td>
 </tr>
 <tr>
 <td>제 목</td>
-<td><input type="text" name="library_title"></td>
+<td><input type="text" name="library_title" required="required"></td>
 </tr>
 <tr>
 <td>글 출처</td>
@@ -38,7 +38,7 @@
 </tr>
 <tr>
 <td>내 용</td>
-<td><textarea name="library_content" rows="5" cols="50"></textarea></td>
+<td><textarea name="library_content" rows="5" cols="50" required="required"></textarea></td>
 </tr>
 <tr><td colspan="2">
 <input type="hidden" value="${members_idx }">
