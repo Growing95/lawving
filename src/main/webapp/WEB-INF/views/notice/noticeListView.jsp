@@ -10,24 +10,70 @@
 <script type="text/javascript"
 	src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js">
 	
-		
-	</script>
+</script>
+<style type="text/css">
+table tfoot ol.paging {
+	list-style: none;
+}
+
+table tfoot ol.paging li {
+	float: left;
+	margin-right: 8px;
+}
+
+table tfoot ol.paging li a {
+	display: block;
+	padding: 3px 7px;
+	border: 1px solid #00B3DC;
+	color: #2f313e;
+	font-weight: bold;
+}
+
+table tfoot ol.paging li a:hover {
+	background: #00B3DC;
+	color: white;
+	font-weight: bold;
+}
+
+.disable {
+	padding: 3px 7px;
+	border: 1px solid silver;
+	color: silver;
+}
+
+.now {
+	padding: 3px 7px;
+	border: 1px solid #ff4aa5;
+	background: #ff4aa5;
+	color: white;
+	font-weight: bold;
+}
+
+#btn {
+	margin: 50px 0 0 345px;
+    position: absolute;
+    width: 80px;
+    height: 35px;
+}
+</style>
 </head>
 <body>
 	<c:import url="../header.jsp" />
 	<hr>
-	<h1 align="center">공지사항</h1>
+	<h2
+		style="text-align: center; font-weight: lighter; margin: 40px 780px 0 0;">Notice</h2>
+	<h1 style="text-align: center; margin: 0 730px 0 0">공지사항</h1>
 	<br>
 	<c:if test="${ loginMember.members_lev=='2'}">
-		<div style="align: center; padding-left: 400px;">
+		<div style="text-align: center;" >
 			<c:url var="nwf" value="/notice_insert.do" />
-			<button onclick="javascript:location.href='${ nwf }';">글쓰기</button>
+			<button id="btn" onclick="javascript:location.href='${ nwf }';">글쓰기</button>
 		</div>
 	</c:if>
 	<br>
 	<!-- 검색기능 -->
 	<center>
-		<div>
+		<div class="search">
 			<form action="nsearch.do" method="post">
 				<table>
 					<tr>
@@ -39,7 +85,8 @@
 								<option value="desc" selected>최신순</option>
 								<option value="asc">오래된순</option>
 						</select></td>
-						<td><input type="text" name="keyword"></td>
+						<td><input id="box" type="text" name="keyword"
+							placeholder="검색어를 입력해 주세요."></td>
 						<td><input type="submit" value="검색"></td>
 				</table>
 			</form>
@@ -89,8 +136,8 @@
 
 		<tfoot>
 			<tr>
-				<td colspan="4">
-					<ol class="paging">
+				<td colspan="4" style="padding-bottom: 7px;">
+					<ol class="paging" style="margin-left: 230px;">
 						<!-- 이전 -->
 						<c:choose>
 							<c:when test="${paging.beginBlock <= paging.pagePerBlock }">
