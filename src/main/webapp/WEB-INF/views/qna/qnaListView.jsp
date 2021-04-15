@@ -58,8 +58,8 @@
 </script>
 </head>
 <body>
-	<article>
 	<c:import url="../header.jsp"/>
+	<article>
 		<div class="category" style="margin: auto;">
 			Question and answer
 			<h2><a href="list_qna.do">Q&#38;A</a></h2>

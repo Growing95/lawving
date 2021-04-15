@@ -50,10 +50,7 @@ h2{background: darkgray;
     border-radius: 20px;
         height: 25px;
 }
-#content{background-color: lightgrey;}
-article{ background-color: white;}
 center{background-color: white;}
-header{background-color: lightgrey;}
 </style>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -173,7 +170,6 @@ function FunLoadingBarEnd() {
 <body>
 
 <c:import url="/WEB-INF/views/header.jsp" />
-<div id="content">
 
 <article>
 <br><br>
@@ -186,7 +182,6 @@ function FunLoadingBarEnd() {
 <div id="result"></div>
 <a id="MOVE_TOP_BTN" href="#"><img alt="top" src="resources/images/top.png" style="width: 40px;"> </a>
 </article>
-</div>
 </body>
 <script>
 //탑버튼 스크립트

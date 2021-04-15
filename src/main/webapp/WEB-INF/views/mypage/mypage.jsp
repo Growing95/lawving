@@ -35,6 +35,7 @@
 	font-family: 'Abril Fatface', cursive;
 	color: white;
 }
+body { height: 130vh; margin: 0px; }
 /* 오른쪽툴팁메뉴 */
 #m1:hover {
 	background-color: white;
@@ -57,6 +58,7 @@
 	width: 600px;
 	height: 500px;
 	margin: auto;
+	border:1px solid black;
 	border-radius: 20px;
 }
 
@@ -89,19 +91,14 @@
 
 caption {
 	font-weight: bold;
-	color: white;
 	font-size: 40px;
 }
 
-article {
-	height: 0 auto;
-	background-color: #85929E;
-	border-radius: 20px;
-}
 
 #box div {
 	padding-top: 50px;
 }
+
 /* paging 영역*/
 ol.paging {
 	list-style: none;
@@ -140,7 +137,7 @@ ol.paging li a:hover {
 	font-weight: bold;
 }
 
-
+article{height: 100vh;}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -255,7 +252,12 @@ ol.paging li a:hover {
 			<!-- 내정보 -->
 			<div class="menu1" style="display: none;">
 				<table class="tab">
-					<caption>MY Information</caption>
+						<div class="category" style="margin: auto;">
+			My Information
+			<h2>내정보</h2>
+			<br>
+		</div>
+		<br><br>
 					<tbody>
 						<c:choose>
 							<c:when test="${empty sessionScope.loginMember}">
@@ -303,7 +305,11 @@ ol.paging li a:hover {
 			<!-- 내정보수정 -->
 			<div class="menu2" style="display: none;">
 				<table class="tab">
-					<caption>Set Information</caption>
+		<div class="category" style="margin: auto;">
+						Set Information
+					<h2>내정보 수정</h2>
+						<br>
+		</div>
 					<tbody>
 						<c:choose>
 							<c:when test="${empty sessionScope.loginMember}">
@@ -347,9 +353,8 @@ ol.paging li a:hover {
 						</c:choose>
 					</tbody>
 				</table>
-				<br><br><br><br>
 				<table class="tab" style="height: 350px;">
-					<caption>NEW PASSWORD</caption>
+					<caption>새 비밀번호</caption>
 					<tbody>
 						<c:choose>
 							<c:when test="${empty sessionScope.loginMember}">
@@ -386,7 +391,13 @@ ol.paging li a:hover {
 			<!-- 북마크 -->
 			<div class="menu3" style="display: none;">
 				<table class="bookmark">
-					<caption>MY BOOKMARK</caption>
+							<div class="category" style="margin: auto;">
+						BOOKMARK
+					<h2>북마크 목록</h2>
+					<br>
+			<img alt="" src="resources/images/bookmark.png" style="padding-left: 6px;">
+		</div>
+		<br><br>
 					<tbody>
 						<c:choose>
 							<c:when test="${empty blist}">

@@ -58,9 +58,9 @@ $(function () {
 </script>
 </head>
 <body>
-	<article>
 	<c:import url="../header.jsp" />
-		<div class="category">
+	<article>
+		<div class="category" style="margin: auto;">
 			Library
 		<h2><a href="llist.do">자료실</a></h2>
 

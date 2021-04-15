@@ -81,8 +81,8 @@
 </script>
 </head>
 <body>
-	<article>
 	<c:import url="../header.jsp" />
+	<article>
 			<div class="category">
 				Question and answer
 				<h2>

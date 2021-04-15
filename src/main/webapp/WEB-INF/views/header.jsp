@@ -91,7 +91,11 @@ z-index: 1000000;
 	border: 1px solid #4c5d6f;
 	color:white;
 }
-html{background-color: lightgray;}
+html{ background: url('http://thecodeplayer.com/u/m/b1.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
 </style>
 <!--배너관련 스크립트  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
