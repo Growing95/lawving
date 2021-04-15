@@ -62,7 +62,7 @@ public class NoticeController {
 			String cPage = request.getParameter("cPage");
 			if (cPage == null) {
 				paging.setNowPage(1);
-			}else if(cPage =="") {
+			} else if (cPage == "") {
 				paging.setNowPage(1);
 			} else {
 				paging.setNowPage(Integer.parseInt(cPage));
@@ -166,11 +166,8 @@ public class NoticeController {
 	// 상세보기
 
 	@RequestMapping(value = "onelist_notice.do", method = RequestMethod.GET)
-	public String selectNoticeOnelistMethod(
-			@ModelAttribute("notice_idx") int notice_idx,
-			@ModelAttribute("cPage")String cPage,
-			Model model,
-			HttpSession session) {
+	public String selectNoticeOnelistMethod(@ModelAttribute("notice_idx") int notice_idx,
+			@ModelAttribute("cPage") String cPage, Model model, HttpSession session) {
 		NoticeVo nvo = noticeService.selectOneList(notice_idx);
 		session.setAttribute("nvo", nvo);
 		return "notice/noticeOneList";
@@ -303,16 +300,6 @@ public class NoticeController {
 		return new ModelAndView("filedown3", "downFile", model);
 	}
 
-	@RequestMapping("chklistdelete.do")
-	public String chkDeleteMethod(HttpServletRequest request) {
-		String[] chkMsg = request.getParameterValues("chkArr");
-		int size = chkMsg.length;
-		for (int i = 0; i < size; i++) {
-			noticeService.chklistdelete(chkMsg[i]);
-		}
-		return "redirect: nlist.do";
-	}
-
 	@RequestMapping("notice_delete.do")
 	public String deletenoticeMethod(@RequestParam("notice_idx") int notice_idx) {
 		int result = noticeService.deleteNotice(notice_idx);
@@ -321,34 +308,42 @@ public class NoticeController {
 
 //	notice 이전 글 보기
 	@RequestMapping("before_notice.do")
-	public String selectnoticeBeforeMethod(
-			@RequestParam("notice_idx")int notice_idx,
-			@ModelAttribute("cPage")String cPage,
-			Model model) {
+	public String selectnoticeBeforeMethod(@RequestParam("notice_idx") int notice_idx,
+			@ModelAttribute("cPage") String cPage, Model model) {
 		System.out.println("notice_idx : " + notice_idx);
 		System.out.println("cPage : " + cPage);
 		try {
 			NoticeVo noticeOnelist = noticeService.selectNoticeBefore(notice_idx);
 			model.addAttribute("noticeOnelist", noticeOnelist);
-			return "redirect:onelist_notice.do?notice_idx="+noticeOnelist.getNotice_idx();
-			
+			return "redirect:onelist_notice.do?notice_idx=" + noticeOnelist.getNotice_idx();
+
 		} catch (Exception e) {
-			return "redirect:onelist_notice.do?notice_idx="+notice_idx ;
+			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
+		}
 	}
-	}
+
 //	notice 다음 글 보기
 	@RequestMapping("after_notice.do")
-	public String selectnoticeAfterMethod(
-			@RequestParam("notice_idx")int notice_idx,
-			@ModelAttribute("cPage")String cPage,
-			Model model) {
+	public String selectnoticeAfterMethod(@RequestParam("notice_idx") int notice_idx,
+			@ModelAttribute("cPage") String cPage, Model model) {
 //		다음 글 가져오기
 		try {
-		NoticeVo noticeOnelist = noticeService.selectNoticeAfter(notice_idx);
-		model.addAttribute("noticeOnelist", noticeOnelist);
-		return "redirect:onelist_notice.do?notice_idx="+noticeOnelist.getNotice_idx();
+			NoticeVo noticeOnelist = noticeService.selectNoticeAfter(notice_idx);
+			model.addAttribute("noticeOnelist", noticeOnelist);
+			return "redirect:onelist_notice.do?notice_idx=" + noticeOnelist.getNotice_idx();
 		} catch (Exception e) {
-		return "redirect:onelist_notice.do?notice_idx="+notice_idx ;
+			return "redirect:onelist_notice.do?notice_idx=" + notice_idx;
+		}
 	}
-}
+
+//	체크된 Notice 문의 삭제하기
+	@RequestMapping(value = "chk_delete_notice.do", method = RequestMethod.POST)
+	public String chkdeleteNoticeMethod(HttpServletRequest request) {
+		String[] chkMsg = request.getParameterValues("chkArr");
+		int size = chkMsg.length;
+		for (int i = 0; i < size; i++) {
+			noticeService.chkdeleteNotice(chkMsg[i]);
+		}
+		return "redirect: nlist.do";
+	}
 }
