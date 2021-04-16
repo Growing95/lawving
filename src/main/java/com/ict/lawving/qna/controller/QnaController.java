@@ -281,10 +281,10 @@ public class QnaController {
 			QnaVo qna, HttpServletRequest request, Model model) {
 //		private 선택 여부 확인
 		String qna_view_private = request.getParameter("private");
-		if (qna_view_private.equals(qna_view_private)) {
-			qna.setQna_view("비공개");
-		} else {
+		if (qna_view_private==null || qna_view_private.isEmpty()) {
 			qna.setQna_view("공개");
+		} else if (qna_view_private.equals("private")) {
+			qna.setQna_view("비공개");
 		}
 //		카테고리 확인
 		switch (qna.getQna_category()) {
