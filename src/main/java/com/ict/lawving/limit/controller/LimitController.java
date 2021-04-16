@@ -122,19 +122,25 @@ public class LimitController {
 		lvo.setLimit_id(members_id);
 		System.out.println("************리미트 아이디 :"+lvo.getLimit_id());
 		int count = limitService.searchMember(lvo);
+		System.out.println("***************카운팅 완료");
 		if (count>0) {
+			int result=limitService.updateinfo(lvo);
 			System.out.println("***************리미트업데이트성공");
 			int lcount = limitService.chkcount(lvo);
+			System.out.println("************카운트횟수"+lcount);
 			if (lcount == 5) {
 				try {
-					int result=membersService.getupdatelev(members_idx);
+					System.out.println("***************멤버 레벨 업데이트 시작***************");
+					int result2=membersService.getupdatelev(members_idx);
+					
+					model.addAttribute("result2",result2);
+					System.out.println("***************멤버 레벨 업데이트 완료***************");
 					return "redirect:delete_repot.do?qna_idx="+qna_idx+"&members_idx="+members_idx;
 				} catch (Exception e) {
 					model.addAttribute("msg","처리완료"); model.addAttribute("url","home.do"); 
 					return "common/alert";
 				}
 				}else {
-				int result=limitService.updateinfo(lvo);
 				return "redirect:delete_repot.do?qna_idx="+qna_idx+"&members_idx="+members_idx;
 			}
 		}else {
