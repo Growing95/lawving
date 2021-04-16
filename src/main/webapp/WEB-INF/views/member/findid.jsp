@@ -33,7 +33,7 @@ z-index:200;
 	$(function(){
 		$("#findBtn").click(function(){
 			if($.trim($("#name").val())==''){
-			      alert("아이디를 입력해주세요.");
+			      alert("이름를 입력해주세요.");
 			      return false;
 			    }
 			if($.trim($("#email").val())==''){
@@ -94,7 +94,7 @@ article{min-height: 100vh;}
 			<div>
 			<form method="post">
 				<p>
-					<label>아이디</label>
+					<label>이름</label>
 					<input class="w3-input" type="text" id="name" name="members_name" placeholder="회원가입한 이름을 입력하세요" required>
 				</p>
 				<p>

@@ -6,10 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/list.css">
 </head>
 <body>
-	<c:import url="../header.jsp" />
 	<article>
+	<c:import url="../header.jsp" />
 <hr>
 <h1 align="center">${lvo.library_idx } 번 자료글 수정 페이지</h1>
 <%-- form 에서 입력값들과 파일을 같이 전송하려면, 반드시 enctype="multipart/form-data"
